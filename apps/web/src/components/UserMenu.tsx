@@ -29,7 +29,11 @@ export const UserMenu: FC = () => {
 
   if (status === 'unauthenticated') {
     return (
-      <Button size="sm" className="pl-5 pr-6" onClick={() => signIn('github')}>
+      <Button
+        size="sm"
+        className="pl-5 pr-6"
+        onClick={() => signIn('github', { callbackUrl: window.location.href })}
+      >
         <GithubIcon size={18} className="mr-2" />
         Sign In
       </Button>

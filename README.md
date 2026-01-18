@@ -106,6 +106,20 @@ We welcome contributions! Please see our [Roadmap](https://octogriffin.com/roadm
 
 Please ensure you use the provided Pull Request Template.
 
+## Sponsors
+
+Octogriffin is an open-source passion project maintained by **Drazen Bebic** and contributors. While the core features will always remain free, server costs and development time are real.
+
+[Be the first to sponsor! 🚀](https://github.com/sponsors/drazenbebic)
+
+Your support helps keep the servers running and fuels new features.
+
+- $2/mo: A sponsor badge on your profile.
+- $5/mo: Get listed right here in this README.
+- $15/mo: Get listed on the website & get priority feature requests.
+
+Alternatively you can also support me on [Ko-fi](https://ko-fi.com/drazen).
+
 ## License
 
 Distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). See `LICENSE.md` for more information.

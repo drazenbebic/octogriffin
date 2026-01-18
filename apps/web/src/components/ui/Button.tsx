@@ -7,7 +7,7 @@ import {
 import clsx from 'clsx';
 import { Loading03Icon } from 'hugeicons-react';
 
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonProps = BaseButtonProps & {
@@ -26,6 +26,8 @@ const variants: Record<ButtonVariant, string> = {
     'bg-violet-600 text-white shadow-md shadow-violet-600/20 hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-600/30 focus-visible:ring-violet-600',
   secondary:
     'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 focus-visible:ring-slate-400',
+  ghost:
+    'bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-400',
 };
 
 const sizes: Record<ButtonSize, string> = {

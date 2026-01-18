@@ -3,7 +3,7 @@ import { ElementType, FC, ReactNode } from 'react';
 import clsx from 'clsx';
 
 type ContentSize = 'xs' | 'sm' | 'base' | 'lg';
-type ContentColor = 'slate' | 'violet';
+type ContentColor = 'slate' | 'violet' | 'note';
 
 export type ContentProps = {
   as?: ElementType;
@@ -23,6 +23,7 @@ const sizes: Record<ContentSize, string> = {
 const colors: Record<ContentColor, string> = {
   slate: 'text-slate-600',
   violet: 'text-violet-600',
+  note: 'text-slate-400',
 };
 
 export const Content: FC<ContentProps> = ({

@@ -29,7 +29,7 @@ export const AuthGate = () => {
 
       <Button
         size="lg"
-        onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
+        onClick={() => signIn('github', { callbackUrl: window.location.href })}
         className="shadow-xl shadow-violet-600/20 transition-transform active:scale-95"
       >
         <GithubIcon size={20} className="mr-2" />

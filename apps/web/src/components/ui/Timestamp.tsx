@@ -2,7 +2,7 @@
 
 import { ElementType, FC } from 'react';
 
-import { useFormattedDate } from '@/hooks/use-formatted-date';
+import { useFormattedDate } from '@/hooks/useFormattedDate';
 
 export type TimestampProps = {
   as?: ElementType;

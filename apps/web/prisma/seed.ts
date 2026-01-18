@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-import { v4 } from 'uuid';
 
 import prisma from '../src/lib/prisma';
 
@@ -31,14 +30,14 @@ async function createSeededUser(index: number) {
     await tx.habiticaUsers.create({
       data: {
         githubUserId: githubUser.id,
-        userId: v4(),
-        apiToken: v4(),
+        userId: faker.string.uuid(),
+        apiToken: faker.string.uuid(),
       },
     });
 
     const webhookLogsCreateData = Array.from(Array(100)).map(() => {
       return {
-        deliveryUuid: v4(),
+        deliveryUuid: faker.string.uuid(),
         event: faker.helpers.arrayElement([
           'installation.created',
           'installation.deleted',

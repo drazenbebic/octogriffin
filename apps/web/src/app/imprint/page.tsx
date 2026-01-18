@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
-import { supportEmail } from '@/utils/support-email';
+import { supportEmail } from '@/utils/supportEmail';
 
 export const metadata: Metadata = {
-  title: 'Imprint | Octogriffin',
+  title: 'Imprint',
   description:
     'Legal disclosure and provider identification for Octogriffin. Operated by Drazen Bebic in Vienna, Austria.',
 };

@@ -20,7 +20,7 @@ export const Skeleton: FC<SkeletonProps> = ({
     text: 'rounded-md',
     circular: 'rounded-full',
     rectangular: 'rounded-none',
-    rounded: 'rounded-xl',
+    rounded: 'rounded-lg',
   };
 
   return (

@@ -6,9 +6,9 @@ import { Inter } from 'next/font/google';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import cn from 'classnames';
+import clsx from 'clsx';
 
-import { ErrorListener } from '@/components/erorr-listener';
+import { ErrorListener } from '@/components/ErrorListener';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Providers } from '@/components/Providers';
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 const RootLayout: FC<Props> = async ({ children }) => {
   return (
     <html lang="en">
-      <body className={cn(inter.className, 'flex min-h-screen flex-col')}>
+      <body className={clsx(inter.className, 'flex min-h-screen flex-col')}>
         <Providers>
           <Header />
           <main id="content" className="flex-1 w-full">

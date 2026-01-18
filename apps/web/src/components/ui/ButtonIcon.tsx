@@ -6,6 +6,7 @@ import clsx from 'clsx';
 export type ButtonIconProps = ComponentProps<'button'> & {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'secondary' | 'ghost';
+  isLoading?: boolean;
 };
 
 const baseStyles =
@@ -15,7 +16,8 @@ const variants = {
   primary: 'bg-violet-600 text-white hover:bg-violet-700',
   secondary:
     'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900',
-  ghost: 'text-slate-400 hover:bg-slate-100 hover:text-slate-600',
+  ghost:
+    'bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-900',
 };
 
 const sizes = {
@@ -25,11 +27,29 @@ const sizes = {
 };
 
 export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
-  ({ className, size = 'md', variant = 'primary', ...props }, ref) => {
+  (
+    {
+      className,
+      size = 'md',
+      variant = 'primary',
+      isLoading = false,
+      ...props
+    },
+    ref,
+  ) => {
     return (
       <Button
         ref={ref}
-        className={clsx(baseStyles, variants[variant], sizes[size], className)}
+        className={clsx(
+          baseStyles,
+          variants[variant],
+          sizes[size],
+          {
+            'cursor-pointer': !isLoading,
+            'cursor-wait opacity-80': isLoading,
+          },
+          className,
+        )}
         {...props}
       />
     );

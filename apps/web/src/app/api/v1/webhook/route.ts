@@ -1,70 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { after } from 'next/server';
 
-import {
-  EmitterWebhookEvent,
-  EmitterWebhookEventName,
-  Webhooks,
-} from '@octokit/webhooks';
+import { Webhooks } from '@octokit/webhooks';
 
-import { handleInstallationRepositoriesAdded } from '@/app/api/v1/webhook/handlers/handle-installation-repositories-added';
-import { handleInstallationRepositoriesRemoved } from '@/app/api/v1/webhook/handlers/handle-installation-repositories-removed';
 import { requestContext } from '@/lib/context';
 import logger from '@/lib/logger';
-import { withRetry } from '@/utils/with-retry';
+import { withRetry } from '@/utils/withRetry';
 
-import { handleInstallationCreated } from './handlers/handle-installation-created';
-import { handleInstallationDeleted } from './handlers/handle-installation-deleted';
-import { handleInstallationSuspend } from './handlers/handle-installation-suspend';
-import { handleInstallationUnsuspend } from './handlers/handle-installation-unsuspend';
-import { handleLogWebhook } from './handlers/handle-log-webhook';
-import { handlePackagePublished } from './handlers/handle-package-published';
-import { handlePullRequestClosed } from './handlers/handle-pull-request-closed';
-import { handlePullRequestReviewSubmitted } from './handlers/handle-pull-request-review-submitted';
-import { handlePush } from './handlers/handle-push';
+import { initWebhookHandlers } from './initWebhookHandlers';
 
 const webhooks = new Webhooks({
   secret: process.env.GITHUB_WEBHOOK_SECRET!,
 });
 
-const webhookHandlerMap: Partial<{
-  [K in EmitterWebhookEventName]: (
-    params: EmitterWebhookEvent<K>,
-  ) => Promise<void>;
-}> = {
-  'installation.created': handleInstallationCreated,
-  'installation.deleted': handleInstallationDeleted,
-  'installation_repositories.added': handleInstallationRepositoriesAdded,
-  'installation_repositories.removed': handleInstallationRepositoriesRemoved,
-  'installation.suspend': handleInstallationSuspend,
-  'installation.unsuspend': handleInstallationUnsuspend,
-  'package.published': handlePackagePublished,
-  'pull_request.closed': handlePullRequestClosed,
-  'pull_request_review.submitted': handlePullRequestReviewSubmitted,
-  push: handlePush,
-};
-
-for (const [event, handler] of Object.entries(webhookHandlerMap)) {
-  webhooks.on(
-    event as EmitterWebhookEventName,
-    handler as (params: EmitterWebhookEvent) => Promise<void>,
-  );
-}
-
-webhooks.onAny(async event => {
-  const supportedWebhooks = Object.keys(webhookHandlerMap);
-
-  if (!supportedWebhooks.includes(event.name)) {
-    logger.info({ eventName: event.name }, 'Unsupported Webhook. Not logged.');
-    return;
-  }
-
-  await handleLogWebhook(event);
-});
-
-webhooks.onError(error => {
-  logger.error({ error }, 'Webhook Library Error');
-});
+initWebhookHandlers(webhooks);
 
 export const maxDuration = 60;
 

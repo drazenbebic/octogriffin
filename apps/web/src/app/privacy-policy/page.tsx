@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
-import { supportEmail } from '@/utils/support-email';
+import { supportEmail } from '@/utils/supportEmail';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Octogriffin',
+  title: 'Privacy Policy',
   description:
     'We protect your code and data. Learn about our GDPR compliance, zero-storage policy for source code, and secure infrastructure in Frankfurt.',
 };

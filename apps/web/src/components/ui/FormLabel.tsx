@@ -1,4 +1,4 @@
-import { ElementType, FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
   FormLabel as BaseFormLabel,
@@ -7,28 +7,34 @@ import {
 import clsx from 'clsx';
 
 export type FormLabelProps = BaseFormLabelProps & {
-  as?: ElementType;
   children?: ReactNode;
   isRequired?: boolean;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
 };
 
 export const FormLabel: FC<FormLabelProps> = ({
-  as: Tag = BaseFormLabel,
   className,
   children,
   isRequired,
+  size = 'md',
   ...props
 }) => {
   return (
-    <Tag
+    <BaseFormLabel
       className={clsx(
-        'ml-2 mb-1.5 block text-sm font-medium text-slate-700 select-none cursor-pointer',
+        'mb-1.5 block text-sm font-medium text-slate-700 select-none cursor-pointer',
+        {
+          'text-sm': size === 'sm',
+          'text-md': size === 'md',
+          'text-lg': size === 'lg',
+          'text-xl': size === 'xl',
+        },
         className,
       )}
       {...props}
     >
       {children}
-      {isRequired && <span className="ml-0.5 text-red-500">*</span>}
-    </Tag>
+      {isRequired && <span className="ml-1 text-red-500">*</span>}
+    </BaseFormLabel>
   );
 };

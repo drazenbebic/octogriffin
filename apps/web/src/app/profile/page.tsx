@@ -13,7 +13,7 @@ import {
   Mail01Icon,
 } from 'hugeicons-react';
 
-import { getUserProfile } from '@/app/actions/get-user-profile';
+import { getUserProfileAction } from '@/actions/getUserProfileAction';
 import { AuthGate } from '@/components/AuthGate';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
@@ -23,7 +23,7 @@ import { Heading } from '@/components/ui/Heading';
 import { authOptions } from '@/lib/auth';
 
 export const metadata: Metadata = {
-  title: 'Profile | Octogriffin',
+  title: 'Profile',
   description:
     'View your adventurer identity, manage account details, and check your Habitica connection status.',
   robots: {
@@ -39,7 +39,7 @@ export default async function ProfilePage() {
     return <AuthGate />;
   }
 
-  const profile = await getUserProfile();
+  const profile = await getUserProfileAction();
 
   if (!profile) {
     return null;
@@ -66,9 +66,7 @@ export default async function ProfilePage() {
             variant="elevated"
             className="overflow-hidden border-0 shadow-xl shadow-violet-900/5 ring-1 ring-slate-900/5"
           >
-            <div className="h-32 w-full bg-linear-to-br from-violet-600 via-indigo-600 to-blue-600 relative">
-              <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20" />
-            </div>
+            <div className="h-32 w-full bg-linear-to-br from-violet-600 via-indigo-600 to-blue-600 relative" />
 
             <div className="relative -mt-16 px-6 pb-8 text-center">
               <div className="mx-auto inline-flex rounded-full bg-white p-2 shadow-lg">

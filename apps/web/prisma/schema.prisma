@@ -37,6 +37,7 @@ model GithubSelectedRepositories {
   name               String              @map("name") @db.VarChar(255)
   fullName           String              @map("full_name") @db.VarChar(255)
   private            Boolean             @default(false) @map("private") @db.Boolean
+  triggers           Triggers[]          @relation("TriggersRepositories")
   createdAt          DateTime            @default(now()) @map("created_at")
   updatedAt          DateTime            @updatedAt @map("updated_at")
 
@@ -68,6 +69,7 @@ model GithubUsers {
   scope                 String?             @map("scope") @db.VarChar(255)
   tokenType             String?             @map("token_type") @db.VarChar(20)
   habiticaUser          HabiticaUsers?      @relation("HabiticaUsersGithubUsers")
+  triggers              Triggers[]          @relation("GithubUsersTriggers")
   webhookLogs           WebhookLogs[]       @relation("GithubUsersWebhookLogs")
   createdAt             DateTime            @default(now()) @map("created_at")
   updatedAt             DateTime            @updatedAt @map("updated_at")
@@ -88,6 +90,28 @@ model HabiticaUsers {
   @@map(name: "habitica_users")
 }
 
+model Triggers {
+  id             BigInt                       @id @default(autoincrement()) @map("id") @db.BigInt
+  uuid           String                       @unique @default(uuid()) @map("uuid") @db.VarChar(36)
+  githubUser     GithubUsers                  @relation("GithubUsersTriggers", fields: [githubUserId], references: [id], onDelete: Cascade)
+  githubUserId   BigInt                       @map("github_user_id") @db.BigInt
+  isActive       Boolean                      @default(true) @map("is_active")
+  event          String                       @map("event") @db.VarChar(255)
+  repositories   GithubSelectedRepositories[] @relation("TriggersRepositories")
+  taskTitle      String                       @map("task_title") @db.VarChar(255)
+  taskAlias      String?                      @map("task_alias") @db.VarChar(255)
+  taskNote       String?                      @map("task_note") @db.VarChar(255)
+  taskPriority   Float                        @default(1) @map("task_priority")
+  taskTags       Json?                        @map("task_tags")
+  taskAttribute  Attribute                    @default(str) @map("task_attribute")
+  taskFrequency  Frequency                    @default(daily) @map("task_frequency")
+  scoreDirection Direction                    @default(up) @map("score_direction")
+  createdAt      DateTime                     @default(now()) @map("created_at")
+  updatedAt      DateTime                     @updatedAt @map("updated_at")
+
+  @@map(name: "triggers")
+}
+
 model WebhookLogs {
   id           BigInt      @id @default(autoincrement()) @map("id") @db.BigInt
   uuid         String      @unique @default(uuid()) @map("uuid") @db.VarChar(36)
@@ -102,4 +126,22 @@ model WebhookLogs {
   updatedAt    DateTime    @updatedAt @map("updated_at")
 
   @@map("webhook_logs")
+}
+
+enum Frequency {
+  daily
+  weekly
+  monthly
+}
+
+enum Attribute {
+  str
+  int
+  con
+  per
+}
+
+enum Direction {
+  up
+  down
 }

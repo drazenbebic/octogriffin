@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import {
   Calendar03Icon,
-  Settings01Icon,
+  CheckmarkCircle02Icon,
   Shield02Icon,
   StarIcon,
 } from 'hugeicons-react';
@@ -14,10 +14,10 @@ import { Button } from '@/components/ui/Button';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { Pill } from '@/components/ui/Pill';
-import { githubRepositoryUrl } from '@/utils/github-repository-url';
+import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const metadata: Metadata = {
-  title: 'Roadmap - Octogriffin',
+  title: 'Roadmap',
   description: 'Our development plan for the future of Octogriffin.',
 };
 
@@ -46,39 +46,40 @@ const RoadmapPage: NextPage = () => {
       </div>
 
       <div className="relative mx-auto max-w-3xl">
-        <div className="hidden absolute left-8 top-4 bottom-4 w-px bg-linear-to-b from-violet-500 via-slate-200 to-transparent md:block"></div>
+        <div className="hidden absolute left-8 top-4 bottom-4 w-px bg-linear-to-b from-emerald-500 via-violet-200 to-transparent md:block"></div>
 
         <div className="space-y-12">
           <RoadmapPhase
-            icon={<Settings01Icon size={24} />}
+            icon={<CheckmarkCircle02Icon size={24} />}
             phase="Phase 1: Control Freak"
-            status="In Progress"
-            colorClass="text-violet-600 bg-violet-100 border-violet-200"
-            dotClass="bg-violet-600 ring-violet-200"
-            isFirst
+            status="Completed"
+            colorClass="text-emerald-600 bg-emerald-100 border-emerald-200"
+            dotClass="bg-emerald-500 ring-emerald-200"
           >
             <RoadmapFeatureItem
-              title="Custom Event Triggers"
-              description="Full control over the cause-and-effect pipeline. Map specific GitHub Webhooks (e.g. 'Pull Request Review') to specific Habitica Habits. You decide the habit name, direction (score +/-), and difficulty (0.1 to 2.0)."
-              tags={['Customization', 'Backend']}
+              title="Advanced Event Triggers"
+              description="Full control over the cause-and-effect pipeline. Map specific GitHub Webhooks to specific Habitica Habits with Directions, and Priorities."
+              tags={['Live', 'Customization']}
             />
             <RoadmapFeatureItem
-              title="Repository Difficulty Multipliers"
-              description="Not all code is created equal. Mark complex repositories as 'Hard Mode' to apply a custom XP multiplier (e.g., 1.5x) to all actions performed within them."
-              tags={['Settings', 'Balancing']}
+              title="Granular Scoping"
+              description="Define triggers that apply globally to your whole account, or restrict them to specific repositories only."
+              tags={['Live', 'Architecture']}
             />
           </RoadmapPhase>
 
           <RoadmapPhase
             icon={<Shield02Icon size={24} />}
             phase="Phase 2: Anti-Cheese"
-            status="Planned"
+            status="Next Up"
             colorClass="text-blue-600 bg-blue-100 border-blue-200"
             dotClass="bg-blue-500 ring-blue-200"
+            isActive
           >
             <RoadmapFeatureItem
               title="Daily XP Caps"
               description="Optional limits to prevent burnout and discourage spamming commits just for gold."
+              tags={['Planned']}
             />
             <RoadmapFeatureItem
               title="Smart Spam Detection"
@@ -90,8 +91,8 @@ const RoadmapPage: NextPage = () => {
             icon={<StarIcon size={24} />}
             phase="Phase 3: Gamification"
             status="Future Concepts"
-            colorClass="text-emerald-600 bg-emerald-100 border-emerald-200"
-            dotClass="bg-emerald-500 ring-emerald-200"
+            colorClass="text-violet-600 bg-violet-100 border-violet-200"
+            dotClass="bg-violet-500 ring-violet-200"
           >
             <RoadmapFeatureItem
               title="Coding Streaks"

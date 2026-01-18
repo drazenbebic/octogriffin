@@ -20,10 +20,9 @@ export enum TaskPriority {
 }
 
 export enum TaskFrequency {
-  WEEKLY = 'weekly',
   DAILY = 'daily',
+  WEEKLY = 'weekly',
   MONTHLY = 'monthly',
-  YEARLY = 'yearly',
 }
 
 export enum TaskDirection {

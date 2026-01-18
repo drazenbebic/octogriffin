@@ -5,12 +5,12 @@ import {
   ArrowRight01Icon,
   Calendar03Icon,
   CheckmarkCircle01Icon,
+  GitBranchIcon,
   GitCommitIcon,
   GithubIcon,
   GitMergeIcon,
-  GitPullRequestIcon,
-  PackageIcon,
   Rocket01Icon,
+  Settings01Icon,
   StarIcon,
   Target02Icon,
 } from 'hugeicons-react';
@@ -22,8 +22,8 @@ import { CardBody } from '@/components/ui/CardBody';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { Pill } from '@/components/ui/Pill';
-import { githubAppUrl } from '@/utils/github-app-url';
-import { githubRepositoryUrl } from '@/utils/github-repository-url';
+import { githubAppUrl } from '@/utils/githubAppUrl';
+import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const metadata: Metadata = {
   title: 'Octogriffin - Gamify Your GitHub Workflow',
@@ -213,8 +213,8 @@ const Home: NextPage = () => {
             </Heading>
 
             <Content size="lg" className="mx-auto mb-8 max-w-lg">
-              From difficulty multipliers to coding streaks, check out what we
-              have planned for the next release.
+              We have ambitious plans to make your workflow even more immersive.
+              See what features are currently in the forge.
             </Content>
 
             <Link href="/roadmap">
@@ -233,44 +233,44 @@ const Home: NextPage = () => {
             <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-6">
               <div>
                 <Heading level={2} size="xl">
-                  Reward Rates
+                  You are the Game Master
                 </Heading>
-                <Content size="sm">Default configuration</Content>
+                <Content size="sm">
+                  Forget hardcoded values. With the new{' '}
+                  <span className="font-semibold text-violet-600">
+                    Control Freak
+                  </span>{' '}
+                  update, you define the rules.
+                </Content>
+              </div>
+              <div className="hidden h-10 w-10 items-center justify-center rounded-full bg-violet-50 text-violet-600 sm:flex">
+                <Settings01Icon size={20} />
               </div>
             </div>
 
             <div className="flex flex-col gap-4">
               <RewardRow
-                icon={<GitCommitIcon size={20} className="text-slate-500" />}
-                action="Push Commit"
-                reward="+1 XP"
+                icon={<GitCommitIcon size={20} className="text-emerald-500" />}
+                action="Triggers"
+                reward="Commits, PRs, Merges & Reviews, and muuuuuch more!"
+                badgeVariant="success"
               />
               <RewardRow
-                icon={
-                  <GitPullRequestIcon size={20} className="text-blue-500" />
-                }
-                action="Open Pull Request"
-                reward="+2 XP"
+                icon={<Target02Icon size={20} className="text-blue-500" />}
+                action="Difficulty"
+                reward="Trivial, Easy, Medium or Hard"
+                badgeVariant="info"
               />
               <RewardRow
-                icon={
-                  <CheckmarkCircle01Icon
-                    size={20}
-                    className="text-emerald-500"
-                  />
-                }
-                action="Review Code"
-                reward="+3 XP"
+                icon={<StarIcon size={20} className="text-amber-500" />}
+                action="Rewards"
+                reward="Reward with XP/Gold, or lose Health!"
+                badgeVariant="warning"
               />
               <RewardRow
-                icon={<PackageIcon size={20} className="text-orange-500" />}
-                action="Publish a Package"
-                reward="+3 XP"
-              />
-              <RewardRow
-                icon={<GitMergeIcon size={20} className="text-violet-500" />}
-                action="Merge Pull Request"
-                reward="+5 XP"
+                icon={<GitBranchIcon size={20} className="text-violet-500" />}
+                action="Scope"
+                reward="Global or Repository specific"
               />
             </div>
           </CardBody>

@@ -2,17 +2,12 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {
-  Coffee01Icon,
-  FavouriteIcon,
-  GithubIcon,
-  NewTwitterIcon,
-} from 'hugeicons-react';
+import { FavouriteIcon, GithubIcon, NewTwitterIcon } from 'hugeicons-react';
 
 import { FooterLink } from '@/components/FooterLink';
 import { Heading } from '@/components/ui/Heading';
-import { githubAppUrl } from '@/utils/github-app-url';
-import { githubRepositoryUrl } from '@/utils/github-repository-url';
+import { githubAppUrl } from '@/utils/githubAppUrl';
+import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
@@ -41,13 +36,14 @@ export const Footer: FC = () => {
             </p>
 
             <Link
-              href="https://ko-fi.com/drazen"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-[#FF5E5B] hover:text-[#FF5E5B] hover:shadow-md active:scale-95"
+              href="/sponsors"
+              className="mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-rose-500 hover:text-rose-500 hover:shadow-md active:scale-95"
             >
-              <Coffee01Icon size={18} className="text-[#FF5E5B]" />
-              <span>Buy me a coffee</span>
+              <FavouriteIcon
+                size={18}
+                className="text-rose-500 fill-rose-500"
+              />
+              <span>Become a Sponsor</span>
             </Link>
           </div>
 
@@ -59,6 +55,7 @@ export const Footer: FC = () => {
               <FooterLink href="/">Home</FooterLink>
               <FooterLink href="/dashboard">Dashboard</FooterLink>
               <FooterLink href="/profile">Profile</FooterLink>
+              <FooterLink href="/sponsors">Sponsors</FooterLink>
               <FooterLink href={githubAppUrl()} target="_blank">
                 Install App
               </FooterLink>

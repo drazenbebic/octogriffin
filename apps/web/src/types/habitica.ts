@@ -41,6 +41,11 @@ export type Task = {
   id: string;
 };
 
+export type UserCredentials = {
+  userId: string;
+  apiToken: string;
+};
+
 export type UserStats = {
   class: string;
   str: number;
