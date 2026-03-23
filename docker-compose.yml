@@ -12,5 +12,17 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
+  pgadmin:
+    container_name: octogriffin_pgadmin
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: '${PGADMIN_EMAIL}'
+      PGADMIN_DEFAULT_PASSWORD: '${PGADMIN_PASS}'
+    ports:
+      - '5050:80'
+    depends_on:
+      - database
+
 volumes:
   db_data:
