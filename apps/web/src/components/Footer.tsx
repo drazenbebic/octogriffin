@@ -10,6 +10,7 @@ import {
 } from 'hugeicons-react';
 
 import { FooterLink } from '@/components/FooterLink';
+import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
@@ -36,10 +37,10 @@ export const Footer: FC = () => {
                 Octogriffin
               </span>
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+            <Content size="sm" className="max-w-xs">
               Level up your RPG character automatically while you code. Open
               source, secure, and built for developers.
-            </p>
+            </Content>
 
             <Link
               href="/sponsors"
@@ -94,9 +95,9 @@ export const Footer: FC = () => {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-8 sm:flex-row dark:border-slate-800">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <Content size="sm">
             &copy; {currentYear} Octogriffin. Not affiliated with Habitica.
-          </p>
+          </Content>
 
           <div>
             {!!version && (

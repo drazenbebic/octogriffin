@@ -13,6 +13,7 @@ import {
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { Alert } from '@/components/ui/Alert';
+import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { generatePageMetadata } from '@/utils/seo';
@@ -48,57 +49,57 @@ export default function DocsArchitecturePage() {
           Technology Stack
         </Heading>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
               <Layout01Icon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100">
+            <Heading level={3} size="base">
               App Router (Frontend)
-            </h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            </Heading>
+            <Content size="sm" className="mt-1">
               Next.js 16 using React Server Components. Styled with Tailwind CSS
               and Hugeicons.
-            </p>
-          </div>
+            </Content>
+          </Card>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
               <CloudServerIcon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100">
+            <Heading level={3} size="base">
               Serverless Backend
-            </h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            </Heading>
+            <Content size="sm" className="mt-1">
               API Routes and Webhook handlers running on Vercel Serverless
               Functions.
-            </p>
-          </div>
+            </Content>
+          </Card>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
               <Database01Icon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100">
+            <Heading level={3} size="base">
               Data Layer
-            </h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            </Heading>
+            <Content size="sm" className="mt-1">
               Neon (Serverless PostgreSQL) managed via Prisma ORM for type-safe
               database access.
-            </p>
-          </div>
+            </Content>
+          </Card>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
               <LockKeyIcon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100">
+            <Heading level={3} size="base">
               Authentication
-            </h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            </Heading>
+            <Content size="sm" className="mt-1">
               NextAuth.js handling GitHub OAuth sessions and secure session
               management.
-            </p>
-          </div>
+            </Content>
+          </Card>
         </div>
       </section>
 
@@ -119,16 +120,16 @@ export default function DocsArchitecturePage() {
               <GitPullRequestIcon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900 dark:text-slate-100">
+              <Heading level={4} className="font-bold" size="base">
                 GitHub Event
-              </h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              </Heading>
+              <Content size="sm">
                 User pushes code or merges a PR. GitHub sends a POST payload to{' '}
                 <code className="rounded bg-slate-100 px-1 py-0.5 text-xs font-medium dark:bg-slate-800">
                   /api/v1/webhook
                 </code>
                 .
-              </p>
+              </Content>
             </div>
           </div>
 
@@ -138,17 +139,17 @@ export default function DocsArchitecturePage() {
               <Shield01Icon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900 dark:text-slate-100">
+              <Heading level={4} className="font-bold" size="base">
                 Security Check
-              </h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              </Heading>
+              <Content size="sm">
                 The application validates the{' '}
                 <code className="text-xs font-bold dark:text-violet-300">
                   X-Hub-Signature-256
                 </code>{' '}
                 header against our App Secret to ensure the request is
                 legitimate.
-              </p>
+              </Content>
             </div>
           </div>
 
@@ -158,14 +159,14 @@ export default function DocsArchitecturePage() {
               <ZapIcon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900 dark:text-slate-100">
+              <Heading level={4} className="font-bold" size="base">
                 Trigger Matching
-              </h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              </Heading>
+              <Content size="sm">
                 The system queries the database for active triggers that match
                 the incoming event (e.g., &quot;Push to Main&quot;). If a match
                 is found, the configured XP/Gold reward is retrieved.
-              </p>
+              </Content>
             </div>
           </div>
 
@@ -175,13 +176,13 @@ export default function DocsArchitecturePage() {
               <Globe02Icon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900 dark:text-slate-100">
+              <Heading level={4} className="font-bold" size="base">
                 Habitica Sync
-              </h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              </Heading>
+              <Content size="sm">
                 Using the user&#39;s stored API credentials, Octogriffin sends a
                 score task request to the Habitica API.
-              </p>
+              </Content>
             </div>
           </div>
         </div>

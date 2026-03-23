@@ -7,6 +7,8 @@ import { RefreshIcon, ZapIcon } from 'hugeicons-react';
 import { TriggersListItem } from '@/components/dashboard/TriggersListItem';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
+import { Content } from '@/components/ui/Content';
+import { Heading } from '@/components/ui/Heading';
 import { Pagination } from '@/components/ui/Pagination';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { TriggersModel } from '@/generated/prisma/models/Triggers';
@@ -128,13 +130,13 @@ export const TriggersList: FC<TriggersListProps> = ({
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
           <ZapIcon className="text-slate-400 dark:text-slate-500" size={24} />
         </div>
-        <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
+        <Heading level={3} size="base" className="mb-1">
           No triggers defined
-        </h3>
-        <p className="mb-6 max-w-sm text-sm text-slate-500 dark:text-slate-400">
+        </Heading>
+        <Content size="sm" color="note" className="mb-6 max-w-sm">
           Create your first trigger to start earning XP automatically when you
           push code.
-        </p>
+        </Content>
         <Button onClick={onOpenCreateAction}>Create Trigger</Button>
       </div>
     </div>

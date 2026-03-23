@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import clsx from 'clsx';
 
+import { Heading } from '@/components/ui/Heading';
 import { docsNavigation } from '@/config/docsNavigation';
 
 export const DocsSidebar: FC = () => {
@@ -16,9 +17,14 @@ export const DocsSidebar: FC = () => {
       <div className="flex flex-col gap-8">
         {docsNavigation.map(section => (
           <div key={section.title}>
-            <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <Heading
+              level={4}
+              size="base"
+              className="mb-3 text-xs font-bold uppercase tracking-wider"
+              color="slate"
+            >
               {section.title}
-            </h4>
+            </Heading>
             <ul className="flex flex-col gap-1">
               {section.items.map(item => {
                 const isActive = pathname === item.href;

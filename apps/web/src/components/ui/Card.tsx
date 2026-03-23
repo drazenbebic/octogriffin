@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, ReactNode } from 'react';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 type CardVariant = 'elevated' | 'outlined' | 'flat';
 
@@ -37,7 +37,7 @@ export const Card: FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         cardBaseStyles,
         variants[variant],
         isHoverable && hoverStyles[variant],

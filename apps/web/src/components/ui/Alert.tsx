@@ -8,6 +8,8 @@ import {
   InformationCircleIcon,
 } from 'hugeicons-react';
 
+import { Heading } from '@/components/ui/Heading';
+
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger' | 'note';
 
 const variantStyles: Record<
@@ -85,7 +87,16 @@ export const Alert: FC<AlertProps> = ({
     >
       {renderedIcon && <div className="shrink-0 mt-0.5">{renderedIcon}</div>}
       <div className="flex-1 space-y-1">
-        {title && <h5 className="font-bold leading-none">{title}</h5>}
+        {!!title && (
+          <Heading
+            level={5}
+            size="base"
+            className="font-bold leading-none text-inherit!"
+            as="h5"
+          >
+            {title}
+          </Heading>
+        )}
         <div className="leading-relaxed opacity-90">{children}</div>
       </div>
     </div>

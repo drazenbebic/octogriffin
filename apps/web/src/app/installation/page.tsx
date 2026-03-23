@@ -11,6 +11,7 @@ import {
 } from 'hugeicons-react';
 
 import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { githubAppUrl } from '@/utils/githubAppUrl';
@@ -84,9 +85,12 @@ export default function InstallationPage() {
         {/* Step 2: Repositories */}
         <div className="relative">
           <div className="relative z-10 flex gap-6">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white border border-slate-200 text-slate-700 shadow-sm dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300">
+            <Card
+              variant="flat"
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+            >
               <span className="font-bold">2</span>
-            </div>
+            </Card>
             <div className="pt-2 pb-6">
               <Heading
                 level={3}
@@ -107,9 +111,12 @@ export default function InstallationPage() {
         {/* Step 3: Credentials */}
         <div className="relative">
           <div className="relative z-10 flex gap-6">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white border border-slate-200 text-slate-700 shadow-sm dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300">
+            <Card
+              variant="flat"
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+            >
               <span className="font-bold">3</span>
-            </div>
+            </Card>
             <div className="pt-2 pb-6">
               <Heading
                 level={3}
@@ -131,9 +138,12 @@ export default function InstallationPage() {
         {/* Step 4: Triggers */}
         <div className="relative">
           <div className="relative z-10 flex gap-6">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white border border-slate-200 text-slate-700 shadow-sm dark:bg-slate-900 dark:border-slate-800 dark:text-slate-300">
+            <Card
+              variant="flat"
+              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+            >
               <span className="font-bold">4</span>
-            </div>
+            </Card>
             <div className="pt-2">
               <Heading
                 level={3}

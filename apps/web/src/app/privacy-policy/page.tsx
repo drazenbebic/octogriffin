@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { generatePageMetadata } from '@/utils/seo';
@@ -51,11 +52,11 @@ export default function PrivacyPolicyPage() {
           <Content className="mb-2">
             The data controller responsible for this website is:
           </Content>
-          <div className="rounded-2xl bg-slate-50 px-6 py-4 text-slate-700 dark:bg-slate-900/50 dark:text-slate-300">
+          <Card variant="flat" className="px-6 py-4 dark:bg-slate-900/50">
             <Content className="font-semibold">Drazen Bebic</Content>
             <Content>Postfach 0029 1190 Vienna, Austria</Content>
             <Content>Email: {email}</Content>
-          </div>
+          </Card>
         </section>
 
         {/* 3. Data We Collect */}

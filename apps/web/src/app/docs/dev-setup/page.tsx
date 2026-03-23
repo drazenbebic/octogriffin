@@ -16,6 +16,7 @@ import { DocsStep } from '@/components/docs/DocsStep';
 import { EnvGenerator } from '@/components/docs/EnvGenerator';
 import { Link } from '@/components/Link';
 import { Alert } from '@/components/ui/Alert';
+import { Card } from '@/components/ui/Card';
 import { Code } from '@/components/ui/Code';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
@@ -89,20 +90,26 @@ export default function DocsDevSetupPage() {
           Prerequisites
         </Heading>
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <Card
+            variant="flat"
+            className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
+          >
             <CheckmarkCircle02Icon
               className="text-emerald-500 shrink-0"
               size={24}
             />
             <Content className="font-medium">Node.js 22+</Content>
-          </div>
-          <div className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          </Card>
+          <Card
+            variant="flat"
+            className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
+          >
             <CheckmarkCircle02Icon
               className="text-emerald-500 shrink-0"
               size={24}
             />
             <Content className="font-medium">Docker (for PostgreSQL)</Content>
-          </div>
+          </Card>
         </div>
       </section>
 
@@ -141,35 +148,38 @@ export default function DocsDevSetupPage() {
             <Heading level={4} size="base">
               1. General
             </Heading>
-            <div className="grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm dark:border-slate-800 dark:bg-slate-900/50">
+            <Card
+              variant="flat"
+              className="grid gap-2 p-4 text-sm dark:bg-slate-900/50"
+            >
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   GitHub App Name
-                </span>
+                </Content>
                 <span className="font-mono font-bold text-slate-900 dark:text-slate-100">
                   My GitHub App
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   Homepage URL
-                </span>
+                </Content>
                 <span className="font-mono text-slate-900 dark:text-slate-300">
                   http://localhost:3000
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   Callback URL
-                </span>
+                </Content>
                 <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
                   <span>http://localhost:3000/api/auth/callback/github</span>
                 </div>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   Callback URL (2)
-                </span>
+                </Content>
                 <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
                   <span>
                     <span className="text-violet-600 font-semibold dark:text-violet-400">
@@ -181,17 +191,17 @@ export default function DocsDevSetupPage() {
               </div>
 
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   Setup URL
-                </span>
+                </Content>
                 <span className="font-mono text-slate-900 dark:text-slate-300">
                   http://localhost:3000/dashboard/settings
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   Webhook URL
-                </span>
+                </Content>
                 <span className="font-mono text-slate-900 dark:text-slate-300">
                   <span className="text-violet-600 font-semibold dark:text-violet-400">
                     &lt;YOUR-NGROK-URL&gt;
@@ -200,14 +210,14 @@ export default function DocsDevSetupPage() {
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500 dark:text-slate-400">
+                <Content as="span" color="note" className="font-medium">
                   Webhook Secret
-                </span>
+                </Content>
                 <span className="text-slate-500 italic dark:text-slate-500">
                   Leave blank (we configure this later)
                 </span>
               </div>
-            </div>
+            </Card>
           </div>
 
           <div className="space-y-3">
@@ -264,7 +274,10 @@ export default function DocsDevSetupPage() {
               section and check the following boxes:
             </Content>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <Card
+              variant="flat"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 p-4 dark:bg-slate-900/50"
+            >
               {GITHUB_EVENTS.map(event => (
                 <div
                   key={event}
@@ -274,7 +287,7 @@ export default function DocsDevSetupPage() {
                   <span className="font-medium">{event}</span>
                 </div>
               ))}
-            </div>
+            </Card>
           </div>
 
           <Alert variant="warning" title="Important">

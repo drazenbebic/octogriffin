@@ -14,6 +14,7 @@ import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { DocsResourceLink } from '@/components/docs/DocsResourceLink';
 import { DocsStep } from '@/components/docs/DocsStep';
 import { Alert } from '@/components/ui/Alert';
+import { Card } from '@/components/ui/Card';
 import { Code } from '@/components/ui/Code';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
@@ -59,7 +60,10 @@ export default function DocsHowToContributePage() {
           </a>{' '}
           to see what work is prioritized.
         </Content>
-        <div className="mt-4 flex items-start gap-3 rounded-lg bg-slate-50 p-4 border border-slate-100 dark:bg-slate-900/50 dark:border-slate-800">
+        <Card
+          variant="flat"
+          className="mt-4 flex flex-row items-start gap-3 p-4 dark:bg-slate-900/50"
+        >
           <Search01Icon
             className="shrink-0 text-slate-500 mt-0.5 dark:text-slate-400"
             size={20}
@@ -75,7 +79,7 @@ export default function DocsHowToContributePage() {
             </strong>{' '}
             if you are new to the project.
           </Content>
-        </div>
+        </Card>
       </DocsStep>
 
       {/* Step 2: Forking */}
@@ -85,11 +89,11 @@ export default function DocsHowToContributePage() {
           own copy (fork) to work on.
         </Content>
         <ol className="mt-3 list-decimal list-inside space-y-2 text-slate-600 ml-2 dark:text-slate-400">
-          <li>
+          <Content as="li">
             Click the <strong>Fork</strong> button in the top-right corner of
             the GitHub repo.
-          </li>
-          <li>Clone your fork locally:</li>
+          </Content>
+          <Content as="li">Clone your fork locally:</Content>
         </ol>
         <div className="mt-4">
           <Code
@@ -123,7 +127,7 @@ export default function DocsHowToContributePage() {
           branch.
         </Content>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+          <Card variant="flat" className="p-4 dark:bg-slate-900/50">
             <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
               <GitForkIcon
                 size={18}
@@ -134,8 +138,8 @@ export default function DocsHowToContributePage() {
             <code className="text-sm text-slate-600 dark:text-slate-400">
               feature/add-new-trigger
             </code>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+          </Card>
+          <Card variant="flat" className="p-4 dark:bg-slate-900/50">
             <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
               <GitForkIcon
                 size={18}
@@ -146,7 +150,7 @@ export default function DocsHowToContributePage() {
             <code className="text-sm text-slate-600 dark:text-slate-400">
               fix/auth-redirect-bug
             </code>
-          </div>
+          </Card>
         </div>
       </DocsStep>
 
@@ -172,14 +176,14 @@ export default function DocsHowToContributePage() {
               size={20}
             />
             <div className="space-y-1">
-              <p className="font-bold text-emerald-900 dark:text-emerald-300">
+              <Content className="font-bold text-emerald-900 dark:text-emerald-300">
                 Good Examples
-              </p>
+              </Content>
               <ul className="list-disc list-inside text-sm text-emerald-800 space-y-1 font-mono dark:text-emerald-400">
-                <li>feat: add new habitica trigger</li>
-                <li>fix: resolve webhook timeout issue</li>
-                <li>docs: update setup guide</li>
-                <li>chore: bump dependencies</li>
+                <Content as="li">feat: add new habitica trigger</Content>
+                <Content as="li">fix: resolve webhook timeout issue</Content>
+                <Content as="li">docs: update setup guide</Content>
+                <Content as="li">chore: bump dependencies</Content>
               </ul>
             </div>
           </div>
@@ -196,12 +200,14 @@ export default function DocsHowToContributePage() {
       <DocsStep step={5} heading="Development Standards">
         <div className="space-y-6">
           <div>
-            <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
+            <div className="mb-2 flex items-center gap-2">
               <PaintBoardIcon
                 size={20}
                 className="text-violet-600 dark:text-violet-400"
               />
-              <span>UI Components</span>
+              <Heading level={4} size="base">
+                UI Components
+              </Heading>
             </div>
             <Content size="sm">
               Use the existing UI components in{' '}
@@ -222,12 +228,14 @@ export default function DocsHowToContributePage() {
           </div>
 
           <div>
-            <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
+            <div className="mb-2 flex items-center gap-2">
               <Message01Icon
                 size={20}
                 className="text-violet-600 dark:text-violet-400"
               />
-              <span>Icons</span>
+              <Heading level={4} size="base">
+                Icons
+              </Heading>
             </div>
             <Content size="sm">
               We use <strong>Hugeicons React</strong> (Free). Always use the
@@ -260,14 +268,14 @@ export default function DocsHowToContributePage() {
           .
         </Content>
         <ul className="mt-3 list-disc list-inside space-y-2 text-slate-600 pl-2 dark:text-slate-400">
-          <li>Ensure the build passes locally.</li>
-          <li>
+          <Content as="li">Ensure the build passes locally.</Content>
+          <Content as="li">
             Link any relevant issues (e.g., &quot;Closes #123&quot;) in the
             description.
-          </li>
-          <li>
+          </Content>
+          <Content as="li">
             If you added a new feature, please include a screenshot or video.
-          </li>
+          </Content>
         </ul>
         <div className="mt-4">
           <Code

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 
-import clsx from 'clsx';
 import {
   Building03Icon,
   GithubIcon,
@@ -21,6 +20,7 @@ import { CardBody } from '@/components/ui/CardBody';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { authOptions } from '@/lib/auth';
+import { cn } from '@/utils/cn';
 
 export const metadata: Metadata = {
   title: 'Profile',
@@ -185,9 +185,9 @@ const DetailRow = ({
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-white group-hover:text-violet-600 group-hover:shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-800 dark:text-slate-400 dark:group-hover:bg-slate-700 dark:group-hover:text-violet-400 dark:ring-slate-800">
           {icon}
         </div>
-        <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+        <Content as="span" size="sm" color="note" className="font-medium">
           {label}
-        </span>
+        </Content>
       </div>
 
       <div className="text-right">
@@ -202,7 +202,7 @@ const DetailRow = ({
           </Link>
         ) : (
           <span
-            className={clsx('text-sm font-medium', {
+            className={cn('text-sm font-medium', {
               'text-slate-900 dark:text-slate-100': value,
               'text-slate-400 italic dark:text-slate-500': !value,
             })}

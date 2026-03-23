@@ -1,6 +1,6 @@
 import { ElementType, FC, ReactNode } from 'react';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 type ContentSize = 'xs' | 'sm' | 'base' | 'lg';
 type ContentColor = 'slate' | 'violet' | 'note';
@@ -36,7 +36,7 @@ export const Content: FC<ContentProps> = ({
 }) => {
   return (
     <Tag
-      className={clsx('leading-relaxed', sizes[size], colors[color], className)}
+      className={cn('leading-relaxed', sizes[size], colors[color], className)}
       {...props}
     >
       {children}

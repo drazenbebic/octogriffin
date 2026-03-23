@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 import { Badge, BadgeProps } from '@/components/ui/Badge';
+import { Content } from '@/components/ui/Content';
 
 export type RewardRowProps = {
   icon: ReactNode;
@@ -20,10 +21,11 @@ export const RewardRow: FC<RewardRowProps> = ({
   <div className="flex items-center justify-between rounded-xl bg-slate-50 p-4 transition-colors hover:bg-slate-100 dark:bg-slate-900/50 dark:hover:bg-slate-800">
     <div className="flex items-center gap-3">
       {icon}
-      <span className="font-medium text-slate-700 dark:text-slate-200">
+      <Content as="span" className="font-medium">
         {action}
-      </span>
+      </Content>
     </div>
+
     <Badge className={badgeClassName} variant={badgeVariant} size="md">
       {reward}
     </Badge>

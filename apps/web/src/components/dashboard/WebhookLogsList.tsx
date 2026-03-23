@@ -6,6 +6,8 @@ import { Activity04Icon, RefreshIcon } from 'hugeicons-react';
 
 import { WebhookLogsListItem } from '@/components/dashboard/WebhookLogsListItem';
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
+import { Content } from '@/components/ui/Content';
+import { Heading } from '@/components/ui/Heading';
 import { Pagination } from '@/components/ui/Pagination';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useWebhookLogsStore } from '@/store/useWebhookLogsStore';
@@ -115,13 +117,13 @@ export const WebhookLogsList: FC = () => {
             size={24}
           />
         </div>
-        <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
+        <Heading level={3} size="base" className="mb-1">
           No Activity Recorded
-        </h3>
-        <p className="max-w-sm text-sm text-slate-500 dark:text-slate-400">
+        </Heading>
+        <Content size="sm" color="note" className="max-w-sm">
           We haven&#39;t received any webhook events from GitHub for your
           account yet.
-        </p>
+        </Content>
       </div>
     </div>
   );

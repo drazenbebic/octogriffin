@@ -4,6 +4,7 @@ import { FC, useEffect, useMemo } from 'react';
 
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
+import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
@@ -59,7 +60,7 @@ export const HabiticaStatsCard: FC = () => {
     return (
       <Card
         variant="flat"
-        className="bg-slate-100 text-slate-500 dark:bg-slate-900 dark:text-slate-400"
+        className="bg-slate-100 text-slate-500 dark:text-slate-400"
       >
         <CardBody className="flex flex-col items-center justify-center py-8 text-center">
           <Heading
@@ -69,9 +70,9 @@ export const HabiticaStatsCard: FC = () => {
           >
             No Data Available
           </Heading>
-          <p className="text-xs">
+          <Content size="xs" color="note">
             Connect your Habitica account to view your level and progress.
-          </p>
+          </Content>
         </CardBody>
       </Card>
     );
@@ -105,7 +106,7 @@ export const HabiticaStatsCard: FC = () => {
           <span className="mb-1.5 font-medium text-violet-200">Lvl</span>
         </div>
 
-        <div className="relative mt-4 h-2.5 w-full overflow-hidden rounded-full bg-violet-900/50">
+        <div className="relative mt-4 h-2.5 w-full overflow-hidden rounded-full bg-violet-900/50 dark:bg-violet-600/50">
           <div
             className="h-full rounded-full bg-linear-to-r from-white/90 to-white transition-all duration-1000 ease-out"
             style={{ width: `${progress}%` }}

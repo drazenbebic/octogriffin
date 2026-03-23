@@ -48,10 +48,7 @@ export const RepositoryListCard: FC = () => {
   const hasHiddenItems = repos.length > MAX_VISIBLE;
 
   return (
-    <Card
-      variant="outlined"
-      className="bg-slate-50 dark:bg-slate-900/50 dark:border-slate-800"
-    >
+    <Card variant="outlined" className="bg-slate-50 dark:bg-slate-900/50">
       <CardBody>
         <div className="mb-4 flex items-center gap-2 text-slate-900 dark:text-slate-100">
           <GithubIcon size={20} />

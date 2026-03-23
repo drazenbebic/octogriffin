@@ -13,6 +13,7 @@ import {
 } from 'hugeicons-react';
 
 import { Badge, BadgeProps } from '@/components/ui/Badge';
+import { Heading } from '@/components/ui/Heading';
 import { Switch } from '@/components/ui/Switch';
 import { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { useEventIcon } from '@/hooks/useEventIcon';
@@ -78,16 +79,16 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
 
         <div>
           <div className="flex items-center gap-2">
-            <h4
+            <Heading
+              level={4}
+              size="base"
               className={clsx(
                 'font-semibold transition-colors',
-                !isActive
-                  ? 'text-slate-500 line-through dark:text-slate-500'
-                  : 'text-slate-900 dark:text-slate-100',
+                !isActive && 'text-slate-500 line-through dark:text-slate-500',
               )}
             >
               {trigger.taskTitle}
-            </h4>
+            </Heading>
           </div>
 
           <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">

@@ -74,19 +74,27 @@ export default function HomePage() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
             </span>
 
-            <span className="font-medium text-slate-600 group-hover:text-violet-700 transition-colors dark:text-slate-400 dark:group-hover:text-violet-300">
+            <Content
+              as="span"
+              color="note"
+              className="font-medium group-hover:text-violet-700 transition-colors dark:group-hover:text-violet-300"
+            >
               v{version} is now live
-            </span>
+            </Content>
 
             <span className="h-3 w-px bg-slate-200 group-hover:bg-violet-200 transition-colors dark:bg-slate-800 dark:group-hover:bg-violet-900" />
 
-            <span className="flex items-center gap-1 text-slate-400 group-hover:text-violet-600 transition-colors dark:text-slate-500 dark:group-hover:text-violet-400">
+            <Content
+              as="span"
+              color="note"
+              className="flex items-center gap-1 group-hover:text-violet-600 transition-colors"
+            >
               <span className="text-xs font-medium">Changelog</span>
               <ArrowRight01Icon
                 size={14}
                 className="-ml-1 translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
               />
-            </span>
+            </Content>
           </Pill>
 
           <Heading level={1} size="4xl">

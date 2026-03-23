@@ -121,15 +121,15 @@ export default function SponsorsPage() {
               You use Octogriffin and it works. This is a &quot;thank you&quot;
               to help keep my caffeine levels up while I fix bugs on weekends.
             </Content>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
-              <li className="flex items-center gap-2">
+            <ul className="space-y-3">
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-600" />
                 Sponsor badge on profile
-              </li>
-              <li className="flex items-center gap-2">
+              </Content>
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-600" />
                 My gratitude! 🫶
-              </li>
+              </Content>
             </ul>
           </CardBody>
         </Card>
@@ -157,19 +157,19 @@ export default function SponsorsPage() {
               You are literally keeping the lights on. This covers your share of
               the Neon database and Vercel hosting costs.
             </Content>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
-              <li className="flex items-center gap-2">
+            <ul className="space-y-3">
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                 <strong>Listed in README</strong>
-              </li>
-              <li className="flex items-center gap-2">
+              </Content>
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                 Sponsor badge on profile
-              </li>
-              <li className="flex items-center gap-2">
+              </Content>
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                 My gratitude! 🫶
-              </li>
+              </Content>
             </ul>
           </CardBody>
         </Card>
@@ -194,23 +194,23 @@ export default function SponsorsPage() {
               You are serious about gamifying your life. This tier supports
               active development time for complex features.
             </Content>
-            <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
-              <li className="flex items-center gap-2">
+            <ul className="space-y-3">
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                 <strong>Listed on Website</strong>
-              </li>
-              <li className="flex items-center gap-2">
+              </Content>
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                 Priority feature requests
-              </li>
-              <li className="flex items-center gap-2">
+              </Content>
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                 Listed in README
-              </li>
-              <li className="flex items-center gap-2">
+              </Content>
+              <Content as="li" size="sm" className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                 Sponsor badge + Gratitude 🫶
-              </li>
+              </Content>
             </ul>
           </CardBody>
         </Card>

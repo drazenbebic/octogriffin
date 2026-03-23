@@ -54,9 +54,9 @@ export default function ImprintPage() {
               </Heading>
               <Content>
                 <span className="block">
-                  <span className="font-medium text-slate-900 dark:text-slate-100">
+                  <Content as="span" className="font-medium">
                     Email:
-                  </span>{' '}
+                  </Content>{' '}
                   <Link
                     href={`mailto:${email}`}
                     className="text-violet-600 hover:underline dark:text-violet-400"

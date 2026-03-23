@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { ArrowRight01Icon } from 'hugeicons-react';
 
 import { Button } from '@/components/ui/Button';
+import { Content } from '@/components/ui/Content';
 
 export type DocsResourceLinkProps = {
   href: string;
@@ -37,9 +38,9 @@ export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
           </div>
           <span>{title}</span>
         </div>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+        <Content size="sm" color="note">
           {description}
-        </p>
+        </Content>
       </div>
 
       <Button

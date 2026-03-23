@@ -157,13 +157,13 @@ export default function DocsSettingUpNgrokPage() {
             className="shrink-0 text-emerald-600 dark:text-emerald-400"
             size={20}
           />
-          <p>
+          <Content className="text-inherit!">
             Your tunnel is now active at{' '}
             <span className="font-bold">
               https://YOUR_DOMAIN.ngrok-free.dev
             </span>
             . This URL will remain the same every time you run this command.
-          </p>
+          </Content>
         </div>
       </DocsStep>
 
@@ -171,21 +171,23 @@ export default function DocsSettingUpNgrokPage() {
       <DocsStep step={6} heading="Update GitHub App">
         <Content>Now tell GitHub to send events to this URL.</Content>
         <ol className="list-decimal list-inside space-y-2 text-slate-700 ml-2 dark:text-slate-400">
-          <li>
+          <Content as="li">
             Go to your{' '}
             <Link href="https://github.com/settings/apps" target="_blank">
               GitHub Apps settings
             </Link>
             .
-          </li>
-          <li>
+          </Content>
+          <Content as="li">
             Click <strong>Edit</strong> next to your &#34;Octogriffin (Dev)&#34;
             app.
-          </li>
-          <li>
+          </Content>
+          <Content as="li">
             Scroll down to <strong>Webhook URL</strong>.
-          </li>
-          <li>Paste your ngrok URL with the API path appended:</li>
+          </Content>
+          <Content as="li">
+            Paste your ngrok URL with the API path appended:
+          </Content>
         </ol>
         <Code
           code={['https://YOUR_DOMAIN.ngrok-free.dev/api/v1/webhook']}

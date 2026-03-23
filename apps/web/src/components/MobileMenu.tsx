@@ -14,6 +14,7 @@ import {
   Menu01Icon,
 } from 'hugeicons-react';
 
+import { Content } from '@/components/ui/Content';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 const links = [
@@ -120,10 +121,10 @@ export const MobileMenu: FC = () => {
                 <Globe02Icon size={20} />
               </NextLink>
             </div>
-            <p className="text-sm text-slate-400 dark:text-slate-500">
+            <Content size="sm" color="note">
               &copy; {new Date().getFullYear()} Octogriffin. All rights
               reserved.
-            </p>
+            </Content>
           </div>
         </div>
       </Dialog>

@@ -7,6 +7,7 @@ import { Delete02Icon } from 'hugeicons-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/Button';
+import { Content } from '@/components/ui/Content';
 import { Dialog } from '@/components/ui/Dialog';
 import { DialogDismiss } from '@/components/ui/DialogDismiss';
 import { Heading } from '@/components/ui/Heading';
@@ -61,14 +62,14 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
         </div>
 
         <div className="mb-8">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <Content size="sm">
             Are you sure you want to delete the{' '}
             <strong className="text-slate-900 dark:text-slate-100">
               {trigger.taskTitle}
             </strong>{' '}
             trigger? This action cannot be undone and you will stop receiving
             rewards for this event.
-          </p>
+          </Content>
         </div>
 
         <div className="flex justify-end gap-3">
