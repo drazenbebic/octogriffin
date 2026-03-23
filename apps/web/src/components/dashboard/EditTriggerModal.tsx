@@ -91,7 +91,7 @@ export const EditTriggerModal: FC<EditWebhookTriggerModalProps> = ({
       <Dialog className="sm:max-w-2xl">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
               <PencilEdit02Icon size={20} />
             </div>
             <Heading as="h2" size="lg">
@@ -119,7 +119,7 @@ export const EditTriggerModal: FC<EditWebhookTriggerModalProps> = ({
             />
           </div>
 
-          <div className="border-t border-slate-100" />
+          <div className="border-t border-slate-100 dark:border-slate-800" />
 
           {/* Habitica Task */}
           <div>
@@ -174,21 +174,21 @@ export const EditTriggerModal: FC<EditWebhookTriggerModalProps> = ({
           </div>
 
           <DisclosureProvider>
-            <div className="rounded-xl border border-slate-100 bg-slate-50/50">
+            <div className="rounded-xl border border-slate-100 bg-slate-50/50 dark:border-slate-800 dark:bg-slate-900/50">
               <Disclosure
                 className={clsx(
-                  'cursor-pointer group flex w-full items-center justify-between px-5 py-2.5 font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900',
+                  'cursor-pointer group flex w-full items-center justify-between px-5 py-2.5 font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-slate-100',
                   'transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 focus-visible:ring-offset-2',
                 )}
               >
                 <span>Advanced Settings</span>
                 <ArrowDown01Icon
                   size={16}
-                  className="text-slate-400 transition-transform group-aria-expanded:rotate-180"
+                  className="text-slate-400 transition-transform group-aria-expanded:rotate-180 dark:text-slate-500"
                 />
               </Disclosure>
 
-              <DisclosureContent className="border-t border-slate-100 px-4 py-4">
+              <DisclosureContent className="border-t border-slate-100 px-4 py-4 dark:border-slate-800">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <FormInput
                     name="taskAlias"

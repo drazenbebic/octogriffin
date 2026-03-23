@@ -25,8 +25,8 @@ const sizes: Record<HeadingSize, string> = {
 };
 
 const colors: Record<HeadingColor, string> = {
-  slate: 'text-slate-900',
-  violet: 'text-violet-900',
+  slate: 'text-slate-900 dark:text-slate-50',
+  violet: 'text-violet-900 dark:text-violet-100',
 };
 
 const defaultSizeMap: Record<HeadingLevel, HeadingSize> = {

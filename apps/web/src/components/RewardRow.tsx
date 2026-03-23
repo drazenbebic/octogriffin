@@ -17,10 +17,12 @@ export const RewardRow: FC<RewardRowProps> = ({
   badgeClassName,
   badgeVariant = 'primary',
 }) => (
-  <div className="flex items-center justify-between rounded-xl bg-slate-50 p-4 transition-colors hover:bg-slate-100">
+  <div className="flex items-center justify-between rounded-xl bg-slate-50 p-4 transition-colors hover:bg-slate-100 dark:bg-slate-900/50 dark:hover:bg-slate-800">
     <div className="flex items-center gap-3">
       {icon}
-      <span className="font-medium text-slate-700">{action}</span>
+      <span className="font-medium text-slate-700 dark:text-slate-200">
+        {action}
+      </span>
     </div>
     <Badge className={badgeClassName} variant={badgeVariant} size="md">
       {reward}

@@ -51,7 +51,7 @@ export default async function ProfilePage() {
         <Heading
           level={1}
           size="3xl"
-          className="mb-2 bg-linear-to-r from-violet-700 to-indigo-600 bg-clip-text text-transparent"
+          className="mb-2 bg-linear-to-r from-violet-700 to-indigo-600 bg-clip-text text-transparent dark:from-violet-400 dark:to-indigo-400"
         >
           Adventurer Profile
         </Heading>
@@ -64,12 +64,12 @@ export default async function ProfilePage() {
         <div className="lg:col-span-4">
           <Card
             variant="elevated"
-            className="overflow-hidden border-0 shadow-xl shadow-violet-900/5 ring-1 ring-slate-900/5"
+            className="overflow-hidden border-0 shadow-xl shadow-violet-900/5 ring-1 ring-slate-900/5 dark:ring-slate-800"
           >
             <div className="h-32 w-full bg-linear-to-br from-violet-600 via-indigo-600 to-blue-600 relative" />
 
             <div className="relative -mt-16 px-6 pb-8 text-center">
-              <div className="mx-auto inline-flex rounded-full bg-white p-2 shadow-lg">
+              <div className="mx-auto inline-flex rounded-full bg-white p-2 shadow-lg dark:bg-slate-900">
                 <Image
                   src={profile.avatar || '/placeholder-avatar.png'}
                   alt={profile.handle}
@@ -104,9 +104,12 @@ export default async function ProfilePage() {
         </div>
 
         <div className="flex flex-col gap-6 lg:col-span-8">
-          <Card variant="flat" className="h-full bg-white/50 backdrop-blur-sm">
+          <Card
+            variant="flat"
+            className="h-full bg-white/50 backdrop-blur-sm dark:bg-slate-900/50"
+          >
             <CardBody>
-              <div className="flex items-center justify-between border-b border-slate-100 pb-6 mb-2">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-6 mb-2 dark:border-slate-800">
                 <div>
                   <Heading level={3} size="lg">
                     Contact & Details
@@ -117,7 +120,7 @@ export default async function ProfilePage() {
                 </div>
               </div>
 
-              <div className="flex flex-col divide-y divide-slate-100">
+              <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
                 <DetailRow
                   icon={<Mail01Icon size={18} />}
                   label="Email Address"
@@ -177,12 +180,14 @@ const DetailRow = ({
   }
 
   return (
-    <div className="group flex items-center justify-between py-4 transition-colors hover:bg-slate-50/50 sm:px-4 sm:-mx-4 sm:rounded-xl">
+    <div className="group flex items-center justify-between py-4 transition-colors hover:bg-slate-50/50 sm:px-4 sm:-mx-4 sm:rounded-xl dark:hover:bg-slate-800/50">
       <div className="flex items-center gap-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-white group-hover:text-violet-600 group-hover:shadow-sm ring-1 ring-slate-900/5">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-white group-hover:text-violet-600 group-hover:shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-800 dark:text-slate-400 dark:group-hover:bg-slate-700 dark:group-hover:text-violet-400 dark:ring-slate-800">
           {icon}
         </div>
-        <span className="text-sm font-medium text-slate-600">{label}</span>
+        <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          {label}
+        </span>
       </div>
 
       <div className="text-right">
@@ -191,15 +196,15 @@ const DetailRow = ({
             href={value}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold text-violet-600 hover:text-violet-700 hover:underline decoration-violet-300 underline-offset-4"
+            className="text-sm font-semibold text-violet-600 hover:text-violet-700 hover:underline decoration-violet-300 underline-offset-4 dark:text-violet-400 dark:hover:text-violet-300 dark:decoration-violet-900"
           >
             {value.replace(/^https?:\/\//, '').replace(/\/$/, '')}
           </Link>
         ) : (
           <span
             className={clsx('text-sm font-medium', {
-              'text-slate-900': value,
-              'text-slate-400 italic': !value,
+              'text-slate-900 dark:text-slate-100': value,
+              'text-slate-400 italic dark:text-slate-500': !value,
             })}
           >
             {displayValue}

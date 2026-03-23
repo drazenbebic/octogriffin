@@ -1,6 +1,6 @@
 'use client';
 
-import { ComponentProps, forwardRef } from 'react';
+import { ComponentProps, FC, forwardRef } from 'react';
 
 import { Button } from '@ariakit/react';
 import clsx from 'clsx';
@@ -16,6 +16,7 @@ export type ButtonIconProps = ComponentProps<'button'> & {
   shape?: ButtonIconShape;
   isLoading?: boolean;
   disableAnimation?: boolean;
+  icon?: FC<{ size?: number; className?: string }>;
 };
 
 const baseStyles =
@@ -25,11 +26,11 @@ const variants: Record<ButtonIconVariant, string> = {
   primary:
     'bg-violet-600 text-white shadow-md shadow-violet-600/20 hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-600/30 focus-visible:ring-violet-600',
   secondary:
-    'bg-white border border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md focus-visible:ring-slate-400',
+    'bg-white border border-slate-200 text-slate-700 shadow-sm hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md focus-visible:ring-slate-400 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:hover:border-slate-700',
   ghost:
-    'bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-900',
+    'bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100',
   black:
-    'bg-slate-900 text-white shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 focus-visible:ring-slate-900',
+    'bg-slate-900 text-white shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 focus-visible:ring-slate-900 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200',
 };
 
 const sizes: Record<ButtonIconSize, string> = {
@@ -59,12 +60,15 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
       shape = 'circle',
       isLoading = false,
       disableAnimation = false,
+      icon,
       children,
       ...props
     },
     ref,
   ) => {
     const shouldAnimate = !disableAnimation && variant !== 'ghost';
+
+    const Icon = icon;
 
     return (
       <Button
@@ -86,6 +90,8 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
       >
         {isLoading ? (
           <Loading03Icon size={iconSizes[size]} className="animate-spin" />
+        ) : Icon ? (
+          <Icon size={iconSizes[size]} />
         ) : (
           children
         )}

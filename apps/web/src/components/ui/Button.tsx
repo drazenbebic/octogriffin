@@ -27,11 +27,11 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     'bg-violet-600 text-white shadow-md shadow-violet-600/20 hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-600/30 focus-visible:ring-violet-600',
   secondary:
-    'bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md focus-visible:ring-slate-400',
+    'bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md focus-visible:ring-slate-400 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-50 dark:hover:border-slate-700',
   ghost:
-    'bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-400 hover:-translate-y-0',
+    'bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-400 hover:-translate-y-0 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-50',
   black:
-    'bg-slate-900 text-white shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 focus-visible:ring-slate-900',
+    'bg-slate-900 text-white shadow-md shadow-slate-900/10 hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 focus-visible:ring-slate-900 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200',
 };
 
 const sizes: Record<ButtonSize, string> = {

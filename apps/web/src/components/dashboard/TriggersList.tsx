@@ -50,7 +50,7 @@ export const TriggersList: FC<TriggersListProps> = ({
         {[...Array(skeletonCount)].map((_, i) => (
           <div
             key={i}
-            className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between dark:bg-slate-900 dark:ring-slate-800"
           >
             <div className="flex items-center gap-4">
               <Skeleton className="h-10 w-10 shrink-0 rounded-lg" />
@@ -66,7 +66,7 @@ export const TriggersList: FC<TriggersListProps> = ({
 
             <div className="flex items-center justify-between gap-4 sm:justify-end">
               <Skeleton className="h-6 w-11 shrink-0 rounded-full" />{' '}
-              <div className="hidden h-8 w-20 items-center gap-1 border-l border-slate-100 pl-4 sm:flex">
+              <div className="hidden h-8 w-20 items-center gap-1 border-l border-slate-100 pl-4 sm:flex dark:border-slate-800">
                 <Skeleton className="h-8 w-8 rounded-lg" />
                 <Skeleton className="h-8 w-8 rounded-lg" />
               </div>
@@ -74,7 +74,7 @@ export const TriggersList: FC<TriggersListProps> = ({
           </div>
         ))}
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-slate-100 py-4 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-slate-100 py-4 sm:flex-row dark:border-slate-800">
           <Skeleton className="h-4 w-48" />
           <div className="flex gap-2">
             <Skeleton className="h-9 w-24 rounded-lg" />
@@ -124,14 +124,14 @@ export const TriggersList: FC<TriggersListProps> = ({
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <div className="flex h-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100">
-          <ZapIcon className="text-slate-400" size={24} />
+      <div className="flex h-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center dark:bg-slate-900/50 dark:border-slate-800">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
+          <ZapIcon className="text-slate-400 dark:text-slate-500" size={24} />
         </div>
-        <h3 className="mb-1 text-base font-semibold text-slate-900">
+        <h3 className="mb-1 text-base font-semibold text-slate-900 dark:text-slate-100">
           No triggers defined
         </h3>
-        <p className="mb-6 max-w-sm text-sm text-slate-500">
+        <p className="mb-6 max-w-sm text-sm text-slate-500 dark:text-slate-400">
           Create your first trigger to start earning XP automatically when you
           push code.
         </p>

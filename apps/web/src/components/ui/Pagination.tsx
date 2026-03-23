@@ -32,25 +32,35 @@ export const Pagination: FC<PaginationProps> = ({
   return (
     <div
       className={clsx(
-        'flex flex-col items-center justify-between gap-4 border-t border-slate-100 py-4 sm:flex-row',
+        'flex flex-col items-center justify-between gap-4 border-t border-slate-100 py-4 sm:flex-row dark:border-slate-800',
         className,
       )}
     >
-      <div className="flex items-center gap-4 text-sm text-slate-500">
+      <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
         <div>
-          Showing <span className="font-medium text-slate-900">{start}</span> to{' '}
-          <span className="font-medium text-slate-900">{end}</span> of{' '}
-          <span className="font-medium text-slate-900">{total}</span> results
+          Showing{' '}
+          <span className="font-medium text-slate-900 dark:text-slate-100">
+            {start}
+          </span>{' '}
+          to{' '}
+          <span className="font-medium text-slate-900 dark:text-slate-100">
+            {end}
+          </span>{' '}
+          of{' '}
+          <span className="font-medium text-slate-900 dark:text-slate-100">
+            {total}
+          </span>{' '}
+          results
         </div>
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="mr-2 flex items-center gap-2 text-sm text-slate-500">
+        <div className="mr-2 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
           <span className="hidden sm:inline">Rows per page:</span>
           <select
             value={limit}
             onChange={e => onLimitChange(Number(e.target.value))}
-            className="cursor-pointer rounded-lg border border-slate-200 bg-white py-1.5 pl-2 pr-8 text-sm font-medium text-slate-700 hover:border-slate-300 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+            className="cursor-pointer rounded-lg border border-slate-200 bg-white py-1.5 pl-2 pr-8 text-sm font-medium text-slate-700 hover:border-slate-300 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:focus:border-violet-500"
           >
             {[5, 10, 20, 50, 100].map(val => (
               <option key={val} value={val}>
@@ -63,13 +73,13 @@ export const Pagination: FC<PaginationProps> = ({
         <Button
           onClick={() => onPageChange(page - 1)}
           disabled={!hasPrev}
-          className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none"
+          className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
         >
           <ArrowLeft01Icon size={16} />
           <span className="hidden sm:inline">Previous</span>
         </Button>
 
-        <div className="text-sm font-medium text-slate-600">
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
           <span className="sm:hidden">
             {page} / {totalPages}
           </span>
@@ -81,7 +91,7 @@ export const Pagination: FC<PaginationProps> = ({
         <Button
           onClick={() => onPageChange(page + 1)}
           disabled={!hasNext}
-          className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none"
+          className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
         >
           <span className="hidden sm:inline">Next</span>
           <ArrowRight01Icon size={16} />

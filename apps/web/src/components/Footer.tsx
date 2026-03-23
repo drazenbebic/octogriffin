@@ -18,7 +18,7 @@ export const Footer: FC = () => {
   const version = process.env.NEXT_PUBLIC_APP_VERSION;
 
   return (
-    <footer className="border-t border-slate-200 bg-slate-50 pt-16 pb-8">
+    <footer className="border-t border-slate-200 bg-slate-50 pt-16 pb-8 dark:border-slate-800 dark:bg-slate-900/50">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="flex flex-col gap-4">
@@ -32,16 +32,18 @@ export const Footer: FC = () => {
                   className="h-5 w-5 object-contain"
                 />
               </div>
-              <span className="font-bold text-slate-900">Octogriffin</span>
+              <span className="font-bold text-slate-900 dark:text-slate-50">
+                Octogriffin
+              </span>
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-slate-500">
+            <p className="max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               Level up your RPG character automatically while you code. Open
               source, secure, and built for developers.
             </p>
 
             <Link
               href="/sponsors"
-              className="mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-rose-500 hover:text-rose-500 hover:shadow-md active:scale-95"
+              className="mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-rose-500 hover:text-rose-500 hover:shadow-md active:scale-95 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-rose-500/50"
             >
               <FavouriteIcon
                 size={18}
@@ -91,19 +93,21 @@ export const Footer: FC = () => {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-8 sm:flex-row">
-          <p className="text-sm text-slate-500">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-8 sm:flex-row dark:border-slate-800">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             &copy; {currentYear} Octogriffin. Not affiliated with Habitica.
           </p>
 
           <div>
             {!!version && (
-              <span className="text-xs text-slate-500">v{version}</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400">
+                v{version}
+              </span>
             )}
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="hidden items-center gap-1.5 text-sm text-slate-500 md:flex">
+            <div className="hidden items-center gap-1.5 text-sm text-slate-500 md:flex dark:text-slate-400">
               <span>Made with</span>
               <FavouriteIcon size={16} className="fill-red-500 text-red-500" />
               <span>by</span>
@@ -111,7 +115,7 @@ export const Footer: FC = () => {
                 href="https://www.bebic.dev"
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-slate-900 transition-colors hover:text-violet-600"
+                className="font-medium text-slate-900 transition-colors hover:text-violet-600 dark:text-slate-300 dark:hover:text-violet-400"
               >
                 Drazen Bebic
               </Link>
@@ -123,7 +127,7 @@ export const Footer: FC = () => {
                 href="https://github.com/drazenbebic"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-slate-900"
+                className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
                 aria-label="GitHub Profile"
               >
                 <GithubIcon size={20} />
@@ -132,7 +136,7 @@ export const Footer: FC = () => {
                 href="https://twitter.com/drazenbebic"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-slate-900"
+                className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
                 aria-label="X Profile"
               >
                 <NewTwitterIcon size={20} />
@@ -141,7 +145,7 @@ export const Footer: FC = () => {
                 href="https://www.bebic.dev"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-violet-600"
+                className="text-slate-400 transition-colors hover:text-violet-600 dark:hover:text-violet-400"
                 aria-label="Personal Website"
               >
                 <Globe02Icon size={20} />

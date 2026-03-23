@@ -21,9 +21,9 @@ const sizes: Record<ContentSize, string> = {
 };
 
 const colors: Record<ContentColor, string> = {
-  slate: 'text-slate-600',
-  violet: 'text-violet-600',
-  note: 'text-slate-500',
+  slate: 'text-slate-600 dark:text-slate-400',
+  violet: 'text-violet-600 dark:text-violet-400',
+  note: 'text-slate-500 dark:text-slate-400',
 };
 
 export const Content: FC<ContentProps> = ({

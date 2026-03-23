@@ -2,6 +2,8 @@
 
 @source "./src/**/*.{js,ts,jsx,tsx,mdx}";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
     --animate-breathe: breathe 4s ease-in-out infinite;
 

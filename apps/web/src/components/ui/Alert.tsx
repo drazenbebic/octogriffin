@@ -19,28 +19,33 @@ const variantStyles: Record<
   }
 > = {
   info: {
-    container: 'bg-blue-50 border-blue-100 text-blue-900',
-    icon: 'text-blue-600',
+    container:
+      'bg-blue-50 border-blue-100 text-blue-900 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-100',
+    icon: 'text-blue-600 dark:text-blue-400',
     defaultIcon: InformationCircleIcon,
   },
   success: {
-    container: 'bg-emerald-50 border-emerald-100 text-emerald-900',
-    icon: 'text-emerald-600',
+    container:
+      'bg-emerald-50 border-emerald-100 text-emerald-900 dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-100',
+    icon: 'text-emerald-600 dark:text-emerald-400',
     defaultIcon: CheckmarkCircle02Icon,
   },
   warning: {
-    container: 'bg-amber-50 border-amber-100 text-amber-900',
-    icon: 'text-amber-600',
+    container:
+      'bg-amber-50 border-amber-100 text-amber-900 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-100',
+    icon: 'text-amber-600 dark:text-amber-400',
     defaultIcon: Alert02Icon,
   },
   danger: {
-    container: 'bg-red-50 border-red-100 text-red-900',
-    icon: 'text-red-600',
+    container:
+      'bg-red-50 border-red-100 text-red-900 dark:bg-red-900/20 dark:border-red-800 dark:text-red-100',
+    icon: 'text-red-600 dark:text-red-400',
     defaultIcon: Alert01Icon,
   },
   note: {
-    container: 'bg-slate-50 border-slate-200 text-slate-700',
-    icon: 'text-slate-500',
+    container:
+      'bg-slate-50 border-slate-200 text-slate-700 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200',
+    icon: 'text-slate-500 dark:text-slate-400',
     defaultIcon: InformationCircleIcon,
   },
 };

@@ -20,7 +20,7 @@ export default function ImprintPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:py-20">
-      <div className="mb-10 border-b border-slate-200 pb-8">
+      <div className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
         <Heading level={1} className="mb-4">
           Imprint
         </Heading>
@@ -42,7 +42,7 @@ export default function ImprintPage() {
               <Content className="font-medium">
                 Drazen Bebic
                 <br />
-                Postfatch 0029 1190 Vienna
+                Postfach 0029 1190 Vienna
                 <br />
                 Austria
               </Content>
@@ -54,10 +54,12 @@ export default function ImprintPage() {
               </Heading>
               <Content>
                 <span className="block">
-                  <span className="font-medium text-slate-900">Email:</span>{' '}
+                  <span className="font-medium text-slate-900 dark:text-slate-100">
+                    Email:
+                  </span>{' '}
                   <Link
                     href={`mailto:${email}`}
-                    className="text-violet-600 hover:underline"
+                    className="text-violet-600 hover:underline dark:text-violet-400"
                   >
                     {email}
                   </Link>
@@ -121,7 +123,7 @@ export default function ImprintPage() {
         </section>
 
         {/* 4. Liability & Copyright */}
-        <section className="rounded-2xl bg-slate-50 p-6 sm:p-8">
+        <section className="rounded-2xl bg-slate-50 p-6 sm:p-8 dark:bg-slate-900/50">
           <div className="space-y-6">
             <div>
               <Heading level={3} size="lg" className="mb-2">

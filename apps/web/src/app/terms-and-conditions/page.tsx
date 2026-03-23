@@ -22,7 +22,7 @@ export default function TermsAndConditionsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:py-20">
-      <div className="mb-10 border-b border-slate-200 pb-8">
+      <div className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
         <Heading level={1} className="mb-4">
           Terms & Conditions
         </Heading>
@@ -57,7 +57,7 @@ export default function TermsAndConditionsPage() {
             Octogriffin is a third-party integration tool that connects GitHub
             activity to the Habitica gamification platform.
           </Content>
-          <ul className="list-disc space-y-2 pl-5 text-slate-600">
+          <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-400">
             <Content as="li">
               We automate the completion of tasks, scoring of habits, or gaining
               of XP based on your actions on GitHub (e.g., pushing code, merging
@@ -79,7 +79,7 @@ export default function TermsAndConditionsPage() {
           <Content className="mb-4">
             By using this service, you agree to the following responsibilities:
           </Content>
-          <ul className="list-disc space-y-2 pl-5 text-slate-600">
+          <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-400">
             <Content as="li">
               <strong>Security:</strong> You are responsible for keeping your
               Habitica API User ID and Token secure. While we encrypt this data,
@@ -105,11 +105,11 @@ export default function TermsAndConditionsPage() {
           <Heading level={2} size="xl" className="mb-4">
             4. Limitation of Liability
           </Heading>
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <Content className="mb-2 font-semibold text-amber-900">
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 dark:bg-amber-950/20 dark:border-amber-900/50">
+            <Content className="mb-2 font-semibold text-amber-900 dark:text-amber-300">
               Service Provided &#34;As Is&#34;
             </Content>
-            <Content className="text-amber-800">
+            <Content className="text-amber-800 dark:text-amber-400">
               We provide this service for free and on an &#34;as is&#34; basis.
               We do not guarantee 100% uptime. We are not liable for any in-game
               losses (e.g., loss of a &#34;Streak&#34;, death of a character, or
@@ -167,7 +167,7 @@ export default function TermsAndConditionsPage() {
         </section>
 
         {/* Contact */}
-        <section className="rounded-3xl bg-slate-50 p-8 text-center">
+        <section className="rounded-3xl bg-slate-50 p-8 text-center dark:bg-slate-900 dark:ring-1 dark:ring-slate-800">
           <Heading level={2} size="lg" className="mb-2">
             Contact Us
           </Heading>
