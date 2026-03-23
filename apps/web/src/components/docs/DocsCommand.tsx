@@ -19,7 +19,7 @@ export const DocsCommand: FC<DocsCommandProps> = ({
   return (
     <div
       className={clsx(
-        'flex gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-700',
+        'flex gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300',
         {
           'items-center': align === 'center',
           'items-start': align === 'start',
@@ -30,7 +30,7 @@ export const DocsCommand: FC<DocsCommandProps> = ({
       {!hideIcon && (
         <CommandLineIcon
           size={20}
-          className={clsx('text-slate-400 shrink-0', {
+          className={clsx('text-slate-400 shrink-0 dark:text-slate-500', {
             'mt-px': align === 'start',
           })}
         />

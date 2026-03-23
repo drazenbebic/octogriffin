@@ -27,8 +27,10 @@ export const Navigation: FC<{ className?: string }> = ({ className }) => {
             key={href}
             href={href}
             className={clsx(
-              'text-sm font-medium transition-colors hover:text-violet-600',
-              isActive ? 'text-violet-600' : 'text-slate-600',
+              'text-sm font-medium transition-colors hover:text-violet-600 dark:hover:text-violet-400',
+              isActive
+                ? 'text-violet-600 dark:text-violet-400'
+                : 'text-slate-600 dark:text-slate-400',
             )}
           >
             {label}

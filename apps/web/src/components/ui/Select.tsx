@@ -34,10 +34,10 @@ export type SelectProps = BaseSelectProps & {
 };
 
 const triggerStyles =
-  'cursor-pointer relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none hover:bg-slate-100';
+  'cursor-pointer relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none hover:bg-slate-100 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-100 dark:focus:bg-slate-900 dark:hover:bg-slate-800';
 
 const popoverStyles =
-  'z-50 max-h-[300px] min-w-[180px] overflow-auto rounded-2xl border border-slate-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none';
+  'z-50 max-h-[300px] min-w-[180px] overflow-auto rounded-2xl border border-slate-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none dark:bg-slate-900 dark:border-slate-800 dark:ring-slate-800';
 
 const getSelectedLabel = (
   children: ReactNode,

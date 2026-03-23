@@ -31,7 +31,7 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
       <div className="hidden md:flex flex-col items-center shrink-0 w-16 pt-2">
         <div
           className={clsx(
-            'relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white shadow-md',
+            'relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white shadow-md dark:border-slate-900',
             dotClass,
           )}
         >
@@ -44,14 +44,14 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
       <div className="flex-1">
         <Card
           variant="elevated"
-          className="group hover:shadow-xl hover:shadow-slate-200/50"
+          className="group hover:shadow-xl hover:shadow-slate-200/50 dark:hover:bg-slate-800/50"
         >
           <CardBody className="p-6 sm:p-8">
             <div className="mb-8 flex items-start justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div
                   className={clsx(
-                    'flex h-12 w-12 items-center justify-center rounded-xl shadow-sm',
+                    'flex h-12 w-12 items-center justify-center rounded-xl shadow-sm dark:shadow-none',
                     colorClass,
                   )}
                 >
@@ -61,7 +61,10 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
                   <Heading level={3} size="lg">
                     {phase}
                   </Heading>
-                  <Content size="xs" className="font-semibold uppercase">
+                  <Content
+                    size="xs"
+                    className="font-semibold uppercase text-slate-500 dark:text-slate-400"
+                  >
                     {status}
                   </Content>
                 </div>
@@ -69,7 +72,7 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
             </div>
 
             <div className="space-y-8 relative">
-              <div className="absolute left-1.75 top-2 bottom-2 w-px bg-slate-100" />
+              <div className="absolute left-1.75 top-2 bottom-2 w-px bg-slate-100 dark:bg-slate-800" />
               {children}
             </div>
           </CardBody>

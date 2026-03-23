@@ -17,7 +17,7 @@ export const RoadmapFeatureItem: FC<RoadmapFeatureItemProps> = ({
 }) => {
   return (
     <div className="relative pl-8">
-      <div className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-slate-100 bg-white" />
+      <div className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-slate-100 bg-white dark:border-slate-800 dark:bg-slate-900" />
 
       <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
         <Heading level={4} size="base" className="font-semibold">

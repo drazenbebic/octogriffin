@@ -41,8 +41,8 @@ export default function RoadmapPage() {
           features currently in the forge.
         </Content>
 
-        <Pill variant="accent" className="mt-6 ">
-          <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <Pill variant="accent" className="mt-6">
+          <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300">
             <Calendar03Icon size={14} />
             Public Roadmap
           </span>
@@ -50,15 +50,15 @@ export default function RoadmapPage() {
       </div>
 
       <div className="relative mx-auto max-w-3xl">
-        <div className="hidden absolute left-8 top-4 bottom-4 w-px bg-linear-to-b from-emerald-500 via-violet-200 to-transparent md:block" />
+        <div className="hidden absolute left-8 top-4 bottom-4 w-px bg-linear-to-b from-emerald-500 via-violet-200 to-transparent md:block dark:via-violet-900/50" />
 
         <div className="space-y-12">
           <RoadmapPhase
             icon={<CheckmarkCircle02Icon size={24} />}
             phase="Phase 1: Control Freak"
             status="Completed"
-            colorClass="text-emerald-600 bg-emerald-100 border-emerald-200"
-            dotClass="bg-emerald-500 ring-emerald-200"
+            colorClass="text-emerald-600 bg-emerald-100 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900/50"
+            dotClass="bg-emerald-500 ring-emerald-200 dark:ring-emerald-900/50"
           >
             <RoadmapFeatureItem
               title="Advanced Event Triggers"
@@ -76,8 +76,8 @@ export default function RoadmapPage() {
             icon={<Shield02Icon size={24} />}
             phase="Phase 2: Anti-Cheese"
             status="Next Up"
-            colorClass="text-blue-600 bg-blue-100 border-blue-200"
-            dotClass="bg-blue-500 ring-blue-200"
+            colorClass="text-blue-600 bg-blue-100 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400 dark:border-blue-900/50"
+            dotClass="bg-blue-500 ring-blue-200 dark:ring-blue-900/50"
             isActive
           >
             <RoadmapFeatureItem
@@ -95,8 +95,8 @@ export default function RoadmapPage() {
             icon={<StarIcon size={24} />}
             phase="Phase 3: Gamification"
             status="Future Concepts"
-            colorClass="text-violet-600 bg-violet-100 border-violet-200"
-            dotClass="bg-violet-500 ring-violet-200"
+            colorClass="text-violet-600 bg-violet-100 border-violet-200 dark:bg-violet-950/30 dark:text-violet-400 dark:border-violet-900/50"
+            dotClass="bg-violet-500 ring-violet-200 dark:ring-violet-900/50"
           >
             <RoadmapFeatureItem
               title="Coding Streaks"
@@ -114,7 +114,7 @@ export default function RoadmapPage() {
         </div>
       </div>
 
-      <div className="mt-24 flex flex-col items-center justify-center gap-4 border-t border-slate-100 pt-12 text-center">
+      <div className="mt-24 flex flex-col items-center justify-center gap-4 border-t border-slate-100 pt-12 text-center dark:border-slate-800">
         <div>
           <Heading level={3} size="xl" className="mb-2">
             Have a better idea?

@@ -10,7 +10,7 @@ import {
 const getHighlighter = makeSingletonHighlighter(createHighlighter);
 
 export const THEME_DARK = 'github-dark';
-export const THEME_LIGHT = 'github-dark';
+export const THEME_LIGHT = 'github-light';
 
 export const copyCodeButtonTransformer: ShikiTransformer = {
   name: 'copy-code-button-transformer',

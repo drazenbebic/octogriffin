@@ -22,7 +22,7 @@ export const FormLabel: FC<FormLabelProps> = ({
   return (
     <BaseFormLabel
       className={clsx(
-        'mb-1.5 block text-sm font-medium text-slate-700 select-none cursor-pointer',
+        'mb-1.5 block text-sm font-medium text-slate-700 select-none cursor-pointer dark:text-slate-200',
         {
           'text-sm': size === 'sm',
           'text-md': size === 'md',
@@ -34,7 +34,9 @@ export const FormLabel: FC<FormLabelProps> = ({
       {...props}
     >
       {children}
-      {isRequired && <span className="ml-1 text-red-500">*</span>}
+      {isRequired && (
+        <span className="ml-1 text-red-500 dark:text-red-400">*</span>
+      )}
     </BaseFormLabel>
   );
 };

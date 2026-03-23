@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
-      <div className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-violet-50 text-violet-600 ring-1 ring-violet-100">
-        <div className="absolute inset-0 rounded-3xl bg-violet-600/10 blur-xl" />
+      <div className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-violet-50 text-violet-600 ring-1 ring-violet-100 dark:bg-violet-900/30 dark:text-violet-400 dark:ring-violet-900/50">
+        <div className="absolute inset-0 rounded-3xl bg-violet-600/10 blur-xl dark:bg-violet-900/20" />
         <Search01Icon size={48} />
       </div>
 

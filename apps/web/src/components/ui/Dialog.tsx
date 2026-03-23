@@ -18,7 +18,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
         backdrop={<DialogBackdrop />}
         className={clsx(
           'fixed left-1/2 top-1/2 z-50 w-full max-w-lg -translate-x-1/2 -translate-y-1/2',
-          'rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200',
+          'rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800',
           'opacity-0 scale-95 transition-all duration-300 ease-out',
           'data-enter:opacity-100 data-enter:scale-100',
           className,

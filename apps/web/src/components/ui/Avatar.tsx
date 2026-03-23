@@ -45,7 +45,7 @@ export const Avatar: FC<AvatarProps> = ({
     <div className={clsx('relative inline-flex shrink-0', className)}>
       <div
         className={clsx(
-          'flex items-center justify-center overflow-hidden border border-slate-200 bg-slate-50 transition-all duration-300 ease-in-out',
+          'flex items-center justify-center overflow-hidden border border-slate-200 bg-slate-50 transition-all duration-300 ease-in-out dark:border-slate-800 dark:bg-slate-900',
           sizeStyles[size],
           shapeStyles[shape],
         )}
@@ -59,7 +59,7 @@ export const Avatar: FC<AvatarProps> = ({
             className="h-full w-full object-cover"
           />
         ) : (
-          <span className="font-medium text-slate-500 uppercase">
+          <span className="font-medium text-slate-500 uppercase dark:text-slate-400">
             {fallback?.substring(0, 2)}
           </span>
         )}
@@ -68,7 +68,7 @@ export const Avatar: FC<AvatarProps> = ({
       {status && (
         <span
           className={clsx(
-            'absolute -bottom-0.5 -right-0.5 block rounded-full border-2 border-white',
+            'absolute -bottom-0.5 -right-0.5 block rounded-full border-2 border-white dark:border-slate-950',
             statusColors[status],
             size === 'sm' ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5',
           )}

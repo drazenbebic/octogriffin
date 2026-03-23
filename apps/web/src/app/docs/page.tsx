@@ -28,7 +28,7 @@ export default function DocsPage() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <div className="space-y-4 border-b border-slate-100 pb-10">
+      <div className="space-y-4 border-b border-slate-100 pb-10 dark:border-slate-800">
         <Heading level={1}>Octogriffin Documentation</Heading>
         <Content size="lg" className="max-w-2xl">
           Welcome to the knowledge base. Whether you want to set up your local
@@ -65,7 +65,7 @@ export default function DocsPage() {
       </div>
 
       {/* Help Section */}
-      <div className="rounded-2xl bg-slate-50 p-8 text-center">
+      <div className="rounded-2xl bg-slate-50 p-8 text-center dark:bg-slate-900 dark:ring-1 dark:ring-slate-800">
         <Heading level={3} size="xl" className="mb-2">
           Need Help?
         </Heading>
@@ -77,7 +77,7 @@ export default function DocsPage() {
           href={githubRepositoryUrl('/issues')}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition-all hover:bg-slate-50 hover:ring-slate-300"
+          className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition-all hover:bg-slate-50 hover:ring-slate-300 dark:bg-slate-800 dark:text-slate-100 dark:ring-slate-700 dark:hover:bg-slate-700"
         >
           View GitHub Issues
         </NextLink>

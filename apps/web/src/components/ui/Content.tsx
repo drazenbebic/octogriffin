@@ -1,6 +1,6 @@
 import { ElementType, FC, ReactNode } from 'react';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 type ContentSize = 'xs' | 'sm' | 'base' | 'lg';
 type ContentColor = 'slate' | 'violet' | 'note';
@@ -21,9 +21,9 @@ const sizes: Record<ContentSize, string> = {
 };
 
 const colors: Record<ContentColor, string> = {
-  slate: 'text-slate-600',
-  violet: 'text-violet-600',
-  note: 'text-slate-500',
+  slate: 'text-slate-600 dark:text-slate-400',
+  violet: 'text-violet-600 dark:text-violet-400',
+  note: 'text-slate-500 dark:text-slate-400',
 };
 
 export const Content: FC<ContentProps> = ({
@@ -36,7 +36,7 @@ export const Content: FC<ContentProps> = ({
 }) => {
   return (
     <Tag
-      className={clsx('leading-relaxed', sizes[size], colors[color], className)}
+      className={cn('leading-relaxed', sizes[size], colors[color], className)}
       {...props}
     >
       {children}

@@ -29,7 +29,7 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
       <FormError
         name={name}
         className={clsx(
-          'mt-1.5 flex items-start gap-1.5 text-xs font-medium text-red-600',
+          'mt-1.5 flex items-start gap-1.5 text-xs font-medium text-red-600 dark:text-red-400',
         )}
       >
         <AlertCircleIcon className="mt-0.5 shrink-0" size={14} />
@@ -43,8 +43,8 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
       <FormDescription
         name={name}
         className={clsx('mt-1.5 flex items-start gap-1.5 text-xs', {
-          'text-slate-500': !disabled,
-          'text-slate-400 opacity-75': disabled,
+          'text-slate-500 dark:text-slate-400': !disabled,
+          'text-slate-400 opacity-75 dark:text-slate-500': disabled,
         })}
       >
         <InformationCircleIcon className="mt-0.5 shrink-0" size={14} />

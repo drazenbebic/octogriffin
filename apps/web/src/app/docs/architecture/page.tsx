@@ -13,6 +13,7 @@ import {
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { Alert } from '@/components/ui/Alert';
+import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { generatePageMetadata } from '@/utils/seo';
@@ -35,7 +36,7 @@ export default function DocsArchitecturePage() {
         <Heading level={1} className="mb-4">
           Architecture
         </Heading>
-        <Content size="lg" className="text-slate-600">
+        <Content size="lg">
           Octogriffin is a modern full-stack application built on the{' '}
           <strong>Next.js</strong> framework. It acts as a bridge between GitHub
           activity and Habitica gamification.
@@ -48,49 +49,57 @@ export default function DocsArchitecturePage() {
           Technology Stack
         </Heading>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600">
+          <Card variant="outlined" className="p-5">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
               <Layout01Icon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900">App Router (Frontend)</h3>
-            <p className="mt-1 text-sm text-slate-500">
+            <Heading level={3} size="base">
+              App Router (Frontend)
+            </Heading>
+            <Content size="sm" className="mt-1">
               Next.js 16 using React Server Components. Styled with Tailwind CSS
               and Hugeicons.
-            </p>
-          </div>
+            </Content>
+          </Card>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+          <Card variant="outlined" className="p-5">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
               <CloudServerIcon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900">Serverless Backend</h3>
-            <p className="mt-1 text-sm text-slate-500">
+            <Heading level={3} size="base">
+              Serverless Backend
+            </Heading>
+            <Content size="sm" className="mt-1">
               API Routes and Webhook handlers running on Vercel Serverless
               Functions.
-            </p>
-          </div>
+            </Content>
+          </Card>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+          <Card variant="outlined" className="p-5">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
               <Database01Icon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900">Data Layer</h3>
-            <p className="mt-1 text-sm text-slate-500">
+            <Heading level={3} size="base">
+              Data Layer
+            </Heading>
+            <Content size="sm" className="mt-1">
               Neon (Serverless PostgreSQL) managed via Prisma ORM for type-safe
               database access.
-            </p>
-          </div>
+            </Content>
+          </Card>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+          <Card variant="outlined" className="p-5">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
               <LockKeyIcon size={20} />
             </div>
-            <h3 className="font-bold text-slate-900">Authentication</h3>
-            <p className="mt-1 text-sm text-slate-500">
+            <Heading level={3} size="base">
+              Authentication
+            </Heading>
+            <Content size="sm" className="mt-1">
               NextAuth.js handling GitHub OAuth sessions and secure session
               management.
-            </p>
-          </div>
+            </Content>
+          </Card>
         </div>
       </section>
 
@@ -104,66 +113,76 @@ export default function DocsArchitecturePage() {
           game stats. Here is the lifecycle of a typical event:
         </Content>
 
-        <div className="relative space-y-8 pl-4 before:absolute before:left-10.75 before:top-2 before:h-[calc(100%-16px)] before:w-0.5 before:bg-slate-200">
+        <div className="relative space-y-8 pl-4 before:absolute before:left-10.75 before:top-2 before:h-[calc(100%-16px)] before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
           {/* Step 1 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-md ring-4 ring-white">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-md ring-4 ring-white dark:bg-slate-800 dark:ring-slate-950">
               <GitPullRequestIcon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900">GitHub Event</h4>
-              <p className="text-sm text-slate-500">
+              <Heading level={4} className="font-bold" size="base">
+                GitHub Event
+              </Heading>
+              <Content size="sm">
                 User pushes code or merges a PR. GitHub sends a POST payload to{' '}
-                <code className="rounded bg-slate-100 px-1 py-0.5 text-xs font-medium">
+                <code className="rounded bg-slate-100 px-1 py-0.5 text-xs font-medium dark:bg-slate-800">
                   /api/v1/webhook
                 </code>
                 .
-              </p>
+              </Content>
             </div>
           </div>
 
           {/* Step 2 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900 dark:text-violet-400 dark:ring-slate-950">
               <Shield01Icon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900">Security Check</h4>
-              <p className="text-sm text-slate-500">
+              <Heading level={4} className="font-bold" size="base">
+                Security Check
+              </Heading>
+              <Content size="sm">
                 The application validates the{' '}
-                <code className="text-xs font-bold">X-Hub-Signature-256</code>{' '}
+                <code className="text-xs font-bold dark:text-violet-300">
+                  X-Hub-Signature-256
+                </code>{' '}
                 header against our App Secret to ensure the request is
                 legitimate.
-              </p>
+              </Content>
             </div>
           </div>
 
           {/* Step 3 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900 dark:text-violet-400 dark:ring-slate-950">
               <ZapIcon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900">Trigger Matching</h4>
-              <p className="text-sm text-slate-500">
+              <Heading level={4} className="font-bold" size="base">
+                Trigger Matching
+              </Heading>
+              <Content size="sm">
                 The system queries the database for active triggers that match
                 the incoming event (e.g., &quot;Push to Main&quot;). If a match
                 is found, the configured XP/Gold reward is retrieved.
-              </p>
+              </Content>
             </div>
           </div>
 
           {/* Step 4 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white shadow-md ring-4 ring-white">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white shadow-md ring-4 ring-white dark:ring-slate-950">
               <Globe02Icon size={24} />
             </div>
             <div className="pt-2">
-              <h4 className="font-bold text-slate-900">Habitica Sync</h4>
-              <p className="text-sm text-slate-500">
+              <Heading level={4} className="font-bold" size="base">
+                Habitica Sync
+              </Heading>
+              <Content size="sm">
                 Using the user&#39;s stored API credentials, Octogriffin sends a
                 score task request to the Habitica API.
-              </p>
+              </Content>
             </div>
           </div>
         </div>
@@ -181,10 +200,12 @@ export default function DocsArchitecturePage() {
             </Heading>
             <Content size="sm">
               Octogriffin operates as a{' '}
-              <strong className="text-slate-900">GitHub App</strong>. It does
-              not use a user&#39;s personal access token. Instead, it acts on
-              its own behalf with specific, granular permissions installed on
-              repositories.
+              <strong className="text-slate-900 dark:text-slate-100">
+                GitHub App
+              </strong>
+              . It does not use a user&#39;s personal access token. Instead, it
+              acts on its own behalf with specific, granular permissions
+              installed on repositories.
             </Content>
           </div>
           <div>
@@ -193,9 +214,11 @@ export default function DocsArchitecturePage() {
             </Heading>
             <Content size="sm">
               For Habitica, the app acts as a{' '}
-              <strong className="text-slate-900">User Agent</strong>. We encrypt
-              and store the user&#39;s API User ID and Token to make API calls
-              that simulate the user completing a task.
+              <strong className="text-slate-900 dark:text-slate-100">
+                User Agent
+              </strong>
+              . We encrypt and store the user&#39;s API User ID and Token to
+              make API calls that simulate the user completing a task.
             </Content>
           </div>
         </div>
@@ -203,11 +226,17 @@ export default function DocsArchitecturePage() {
 
       <Alert variant="info" title="Asynchronous Processing">
         To maintain strict performance limits and prevent timeouts,{' '}
-        <strong className="text-slate-900">every webhook</strong> is processed
-        using Next.js <code className="font-bold">after()</code>. This allows us
-        to immediately return a{' '}
-        <code className="text-xs font-bold">202 Accepted</code> to GitHub while
-        the trigger matching and API sync happen in the background.
+        <strong className="text-slate-900 dark:text-slate-100">
+          every webhook
+        </strong>{' '}
+        is processed using Next.js{' '}
+        <code className="font-bold dark:text-blue-300">after()</code>. This
+        allows us to immediately return a{' '}
+        <code className="text-xs font-bold dark:text-blue-300">
+          202 Accepted
+        </code>{' '}
+        to GitHub while the trigger matching and API sync happen in the
+        background.
       </Alert>
 
       <DocsFeedback />

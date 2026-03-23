@@ -42,8 +42,13 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<Props> = async ({ children }) => {
   return (
-    <html lang="en">
-      <body className={clsx(inter.className, 'flex min-h-screen flex-col')}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={clsx(
+          inter.className,
+          'flex min-h-screen flex-col bg-white text-slate-900 transition-colors duration-200 dark:bg-slate-950 dark:text-slate-50',
+        )}
+      >
         <Providers>
           <Header />
           <main id="content" className="flex-1 w-full">

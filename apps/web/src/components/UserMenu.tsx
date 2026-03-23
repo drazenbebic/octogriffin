@@ -20,10 +20,10 @@ export const UserMenu: FC = () => {
   if (status === 'loading') {
     return (
       <div className="flex items-center gap-1.5 animate-pulse">
-        <div className="h-9 w-28 rounded-lg bg-slate-200" />
-        <div className="h-4 w-px bg-slate-200" />
-        <div className="h-8 w-8 rounded-lg bg-slate-200" />
-        <div className="h-8 w-8 rounded-lg bg-slate-200" />
+        <div className="h-9 w-28 rounded-lg bg-slate-200 dark:bg-slate-800" />
+        <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
+        <div className="h-8 w-8 rounded-lg bg-slate-200 dark:bg-slate-800" />
+        <div className="h-8 w-8 rounded-lg bg-slate-200 dark:bg-slate-800" />
       </div>
     );
   }
@@ -43,16 +43,16 @@ export const UserMenu: FC = () => {
   return (
     <div className="flex items-center gap-1.5">
       <Link href="/dashboard" title="Go to Dashboard">
-        <div className="group flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50 hover:text-violet-700">
+        <div className="group flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50 hover:text-violet-700 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-violet-400">
           <DashboardSquare02Icon
             size={18}
-            className="text-slate-400 transition-colors group-hover:text-violet-600"
+            className="text-slate-400 transition-colors group-hover:text-violet-600 dark:text-slate-500 dark:group-hover:text-violet-400"
           />
           <span className="hidden sm:inline">Dashboard</span>
         </div>
       </Link>
 
-      <div className="h-4 w-px bg-slate-200" />
+      <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
 
       <ButtonIcon
         variant="ghost"
@@ -60,7 +60,7 @@ export const UserMenu: FC = () => {
         shape="rounded"
         onClick={() => signOut()}
         title="Sign Out"
-        className="text-slate-400 hover:bg-red-50! hover:text-red-500!"
+        className="text-slate-400 hover:bg-red-50! hover:text-red-500! dark:hover:bg-red-950/30! dark:hover:text-red-400!"
         disableAnimation
       >
         <Logout04Icon size={18} />

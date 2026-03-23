@@ -17,7 +17,7 @@ export const MainPanel: FC<MainPanelProps> = ({ children }) => {
   return (
     <Card variant="elevated" className="h-full">
       <TabProvider>
-        <div className="border-b border-slate-100 px-6 pt-6">
+        <div className="border-b border-slate-100 px-6 pt-6 dark:border-slate-800">
           <TabList
             className="-mb-px flex space-x-6"
             aria-label="Dashboard Views"

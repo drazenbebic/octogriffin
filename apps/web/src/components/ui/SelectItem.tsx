@@ -17,15 +17,15 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
         ref={ref}
         {...props}
         className={clsx(
-          'relative flex cursor-pointer select-none items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium outline-none transition-colors text-slate-700',
-          'data-active-item:bg-violet-50 data-active-item:text-violet-900 aria-selected:text-violet-700',
+          'relative flex cursor-pointer select-none items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium outline-none transition-colors text-slate-700 dark:text-slate-300',
+          'data-active-item:bg-violet-50 data-active-item:text-violet-900 aria-selected:text-violet-700 dark:data-active-item:bg-violet-900/50 dark:data-active-item:text-violet-100 dark:aria-selected:text-violet-400',
           className,
         )}
       >
         <span className="truncate">{children || props.value}</span>
 
         <SelectItemCheck>
-          <Tick02Icon className="h-4 w-4 text-violet-600" />
+          <Tick02Icon className="h-4 w-4 text-violet-600 dark:text-violet-400" />
         </SelectItemCheck>
       </BaseSelectItem>
     );

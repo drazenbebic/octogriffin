@@ -64,9 +64,9 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="relative rounded-lg border border-slate-200 bg-slate-900 shadow-sm overflow-hidden">
+      <div className="relative rounded-lg border border-slate-200 bg-slate-900 shadow-sm overflow-hidden dark:border-slate-800">
         {/* Header / Actions */}
-        <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-2">
+        <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-2 dark:bg-slate-950/50">
           <span className="text-xs font-mono text-slate-400">
             apps/web/.env.local
           </span>
