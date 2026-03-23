@@ -4,7 +4,9 @@ import {
   Children,
   cloneElement,
   isValidElement,
+  ReactElement,
   ReactNode,
+  useCallback,
   useMemo,
   useState,
 } from 'react';
@@ -13,38 +15,57 @@ import clsx from 'clsx';
 
 import { AccordionProps } from '@/components/ui/Accordion';
 
-function isAccordionElement(child: ReactNode) {
-  return isValidElement<AccordionProps>(child);
-}
-
 type AccordionGroupProps = {
-  children: ReactNode;
-  defaultOpenIndex?: number | null;
   className?: string;
+  children: ReactNode;
+  openIndex?: number;
+  allowMultiple?: boolean;
 };
+
+function isAccordionElement(
+  child: ReactNode,
+): child is ReactElement<AccordionProps> {
+  return isValidElement(child);
+}
 
 export const AccordionGroup = ({
   children,
-  defaultOpenIndex = null,
   className,
+  openIndex: defaultOpenIndex,
+  allowMultiple = false,
 }: AccordionGroupProps) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex);
+  const [openIndices, setOpenIndices] = useState<number[]>(
+    defaultOpenIndex !== undefined ? [defaultOpenIndex] : [],
+  );
 
   const accordions = useMemo(
     () => Children.toArray(children).filter(isAccordionElement),
     [children],
   );
 
-  const handleItemClick = (index: number) => {
-    setOpenIndex(prevIndex => (prevIndex === index ? null : index));
-  };
+  const onClick = useCallback(
+    (open: boolean, index: number) => {
+      setOpenIndices(prev => {
+        if (allowMultiple) {
+          return open ? [...prev, index] : prev.filter(i => i !== index);
+        } else {
+          return open ? [index] : [];
+        }
+      });
+    },
+    [allowMultiple],
+  );
 
   return (
     <div className={clsx('flex flex-col gap-4', className)}>
       {accordions.map((accordion, i) => {
+        const isOpen = allowMultiple
+          ? openIndices.includes(i)
+          : openIndices[0] === i;
         return cloneElement(accordion, {
-          isOpen: openIndex === i,
-          onClick: () => handleItemClick(i),
+          onClick,
+          index: i,
+          open: isOpen,
         });
       })}
     </div>

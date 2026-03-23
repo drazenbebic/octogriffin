@@ -280,37 +280,43 @@ export default function FaqPage() {
         </Content>
       </div>
 
-      <AccordionGroup className="mb-16">
-        <Heading className="mb-4" size="2xl">
-          Setup
-        </Heading>
+      <Heading className="mb-8" size="2xl">
+        Setup
+      </Heading>
+      <AccordionGroup openIndex={0}>
         {setup.map(faq => (
           <Accordion key={faq.question} title={faq.question}>
             {faq.answer}
           </Accordion>
         ))}
+      </AccordionGroup>
 
-        <Heading className="mt-8 mb-4" size="2xl">
-          Data Privacy
-        </Heading>
+      <Heading className="mt-12 mb-8" size="2xl">
+        Data Privacy
+      </Heading>
+      <AccordionGroup>
         {dataPrivacy.map(faq => (
           <Accordion key={faq.question} title={faq.question}>
             {faq.answer}
           </Accordion>
         ))}
+      </AccordionGroup>
 
-        <Heading className="mt-8 mb-4" size="2xl">
-          Gameplay
-        </Heading>
+      <Heading className="mt-12 mb-8" size="2xl">
+        Gameplay
+      </Heading>
+      <AccordionGroup>
         {gameplay.map(faq => (
           <Accordion key={faq.question} title={faq.question}>
             {faq.answer}
           </Accordion>
         ))}
+      </AccordionGroup>
 
-        <Heading className="mt-8 mb-4" size="2xl">
-          Troubleshooting
-        </Heading>
+      <Heading className="mt-12 mb-8" size="2xl">
+        Troubleshooting
+      </Heading>
+      <AccordionGroup className="mb-16">
         {troubleshooting.map(faq => (
           <Accordion key={faq.question} title={faq.question}>
             {faq.answer}
