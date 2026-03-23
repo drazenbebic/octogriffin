@@ -26,7 +26,7 @@ export const Skeleton: FC<SkeletonProps> = ({
   return (
     <Tag
       className={clsx(
-        'animate-pulse bg-slate-200',
+        'animate-pulse bg-slate-200 dark:bg-slate-800',
         variants[variant],
         className,
       )}

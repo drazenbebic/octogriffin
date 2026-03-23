@@ -50,7 +50,7 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
       <Dialog>
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/30 dark:text-red-400">
               <Delete02Icon size={20} />
             </div>
             <Heading as="h2" size="lg">
@@ -61,9 +61,11 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
         </div>
 
         <div className="mb-8">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-slate-600 dark:text-slate-400">
             Are you sure you want to delete the{' '}
-            <strong className="text-slate-900">{trigger.taskTitle}</strong>{' '}
+            <strong className="text-slate-900 dark:text-slate-100">
+              {trigger.taskTitle}
+            </strong>{' '}
             trigger? This action cannot be undone and you will stop receiving
             rewards for this event.
           </p>

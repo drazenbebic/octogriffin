@@ -77,7 +77,7 @@ export default function DocsDevSetupPage() {
         <Heading level={1} className="mb-4">
           Development Setup
         </Heading>
-        <Content size="lg" className="text-slate-600">
+        <Content size="lg">
           To contribute to <strong>Octogriffin</strong>, you need to set up the
           project locally. Follow this guide to get up and running in minutes.
         </Content>
@@ -89,14 +89,14 @@ export default function DocsDevSetupPage() {
           Prerequisites
         </Heading>
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
+          <div className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <CheckmarkCircle02Icon
               className="text-emerald-500 shrink-0"
               size={24}
             />
             <Content className="font-medium">Node.js 22+</Content>
           </div>
-          <div className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
+          <div className="flex items-center gap-3 rounded-xl border border-slate-100 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <CheckmarkCircle02Icon
               className="text-emerald-500 shrink-0"
               size={24}
@@ -141,34 +141,38 @@ export default function DocsDevSetupPage() {
             <Heading level={4} size="base">
               1. General
             </Heading>
-            <div className="grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm">
+            <div className="grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm dark:border-slate-800 dark:bg-slate-900/50">
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
                   GitHub App Name
                 </span>
-                <span className="font-mono font-bold text-slate-900">
+                <span className="font-mono font-bold text-slate-900 dark:text-slate-100">
                   My GitHub App
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">Homepage URL</span>
-                <span className="font-mono text-slate-900">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
+                  Homepage URL
+                </span>
+                <span className="font-mono text-slate-900 dark:text-slate-300">
                   http://localhost:3000
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">Callback URL</span>
-                <div className="flex flex-col gap-1 font-mono text-slate-900">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
+                  Callback URL
+                </span>
+                <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
                   <span>http://localhost:3000/api/auth/callback/github</span>
                 </div>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
                   Callback URL (2)
                 </span>
-                <div className="flex flex-col gap-1 font-mono text-slate-900">
+                <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
                   <span>
-                    <span className="text-violet-600 font-semibold">
+                    <span className="text-violet-600 font-semibold dark:text-violet-400">
                       &lt;YOUR-NGROK-URL&gt;
                     </span>
                     /api/auth/callback/github
@@ -177,25 +181,29 @@ export default function DocsDevSetupPage() {
               </div>
 
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">Setup URL</span>
-                <span className="font-mono text-slate-900">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
+                  Setup URL
+                </span>
+                <span className="font-mono text-slate-900 dark:text-slate-300">
                   http://localhost:3000/dashboard/settings
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">Webhook URL</span>
-                <span className="font-mono text-slate-900">
-                  <span className="text-violet-600 font-semibold">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
+                  Webhook URL
+                </span>
+                <span className="font-mono text-slate-900 dark:text-slate-300">
+                  <span className="text-violet-600 font-semibold dark:text-violet-400">
                     &lt;YOUR-NGROK-URL&gt;
                   </span>
                   /api/v1/webhook
                 </span>
               </div>
               <div className="grid grid-cols-[140px_1fr] gap-4">
-                <span className="font-medium text-slate-500">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
                   Webhook Secret
                 </span>
-                <span className="text-slate-500 italic">
+                <span className="text-slate-500 italic dark:text-slate-500">
                   Leave blank (we configure this later)
                 </span>
               </div>
@@ -211,28 +219,32 @@ export default function DocsDevSetupPage() {
               <strong>Read-only</strong>.
             </Content>
 
-            <div className="overflow-hidden rounded-lg border border-slate-200">
+            <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
               <table className="w-full text-sm text-left">
-                <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
+                <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800">
                   <tr>
                     <th className="px-4 py-2">Category</th>
                     <th className="px-4 py-2">Access</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {GITHUB_PERMISSIONS.map(
                     ({ category, isMandatory = false }) => (
                       <tr
                         key={category}
                         className={clsx({
-                          'bg-white': !isMandatory,
-                          'bg-slate-50/50': isMandatory,
+                          'bg-white dark:bg-slate-950': !isMandatory,
+                          'bg-slate-50/50 dark:bg-slate-900/50': isMandatory,
                         })}
                       >
-                        <td className={clsx('px-4 py-2 font-medium')}>
+                        <td
+                          className={clsx(
+                            'px-4 py-2 font-medium dark:text-slate-300',
+                          )}
+                        >
                           {category} {isMandatory && <>(Mandatory)</>}
                         </td>
-                        <td className="px-4 py-2 text-violet-600 font-bold">
+                        <td className="px-4 py-2 text-violet-600 font-bold dark:text-violet-400">
                           Read-only
                         </td>
                       </tr>
@@ -252,11 +264,11 @@ export default function DocsDevSetupPage() {
               section and check the following boxes:
             </Content>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
               {GITHUB_EVENTS.map(event => (
                 <div
                   key={event}
-                  className="flex items-center gap-2.5 rounded-lg bg-white px-3 py-2 text-sm text-slate-700 shadow-sm ring-1 ring-slate-900/5"
+                  className="flex items-center gap-2.5 rounded-lg bg-white px-3 py-2 text-sm text-slate-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800"
                 >
                   <Tick02Icon className="text-emerald-500 shrink-0" size={16} />
                   <span className="font-medium">{event}</span>

@@ -17,7 +17,7 @@ export const DialogDismiss = forwardRef<HTMLButtonElement, DialogDismissProps>(
       <BaseDialogDismiss
         ref={ref}
         className={clsx(
-          'cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 border border-transparent focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10',
+          'cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 border border-transparent focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300',
           className,
         )}
         {...props}

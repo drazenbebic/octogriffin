@@ -39,13 +39,13 @@ export const Switch: FC<SwitchProps> = ({
             'h-6 w-11 rounded-full bg-slate-200 transition-colors duration-200 ease-in-out',
             'peer-checked:bg-violet-600',
             'peer-focus-visible:ring-4 peer-focus-visible:ring-violet-500/20',
-            'group-hover:peer-checked:bg-violet-700 group-hover:bg-slate-300',
+            'group-hover:peer-checked:bg-violet-700 group-hover:bg-slate-300 dark:bg-slate-800 dark:group-hover:bg-slate-700',
           )}
         />
 
         <div
           className={clsx(
-            'absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out',
+            'absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out dark:bg-slate-200',
             'peer-checked:translate-x-5',
           )}
         />
@@ -54,12 +54,14 @@ export const Switch: FC<SwitchProps> = ({
       {(label || description) && (
         <div className="flex flex-col select-none">
           {label && (
-            <span className="text-sm font-medium text-slate-900 group-active:text-violet-700">
+            <span className="text-sm font-medium text-slate-900 group-active:text-violet-700 dark:text-slate-100 dark:group-active:text-violet-400">
               {label}
             </span>
           )}
           {description && (
-            <span className="text-xs text-slate-500">{description}</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">
+              {description}
+            </span>
           )}
         </div>
       )}

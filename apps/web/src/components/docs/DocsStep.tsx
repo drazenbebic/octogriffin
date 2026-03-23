@@ -22,7 +22,7 @@ export const DocsStep: FC<DocsStepProps> = ({
   return (
     <section className={clsx('space-y-6', className)}>
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 font-bold text-sm">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 font-bold text-sm dark:bg-slate-800 dark:text-slate-400">
           {step}
         </div>
         <Heading level={3} size="lg">
@@ -33,7 +33,7 @@ export const DocsStep: FC<DocsStepProps> = ({
       {withoutBorder ? (
         children
       ) : (
-        <div className="border-l-2 border-slate-100 pl-4 ml-4 space-y-4">
+        <div className="border-l-2 border-slate-100 pl-4 ml-4 space-y-4 dark:border-slate-800">
           {children}
         </div>
       )}

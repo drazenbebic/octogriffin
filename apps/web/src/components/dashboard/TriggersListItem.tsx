@@ -57,7 +57,9 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
       key={trigger.uuid}
       className={clsx(
         'group flex flex-col gap-4 rounded-xl p-4 shadow-sm ring-1 ring-slate-100 transition-all hover:shadow-md sm:flex-row sm:items-center sm:justify-between',
-        !isActive ? 'bg-slate-50/80' : 'bg-white',
+        !isActive
+          ? 'bg-slate-50/80 dark:bg-slate-900/50 dark:ring-slate-800'
+          : 'bg-white dark:bg-slate-900 dark:ring-slate-800',
       )}
     >
       <div
@@ -67,8 +69,8 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
           className={clsx(
             'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors',
             !isActive
-              ? 'bg-slate-200 text-slate-500'
-              : 'bg-violet-50 text-violet-600',
+              ? 'bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+              : 'bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400',
           )}
         >
           {!isActive ? <Cancel01Icon size={18} /> : icon}
@@ -79,7 +81,9 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
             <h4
               className={clsx(
                 'font-semibold transition-colors',
-                !isActive ? 'text-slate-500 line-through' : 'text-slate-900',
+                !isActive
+                  ? 'text-slate-500 line-through dark:text-slate-500'
+                  : 'text-slate-900 dark:text-slate-100',
               )}
             >
               {trigger.taskTitle}
@@ -116,17 +120,17 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
           title={isActive ? 'Deactivate Trigger' : 'Activate Trigger'}
         />
 
-        <div className="flex items-center gap-1 border-l border-slate-100 pl-4 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
+        <div className="flex items-center gap-1 border-l border-slate-100 pl-4 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 dark:border-slate-800">
           <Button
             onClick={() => onOpenEditAction?.(trigger)}
-            className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-600"
+            className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-600 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
             title="Edit Trigger"
           >
             <Edit02Icon size={18} />
           </Button>
           <Button
             onClick={() => onOpenDeleteAction?.(trigger)}
-            className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
+            className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600 dark:text-slate-500 dark:hover:bg-red-950/30 dark:hover:text-red-400"
             title="Delete Trigger"
           >
             <Delete02Icon size={18} />

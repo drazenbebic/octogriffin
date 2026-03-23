@@ -7,15 +7,16 @@ import clsx from 'clsx';
 import { MobileMenu } from '@/components/MobileMenu';
 import { Navigation } from '@/components/Navigation';
 import { NavigationUser } from '@/components/NavigationUser';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserMenu } from '@/components/UserMenu';
 
 export const Header: FC = () => {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 w-full',
+        'sticky top-0 z-50 w-full transition-all duration-200',
         'border-b border-slate-200 bg-white/80 backdrop-blur-md',
-        'transition-all duration-200',
+        'dark:border-slate-800 dark:bg-slate-950/80',
       )}
     >
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -33,7 +34,7 @@ export const Header: FC = () => {
                 className="h-6 w-6 object-contain"
               />
             </div>
-            <span className="hidden font-bold tracking-tight text-slate-900 sm:block">
+            <span className="hidden font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:block">
               Octogriffin
             </span>
           </Link>
@@ -42,6 +43,8 @@ export const Header: FC = () => {
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
+          <ThemeSwitcher />
+
           <NavigationUser>
             <UserMenu />
           </NavigationUser>

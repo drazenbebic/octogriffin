@@ -268,7 +268,7 @@ export default function FaqPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <div className="mb-12 text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-100 text-violet-600">
+        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
           <HelpCircleIcon size={32} />
         </div>
         <Heading level={1} size="3xl" className="mb-4">
@@ -318,7 +318,7 @@ export default function FaqPage() {
         ))}
       </AccordionGroup>
 
-      <div className="rounded-3xl bg-slate-50 p-8 text-center ring-1 ring-slate-100">
+      <div className="rounded-3xl bg-slate-50 p-8 text-center ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
         <Heading level={3} size="lg" className="mb-3">
           Still have questions?
         </Heading>

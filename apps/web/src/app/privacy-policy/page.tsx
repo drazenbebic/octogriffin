@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:py-20">
-      <div className="mb-10 border-b border-slate-200 pb-8">
+      <div className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
         <Heading level={1} className="mb-4">
           Privacy Policy
         </Heading>
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
           <Content className="mb-2">
             The data controller responsible for this website is:
           </Content>
-          <div className="rounded-2xl bg-slate-50 px-6 py-4 text-slate-700">
+          <div className="rounded-2xl bg-slate-50 px-6 py-4 text-slate-700 dark:bg-slate-900/50 dark:text-slate-300">
             <Content className="font-semibold">Drazen Bebic</Content>
             <Content>Postfach 0029 1190 Vienna, Austria</Content>
             <Content>Email: {email}</Content>
@@ -85,8 +85,11 @@ export default function PrivacyPolicyPage() {
             </Content>
           </ul>
 
-          <blockquote className="px-6 py-4 rounded-2xl bg-violet-100">
-            <Content className="font-medium" color="violet">
+          <blockquote className="px-6 py-4 rounded-2xl bg-violet-100 dark:bg-violet-950/30">
+            <Content
+              color="violet"
+              className="font-medium dark:text-violet-300"
+            >
               Important: We do not access, read, or store your source code
               files.
             </Content>
@@ -203,16 +206,21 @@ export default function PrivacyPolicyPage() {
         </section>
 
         {/* 6. Contact */}
-        <section className="rounded-3xl bg-violet-50 p-8 text-center">
-          <Heading level={2} size="lg" className="mb-2" color="violet">
+        <section className="rounded-3xl bg-violet-50 p-8 text-center dark:bg-violet-900/30">
+          <Heading
+            level={2}
+            size="lg"
+            color="violet"
+            className="mb-2 dark:text-violet-300"
+          >
             Questions?
           </Heading>
-          <Content className="mb-4" color="violet">
+          <Content color="violet" className="mb-4">
             If you have any questions about this policy, please contact us at:
           </Content>
           <Link
             href={`mailto:${email}`}
-            className="font-bold text-violet-600 hover:underline"
+            className="font-bold text-violet-600 hover:underline dark:text-violet-400"
           >
             {email}
           </Link>

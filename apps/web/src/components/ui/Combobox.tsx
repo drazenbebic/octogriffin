@@ -35,7 +35,7 @@ export type ComboboxProps = {
 };
 
 const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50';
+  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
 
 export const Combobox: FC<ComboboxProps> = ({
   className,
@@ -84,7 +84,7 @@ export const Combobox: FC<ComboboxProps> = ({
     >
       <div className={clsx('flex w-full flex-col gap-1.5', className)}>
         {!disableLabel && label && (
-          <ComboboxLabel className="text-sm font-medium text-slate-700">
+          <ComboboxLabel className="text-sm font-medium text-slate-700 dark:text-slate-300">
             {label}
           </ComboboxLabel>
         )}
@@ -93,7 +93,7 @@ export const Combobox: FC<ComboboxProps> = ({
           <BaseCombobox
             placeholder={placeholder}
             className={clsx(
-              'relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 hover:bg-slate-100 disabled:opacity-50 disabled:pointer-events-none',
+              'relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 hover:bg-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-800 dark:text-slate-100 dark:focus:border-violet-500 dark:hover:bg-slate-800',
               errorStyles,
             )}
             {...props}
@@ -107,7 +107,7 @@ export const Combobox: FC<ComboboxProps> = ({
           sameWidth
           gutter={8}
           className={clsx(
-            'z-50 flex max-h-75 min-w-45 flex-col overflow-auto rounded-2xl border border-slate-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none',
+            'z-50 flex max-h-75 min-w-45 flex-col overflow-auto rounded-2xl border border-slate-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none dark:bg-slate-900 dark:border-slate-800 dark:ring-slate-800',
           )}
           aria-busy={isPending}
         >
@@ -119,7 +119,7 @@ export const Combobox: FC<ComboboxProps> = ({
                     className="flex flex-col gap-1 first:mt-0 mt-2"
                     key={group}
                   >
-                    <ComboboxGroupLabel className="sticky -top-1.5 z-10 bg-white px-3 pb-2 pt-3.5 text-xs font-bold uppercase tracking-wider text-slate-400 select-none">
+                    <ComboboxGroupLabel className="sticky -top-1.5 z-10 bg-white px-3 pb-2 pt-3.5 text-xs font-bold uppercase tracking-wider text-slate-400 select-none dark:bg-slate-900 dark:text-slate-500">
                       {group}
                     </ComboboxGroupLabel>
                     {items.map(item => (
@@ -136,7 +136,7 @@ export const Combobox: FC<ComboboxProps> = ({
               </div>
             )
           ) : (
-            <div className="px-4 py-3 text-center text-sm text-slate-500 select-none">
+            <div className="px-4 py-3 text-center text-sm text-slate-500 select-none dark:text-slate-400">
               No results found
             </div>
           )}
