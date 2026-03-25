@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.8.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.7.2...web-v0.8.0) (2026-03-25)
+
+
+### Features
+
+* add dark mode support ([#217](https://github.com/drazenbebic/octogriffin/issues/217)) ([53fcd3c](https://github.com/drazenbebic/octogriffin/commit/53fcd3c82acc5e0ea75bb181ecedbd5b786387fa))
+* add docs pages ([#206](https://github.com/drazenbebic/octogriffin/issues/206)) ([812ace0](https://github.com/drazenbebic/octogriffin/commit/812ace014189b54de6c71fa2819f65f33ff2728a))
+* add health check route ([ab091cb](https://github.com/drazenbebic/octogriffin/commit/ab091cb1fb631a369d44246e9428d4f1df181231))
+* add json-ld structured data ([ce300b8](https://github.com/drazenbebic/octogriffin/commit/ce300b8031df75bd13961053dc7e70acb8516bc3))
+
+
+### Bug Fixes
+
+* fix accordion openIndex prop ([#218](https://github.com/drazenbebic/octogriffin/issues/218)) ([be49ca7](https://github.com/drazenbebic/octogriffin/commit/be49ca7671a12f30aa3bb1f391fa8d59ea223a0c))
+* make trigger create/edit modals scrollable ([767e624](https://github.com/drazenbebic/octogriffin/commit/767e624102d332ae4b3121853a6b7cb382745a78))
+
 ## [0.7.2](https://github.com/drazenbebic/octogriffin/compare/web-v0.7.1...web-v0.7.2) (2026-01-19)
 
 
