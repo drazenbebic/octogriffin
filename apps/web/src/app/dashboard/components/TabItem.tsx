@@ -1,15 +1,16 @@
-import React, { FC, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 import { Tab as BaseTab, TabProps } from '@ariakit/react';
+import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
 import clsx from 'clsx';
 
 type TabItemProps = TabProps & {
   href: string;
-  icon: FC<{ size: number; className?: string }>;
+  icon: IconSvgElement;
 };
 
 export const TabItem = forwardRef<HTMLButtonElement, TabItemProps>(
-  ({ children, href, icon: Icon, ...props }, ref) => {
+  ({ children, href, icon, ...props }, ref) => {
     const id = href.toString();
 
     return (
@@ -24,7 +25,8 @@ export const TabItem = forwardRef<HTMLButtonElement, TabItemProps>(
         )}
         {...props}
       >
-        <Icon
+        <HugeiconsIcon
+          icon={icon}
           size={18}
           className={clsx(
             'text-slate-400 transition-colors group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400',

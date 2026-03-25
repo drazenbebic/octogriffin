@@ -7,7 +7,8 @@ import {
   GithubIcon,
   Globe02Icon,
   NewTwitterIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { FooterLink } from '@/components/FooterLink';
 import { Content } from '@/components/ui/Content';
@@ -46,7 +47,8 @@ export const Footer: FC = () => {
               href="/sponsors"
               className="mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-rose-500 hover:text-rose-500 hover:shadow-md active:scale-95 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-rose-500/50"
             >
-              <FavouriteIcon
+              <HugeiconsIcon
+                icon={FavouriteIcon}
                 size={18}
                 className="text-rose-500 fill-rose-500"
               />
@@ -110,7 +112,11 @@ export const Footer: FC = () => {
           <div className="flex items-center gap-6">
             <div className="hidden items-center gap-1.5 text-sm text-slate-500 md:flex dark:text-slate-400">
               <span>Made with</span>
-              <FavouriteIcon size={16} className="fill-red-500 text-red-500" />
+              <HugeiconsIcon
+                icon={FavouriteIcon}
+                size={16}
+                className="fill-red-500 text-red-500"
+              />
               <span>by</span>
               <Link
                 href="https://www.bebic.dev"
@@ -131,7 +137,7 @@ export const Footer: FC = () => {
                 className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
                 aria-label="GitHub Profile"
               >
-                <GithubIcon size={20} />
+                <HugeiconsIcon icon={GithubIcon} size={20} />
               </Link>
               <Link
                 href="https://twitter.com/drazenbebic"
@@ -140,7 +146,7 @@ export const Footer: FC = () => {
                 className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
                 aria-label="X Profile"
               >
-                <NewTwitterIcon size={20} />
+                <HugeiconsIcon icon={NewTwitterIcon} size={20} />
               </Link>
               <Link
                 href="https://www.bebic.dev"
@@ -149,7 +155,7 @@ export const Footer: FC = () => {
                 className="text-slate-400 transition-colors hover:text-violet-600 dark:hover:text-violet-400"
                 aria-label="Personal Website"
               >
-                <Globe02Icon size={20} />
+                <HugeiconsIcon icon={Globe02Icon} size={20} />
               </Link>
             </div>
           </div>

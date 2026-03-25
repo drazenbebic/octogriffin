@@ -10,12 +10,29 @@ const eslintConfig = defineConfig([
   ...nextTs,
   prettierRecommended,
   {
+    settings: {
+      react: {
+        version: '19',
+      },
+    },
     plugins: {
       'unused-imports': pluginUnusedImports,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
-      'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+      'prettier/prettier': [
+        'error',
+        {
+          printWidth: 80,
+          endOfLine: 'auto',
+          arrowParens: 'avoid',
+          trailingComma: 'all',
+          semi: true,
+          singleQuote: true,
+          useTabs: false,
+          bracketSpacing: true,
+        },
+      ],
       'unused-imports/no-unused-imports': 'warn',
       'unused-imports/no-unused-vars': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],

@@ -8,7 +8,8 @@ import {
   Key01Icon,
   Rocket01Icon,
   Settings02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -31,7 +32,7 @@ export default function InstallationPage() {
     <div className="mx-auto max-w-2xl space-y-12 pb-20 pt-10 sm:pt-20 px-4">
       <div className="text-center">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-violet-600 dark:border-violet-900/50 dark:bg-violet-950/30 dark:text-violet-400">
-          <Rocket01Icon size={14} />
+          <HugeiconsIcon icon={Rocket01Icon} size={14} />
           Quick Start
         </div>
         <Heading level={1} className="mb-4">
@@ -50,7 +51,7 @@ export default function InstallationPage() {
         <div className="relative">
           <div className="relative z-10 flex gap-6">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-lg shadow-violet-600/30">
-              <GithubIcon size={28} />
+              <HugeiconsIcon icon={GithubIcon} size={28} />
             </div>
 
             <div className="pt-1.5 pb-8">
@@ -75,7 +76,11 @@ export default function InstallationPage() {
                   className="shadow-xl shadow-violet-600/10 hover:shadow-violet-600/20 dark:shadow-none"
                 >
                   Install the GitHub App
-                  <ArrowRight01Icon size={16} className="opacity-60" />
+                  <HugeiconsIcon
+                    icon={ArrowRight01Icon}
+                    size={16}
+                    className="opacity-60"
+                  />
                 </Button>
               </Link>
             </div>
@@ -98,7 +103,11 @@ export default function InstallationPage() {
                 className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
               >
                 Select Repositories
-                <CheckmarkCircle02Icon size={18} className="text-blue-500" />
+                <HugeiconsIcon
+                  icon={CheckmarkCircle02Icon}
+                  size={18}
+                  className="text-blue-500"
+                />
               </Heading>
               <Content size="sm" className="mt-2">
                 During installation, choose <strong>All Repositories</strong> or
@@ -124,7 +133,11 @@ export default function InstallationPage() {
                 className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
               >
                 Enter Credentials
-                <Key01Icon size={18} className="text-amber-500" />
+                <HugeiconsIcon
+                  icon={Key01Icon}
+                  size={18}
+                  className="text-amber-500"
+                />
               </Heading>
               <Content size="sm" className="mt-2">
                 You will be redirected to the dashboard. Enter your Habitica{' '}
@@ -151,7 +164,11 @@ export default function InstallationPage() {
                 className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
               >
                 Set Triggers
-                <Settings02Icon size={18} className="text-emerald-500" />
+                <HugeiconsIcon
+                  icon={Settings02Icon}
+                  size={18}
+                  className="text-emerald-500"
+                />
               </Heading>
               <Content size="sm" className="mt-2 mb-4">
                 Finally, map GitHub events to rewards to start earning.

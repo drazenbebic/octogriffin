@@ -4,8 +4,9 @@ import {
   DialogDismiss as BaseDialogDismiss,
   DialogDismissProps as BaseDialogDismissProps,
 } from '@ariakit/react';
+import { Cancel01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { Cancel01Icon } from 'hugeicons-react';
 
 export type DialogDismissProps = BaseDialogDismissProps & {
   label?: string;
@@ -22,7 +23,11 @@ export const DialogDismiss = forwardRef<HTMLButtonElement, DialogDismissProps>(
         )}
         {...props}
       >
-        <Cancel01Icon aria-label={label || 'Close modal'} size={20} />
+        <HugeiconsIcon
+          icon={Cancel01Icon}
+          aria-label={label || 'Close modal'}
+          size={20}
+        />
       </BaseDialogDismiss>
     );
   },

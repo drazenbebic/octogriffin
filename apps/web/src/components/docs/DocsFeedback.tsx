@@ -1,13 +1,14 @@
 import { FC } from 'react';
 
-import { GitPullRequestIcon } from 'hugeicons-react';
+import { GitPullRequestIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const DocsFeedback: FC = () => (
   <div className="mt-12 rounded-2xl bg-violet-50 p-6 flex flex-col sm:flex-row items-center justify-between gap-4 dark:bg-violet-950/30">
     <div className="flex items-center gap-3 text-violet-900 font-medium dark:text-violet-200">
-      <GitPullRequestIcon size={24} />
+      <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
       <span>Something went wrong?</span>
     </div>
     <a

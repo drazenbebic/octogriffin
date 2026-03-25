@@ -6,7 +6,8 @@ import {
   GitPullRequestIcon,
   Globe02Icon,
   Settings02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 export type DocsNavItem = {
   title: string;
@@ -26,17 +27,17 @@ export const docsNavigation: DocsNavSection[] = [
       {
         title: 'Introduction',
         href: '/docs',
-        icon: <BookOpen01Icon size={18} />,
+        icon: <HugeiconsIcon icon={BookOpen01Icon} size={18} />,
       },
       {
         title: 'Development Setup',
         href: '/docs/dev-setup',
-        icon: <Settings02Icon size={18} />,
+        icon: <HugeiconsIcon icon={Settings02Icon} size={18} />,
       },
       {
         title: 'Setting up ngrok',
         href: '/docs/setting-up-ngrok',
-        icon: <Globe02Icon size={18} />,
+        icon: <HugeiconsIcon icon={Globe02Icon} size={18} />,
       },
     ],
   },
@@ -46,12 +47,12 @@ export const docsNavigation: DocsNavSection[] = [
       {
         title: 'How to Contribute',
         href: '/docs/how-to-contribute',
-        icon: <GitPullRequestIcon size={18} />,
+        icon: <HugeiconsIcon icon={GitPullRequestIcon} size={18} />,
       },
       {
         title: 'Architecture',
         href: '/docs/architecture',
-        icon: <CodeCircleIcon size={18} />,
+        icon: <HugeiconsIcon icon={CodeCircleIcon} size={18} />,
       },
     ],
   },

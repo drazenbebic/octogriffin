@@ -1,8 +1,9 @@
 import { FC, ReactNode } from 'react';
 import Link from 'next/link';
 
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowRight01Icon } from 'hugeicons-react';
 
 import { Button } from '@/components/ui/Button';
 import { Content } from '@/components/ui/Content';
@@ -50,7 +51,8 @@ export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
         render={<Link href={href} />}
       >
         {label}
-        <ArrowRight01Icon
+        <HugeiconsIcon
+          icon={ArrowRight01Icon}
           size={16}
           className="text-slate-400 dark:text-slate-500"
         />

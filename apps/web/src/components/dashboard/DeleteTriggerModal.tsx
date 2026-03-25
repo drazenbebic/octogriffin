@@ -3,7 +3,8 @@
 import { FC, useTransition } from 'react';
 
 import { DialogProvider } from '@ariakit/react';
-import { Delete02Icon } from 'hugeicons-react';
+import { Delete02Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/Button';
@@ -52,7 +53,7 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/30 dark:text-red-400">
-              <Delete02Icon size={20} />
+              <HugeiconsIcon icon={Delete02Icon} size={20} />
             </div>
             <Heading as="h2" size="lg">
               Delete Trigger?

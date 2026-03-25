@@ -23,7 +23,7 @@ export type FormMultiComboboxProps = Omit<
 };
 
 const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50';
+  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
 
 export const FormMultiCombobox: FC<FormMultiComboboxProps> = forwardRef(
   (
@@ -62,7 +62,7 @@ export const FormMultiCombobox: FC<FormMultiComboboxProps> = forwardRef(
               onChangeAction={val => form?.setValue(name, val)}
               placeholder={placeholder}
               required={required}
-              className={clsx(errorStyles, className)}
+              className={errorStyles}
               disableLabel
               {...props}
             />

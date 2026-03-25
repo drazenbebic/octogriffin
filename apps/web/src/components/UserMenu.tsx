@@ -8,7 +8,8 @@ import {
   DashboardSquare02Icon,
   GithubIcon,
   Logout04Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
@@ -34,7 +35,7 @@ export const UserMenu: FC = () => {
         size="sm"
         onClick={() => signIn('github', { callbackUrl: window.location.href })}
       >
-        <GithubIcon size={18} className="mr-2" />
+        <HugeiconsIcon icon={GithubIcon} size={18} className="mr-2" />
         Sign In
       </Button>
     );
@@ -44,7 +45,8 @@ export const UserMenu: FC = () => {
     <div className="flex items-center gap-1.5">
       <Link href="/dashboard" title="Go to Dashboard">
         <div className="group flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50 hover:text-violet-700 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-violet-400">
-          <DashboardSquare02Icon
+          <HugeiconsIcon
+            icon={DashboardSquare02Icon}
             size={18}
             className="text-slate-400 transition-colors group-hover:text-violet-600 dark:text-slate-500 dark:group-hover:text-violet-400"
           />
@@ -63,7 +65,7 @@ export const UserMenu: FC = () => {
         className="text-slate-400 hover:bg-red-50! hover:text-red-500! dark:hover:bg-red-950/30! dark:hover:text-red-400!"
         disableAnimation
       >
-        <Logout04Icon size={18} />
+        <HugeiconsIcon icon={Logout04Icon} size={18} />
       </ButtonIcon>
 
       <Link href="/profile" className="flex">

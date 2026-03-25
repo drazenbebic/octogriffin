@@ -6,7 +6,8 @@ import {
   CheckmarkCircle02Icon,
   Copy01Icon,
   RefreshIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Button } from '@/components/ui/Button';
 
@@ -77,7 +78,7 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
               onClick={handleRegenerate}
               className="h-7 px-2 text-xs text-slate-400 hover:text-white"
             >
-              <RefreshIcon size={14} className="mr-1.5" />
+              <HugeiconsIcon icon={RefreshIcon} size={14} className="mr-1.5" />
               Regenerate
             </Button>
             <Button
@@ -87,12 +88,13 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
               className="h-7 px-2 text-xs"
             >
               {copied ? (
-                <CheckmarkCircle02Icon
+                <HugeiconsIcon
+                  icon={CheckmarkCircle02Icon}
                   size={14}
                   className="mr-1.5 text-emerald-600"
                 />
               ) : (
-                <Copy01Icon size={14} className="mr-1.5" />
+                <HugeiconsIcon icon={Copy01Icon} size={14} className="mr-1.5" />
               )}
               {copied ? 'Copied' : 'Copy'}
             </Button>

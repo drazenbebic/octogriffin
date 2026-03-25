@@ -6,7 +6,8 @@ import {
   GitPullRequestIcon,
   Globe02Icon,
   Settings02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { DocsCard } from '@/components/docs/DocsCard';
 import { Content } from '@/components/ui/Content';
@@ -42,25 +43,25 @@ export default function DocsPage() {
           href="/docs/dev-setup"
           title="Development Setup"
           description="Get your local environment running. Includes Docker, Prisma, and GitHub App configuration."
-          icon={<Settings02Icon size={24} />}
+          icon={<HugeiconsIcon icon={Settings02Icon} size={24} />}
         />
         <DocsCard
           href="/docs/setting-up-ngrok"
           title="Ngrok Setup"
           description="Expose your localhost to GitHub webhooks securely using Ngrok static domains."
-          icon={<Globe02Icon size={24} />}
+          icon={<HugeiconsIcon icon={Globe02Icon} size={24} />}
         />
         <DocsCard
           href="/docs/contributing"
           title="Contributing Guide"
           description="Learn how to open PRs, follow our coding standards, and use the design system."
-          icon={<GitPullRequestIcon size={24} />}
+          icon={<HugeiconsIcon icon={GitPullRequestIcon} size={24} />}
         />
         <DocsCard
           href="/docs/architecture"
           title="Architecture"
           description="Deep dive into how Next.js, Vercel, and Neon DB work together with GitHub Webhooks."
-          icon={<CodeCircleIcon size={24} />}
+          icon={<HugeiconsIcon icon={CodeCircleIcon} size={24} />}
         />
       </div>
 

@@ -3,14 +3,15 @@
 import { FC } from 'react';
 
 import { Button } from '@ariakit/react';
-import clsx from 'clsx';
 import {
   ArrowDown01Icon,
   ArrowUp01Icon,
   Cancel01Icon,
   Delete02Icon,
   Edit02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import clsx from 'clsx';
 
 import { Badge, BadgeProps } from '@/components/ui/Badge';
 import { Heading } from '@/components/ui/Heading';
@@ -74,7 +75,7 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
               : 'bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-400',
           )}
         >
-          {!isActive ? <Cancel01Icon size={18} /> : icon}
+          {!isActive ? <HugeiconsIcon icon={Cancel01Icon} size={18} /> : icon}
         </div>
 
         <div>
@@ -102,11 +103,11 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
             >
               {trigger.scoreDirection === 'up' ? (
                 <>
-                  <ArrowUp01Icon size={12} /> Reward
+                  <HugeiconsIcon icon={ArrowUp01Icon} size={12} /> Reward
                 </>
               ) : (
                 <>
-                  <ArrowDown01Icon size={12} /> Punish
+                  <HugeiconsIcon icon={ArrowDown01Icon} size={12} /> Punish
                 </>
               )}
             </Badge>
@@ -127,14 +128,14 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
             className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-600 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
             title="Edit Trigger"
           >
-            <Edit02Icon size={18} />
+            <HugeiconsIcon icon={Edit02Icon} size={18} />
           </Button>
           <Button
             onClick={() => onOpenDeleteAction?.(trigger)}
             className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600 dark:text-slate-500 dark:hover:bg-red-950/30 dark:hover:text-red-400"
             title="Delete Trigger"
           >
-            <Delete02Icon size={18} />
+            <HugeiconsIcon icon={Delete02Icon} size={18} />
           </Button>
         </div>
       </div>

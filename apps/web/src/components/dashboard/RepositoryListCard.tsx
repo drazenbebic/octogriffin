@@ -9,7 +9,8 @@ import {
   GithubIcon,
   Globe02Icon,
   SquareLock01Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { getConnectedReposAction } from '@/actions/getConnectedReposAction';
 import { Button } from '@/components/ui/Button';
@@ -51,7 +52,7 @@ export const RepositoryListCard: FC = () => {
     <Card variant="outlined" className="bg-slate-50 dark:bg-slate-900/50">
       <CardBody>
         <div className="mb-4 flex items-center gap-2 text-slate-900 dark:text-slate-100">
-          <GithubIcon size={20} />
+          <HugeiconsIcon icon={GithubIcon} size={20} />
           <Heading level={3} size="base">
             Connected Repositories
           </Heading>
@@ -101,9 +102,12 @@ export const RepositoryListCard: FC = () => {
                       }
                     >
                       {repo.private ? (
-                        <SquareLock01Icon className="h-4 w-4" />
+                        <HugeiconsIcon
+                          icon={SquareLock01Icon}
+                          className="h-4 w-4"
+                        />
                       ) : (
-                        <Globe02Icon className="h-4 w-4" />
+                        <HugeiconsIcon icon={Globe02Icon} className="h-4 w-4" />
                       )}
                     </div>
 
@@ -123,12 +127,20 @@ export const RepositoryListCard: FC = () => {
                 >
                   {isExpanded ? (
                     <>
-                      <ArrowUp01Icon size={16} className="mr-2" />
+                      <HugeiconsIcon
+                        icon={ArrowUp01Icon}
+                        size={16}
+                        className="mr-2"
+                      />
                       Show Less
                     </>
                   ) : (
                     <>
-                      <ArrowDown01Icon size={16} className="mr-2" />
+                      <HugeiconsIcon
+                        icon={ArrowDown01Icon}
+                        size={16}
+                        className="mr-2"
+                      />
                       Show {repos.length - MAX_VISIBLE} More
                     </>
                   )}

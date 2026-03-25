@@ -9,7 +9,8 @@ import {
   LockKeyIcon,
   Shield01Icon,
   ZapIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { Alert } from '@/components/ui/Alert';
@@ -51,7 +52,7 @@ export default function DocsArchitecturePage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-              <Layout01Icon size={20} />
+              <HugeiconsIcon icon={Layout01Icon} size={20} />
             </div>
             <Heading level={3} size="base">
               App Router (Frontend)
@@ -64,7 +65,7 @@ export default function DocsArchitecturePage() {
 
           <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
-              <CloudServerIcon size={20} />
+              <HugeiconsIcon icon={CloudServerIcon} size={20} />
             </div>
             <Heading level={3} size="base">
               Serverless Backend
@@ -77,7 +78,7 @@ export default function DocsArchitecturePage() {
 
           <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-              <Database01Icon size={20} />
+              <HugeiconsIcon icon={Database01Icon} size={20} />
             </div>
             <Heading level={3} size="base">
               Data Layer
@@ -90,7 +91,7 @@ export default function DocsArchitecturePage() {
 
           <Card variant="outlined" className="p-5">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
-              <LockKeyIcon size={20} />
+              <HugeiconsIcon icon={LockKeyIcon} size={20} />
             </div>
             <Heading level={3} size="base">
               Authentication
@@ -117,7 +118,7 @@ export default function DocsArchitecturePage() {
           {/* Step 1 */}
           <div className="relative flex gap-6">
             <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-md ring-4 ring-white dark:bg-slate-800 dark:ring-slate-950">
-              <GitPullRequestIcon size={24} />
+              <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
             </div>
             <div className="pt-2">
               <Heading level={4} className="font-bold" size="base">
@@ -136,7 +137,7 @@ export default function DocsArchitecturePage() {
           {/* Step 2 */}
           <div className="relative flex gap-6">
             <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900 dark:text-violet-400 dark:ring-slate-950">
-              <Shield01Icon size={24} />
+              <HugeiconsIcon icon={Shield01Icon} size={24} />
             </div>
             <div className="pt-2">
               <Heading level={4} className="font-bold" size="base">
@@ -156,7 +157,7 @@ export default function DocsArchitecturePage() {
           {/* Step 3 */}
           <div className="relative flex gap-6">
             <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900 dark:text-violet-400 dark:ring-slate-950">
-              <ZapIcon size={24} />
+              <HugeiconsIcon icon={ZapIcon} size={24} />
             </div>
             <div className="pt-2">
               <Heading level={4} className="font-bold" size="base">
@@ -173,7 +174,7 @@ export default function DocsArchitecturePage() {
           {/* Step 4 */}
           <div className="relative flex gap-6">
             <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white shadow-md ring-4 ring-white dark:ring-slate-950">
-              <Globe02Icon size={24} />
+              <HugeiconsIcon icon={Globe02Icon} size={24} />
             </div>
             <div className="pt-2">
               <Heading level={4} className="font-bold" size="base">

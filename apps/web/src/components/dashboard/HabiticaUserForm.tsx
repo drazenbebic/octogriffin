@@ -3,7 +3,12 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { Form, useFormStore } from '@ariakit/react';
-import { AlertCircleIcon, FloppyDiskIcon, Link01Icon } from 'hugeicons-react';
+import {
+  AlertCircleIcon,
+  FloppyDiskIcon,
+  Link01Icon,
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/Button';
@@ -71,7 +76,7 @@ export const HabiticaUserForm: FC = () => {
         label="User ID"
         disabled={isLoading}
         placeholder="e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-        leadingIcon={<Link01Icon size={20} />}
+        leadingIcon={<HugeiconsIcon icon={Link01Icon} size={20} />}
         required
       />
 
@@ -81,13 +86,13 @@ export const HabiticaUserForm: FC = () => {
         type="password"
         disabled={isLoading}
         placeholder="••••••••••••••••••••••••••••••"
-        leadingIcon={<AlertCircleIcon size={20} />}
+        leadingIcon={<HugeiconsIcon icon={AlertCircleIcon} size={20} />}
         required
       />
 
       <div className="pt-2">
         <Button type="submit" isLoading={isLoading} disabled={isLoading}>
-          <FloppyDiskIcon size={20} className="mr-2" />
+          <HugeiconsIcon icon={FloppyDiskIcon} size={20} className="mr-2" />
           Save Configuration
         </Button>
       </div>

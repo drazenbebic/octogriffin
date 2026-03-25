@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/knip@next/schema.json",
+  "workspaces": {
+    "apps/web": {
+      "entry": ["src/app/api/**/route.ts", "src/app/**/page.tsx", "src/utils/cn.ts"],
+      "project": ["src/**/*.{ts,tsx}"],
+      "jest": false
+    },
+    "apps/api": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/database": {
+      "entry": ["src/index.ts"],
+      "project": ["src/**/*.ts"]
+    }
+  },
+  "ignore": ["**/*.test.ts", "**/*.test.tsx", "apps/web/src/generated/prisma/**/*"]
+}

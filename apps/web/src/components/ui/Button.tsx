@@ -6,8 +6,9 @@ import {
   Button as BaseButton,
   ButtonProps as BaseButtonProps,
 } from '@ariakit/react';
+import { Loading03Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { Loading03Icon } from 'hugeicons-react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'black';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -70,7 +71,11 @@ export const Button: FC<ButtonProps> = ({
       {...props}
     >
       {isLoading && (
-        <Loading03Icon size={iconSizes[size]} className="animate-spin" />
+        <HugeiconsIcon
+          icon={Loading03Icon}
+          size={iconSizes[size]}
+          className="animate-spin"
+        />
       )}
       {children}
     </BaseButton>

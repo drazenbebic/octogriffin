@@ -8,7 +8,8 @@ import {
   Search01Icon,
   Settings02Icon,
   Tick02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { DocsResourceLink } from '@/components/docs/DocsResourceLink';
@@ -64,7 +65,8 @@ export default function DocsHowToContributePage() {
           variant="flat"
           className="mt-4 flex flex-row items-start gap-3 p-4 dark:bg-slate-900/50"
         >
-          <Search01Icon
+          <HugeiconsIcon
+            icon={Search01Icon}
             className="shrink-0 text-slate-500 mt-0.5 dark:text-slate-400"
             size={20}
           />
@@ -111,7 +113,7 @@ export default function DocsHowToContributePage() {
             href="/docs/dev-setup"
             title="First time setup?"
             description="Follow our guide to configure Docker, Ngrok, and the GitHub App."
-            icon={<Settings02Icon size={18} />}
+            icon={<HugeiconsIcon icon={Settings02Icon} size={18} />}
           />
         </div>
       </DocsStep>
@@ -129,7 +131,8 @@ export default function DocsHowToContributePage() {
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <Card variant="flat" className="p-4 dark:bg-slate-900/50">
             <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
-              <GitForkIcon
+              <HugeiconsIcon
+                icon={GitForkIcon}
                 size={18}
                 className="text-violet-600 dark:text-violet-400"
               />
@@ -141,7 +144,8 @@ export default function DocsHowToContributePage() {
           </Card>
           <Card variant="flat" className="p-4 dark:bg-slate-900/50">
             <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
-              <GitForkIcon
+              <HugeiconsIcon
+                icon={GitForkIcon}
                 size={18}
                 className="text-emerald-600 dark:text-emerald-400"
               />
@@ -171,7 +175,8 @@ export default function DocsHowToContributePage() {
 
         <div className="mt-4 space-y-3">
           <div className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50/50 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/20">
-            <Tick02Icon
+            <HugeiconsIcon
+              icon={Tick02Icon}
               className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400"
               size={20}
             />
@@ -201,7 +206,8 @@ export default function DocsHowToContributePage() {
         <div className="space-y-6">
           <div>
             <div className="mb-2 flex items-center gap-2">
-              <PaintBoardIcon
+              <HugeiconsIcon
+                icon={PaintBoardIcon}
                 size={20}
                 className="text-violet-600 dark:text-violet-400"
               />
@@ -229,7 +235,8 @@ export default function DocsHowToContributePage() {
 
           <div>
             <div className="mb-2 flex items-center gap-2">
-              <Message01Icon
+              <HugeiconsIcon
+                icon={Message01Icon}
                 size={20}
                 className="text-violet-600 dark:text-violet-400"
               />

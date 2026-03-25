@@ -6,8 +6,12 @@ import {
   useFormContext,
   useStoreState,
 } from '@ariakit/react';
+import {
+  AlertCircleIcon,
+  InformationCircleIcon,
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { AlertCircleIcon, InformationCircleIcon } from 'hugeicons-react';
 
 export interface FormFeedbackProps {
   description?: string;
@@ -32,7 +36,11 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
           'mt-1.5 flex items-start gap-1.5 text-xs font-medium text-red-600 dark:text-red-400',
         )}
       >
-        <AlertCircleIcon className="mt-0.5 shrink-0" size={14} />
+        <HugeiconsIcon
+          icon={AlertCircleIcon}
+          className="mt-0.5 shrink-0"
+          size={14}
+        />
         {error as ReactNode}
       </FormError>
     );
@@ -47,7 +55,11 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
           'text-slate-400 opacity-75 dark:text-slate-500': disabled,
         })}
       >
-        <InformationCircleIcon className="mt-0.5 shrink-0" size={14} />
+        <HugeiconsIcon
+          icon={InformationCircleIcon}
+          className="mt-0.5 shrink-0"
+          size={14}
+        />
         {description}
       </FormDescription>
     );

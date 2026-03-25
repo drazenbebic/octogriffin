@@ -1,12 +1,13 @@
 import { FC, ReactNode } from 'react';
 
-import clsx from 'clsx';
 import {
   Alert01Icon,
   Alert02Icon,
   CheckmarkCircle02Icon,
   InformationCircleIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
+import clsx from 'clsx';
 
 import { Heading } from '@/components/ui/Heading';
 
@@ -17,7 +18,7 @@ const variantStyles: Record<
   {
     container: string;
     icon: string;
-    defaultIcon: FC<Record<string, string | number>>;
+    defaultIcon: IconSvgElement;
   }
 > = {
   info: {
@@ -68,13 +69,16 @@ export const Alert: FC<AlertProps> = ({
   icon,
 }) => {
   const styles = variantStyles[variant];
-  const IconComponent = styles.defaultIcon;
 
   const renderedIcon =
     icon === false ? null : icon ? (
       icon
     ) : (
-      <IconComponent size={20} className={styles.icon} variant="bulk" />
+      <HugeiconsIcon
+        icon={styles.defaultIcon}
+        size={20}
+        className={styles.icon}
+      />
     );
 
   return (

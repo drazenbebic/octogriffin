@@ -18,7 +18,7 @@ export type FormSelectProps = Omit<SelectProps, 'value' | 'setValue'> & {
 };
 
 const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50';
+  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
 
 export const FormSelect: FC<FormSelectProps> = forwardRef(
   (
@@ -61,7 +61,7 @@ export const FormSelect: FC<FormSelectProps> = forwardRef(
               required={required}
               multiple={multiple}
               placeholder={placeholder}
-              className={clsx(errorStyles, className)}
+              className={errorStyles}
               {...props}
             />
           }

@@ -1,8 +1,9 @@
 import { FC } from 'react';
 
 import { Button } from '@ariakit/react';
+import { ArrowLeft01Icon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowLeft01Icon, ArrowRight01Icon } from 'hugeicons-react';
 
 import { PaginationMeta } from '@/types/pagination';
 
@@ -75,7 +76,7 @@ export const Pagination: FC<PaginationProps> = ({
           disabled={!hasPrev}
           className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
         >
-          <ArrowLeft01Icon size={16} />
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
           <span className="hidden sm:inline">Previous</span>
         </Button>
 
@@ -94,7 +95,7 @@ export const Pagination: FC<PaginationProps> = ({
           className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
         >
           <span className="hidden sm:inline">Next</span>
-          <ArrowRight01Icon size={16} />
+          <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
         </Button>
       </div>
     </div>

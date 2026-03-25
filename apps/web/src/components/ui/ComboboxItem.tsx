@@ -7,8 +7,9 @@ import {
   ComboboxItemCheck,
   ComboboxItemProps as BaseComboboxItemProps,
 } from '@ariakit/react';
+import { Tick02Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { Tick02Icon } from 'hugeicons-react';
 
 import { MultiComboboxItemType } from '@/components/ui/MultiCombobox';
 
@@ -30,7 +31,7 @@ export const ComboboxItem: FC<ComboboxItemProps> = ({ item }) => {
     >
       <span className="truncate">{item.label}</span>
       <span className="flex items-center justify-center text-violet-600 opacity-0 transition-opacity group-aria-selected:opacity-100 dark:text-violet-400">
-        <Tick02Icon size={16} />
+        <HugeiconsIcon icon={Tick02Icon} size={16} />
         <span className="sr-only">
           <ComboboxItemCheck />
         </span>

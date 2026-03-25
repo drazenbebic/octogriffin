@@ -1,8 +1,9 @@
 import { FC, ReactNode } from 'react';
 import NextLink from 'next/link';
 
+import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowRight01Icon } from 'hugeicons-react';
 
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
@@ -48,7 +49,8 @@ export const DocsCard: FC<DocsCardProps> = ({
     </Content>
 
     <div className="mt-auto pt-4 flex items-center text-sm font-semibold text-violet-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-violet-400">
-      Read more <ArrowRight01Icon size={16} className="ml-1" />
+      Read more{' '}
+      <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="ml-1" />
     </div>
   </NextLink>
 );

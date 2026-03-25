@@ -6,7 +6,8 @@ import {
   CheckmarkCircle02Icon,
   Shield02Icon,
   StarIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { RoadmapFeatureItem } from '@/components/roadmap/RoadmapFeatureItem';
 import { RoadmapPhase } from '@/components/roadmap/RoadmapPhase';
@@ -43,7 +44,7 @@ export default function RoadmapPage() {
 
         <Pill variant="accent" className="mt-6">
           <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300">
-            <Calendar03Icon size={14} />
+            <HugeiconsIcon icon={Calendar03Icon} size={14} />
             Public Roadmap
           </span>
         </Pill>
@@ -54,7 +55,7 @@ export default function RoadmapPage() {
 
         <div className="space-y-12">
           <RoadmapPhase
-            icon={<CheckmarkCircle02Icon size={24} />}
+            icon={<HugeiconsIcon icon={CheckmarkCircle02Icon} size={24} />}
             phase="Phase 1: Control Freak"
             status="Completed"
             colorClass="text-emerald-600 bg-emerald-100 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900/50"
@@ -73,7 +74,7 @@ export default function RoadmapPage() {
           </RoadmapPhase>
 
           <RoadmapPhase
-            icon={<Shield02Icon size={24} />}
+            icon={<HugeiconsIcon icon={Shield02Icon} size={24} />}
             phase="Phase 2: Anti-Cheese"
             status="Next Up"
             colorClass="text-blue-600 bg-blue-100 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400 dark:border-blue-900/50"
@@ -92,7 +93,7 @@ export default function RoadmapPage() {
           </RoadmapPhase>
 
           <RoadmapPhase
-            icon={<StarIcon size={24} />}
+            icon={<HugeiconsIcon icon={StarIcon} size={24} />}
             phase="Phase 3: Gamification"
             status="Future Concepts"
             colorClass="text-violet-600 bg-violet-100 border-violet-200 dark:bg-violet-950/30 dark:text-violet-400 dark:border-violet-900/50"

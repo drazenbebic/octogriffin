@@ -7,8 +7,9 @@ import {
   DisclosureContent,
   DisclosureProvider,
 } from '@ariakit/react';
+import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowDown01Icon } from 'hugeicons-react';
 
 import { Heading } from '@/components/ui/Heading';
 
@@ -81,7 +82,7 @@ export const Accordion: FC<AccordionProps> = ({
                     : 'bg-white text-slate-400 group-hover:bg-violet-50 group-hover:text-violet-500 dark:bg-slate-800 dark:text-slate-500 dark:group-hover:bg-slate-700 dark:group-hover:text-violet-400',
                 )}
               >
-                <ArrowDown01Icon size={20} />
+                <HugeiconsIcon icon={ArrowDown01Icon} size={20} />
               </div>
             </Heading>
           }

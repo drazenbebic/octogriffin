@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 
+import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
 import clsx from 'clsx';
 import { BundledLanguage } from 'shiki';
 
@@ -10,7 +11,7 @@ export type CodeProps = {
   className?: string;
   language: BundledLanguage;
   disableNumbers?: boolean;
-  icon?: FC<{ [key: string]: string | number }>;
+  icon?: IconSvgElement;
 };
 
 export const Code: FC<CodeProps> = async ({
@@ -18,7 +19,7 @@ export const Code: FC<CodeProps> = async ({
   className,
   language = 'javascript',
   disableNumbers = false,
-  icon: Icon,
+  icon,
 }) => {
   const trimmed = code.join(`\n`).trim();
   const out = await codeToHtml({ code: trimmed, language });
@@ -33,7 +34,9 @@ export const Code: FC<CodeProps> = async ({
         className,
       )}
     >
-      {!!Icon && <Icon className="m-0 shrink-0" size={20} />}
+      {!!icon && (
+        <HugeiconsIcon icon={icon} className="m-0 shrink-0" size={20} />
+      )}
       <div
         className="w-full [&_>_pre]:bg-transparent!"
         suppressHydrationWarning

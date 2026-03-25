@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { FC } from 'react';
 
 import {
   AlertCircleIcon,
@@ -11,16 +10,20 @@ import {
   GitCommitIcon,
   GitForkIcon,
   GitPullRequestIcon,
-  HugeiconsProps,
   PackageIcon,
   PlayCircleIcon,
   Rocket01Icon,
   StarIcon,
   Tag01Icon,
   ZapIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import {
+  HugeiconsIcon,
+  HugeiconsIconProps,
+  IconSvgElement,
+} from '@hugeicons/react';
 
-const EVENT_ICONS: Record<string, FC<HugeiconsProps>> = {
+const EVENT_ICONS: Record<string, IconSvgElement> = {
   push: GitCommitIcon,
   create: GitBranchIcon,
   delete: GitBranchIcon,
@@ -38,19 +41,23 @@ const EVENT_ICONS: Record<string, FC<HugeiconsProps>> = {
   workflow: PlayCircleIcon,
 };
 
-export const useEventIcon = (event: string, props?: HugeiconsProps) => {
+export const useEventIcon = (
+  event: string,
+  props?: Partial<HugeiconsIconProps>,
+) => {
   return useMemo(() => {
-    let IconComponent = ZapIcon; // Default
+    let icon = ZapIcon; // Default
 
     if (EVENT_ICONS[event]) {
-      IconComponent = EVENT_ICONS[event];
+      icon = EVENT_ICONS[event];
     } else {
       const match = Object.keys(EVENT_ICONS).find(key => event.startsWith(key));
+
       if (match) {
-        IconComponent = EVENT_ICONS[match];
+        icon = EVENT_ICONS[match];
       }
     }
 
-    return <IconComponent {...props} />;
+    return <HugeiconsIcon icon={icon} {...props} />;
   }, [event, props]);
 };

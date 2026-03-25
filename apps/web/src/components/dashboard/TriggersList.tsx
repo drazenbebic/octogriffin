@@ -2,7 +2,8 @@
 
 import { FC, useEffect } from 'react';
 
-import { RefreshIcon, ZapIcon } from 'hugeicons-react';
+import { RefreshIcon, ZapIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { TriggersListItem } from '@/components/dashboard/TriggersListItem';
 import { Button } from '@/components/ui/Button';
@@ -97,7 +98,7 @@ export const TriggersList: FC<TriggersListProps> = ({
             onClick={() => fetchTriggers()}
             aria-label="Refresh triggers list"
           >
-            <RefreshIcon size={16} />
+            <HugeiconsIcon icon={RefreshIcon} size={16} />
           </ButtonIcon>
           <Button size="sm" onClick={onOpenCreateAction}>
             + New Trigger
@@ -128,7 +129,11 @@ export const TriggersList: FC<TriggersListProps> = ({
     <div className="flex h-full flex-col gap-4">
       <div className="flex h-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center dark:bg-slate-900/50 dark:border-slate-800">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
-          <ZapIcon className="text-slate-400 dark:text-slate-500" size={24} />
+          <HugeiconsIcon
+            icon={ZapIcon}
+            className="text-slate-400 dark:text-slate-500"
+            size={24}
+          />
         </div>
         <Heading level={3} size="base" className="mb-1">
           No triggers defined

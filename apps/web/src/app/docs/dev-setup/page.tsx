@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 
-import clsx from 'clsx';
 import {
   CheckmarkCircle02Icon,
   CommandLineIcon,
@@ -8,7 +7,9 @@ import {
   Globe02Icon,
   Settings01Icon,
   Tick02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import clsx from 'clsx';
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { DocsResourceLink } from '@/components/docs/DocsResourceLink';
@@ -94,7 +95,8 @@ export default function DocsDevSetupPage() {
             variant="flat"
             className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
           >
-            <CheckmarkCircle02Icon
+            <HugeiconsIcon
+              icon={CheckmarkCircle02Icon}
               className="text-emerald-500 shrink-0"
               size={24}
             />
@@ -104,7 +106,8 @@ export default function DocsDevSetupPage() {
             variant="flat"
             className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
           >
-            <CheckmarkCircle02Icon
+            <HugeiconsIcon
+              icon={CheckmarkCircle02Icon}
               className="text-emerald-500 shrink-0"
               size={24}
             />
@@ -124,7 +127,7 @@ export default function DocsDevSetupPage() {
           href="/docs/setting-up-ngrok"
           title="Set up Ngrok Tunnel"
           description="Required to receive webhook events locally."
-          icon={<Globe02Icon size={18} />}
+          icon={<HugeiconsIcon icon={Globe02Icon} size={18} />}
         />
 
         <Alert variant="info" title="Alternatives">
@@ -283,7 +286,11 @@ export default function DocsDevSetupPage() {
                   key={event}
                   className="flex items-center gap-2.5 rounded-lg bg-white px-3 py-2 text-sm text-slate-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800"
                 >
-                  <Tick02Icon className="text-emerald-500 shrink-0" size={16} />
+                  <HugeiconsIcon
+                    icon={Tick02Icon}
+                    className="text-emerald-500 shrink-0"
+                    size={16}
+                  />
                   <span className="font-medium">{event}</span>
                 </div>
               ))}
@@ -333,7 +340,11 @@ export default function DocsDevSetupPage() {
       <DocsStep step={5} heading="Configure Environment">
         <div className="space-y-2">
           <Heading className="flex items-center gap-2" size="base" level={4}>
-            <Folder01Icon size={16} className="text-slate-400" />
+            <HugeiconsIcon
+              icon={Folder01Icon}
+              size={16}
+              className="text-slate-400"
+            />
             Copy Configuration Files
           </Heading>
           <Code
@@ -352,7 +363,11 @@ export default function DocsDevSetupPage() {
 
         <div className="space-y-2 pt-2">
           <Heading className="flex items-center gap-2" size="base" level={4}>
-            <Settings01Icon size={16} className="text-slate-400" />
+            <HugeiconsIcon
+              icon={Settings01Icon}
+              size={16}
+              className="text-slate-400"
+            />
             Fill <code className="text-sm">apps/web/.env.local</code>
           </Heading>
           <Content>

@@ -2,15 +2,16 @@
 
 import { FC } from 'react';
 
-import clsx from 'clsx';
-import { format } from 'date-fns';
 import {
   GitCommitIcon,
   GitPullRequestIcon,
   PackageIcon,
   SourceCodeIcon,
   ZapIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import clsx from 'clsx';
+import { format } from 'date-fns';
 
 import { Content } from '@/components/ui/Content';
 import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
@@ -18,7 +19,7 @@ import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
 const getEventConfig = (event: string) => {
   if (event.includes('push')) {
     return {
-      icon: <GitCommitIcon size={18} />,
+      icon: <HugeiconsIcon icon={GitCommitIcon} size={18} />,
       label: 'Push Event',
       color:
         'text-violet-600 bg-violet-50 dark:bg-violet-950/50 dark:text-violet-400',
@@ -26,21 +27,21 @@ const getEventConfig = (event: string) => {
   }
   if (event.includes('pull_request')) {
     return {
-      icon: <GitPullRequestIcon size={18} />,
+      icon: <HugeiconsIcon icon={GitPullRequestIcon} size={18} />,
       label: 'Pull Request',
       color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 dark:text-blue-400',
     };
   }
   if (event.includes('issue')) {
     return {
-      icon: <SourceCodeIcon size={18} />,
+      icon: <HugeiconsIcon icon={SourceCodeIcon} size={18} />,
       label: 'Issue Event',
       color:
         'text-amber-600 bg-amber-50 dark:bg-amber-950/50 dark:text-amber-400',
     };
   }
   return {
-    icon: <ZapIcon size={18} />,
+    icon: <HugeiconsIcon icon={ZapIcon} size={18} />,
     label: event,
     color: 'text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-slate-400',
   };
@@ -68,12 +69,7 @@ export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
 
         <div className="space-y-1 overflow-hidden">
           <div className="flex items-center gap-2">
-            <Content className="font-semibold text-slate-900 dark:text-slate-100">
-              {config.label}
-            </Content>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">
-              {config.label}
-            </span>
+            <Content className="font-semibold">{config.label}</Content>
             <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500 uppercase tracking-wider dark:bg-slate-800 dark:text-slate-400">
               {log.event}
             </span>
@@ -83,7 +79,7 @@ export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
             className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400"
             title="Delivery UUID"
           >
-            <PackageIcon size={14} className="shrink-0" />
+            <HugeiconsIcon icon={PackageIcon} size={14} className="shrink-0" />
             <span className="truncate font-mono">{log.deliveryUuid}</span>
           </div>
         </div>

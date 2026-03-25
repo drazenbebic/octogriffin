@@ -10,8 +10,9 @@ import {
   ComboboxPopover,
   ComboboxProvider,
 } from '@ariakit/react';
+import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowDown01Icon } from 'hugeicons-react';
 import groupBy from 'lodash/groupBy';
 import { matchSorter } from 'match-sorter';
 
@@ -113,7 +114,7 @@ export const MultiCombobox: FC<MultiComboboxProps> = ({
             {...props}
           />
           <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
-            <ArrowDown01Icon size={16} />
+            <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
           </div>
         </div>
 

@@ -1,7 +1,11 @@
 import { Metadata } from 'next';
 import NextLink from 'next/link';
 
-import { CheckmarkCircle02Icon, CommandLineIcon } from 'hugeicons-react';
+import {
+  CheckmarkCircle02Icon,
+  CommandLineIcon,
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { DocsStep } from '@/components/docs/DocsStep';
@@ -153,7 +157,8 @@ export default function DocsSettingUpNgrokPage() {
         />
 
         <div className="mt-4 flex items-start gap-3 rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
-          <CheckmarkCircle02Icon
+          <HugeiconsIcon
+            icon={CheckmarkCircle02Icon}
             className="shrink-0 text-emerald-600 dark:text-emerald-400"
             size={20}
           />

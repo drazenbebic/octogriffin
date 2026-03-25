@@ -11,8 +11,9 @@ import {
   FormSubmit,
   useFormStore,
 } from '@ariakit/react';
+import { ArrowDown01Icon, ZapIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowDown01Icon, ZapIcon } from 'hugeicons-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/Button';
@@ -96,7 +97,7 @@ export const AddTriggerModal: FC<AddTriggerModalProps> = ({
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-              <ZapIcon size={20} />
+              <HugeiconsIcon icon={ZapIcon} size={20} />
             </div>
             <Heading as="h2" size="lg">
               New Trigger
@@ -188,7 +189,8 @@ export const AddTriggerModal: FC<AddTriggerModalProps> = ({
                 )}
               >
                 <span>Advanced Settings</span>
-                <ArrowDown01Icon
+                <HugeiconsIcon
+                  icon={ArrowDown01Icon}
                   size={16}
                   className="text-slate-400 transition-transform group-aria-expanded:rotate-180 dark:text-slate-500"
                 />

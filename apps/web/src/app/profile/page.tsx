@@ -10,7 +10,8 @@ import {
   Globe02Icon,
   Location01Icon,
   Mail01Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { getUserProfileAction } from '@/actions/getUserProfileAction';
 import { AuthGate } from '@/components/AuthGate';
@@ -122,31 +123,31 @@ export default async function ProfilePage() {
 
               <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
                 <DetailRow
-                  icon={<Mail01Icon size={18} />}
+                  icon={<HugeiconsIcon icon={Mail01Icon} size={18} />}
                   label="Email Address"
                   value={profile.email}
                   fallback="Not public"
                 />
                 <DetailRow
-                  icon={<Building03Icon size={18} />}
+                  icon={<HugeiconsIcon icon={Building03Icon} size={18} />}
                   label="Company"
                   value={profile.company}
                   fallback="Freelance"
                 />
                 <DetailRow
-                  icon={<Location01Icon size={18} />}
+                  icon={<HugeiconsIcon icon={Location01Icon} size={18} />}
                   label="Location"
                   value={profile.location}
                   fallback="Unknown Realm"
                 />
                 <DetailRow
-                  icon={<Globe02Icon size={18} />}
+                  icon={<HugeiconsIcon icon={Globe02Icon} size={18} />}
                   label="Website"
                   value={profile.website}
                   isLink
                 />
                 <DetailRow
-                  icon={<GithubIcon size={18} />}
+                  icon={<HugeiconsIcon icon={GithubIcon} size={18} />}
                   label="GitHub Profile"
                   value={profile.githubUrl}
                   isLink

@@ -7,7 +7,8 @@ import {
   FavouriteIcon,
   Rocket01Icon,
   ZapIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -33,7 +34,11 @@ export default function SponsorsPage() {
       <div className="mb-16 flex flex-col items-center text-center">
         <Pill variant="accent" className="mb-6">
           <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300">
-            <FavouriteIcon size={14} className="text-rose-500 fill-rose-500" />
+            <HugeiconsIcon
+              icon={FavouriteIcon}
+              size={14}
+              className="text-rose-500 fill-rose-500"
+            />
             Community Supported
           </span>
         </Pill>
@@ -58,12 +63,12 @@ export default function SponsorsPage() {
           className="relative overflow-hidden border-violet-100 bg-linear-to-b from-white to-violet-50/50 dark:border-violet-900/50 dark:from-slate-900 dark:to-violet-950/20"
         >
           <div className="pointer-events-none absolute -right-12 -top-12 opacity-5 dark:opacity-10 dark:text-violet-400">
-            <ChampionIcon size={200} />
+            <HugeiconsIcon icon={ChampionIcon} size={200} />
           </div>
 
           <CardBody className="flex flex-col items-center py-12 text-center">
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900/30 dark:text-violet-400 dark:ring-slate-900">
-              <Rocket01Icon size={32} />
+              <HugeiconsIcon icon={Rocket01Icon} size={32} />
             </div>
 
             <Heading level={2} size="2xl" className="mb-2">
@@ -85,13 +90,17 @@ export default function SponsorsPage() {
                   size="lg"
                   className="border-[#D63E9A] bg-[#EA4AAA] shadow-lg shadow-rose-200/50 hover:bg-[#D63E9A]! dark:shadow-none"
                 >
-                  <FavouriteIcon size={20} className="fill-white/20" />
+                  <HugeiconsIcon
+                    icon={FavouriteIcon}
+                    size={20}
+                    className="fill-white/20"
+                  />
                   Sponsor on GitHub
                 </Button>
               </Link>
               <Link href="https://ko-fi.com/drazen" target="_blank">
                 <Button variant="secondary" size="lg">
-                  <Coffee02Icon size={20} />
+                  <HugeiconsIcon icon={Coffee02Icon} size={20} />
                   Buy me a Coffee
                 </Button>
               </Link>
@@ -108,7 +117,7 @@ export default function SponsorsPage() {
           <CardBody>
             <div className="mb-4 flex items-center justify-between">
               <div className="rounded-lg bg-stone-100 p-2 text-stone-600 dark:bg-stone-900 dark:text-stone-400">
-                <Coffee02Icon size={24} />
+                <HugeiconsIcon icon={Coffee02Icon} size={24} />
               </div>
               <span className="text-xl font-bold text-slate-900 dark:text-slate-100">
                 $2 / mo
@@ -141,7 +150,8 @@ export default function SponsorsPage() {
           <CardBody>
             <div className="mb-4 flex items-center justify-between">
               <div className="rounded-lg bg-amber-100 p-2 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
-                <ZapIcon
+                <HugeiconsIcon
+                  icon={ZapIcon}
                   size={24}
                   className="fill-amber-600 dark:fill-amber-400"
                 />
@@ -181,7 +191,7 @@ export default function SponsorsPage() {
           <CardBody>
             <div className="mb-4 flex items-center justify-between">
               <div className="rounded-lg bg-violet-100 p-2 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-                <ChampionIcon size={24} />
+                <HugeiconsIcon icon={ChampionIcon} size={24} />
               </div>
               <span className="text-xl font-bold text-violet-600 dark:text-violet-400">
                 $15 / mo

@@ -1,8 +1,9 @@
 import { forwardRef, ReactNode, useState } from 'react';
 
 import { FormInput as BaseFormInput } from '@ariakit/react';
+import { ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ViewIcon, ViewOffIcon } from 'hugeicons-react';
 
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
 import { FormFeedback } from '@/components/ui/FormFeedback';
@@ -90,11 +91,10 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                 className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
               >
-                {isPasswordVisible ? (
-                  <ViewOffIcon size={18} />
-                ) : (
-                  <ViewIcon size={18} />
-                )}
+                <HugeiconsIcon
+                  icon={isPasswordVisible ? ViewOffIcon : ViewIcon}
+                  size={18}
+                />
               </ButtonIcon>
             </div>
           )}

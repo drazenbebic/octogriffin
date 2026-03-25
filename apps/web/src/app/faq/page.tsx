@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
-import { HelpCircleIcon, Mail01Icon } from 'hugeicons-react';
+import { HelpCircleIcon, Mail01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Link } from '@/components/Link';
 import { Accordion } from '@/components/ui/Accordion';
@@ -269,7 +270,7 @@ export default function FaqPage() {
     <div className="mx-auto max-w-3xl px-4 py-12">
       <div className="mb-12 text-center">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-          <HelpCircleIcon size={32} />
+          <HugeiconsIcon icon={HelpCircleIcon} size={32} />
         </div>
         <Heading level={1} size="3xl" className="mb-4">
           Frequently Asked Questions
@@ -334,7 +335,7 @@ export default function FaqPage() {
         </Content>
         <Link href={`mailto:${supportEmail()}`}>
           <Button size="lg" variant="secondary">
-            <Mail01Icon size={20} className="mr-2" />
+            <HugeiconsIcon icon={Mail01Icon} size={20} className="mr-2" />
             Contact Support
           </Button>
         </Link>

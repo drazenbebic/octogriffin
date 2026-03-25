@@ -5,14 +5,15 @@ import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Dialog, DialogDisclosure, useDialogStore } from '@ariakit/react';
-import clsx from 'clsx';
 import {
   ArrowRight01Icon,
   Cancel01Icon,
   GithubIcon,
   Globe02Icon,
   Menu01Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import clsx from 'clsx';
 
 import { Content } from '@/components/ui/Content';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
@@ -41,7 +42,11 @@ export const MobileMenu: FC = () => {
         className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-lg text-slate-600 transition-colors hover:bg-slate-100 active:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 dark:active:bg-slate-700 md:hidden"
         aria-label={open ? 'Close Menu' : 'Open Menu'}
       >
-        {open ? <Cancel01Icon size={20} /> : <Menu01Icon size={20} />}
+        {open ? (
+          <HugeiconsIcon icon={Cancel01Icon} size={20} />
+        ) : (
+          <HugeiconsIcon icon={Menu01Icon} size={20} />
+        )}
       </DialogDisclosure>
 
       <Dialog
@@ -86,7 +91,8 @@ export const MobileMenu: FC = () => {
                     </span>
                   </div>
 
-                  <ArrowRight01Icon
+                  <HugeiconsIcon
+                    icon={ArrowRight01Icon}
                     size={24}
                     className={clsx(
                       'transition-all duration-300',
@@ -109,7 +115,7 @@ export const MobileMenu: FC = () => {
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-900 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-100 dark:hover:text-slate-900"
                 aria-label="GitHub Repository"
               >
-                <GithubIcon size={20} />
+                <HugeiconsIcon icon={GithubIcon} size={20} />
               </NextLink>
               <NextLink
                 href="https://www.bebic.dev"
@@ -118,7 +124,7 @@ export const MobileMenu: FC = () => {
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-violet-600 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-violet-600 dark:hover:text-white"
                 aria-label="Drazen Bebic Homepage"
               >
-                <Globe02Icon size={20} />
+                <HugeiconsIcon icon={Globe02Icon} size={20} />
               </NextLink>
             </div>
             <Content size="sm" color="note">

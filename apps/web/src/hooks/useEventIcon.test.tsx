@@ -1,11 +1,12 @@
-import { renderHook } from '@testing-library/react';
 import {
   AlertCircleIcon,
   GitBranchIcon,
   GitCommitIcon,
   GitPullRequestIcon,
   ZapIcon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { renderHook } from '@testing-library/react';
 
 import { useEventIcon } from './useEventIcon';
 
@@ -14,34 +15,41 @@ describe('useEventIcon', () => {
     const { result } = renderHook(() => useEventIcon('push'));
 
     // Check if the returned JSX element is of the correct component type
-    expect(result.current.type).toBe(GitCommitIcon);
+    expect(result.current.type).toBe(HugeiconsIcon);
+    expect(result.current.props.icon).toBe(GitCommitIcon);
   });
 
   it('should return GitPullRequestIcon for "pull_request.opened" (Prefix Match)', () => {
     // "pull_request" is in the map, so "pull_request.opened" should match via startsWith
     const { result } = renderHook(() => useEventIcon('pull_request.opened'));
 
-    expect(result.current.type).toBe(GitPullRequestIcon);
+    expect(result.current.type).toBe(HugeiconsIcon);
+    expect(result.current.props.icon).toBe(GitPullRequestIcon);
   });
 
   it('should return AlertCircleIcon for "issue.comment" (Prefix Match)', () => {
     const { result } = renderHook(() => useEventIcon('issue.comment'));
 
-    expect(result.current.type).toBe(AlertCircleIcon);
+    expect(result.current.type).toBe(HugeiconsIcon);
+    expect(result.current.props.icon).toBe(AlertCircleIcon);
   });
 
   it('should return GitBranchIcon for "create" and "delete" (Exact Match Group)', () => {
     const { result: createResult } = renderHook(() => useEventIcon('create'));
     const { result: deleteResult } = renderHook(() => useEventIcon('delete'));
 
-    expect(createResult.current.type).toBe(GitBranchIcon);
-    expect(deleteResult.current.type).toBe(GitBranchIcon);
+    expect(createResult.current.type).toBe(HugeiconsIcon);
+    expect(createResult.current.props.icon).toBe(GitBranchIcon);
+
+    expect(deleteResult.current.type).toBe(HugeiconsIcon);
+    expect(deleteResult.current.props.icon).toBe(GitBranchIcon);
   });
 
   it('should return ZapIcon for unknown events (Fallback)', () => {
     const { result } = renderHook(() => useEventIcon('unknown.event.type'));
 
-    expect(result.current.type).toBe(ZapIcon);
+    expect(result.current.type).toBe(HugeiconsIcon);
+    expect(result.current.props.icon).toBe(ZapIcon);
   });
 
   it('should pass props correctly to the icon', () => {

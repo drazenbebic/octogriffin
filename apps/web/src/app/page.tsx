@@ -13,7 +13,8 @@ import {
   Settings01Icon,
   StarIcon,
   Target02Icon,
-} from 'hugeicons-react';
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { RewardRow } from '@/components/RewardRow';
 import { Button } from '@/components/ui/Button';
@@ -90,7 +91,8 @@ export default function HomePage() {
               className="flex items-center gap-1 group-hover:text-violet-600 transition-colors"
             >
               <span className="text-xs font-medium">Changelog</span>
-              <ArrowRight01Icon
+              <HugeiconsIcon
+                icon={ArrowRight01Icon}
                 size={14}
                 className="-ml-1 translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
               />
@@ -114,13 +116,13 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link href="/installation">
                 <Button size="lg">
-                  <Rocket01Icon size={20} />
+                  <HugeiconsIcon icon={Rocket01Icon} size={20} />
                   Get Started
                 </Button>
               </Link>
               <Link href={githubRepositoryUrl()} target="_blank">
                 <Button variant="black" size="lg">
-                  <GithubIcon size={20} />
+                  <HugeiconsIcon icon={GithubIcon} size={20} />
                   Open Source
                 </Button>
               </Link>
@@ -161,7 +163,7 @@ export default function HomePage() {
           >
             <CardBody className="items-center text-center">
               <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-600 shadow-inner ring-4 ring-white dark:from-blue-950 dark:to-blue-900/40 dark:text-blue-400 dark:ring-slate-900">
-                <GithubIcon size={32} />
+                <HugeiconsIcon icon={GithubIcon} size={32} />
                 <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white ring-2 ring-white dark:ring-slate-900">
                   1
                 </div>
@@ -179,7 +181,7 @@ export default function HomePage() {
           <Card variant="elevated" isHoverable>
             <CardBody className="items-center text-center">
               <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-violet-50 to-violet-100 text-violet-600 shadow-inner ring-4 ring-white dark:from-violet-950 dark:to-violet-900/40 dark:text-violet-400 dark:ring-slate-900">
-                <CheckmarkCircle01Icon size={32} />
+                <HugeiconsIcon icon={CheckmarkCircle01Icon} size={32} />
                 <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white ring-2 ring-white dark:ring-slate-900">
                   2
                 </div>
@@ -201,7 +203,7 @@ export default function HomePage() {
           >
             <CardBody className="items-center text-center">
               <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-600 shadow-inner ring-4 ring-white dark:from-emerald-950 dark:to-emerald-900/40 dark:text-emerald-400 dark:ring-slate-900">
-                <GitMergeIcon size={32} />
+                <HugeiconsIcon icon={GitMergeIcon} size={32} />
                 <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white ring-2 ring-white dark:ring-slate-900">
                   3
                 </div>
@@ -226,10 +228,14 @@ export default function HomePage() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] bg-size-[20px_20px] opacity-[0.04] dark:bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] dark:opacity-[0.1]" />
 
           <div className="pointer-events-none absolute -left-8 -top-8 text-violet-200/60 opacity-50 dark:text-violet-900/40">
-            <StarIcon size={80} className="-rotate-12" />
+            <HugeiconsIcon icon={StarIcon} size={80} className="-rotate-12" />
           </div>
           <div className="pointer-events-none absolute -bottom-8 -right-8 text-violet-200/60 opacity-50 dark:text-violet-900/40">
-            <Target02Icon size={80} className="rotate-12" />
+            <HugeiconsIcon
+              icon={Target02Icon}
+              size={80}
+              className="rotate-12"
+            />
           </div>
 
           <CardBody className="relative z-10 flex flex-col items-center px-6 py-12 sm:px-12">
@@ -237,7 +243,11 @@ export default function HomePage() {
               variant="neutral"
               className="mb-4 inline-flex items-center gap-1.5 border-violet-200 bg-white/80 shadow-xs backdrop-blur-sm dark:border-violet-900/50 dark:bg-slate-900/80"
             >
-              <Rocket01Icon size={14} className="shrink-0" />
+              <HugeiconsIcon
+                icon={Rocket01Icon}
+                size={14}
+                className="shrink-0"
+              />
               <Content
                 color="violet"
                 as="span"
@@ -265,7 +275,7 @@ export default function HomePage() {
                 size="lg"
                 className="shadow-lg shadow-violet-200/50 dark:shadow-none"
               >
-                <Calendar03Icon size={20} />
+                <HugeiconsIcon icon={Calendar03Icon} size={20} />
                 View Roadmap
               </Button>
             </Link>
@@ -290,31 +300,55 @@ export default function HomePage() {
                 </Content>
               </div>
               <div className="hidden h-10 w-10 items-center justify-center rounded-full bg-violet-50 text-violet-600 sm:flex dark:bg-violet-900/30 dark:text-violet-400">
-                <Settings01Icon size={20} />
+                <HugeiconsIcon icon={Settings01Icon} size={20} />
               </div>
             </div>
 
             <div className="flex flex-col gap-4">
               <RewardRow
-                icon={<GitCommitIcon size={20} className="text-emerald-500" />}
+                icon={
+                  <HugeiconsIcon
+                    icon={GitCommitIcon}
+                    size={20}
+                    className="text-emerald-500"
+                  />
+                }
                 action="Triggers"
                 reward="Commits, PRs, Merges & Reviews, and muuuuuch more!"
                 badgeVariant="success"
               />
               <RewardRow
-                icon={<Target02Icon size={20} className="text-blue-500" />}
+                icon={
+                  <HugeiconsIcon
+                    icon={Target02Icon}
+                    size={20}
+                    className="text-blue-500"
+                  />
+                }
                 action="Difficulty"
                 reward="Trivial, Easy, Medium or Hard"
                 badgeVariant="info"
               />
               <RewardRow
-                icon={<StarIcon size={20} className="text-amber-500" />}
+                icon={
+                  <HugeiconsIcon
+                    icon={StarIcon}
+                    size={20}
+                    className="text-amber-500"
+                  />
+                }
                 action="Rewards"
                 reward="Reward with XP/Gold, or lose Health!"
                 badgeVariant="warning"
               />
               <RewardRow
-                icon={<GitBranchIcon size={20} className="text-violet-500" />}
+                icon={
+                  <HugeiconsIcon
+                    icon={GitBranchIcon}
+                    size={20}
+                    className="text-violet-500"
+                  />
+                }
                 action="Scope"
                 reward="Global or Repository specific"
               />

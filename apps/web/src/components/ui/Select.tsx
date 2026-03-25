@@ -19,8 +19,9 @@ import {
   useSelectStore,
   useStoreState,
 } from '@ariakit/react';
+import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { ArrowDown01Icon } from 'hugeicons-react';
 
 import { SelectItemProps } from '@/components/ui/SelectItem';
 
@@ -149,7 +150,10 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
           </span>
 
           <SelectArrow>
-            <ArrowDown01Icon className="h-4 w-4 text-slate-400" />
+            <HugeiconsIcon
+              icon={ArrowDown01Icon}
+              className="h-4 w-4 text-slate-400"
+            />
           </SelectArrow>
         </BaseSelect>
 

@@ -1,10 +1,11 @@
 'use client';
 
-import { ComponentProps, FC, forwardRef } from 'react';
+import { ComponentProps, forwardRef } from 'react';
 
 import { Button } from '@ariakit/react';
+import { Loading03Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
 import clsx from 'clsx';
-import { Loading03Icon } from 'hugeicons-react';
 
 type ButtonIconSize = 'sm' | 'md' | 'lg';
 type ButtonIconVariant = 'primary' | 'secondary' | 'ghost' | 'black';
@@ -16,7 +17,7 @@ export type ButtonIconProps = ComponentProps<'button'> & {
   shape?: ButtonIconShape;
   isLoading?: boolean;
   disableAnimation?: boolean;
-  icon?: FC<{ size?: number; className?: string }>;
+  icon?: IconSvgElement;
 };
 
 const baseStyles =
@@ -68,8 +69,6 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
   ) => {
     const shouldAnimate = !disableAnimation && variant !== 'ghost';
 
-    const Icon = icon;
-
     return (
       <Button
         ref={ref}
@@ -89,9 +88,13 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
         {...props}
       >
         {isLoading ? (
-          <Loading03Icon size={iconSizes[size]} className="animate-spin" />
-        ) : Icon ? (
-          <Icon size={iconSizes[size]} />
+          <HugeiconsIcon
+            icon={Loading03Icon}
+            size={iconSizes[size]}
+            className="animate-spin"
+          />
+        ) : icon ? (
+          <HugeiconsIcon icon={icon} size={iconSizes[size]} />
         ) : (
           children
         )}

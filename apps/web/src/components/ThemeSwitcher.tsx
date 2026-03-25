@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 
-import { Moon01Icon, Sun01Icon } from 'hugeicons-react';
+import { Moon01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
 

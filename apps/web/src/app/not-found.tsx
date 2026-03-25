@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { Home01Icon, Search01Icon } from 'hugeicons-react';
+import { Home01Icon, Search01Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Button } from '@/components/ui/Button';
 import { Content } from '@/components/ui/Content';
@@ -17,7 +18,7 @@ export default function NotFound() {
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
       <div className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-violet-50 text-violet-600 ring-1 ring-violet-100 dark:bg-violet-900/30 dark:text-violet-400 dark:ring-violet-900/50">
         <div className="absolute inset-0 rounded-3xl bg-violet-600/10 blur-xl dark:bg-violet-900/20" />
-        <Search01Icon size={48} />
+        <HugeiconsIcon icon={Search01Icon} size={48} />
       </div>
 
       <Heading level={1} size="3xl" className="mb-4">
@@ -31,7 +32,7 @@ export default function NotFound() {
 
       <Link href="/">
         <Button size="lg">
-          <Home01Icon size={20} className="mr-2" />
+          <HugeiconsIcon icon={Home01Icon} size={20} className="mr-2" />
           Return to Tavern
         </Button>
       </Link>

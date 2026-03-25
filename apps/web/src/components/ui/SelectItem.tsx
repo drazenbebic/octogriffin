@@ -5,8 +5,9 @@ import {
   SelectItemCheck,
   SelectItemProps as BaseSelectItemProps,
 } from '@ariakit/react';
+import { Tick02Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import clsx from 'clsx';
-import { Tick02Icon } from 'hugeicons-react';
 
 export type SelectItemProps = BaseSelectItemProps;
 
@@ -25,7 +26,10 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
         <span className="truncate">{children || props.value}</span>
 
         <SelectItemCheck>
-          <Tick02Icon className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+          <HugeiconsIcon
+            icon={Tick02Icon}
+            className="h-4 w-4 text-violet-600 dark:text-violet-400"
+          />
         </SelectItemCheck>
       </BaseSelectItem>
     );

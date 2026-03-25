@@ -1,6 +1,10 @@
 import { FC, ReactNode } from 'react';
 
-import { Activity01Icon, FlashIcon, Settings01Icon } from 'hugeicons-react';
+import {
+  Activity01Icon,
+  FlashIcon,
+  Settings01Icon,
+} from '@hugeicons/core-free-icons';
 
 import { TabItem } from '@/app/dashboard/components/TabItem';
 import { TabList } from '@/app/dashboard/components/TabList';
