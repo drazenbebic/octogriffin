@@ -89,7 +89,7 @@ export const EditTriggerModal: FC<EditWebhookTriggerModalProps> = ({
 
   return (
     <DialogProvider open={open} setOpen={setOpenAction}>
-      <Dialog className="sm:max-w-2xl">
+      <Dialog className="sm:max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
