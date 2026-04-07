@@ -6,7 +6,7 @@
   "license": "AGPL-3.0",
   "type": "module",
   "dependencies": {
-    "hono": "^4.12.9"
+    "hono": "^4.12.10"
   },
   "devDependencies": {
     "@types/node": "^24",
