@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { JsonLd } from '@/components/JsonLd';
+import { LegalPage } from '@/components/LegalPage';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { imprintJsonLd } from '@/json-ld/imprint';
@@ -23,14 +24,7 @@ export default function ImprintPage() {
   return (
     <>
       <JsonLd data={imprintJsonLd} />
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:py-20">
-        <div className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
-          <Heading level={1} className="mb-4">
-            Imprint
-          </Heading>
-          <Content size="lg">Legal Disclosure</Content>
-        </div>
-
+      <LegalPage title="Imprint" subtitle="Legal Disclosure">
         <div className="flex flex-col gap-10">
           {/* 1. Information according to § 5 ECG */}
           <section>
@@ -176,7 +170,7 @@ export default function ImprintPage() {
             </div>
           </section>
         </div>
-      </div>
+      </LegalPage>
     </>
   );
 }

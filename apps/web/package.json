@@ -42,7 +42,6 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
-    "date-fns": "^4.4.0",
     "lodash": "^4.18.1",
     "match-sorter": "^8.3.0",
     "next": "^16.2.6",

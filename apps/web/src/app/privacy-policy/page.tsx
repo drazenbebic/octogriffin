@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { Mail01Icon } from '@hugeicons/core-free-icons';
 
 import { JsonLd } from '@/components/JsonLd';
+import { LegalPage } from '@/components/LegalPage';
 import { Callout } from '@/components/ui/Callout';
 import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
@@ -28,14 +29,10 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <JsonLd data={privacyJsonLd} />
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:py-20">
-        <div className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
-          <Heading level={1} className="mb-4">
-            Privacy Policy
-          </Heading>
-          <Content size="lg">Last updated: {LAST_UPDATED}</Content>
-        </div>
-
+      <LegalPage
+        title="Privacy Policy"
+        subtitle={`Last updated: ${LAST_UPDATED}`}
+      >
         <div className="flex flex-col gap-10">
           {/* 1. Introduction */}
           <section>
@@ -225,7 +222,7 @@ export default function PrivacyPolicyPage() {
             }}
           />
         </div>
-      </div>
+      </LegalPage>
     </>
   );
 }

@@ -10,11 +10,21 @@ import {
   ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { format } from 'date-fns';
 
 import { Content } from '@/components/ui/Content';
+import { Timestamp } from '@/components/ui/Timestamp';
 import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
 import { cn } from '@/utils/cn';
+
+const TIMESTAMP_OPTIONS: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false,
+};
 
 const getEventConfig = (event: string) => {
   if (event.includes('push')) {
@@ -53,7 +63,6 @@ type WebhookLogsListItemProps = {
 
 export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
   const config = getEventConfig(log.event);
-  const formattedDate = format(new Date(log.createdAt), 'MMM d, yyyy HH:mm:ss');
 
   return (
     <div className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between transition-all hover:shadow-md dark:bg-slate-900 dark:ring-slate-800">
@@ -86,7 +95,7 @@ export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
       </div>
 
       <div className="flex shrink-0 items-center gap-2 text-xs font-medium text-slate-400 sm:text-right dark:text-slate-500">
-        <span>{formattedDate}</span>
+        <Timestamp date={new Date(log.createdAt)} options={TIMESTAMP_OPTIONS} />
       </div>
     </div>
   );
