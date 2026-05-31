@@ -5,7 +5,7 @@ import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 
-import prettierConfig from './prettier.config.mjs';
+import prettierConfig from '../../prettier.config.mjs';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
