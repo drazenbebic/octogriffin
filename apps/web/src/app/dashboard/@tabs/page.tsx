@@ -2,15 +2,14 @@
 
 import { useState } from 'react';
 
-import { AddTriggerModal } from '@/components/dashboard/AddTriggerModal';
 import { DeleteTriggerModal } from '@/components/dashboard/DeleteTriggerModal';
-import { EditTriggerModal } from '@/components/dashboard/EditTriggerModal';
+import { TriggerModal } from '@/components/dashboard/TriggerModal';
 import { TriggersList } from '@/components/dashboard/TriggersList';
 import { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { TriggerWithRepos } from '@/types/triggers';
 
 export default function DashboardPage() {
-  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [editingTrigger, setEditingTrigger] = useState<TriggerWithRepos | null>(
     null,
   );
@@ -18,38 +17,34 @@ export default function DashboardPage() {
     null,
   );
 
+  const handleOpenCreate = () => {
+    setEditingTrigger(null);
+    setModalOpen(true);
+  };
+
+  const handleOpenEdit = (trigger: TriggersModel) => {
+    setEditingTrigger(trigger as TriggerWithRepos);
+    setModalOpen(true);
+  };
+
   return (
     <>
       <TriggersList
-        onOpenCreateAction={() => setCreateModalOpen(true)}
+        onOpenCreateAction={handleOpenCreate}
         onOpenDeleteAction={trigger => setDeletingTrigger(trigger)}
-        onOpenEditAction={trigger =>
-          setEditingTrigger(trigger as TriggerWithRepos)
-        }
-      />
-      <AddTriggerModal
-        open={isCreateModalOpen}
-        setOpenAction={setCreateModalOpen}
-        onSuccessAction={() => {
-          setCreateModalOpen(false);
-        }}
+        onOpenEditAction={handleOpenEdit}
       />
 
-      {editingTrigger && (
-        <EditTriggerModal
-          key={`edit-${editingTrigger.uuid}`}
-          trigger={editingTrigger}
-          open={!!editingTrigger}
-          setOpenAction={open => {
-            if (!open) {
-              setEditingTrigger(null);
-            }
-          }}
-          onSuccessAction={() => {
-            setEditingTrigger(null);
-          }}
-        />
-      )}
+      <TriggerModal
+        key={editingTrigger ? `edit-${editingTrigger.uuid}` : 'create'}
+        open={isModalOpen}
+        setOpenAction={setModalOpen}
+        trigger={editingTrigger || undefined}
+        onSuccessAction={() => {
+          setModalOpen(false);
+          setEditingTrigger(null);
+        }}
+      />
 
       {deletingTrigger && (
         <DeleteTriggerModal
