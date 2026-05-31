@@ -13,7 +13,6 @@
       "ignoreDependencies": [
         "@prisma/client",
         "@types/pg",
-        "@typescript-eslint/parser",
         "@typescript-eslint/utils",
         "husky",
         "jest-environment-jsdom",
