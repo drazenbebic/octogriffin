@@ -15,10 +15,6 @@
     "knip": "knip",
     "prepare": "husky"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
@@ -29,5 +25,5 @@
     "prettier": "^3.8.3",
     "turbo": "^2.9.16"
   },
-  "packageManager": "yarn@4.15.0"
+  "packageManager": "pnpm@11.5.0"
 }
