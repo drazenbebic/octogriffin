@@ -10,11 +10,11 @@ import {
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { MultiComboboxItemType } from '@/components/ui/MultiCombobox';
+import { ComboboxItemType } from '@/components/ui/Combobox';
 import { cn } from '@/utils/cn';
 
 export type ComboboxItemProps = BaseComboboxItemProps & {
-  item: MultiComboboxItemType;
+  item: ComboboxItemType;
 };
 
 export const ComboboxItem: FC<ComboboxItemProps> = ({ item }) => {

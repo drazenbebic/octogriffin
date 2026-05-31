@@ -28,7 +28,6 @@ import { Dialog } from '@/components/ui/Dialog';
 import { DialogDismiss } from '@/components/ui/DialogDismiss';
 import { FormCombobox } from '@/components/ui/FormCombobox';
 import { FormInput } from '@/components/ui/FormInput';
-import { FormMultiCombobox } from '@/components/ui/FormMultiCombobox';
 import { FormSelect } from '@/components/ui/FormSelect';
 import { FormTextarea } from '@/components/ui/FormTextarea';
 import { Heading } from '@/components/ui/Heading';
@@ -173,7 +172,8 @@ export const TriggerModal: FC<TriggerModalProps> = ({
                   items={githubEventOptions}
                 />
 
-                <FormMultiCombobox
+                <FormCombobox
+                  multiple
                   name="repositories"
                   label="Repositories"
                   placeholder="Select repositories..."

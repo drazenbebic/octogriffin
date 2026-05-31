@@ -1,4 +1,4 @@
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import { FormControl, useFormContext, useStoreState } from '@ariakit/react';
 
@@ -7,10 +7,7 @@ import { FormFeedback } from '@/components/ui/FormFeedback';
 import { FormLabel } from '@/components/ui/FormLabel';
 import { cn } from '@/utils/cn';
 
-export type FormComboboxProps = Omit<
-  ComboboxProps,
-  'onChangeAction' | 'selectedValues'
-> & {
+type FormComboboxOwnProps = {
   label?: string;
   name: string;
   description?: string;
@@ -19,57 +16,70 @@ export type FormComboboxProps = Omit<
   disabled?: boolean;
 };
 
-const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50';
+type FormComboboxSingleProps = FormComboboxOwnProps &
+  Omit<
+    Extract<ComboboxProps, { multiple?: false }>,
+    'onChangeAction' | 'defaultValue'
+  >;
 
-export const FormCombobox: FC<FormComboboxProps> = forwardRef(
-  (
-    {
-      name,
-      label,
-      description,
-      className,
-      required,
-      disabled,
-      placeholder,
-      items,
-      ...props
-    },
-    ref,
-  ) => {
+type FormComboboxMultipleProps = FormComboboxOwnProps &
+  Omit<
+    Extract<ComboboxProps, { multiple: true }>,
+    'onChangeAction' | 'defaultValue'
+  >;
+
+export type FormComboboxProps =
+  | FormComboboxSingleProps
+  | FormComboboxMultipleProps;
+
+export const FormCombobox = forwardRef<HTMLInputElement, FormComboboxProps>(
+  (props, ref) => {
     const form = useFormContext();
-    const value = useStoreState(form, state => state?.values[name] ?? '');
+    const value = useStoreState(form, state =>
+      props.multiple
+        ? ((state?.values[props.name] as string[] | undefined) ?? [])
+        : ((state?.values[props.name] as string | undefined) ?? ''),
+    );
+
+    const renderCombobox = props.multiple ? (
+      <Combobox
+        ref={ref}
+        multiple
+        items={props.items}
+        defaultValue={value as string[]}
+        onChangeAction={val => form?.setValue(props.name, val)}
+        placeholder={props.placeholder}
+        required={props.required}
+        disabled={props.disabled}
+        disableLabel
+      />
+    ) : (
+      <Combobox
+        ref={ref}
+        items={props.items}
+        defaultValue={value as string}
+        onChangeAction={val => form?.setValue(props.name, val)}
+        placeholder={props.placeholder}
+        required={props.required}
+        disabled={props.disabled}
+        disableLabel
+      />
+    );
 
     return (
-      <div className={cn('w-full', className)}>
-        {!!label && (
-          <FormLabel name={name} isRequired={required}>
-            {label}
+      <div className={cn('w-full', props.className)}>
+        {!!props.label && (
+          <FormLabel name={props.name} isRequired={props.required}>
+            {props.label}
           </FormLabel>
         )}
 
-        <FormControl
-          name={name}
-          render={
-            <Combobox
-              // @ts-expect-error - Type mismatch
-              ref={ref}
-              items={items}
-              defaultValue={value}
-              onChangeAction={val => form?.setValue(name, val)}
-              placeholder={placeholder}
-              required={required}
-              className={cn(errorStyles, className)}
-              disableLabel
-              {...props}
-            />
-          }
-        />
+        <FormControl name={props.name} render={renderCombobox} />
 
         <FormFeedback
-          name={name}
-          description={description}
-          disabled={disabled}
+          name={props.name}
+          description={props.description}
+          disabled={props.disabled}
         />
       </div>
     );
