@@ -1,6 +1,14 @@
 'use client';
 
-import { FC, useDeferredValue, useMemo, useState, useTransition } from 'react';
+import {
+  FC,
+  MouseEvent,
+  useDeferredValue,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 
 import {
   Combobox,
@@ -16,6 +24,7 @@ import groupBy from 'lodash/groupBy';
 import { matchSorter } from 'match-sorter';
 
 import { ComboboxItem } from '@/components/ui/ComboboxItem';
+import { DismissableBadge } from '@/components/ui/DismissableBadge';
 import { cn } from '@/utils/cn';
 
 export type MultiComboboxItemType = {
@@ -35,8 +44,8 @@ export type MultiComboboxProps = {
   selectedValues?: string[];
 };
 
-const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
+const wrapperErrorStyles =
+  'has-[input[aria-invalid="true"]]:border-red-500 has-[input[aria-invalid="true"]]:bg-red-50/50 has-[input[aria-invalid="true"]]:focus-within:ring-red-500/10 dark:has-[input[aria-invalid="true"]]:border-red-900/50 dark:has-[input[aria-invalid="true"]]:bg-red-900/10';
 
 export const MultiCombobox: FC<MultiComboboxProps> = ({
   className,
@@ -69,19 +78,29 @@ export const MultiCombobox: FC<MultiComboboxProps> = ({
     return matchSorter(items, deferredSearchValue, { keys: ['label'] });
   }, [deferredSearchValue, hasGroups, items]);
 
-  const placeholderValue = useMemo(() => {
-    const count = selectedValues.length;
+  const selectedItems = useMemo(
+    () =>
+      selectedValues
+        .map(value => items.find(item => item.value === value))
+        .filter((item): item is MultiComboboxItemType => !!item),
+    [items, selectedValues],
+  );
 
-    if (count === 0 && placeholder) {
-      return placeholder;
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleDismiss = (value: string) => {
+    const newVal = selectedValues.filter(v => v !== value);
+    setSelectedValues(newVal);
+    onChangeAction?.(newVal);
+    inputRef.current?.focus();
+  };
+
+  const handleWrapperMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      e.preventDefault();
+      inputRef.current?.focus();
     }
-
-    if (count >= 1) {
-      return `${count} item${count > 1 ? 's' : ''} selected.`;
-    }
-
-    return placeholder || '';
-  }, [placeholder, selectedValues]);
+  };
 
   return (
     <ComboboxProvider
@@ -104,15 +123,31 @@ export const MultiCombobox: FC<MultiComboboxProps> = ({
           </ComboboxLabel>
         )}
 
-        <div className="relative">
+        <div
+          onMouseDown={handleWrapperMouseDown}
+          className={cn(
+            'group relative flex w-full flex-wrap items-center gap-1.5 cursor-text rounded-lg border border-slate-300 bg-white pl-3 pr-10 py-1.5 min-h-11 text-left text-slate-900 transition-all duration-200 ease-in-out hover:bg-slate-100 focus-within:border-violet-500 focus-within:hover:bg-white focus-within:ring-4 focus-within:ring-violet-600/10 has-[input:disabled]:opacity-50 has-[input:disabled]:pointer-events-none dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 dark:focus-within:border-violet-500 dark:hover:bg-slate-900 dark:focus-within:hover:bg-slate-950',
+            wrapperErrorStyles,
+          )}
+        >
+          {selectedItems.map(item => (
+            <DismissableBadge
+              key={item.value}
+              variant="primary"
+              dismissLabel={`Remove ${item.label}`}
+              onDismiss={() => handleDismiss(item.value)}
+            >
+              {item.label}
+            </DismissableBadge>
+          ))}
+
           <Combobox
-            placeholder={placeholderValue}
-            className={cn(
-              'relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 hover:bg-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 dark:focus:border-violet-500 dark:hover:bg-slate-900',
-              errorStyles,
-            )}
+            ref={inputRef}
+            placeholder={selectedItems.length === 0 ? placeholder : undefined}
+            className="flex-1 min-w-24 bg-transparent py-1 outline-none placeholder:text-slate-400"
             {...props}
           />
+
           <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
             <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
           </div>
