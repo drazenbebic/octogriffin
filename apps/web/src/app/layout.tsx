@@ -6,12 +6,12 @@ import { Inter } from 'next/font/google';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import clsx from 'clsx';
 
 import { ErrorListener } from '@/components/ErrorListener';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Providers } from '@/components/Providers';
+import { cn } from '@/utils/cn';
 
 type Props = {
   children: ReactNode;
@@ -26,10 +26,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || 'https://octogriffin.com',
+  ),
   title: {
     template: '%s | Octogriffin',
     default: 'Octogriffin',
   },
+  description: 'Gamify your GitHub workflow with Habitica integration.',
   icons: {
     icon: [
       {
@@ -38,13 +42,21 @@ export const metadata: Metadata = {
       },
     ],
   },
+  openGraph: {
+    siteName: 'Octogriffin',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 const RootLayout: FC<Props> = async ({ children }) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={clsx(
+        className={cn(
           inter.className,
           'flex min-h-screen flex-col bg-white text-slate-900 transition-colors duration-200 dark:bg-slate-950 dark:text-slate-50',
         )}
