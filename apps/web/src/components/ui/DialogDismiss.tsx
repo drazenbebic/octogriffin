@@ -6,7 +6,8 @@ import {
 } from '@ariakit/react';
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export type DialogDismissProps = BaseDialogDismissProps & {
   label?: string;
@@ -17,17 +18,14 @@ export const DialogDismiss = forwardRef<HTMLButtonElement, DialogDismissProps>(
     return (
       <BaseDialogDismiss
         ref={ref}
-        className={clsx(
-          'cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 border border-transparent focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300',
+        aria-label={label || 'Close modal'}
+        className={cn(
+          'inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600 border border-transparent focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300',
           className,
         )}
         {...props}
       >
-        <HugeiconsIcon
-          icon={Cancel01Icon}
-          aria-label={label || 'Close modal'}
-          size={20}
-        />
+        <HugeiconsIcon icon={Cancel01Icon} aria-hidden="true" size={20} />
       </BaseDialogDismiss>
     );
   },
