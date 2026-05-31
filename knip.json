@@ -2,18 +2,33 @@
   "$schema": "https://unpkg.com/knip@next/schema.json",
   "workspaces": {
     "apps/web": {
-      "entry": ["src/app/api/**/route.ts", "src/app/**/page.tsx", "src/utils/cn.ts"],
+      "entry": [
+        "src/utils/cn.ts",
+        "jest.config.ts",
+        "jest.setup.ts",
+        "src/**/*.test.{ts,tsx}"
+      ],
       "project": ["src/**/*.{ts,tsx}"],
-      "jest": false
+      "jest": false,
+      "ignoreDependencies": [
+        "@prisma/client",
+        "@types/pg",
+        "@typescript-eslint/parser",
+        "@typescript-eslint/utils",
+        "husky",
+        "jest-environment-jsdom",
+        "pg",
+        "pino-pretty",
+        "tailwindcss",
+        "typescript-eslint"
+      ],
+      "ignoreBinaries": ["ngrok"]
     },
     "apps/api": {
       "entry": ["src/index.ts"],
-      "project": ["src/**/*.ts"]
-    },
-    "packages/database": {
-      "entry": ["src/index.ts"],
-      "project": ["src/**/*.ts"]
+      "project": ["src/**/*.ts"],
+      "ignoreDependencies": ["tsx"]
     }
   },
-  "ignore": ["**/*.test.ts", "**/*.test.tsx", "apps/web/src/generated/prisma/**/*"]
+  "ignoreExportsUsedInFile": true
 }
