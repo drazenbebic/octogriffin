@@ -8,7 +8,7 @@ import { JsonLd } from '@/components/JsonLd';
 import { Link } from '@/components/Link';
 import { Accordion } from '@/components/ui/Accordion';
 import { AccordionGroup } from '@/components/ui/AccordionGroup';
-import { Button } from '@/components/ui/Button';
+import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { faqJsonLd } from '@/json-ld/faq';
@@ -329,21 +329,16 @@ export default function FaqPage() {
           ))}
         </AccordionGroup>
 
-        <div className="rounded-3xl bg-slate-50 p-8 text-center ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
-          <Heading level={3} size="lg" className="mb-3">
-            Still have questions?
-          </Heading>
-          <Content className="mb-6">
-            Can&#39;t find the answer you&#39;re looking for? Our support team
-            is ready to assist.
-          </Content>
-          <Link href={`mailto:${supportEmail()}`}>
-            <Button size="lg" variant="secondary">
-              <HugeiconsIcon icon={Mail01Icon} size={20} className="mr-2" />
-              Contact Support
-            </Button>
-          </Link>
-        </div>
+        <Callout
+          title="Still have questions?"
+          headingLevel={3}
+          description="Can't find the answer you're looking for? Our support team is ready to assist."
+          button={{
+            label: 'Contact Support',
+            href: `mailto:${supportEmail()}`,
+            icon: Mail01Icon,
+          }}
+        />
       </div>
     </>
   );

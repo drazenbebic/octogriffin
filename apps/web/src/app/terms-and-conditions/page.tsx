@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+
+import { Mail01Icon } from '@hugeicons/core-free-icons';
 
 import { JsonLd } from '@/components/JsonLd';
+import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { termsJsonLd } from '@/json-ld/terms';
@@ -171,21 +173,15 @@ export default function TermsAndConditionsPage() {
             </Content>
           </section>
 
-          {/* Contact */}
-          <section className="rounded-3xl bg-slate-50 p-8 text-center dark:bg-slate-900 dark:ring-1 dark:ring-slate-800">
-            <Heading level={2} size="lg" className="mb-2">
-              Contact Us
-            </Heading>
-            <Content className="mb-4">
-              For any legal inquiries regarding these terms, please contact:
-            </Content>
-            <Link
-              href={`mailto:${email}`}
-              className="font-bold text-violet-600 hover:underline"
-            >
-              {email}
-            </Link>
-          </section>
+          <Callout
+            title="Contact Us"
+            description={`For any legal inquiries regarding these terms, reach out to ${email}.`}
+            button={{
+              label: 'Send Email',
+              href: `mailto:${email}`,
+              icon: Mail01Icon,
+            }}
+          />
         </div>
       </div>
     </>

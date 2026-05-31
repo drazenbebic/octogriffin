@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+
+import { Mail01Icon } from '@hugeicons/core-free-icons';
 
 import { JsonLd } from '@/components/JsonLd';
+import { Callout } from '@/components/ui/Callout';
 import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
@@ -213,26 +215,15 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          {/* 6. Contact */}
-          <section className="rounded-3xl bg-violet-50 p-8 text-center dark:bg-violet-900/30">
-            <Heading
-              level={2}
-              size="lg"
-              color="violet"
-              className="mb-2 dark:text-violet-300"
-            >
-              Questions?
-            </Heading>
-            <Content color="violet" className="mb-4">
-              If you have any questions about this policy, please contact us at:
-            </Content>
-            <Link
-              href={`mailto:${email}`}
-              className="font-bold text-violet-600 hover:underline dark:text-violet-400"
-            >
-              {email}
-            </Link>
-          </section>
+          <Callout
+            title="Questions?"
+            description={`If you have any questions about this policy, reach out to ${email}.`}
+            button={{
+              label: 'Send Email',
+              href: `mailto:${email}`,
+              icon: Mail01Icon,
+            }}
+          />
         </div>
       </div>
     </>

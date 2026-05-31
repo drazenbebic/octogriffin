@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
-import NextLink from 'next/link';
 
 import {
   CodeCircleIcon,
+  GithubIcon,
   GitPullRequestIcon,
   Globe02Icon,
   Settings02Icon,
@@ -11,6 +11,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import { DocsCard } from '@/components/docs/DocsCard';
 import { JsonLd } from '@/components/JsonLd';
+import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { docsIndexJsonLd } from '@/json-ld/docs';
@@ -73,24 +74,17 @@ export default function DocsPage() {
           />
         </div>
 
-        {/* Help Section */}
-        <div className="rounded-2xl bg-slate-50 p-8 text-center dark:bg-slate-900 dark:ring-1 dark:ring-slate-800">
-          <Heading level={3} size="xl" className="mb-2">
-            Need Help?
-          </Heading>
-          <Content className="mb-6">
-            If you can&#39;t find what you&#39;re looking for, check our GitHub
-            Issues or reach out directly.
-          </Content>
-          <NextLink
-            href={githubRepositoryUrl('/issues')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-200 transition-all hover:bg-slate-50 hover:ring-slate-300 dark:bg-slate-800 dark:text-slate-100 dark:ring-slate-700 dark:hover:bg-slate-700"
-          >
-            View GitHub Issues
-          </NextLink>
-        </div>
+        <Callout
+          title="Need Help?"
+          headingLevel={3}
+          description="If you can't find what you're looking for, check our GitHub Issues or reach out directly."
+          button={{
+            label: 'View GitHub Issues',
+            href: githubRepositoryUrl('/issues'),
+            icon: GithubIcon,
+            isExternal: true,
+          }}
+        />
       </div>
     </>
   );
