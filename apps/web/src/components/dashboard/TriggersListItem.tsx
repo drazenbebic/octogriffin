@@ -11,7 +11,6 @@ import {
   Edit02Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { Badge, BadgeProps } from '@/components/ui/Badge';
 import { Heading } from '@/components/ui/Heading';
@@ -19,6 +18,7 @@ import { Switch } from '@/components/ui/Switch';
 import { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { useEventIcon } from '@/hooks/useEventIcon';
 import { useTriggersStore } from '@/store/useTriggersStore';
+import { cn } from '@/utils/cn';
 
 const getDifficultyConfig = (
   priority: number,
@@ -57,18 +57,16 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
   return (
     <div
       key={trigger.uuid}
-      className={clsx(
+      className={cn(
         'group flex flex-col gap-4 rounded-xl p-4 shadow-sm ring-1 ring-slate-100 transition-all hover:shadow-md sm:flex-row sm:items-center sm:justify-between',
         !isActive
           ? 'bg-slate-50/80 dark:bg-slate-900/50 dark:ring-slate-800'
           : 'bg-white dark:bg-slate-900 dark:ring-slate-800',
       )}
     >
-      <div
-        className={clsx('flex items-center gap-4', !isActive && 'opacity-75')}
-      >
+      <div className={cn('flex items-center gap-4', !isActive && 'opacity-75')}>
         <div
-          className={clsx(
+          className={cn(
             'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors',
             !isActive
               ? 'bg-slate-200 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
@@ -83,7 +81,7 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
             <Heading
               level={4}
               size="base"
-              className={clsx(
+              className={cn(
                 'font-semibold transition-colors',
                 !isActive && 'text-slate-500 line-through dark:text-slate-500',
               )}

@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 const links = [
   { href: '/docs', label: 'Docs' },
@@ -17,7 +17,7 @@ export const Navigation: FC<{ className?: string }> = ({ className }) => {
   const pathname = usePathname();
 
   return (
-    <nav className={clsx('flex items-center gap-6', className)}>
+    <nav className={cn('flex items-center gap-6', className)}>
       {links.map(({ href, label }) => {
         const isActive =
           href === '/' ? pathname === href : pathname.startsWith(href);
@@ -26,7 +26,7 @@ export const Navigation: FC<{ className?: string }> = ({ className }) => {
           <Link
             key={href}
             href={href}
-            className={clsx(
+            className={cn(
               'text-sm font-medium transition-colors hover:text-violet-600 dark:hover:text-violet-400',
               isActive
                 ? 'text-violet-600 dark:text-violet-400'

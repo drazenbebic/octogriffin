@@ -9,9 +9,9 @@ import {
 } from '@ariakit/react';
 import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { Heading } from '@/components/ui/Heading';
+import { cn } from '@/utils/cn';
 
 export type AccordionProps = {
   title: string;
@@ -44,7 +44,7 @@ export const Accordion: FC<AccordionProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'group overflow-hidden rounded-2xl border transition-all duration-300 ease-in-out',
         open
           ? 'border-violet-200 bg-white shadow-lg shadow-violet-900/5 dark:border-violet-900/50 dark:bg-slate-900'
@@ -65,7 +65,7 @@ export const Accordion: FC<AccordionProps> = ({
               color="inherit"
             >
               <span
-                className={clsx(
+                className={cn(
                   'font-medium transition-colors duration-200',
                   open
                     ? 'text-violet-900 dark:text-violet-300'
@@ -75,7 +75,7 @@ export const Accordion: FC<AccordionProps> = ({
                 {title}
               </span>
               <div
-                className={clsx(
+                className={cn(
                   'ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300',
                   open
                     ? 'bg-violet-100 text-violet-600 rotate-180 dark:bg-violet-900/50 dark:text-violet-300'
@@ -89,7 +89,7 @@ export const Accordion: FC<AccordionProps> = ({
         />
 
         <DisclosureContent
-          className={clsx(
+          className={cn(
             'grid grid-rows-[0fr] transition-[grid-template-rows] duration-200 ease-in-out',
             'data-enter:grid-rows-[1fr]',
           )}

@@ -1,8 +1,7 @@
 import { FC, ReactNode } from 'react';
 
-import clsx from 'clsx';
-
 import { Heading } from '@/components/ui/Heading';
+import { cn } from '@/utils/cn';
 
 export type DocsStepProps = {
   className?: string;
@@ -20,7 +19,7 @@ export const DocsStep: FC<DocsStepProps> = ({
   withoutBorder = false,
 }) => {
   return (
-    <section className={clsx('space-y-6', className)}>
+    <section className={cn('space-y-6', className)}>
       <div className="flex items-center gap-3">
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 font-bold text-sm dark:bg-slate-800 dark:text-slate-400">
           {step}

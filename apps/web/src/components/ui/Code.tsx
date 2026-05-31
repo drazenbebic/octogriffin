@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
-import clsx from 'clsx';
 import { BundledLanguage } from 'shiki';
 
+import { cn } from '@/utils/cn';
 import { codeToHtml } from '@/utils/shiki';
 
 export type CodeProps = {
@@ -26,7 +26,7 @@ export const Code: FC<CodeProps> = async ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'relative flex gap-3 items-center rounded-xl bg-slate-900 p-4 font-mono text-sm text-slate-300 space-y-2',
         {
           'disable-lines': disableNumbers,

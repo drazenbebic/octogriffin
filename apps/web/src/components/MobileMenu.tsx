@@ -13,9 +13,9 @@ import {
   Menu01Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { Content } from '@/components/ui/Content';
+import { cn } from '@/utils/cn';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 const links = [
@@ -52,7 +52,7 @@ export const MobileMenu: FC = () => {
       <Dialog
         store={dialog}
         modal
-        className={clsx(
+        className={cn(
           'fixed inset-0 top-16 z-40 flex flex-col overflow-hidden',
           'bg-white/95 backdrop-blur-xl dark:bg-slate-950/95',
           'animate-in fade-in slide-in-from-top-2 duration-300 ease-out',
@@ -77,7 +77,7 @@ export const MobileMenu: FC = () => {
                 >
                   <div className="flex flex-col">
                     <span
-                      className={clsx(
+                      className={cn(
                         'text-3xl font-bold tracking-tight transition-all duration-200 group-hover:translate-x-2',
                         isActive
                           ? 'text-violet-600 dark:text-violet-400'
@@ -94,7 +94,7 @@ export const MobileMenu: FC = () => {
                   <HugeiconsIcon
                     icon={ArrowRight01Icon}
                     size={24}
-                    className={clsx(
+                    className={cn(
                       'transition-all duration-300',
                       isActive
                         ? 'opacity-100 translate-x-0 text-violet-600 dark:text-violet-400'

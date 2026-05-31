@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 export type AvatarProps = {
   src?: string | null;
@@ -42,9 +42,9 @@ export const Avatar: FC<AvatarProps> = ({
   className,
 }) => {
   return (
-    <div className={clsx('relative inline-flex shrink-0', className)}>
+    <div className={cn('relative inline-flex shrink-0', className)}>
       <div
-        className={clsx(
+        className={cn(
           'flex items-center justify-center overflow-hidden border border-slate-200 bg-slate-50 transition-all duration-300 ease-in-out dark:border-slate-800 dark:bg-slate-900',
           sizeStyles[size],
           shapeStyles[shape],
@@ -67,7 +67,7 @@ export const Avatar: FC<AvatarProps> = ({
 
       {status && (
         <span
-          className={clsx(
+          className={cn(
             'absolute -bottom-0.5 -right-0.5 block rounded-full border-2 border-white dark:border-slate-950',
             statusColors[status],
             size === 'sm' ? 'h-2.5 w-2.5' : 'h-3.5 w-3.5',

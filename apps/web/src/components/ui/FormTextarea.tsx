@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
 
 import { FormInput, useFormContext, useStoreState } from '@ariakit/react';
-import clsx from 'clsx';
 
 import { FormFeedback } from '@/components/ui/FormFeedback';
 import { FormLabel } from '@/components/ui/FormLabel';
+import { cn } from '@/utils/cn';
 
 export interface FormTextareaProps {
   className?: string;
@@ -19,7 +19,7 @@ export interface FormTextareaProps {
 }
 
 const baseStyles =
-  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-800 dark:text-slate-100 dark:focus:bg-slate-900 dark:focus:border-violet-500 dark:focus:ring-violet-500/20';
+  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-800 dark:text-slate-100 dark:focus:bg-slate-950 dark:focus:border-violet-500 dark:focus:ring-violet-500/20 dark:bg-slate-950';
 
 const errorStyles =
   'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
@@ -44,7 +44,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
     const value = useStoreState(form, state => state?.values[name] ?? '');
 
     return (
-      <div className={clsx('w-full', className)}>
+      <div className={cn('w-full', className)}>
         {!!label && (
           <FormLabel name={name} isRequired={required}>
             {label}
@@ -57,7 +57,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
             ref={ref}
             name={name}
             render={<textarea rows={rows} />}
-            className={clsx(baseStyles, errorStyles)}
+            className={cn(baseStyles, errorStyles)}
             disabled={disabled}
             maxLength={maxLength}
             placeholder={placeholder}
@@ -77,7 +77,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
 
           {!!maxLength && (
             <div
-              className={clsx('mt-1.5 shrink-0 text-xs font-medium', {
+              className={cn('mt-1.5 shrink-0 text-xs font-medium', {
                 'text-slate-400': !disabled,
                 'text-slate-300 dark:text-slate-600': disabled,
                 'text-red-500 dark:text-red-400': value.length >= maxLength,

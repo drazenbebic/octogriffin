@@ -4,10 +4,9 @@ import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import clsx from 'clsx';
-
 import { Heading } from '@/components/ui/Heading';
 import { docsNavigation } from '@/config/docsNavigation';
+import { cn } from '@/utils/cn';
 
 export const DocsSidebar: FC = () => {
   const pathname = usePathname();
@@ -33,7 +32,7 @@ export const DocsSidebar: FC = () => {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className={clsx(
+                      className={cn(
                         'group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200',
                         isActive
                           ? 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-200'
@@ -41,7 +40,7 @@ export const DocsSidebar: FC = () => {
                       )}
                     >
                       <span
-                        className={clsx(
+                        className={cn(
                           'transition-colors',
                           isActive
                             ? 'text-violet-600 dark:text-violet-400'

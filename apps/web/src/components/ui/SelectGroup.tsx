@@ -4,7 +4,8 @@ import {
   SelectGroup as BaseSelectGroup,
   SelectGroupProps as BaseSelectGroupProps,
 } from '@ariakit/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export type SelectGroupProps = BaseSelectGroupProps;
 
@@ -13,7 +14,7 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
     return (
       <BaseSelectGroup
         ref={ref}
-        className={clsx('group first:mt-0 mt-2', className)}
+        className={cn('group first:mt-0 mt-2', className)}
         {...props}
       >
         {children}

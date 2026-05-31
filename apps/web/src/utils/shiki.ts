@@ -1,4 +1,3 @@
-import cn from 'clsx';
 import { h } from 'hastscript';
 import {
   BundledLanguage,
@@ -6,6 +5,8 @@ import {
   makeSingletonHighlighter,
   ShikiTransformer,
 } from 'shiki';
+
+import { cn } from '@/utils/cn';
 
 const getHighlighter = makeSingletonHighlighter(createHighlighter);
 

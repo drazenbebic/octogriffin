@@ -8,7 +8,8 @@ import {
 } from '@ariakit/react';
 import { Loading03Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'black';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -57,7 +58,7 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <BaseButton
-      className={clsx(
+      className={cn(
         baseStyles,
         variants[variant],
         sizes[size],

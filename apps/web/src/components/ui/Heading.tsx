@@ -3,7 +3,7 @@ import { createElement, ElementType, FC, ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
-type HeadingSize = '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'base';
+type HeadingSize = '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'base' | 'sm';
 type HeadingColor = 'slate' | 'violet' | 'inherit';
 
 export type HeadingProps = {
@@ -22,6 +22,7 @@ const sizes: Record<HeadingSize, string> = {
   xl: 'text-xl font-bold tracking-tight',
   lg: 'text-lg font-semibold tracking-tight',
   base: 'text-base font-semibold tracking-tight',
+  sm: 'text-sm font-semibold tracking-tight',
 };
 
 const colors: Record<HeadingColor, string> = {

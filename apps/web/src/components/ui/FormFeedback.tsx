@@ -11,7 +11,8 @@ import {
   InformationCircleIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export interface FormFeedbackProps {
   description?: string;
@@ -32,8 +33,8 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
     return (
       <FormError
         name={name}
-        className={clsx(
-          'mt-1.5 flex items-start gap-1.5 text-xs font-medium text-red-600 dark:text-red-400',
+        className={cn(
+          'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs font-medium text-red-600 dark:text-red-400',
         )}
       >
         <HugeiconsIcon
@@ -50,10 +51,13 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
     return (
       <FormDescription
         name={name}
-        className={clsx('mt-1.5 flex items-start gap-1.5 text-xs', {
-          'text-slate-500 dark:text-slate-400': !disabled,
-          'text-slate-400 opacity-75 dark:text-slate-500': disabled,
-        })}
+        className={cn(
+          'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs',
+          {
+            'text-slate-500 dark:text-slate-400': !disabled,
+            'text-slate-400 opacity-75 dark:text-slate-500': disabled,
+          },
+        )}
       >
         <HugeiconsIcon
           icon={InformationCircleIcon}

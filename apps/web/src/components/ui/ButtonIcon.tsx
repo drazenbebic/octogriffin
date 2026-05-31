@@ -5,7 +5,8 @@ import { ComponentProps, forwardRef } from 'react';
 import { Button } from '@ariakit/react';
 import { Loading03Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 type ButtonIconSize = 'sm' | 'md' | 'lg';
 type ButtonIconVariant = 'primary' | 'secondary' | 'ghost' | 'black';
@@ -72,7 +73,7 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
     return (
       <Button
         ref={ref}
-        className={clsx(
+        className={cn(
           baseStyles,
           variants[variant],
           sizes[size],

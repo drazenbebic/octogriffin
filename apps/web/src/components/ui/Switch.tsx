@@ -1,7 +1,8 @@
 import { ElementType, FC, ReactNode } from 'react';
 
 import { Checkbox, CheckboxProps } from '@ariakit/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export type SwitchProps = CheckboxProps & {
   as?: ElementType;
@@ -21,7 +22,7 @@ export const Switch: FC<SwitchProps> = ({
 }) => {
   return (
     <label
-      className={clsx(
+      className={cn(
         'group flex items-start gap-3',
         disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
         containerClassName,
@@ -29,13 +30,13 @@ export const Switch: FC<SwitchProps> = ({
     >
       <div className="relative flex h-6 items-center">
         <Tag
-          className={clsx('peer sr-only', className)}
+          className={cn('peer sr-only', className)}
           disabled={disabled}
           {...props}
         />
 
         <div
-          className={clsx(
+          className={cn(
             'h-6 w-11 rounded-full bg-slate-200 transition-colors duration-200 ease-in-out',
             'peer-checked:bg-violet-600',
             'peer-focus-visible:ring-4 peer-focus-visible:ring-violet-500/20',
@@ -44,7 +45,7 @@ export const Switch: FC<SwitchProps> = ({
         />
 
         <div
-          className={clsx(
+          className={cn(
             'absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out dark:bg-slate-200',
             'peer-checked:translate-x-5',
           )}

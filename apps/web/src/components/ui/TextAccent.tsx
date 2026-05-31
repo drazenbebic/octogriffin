@@ -1,6 +1,6 @@
 import { ElementType, FC, ReactNode } from 'react';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 export type TextAccentProps = {
   as?: ElementType;
@@ -34,7 +34,7 @@ export const TextAccent: FC<TextAccentProps> = ({
 
   return (
     <Tag
-      className={clsx(
+      className={cn(
         'bg-linear-to-r bg-clip-text text-transparent',
         variants[variant],
         glowing && glows[variant],

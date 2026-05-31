@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { Button } from '@ariakit/react';
 import { ArrowLeft01Icon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { PaginationMeta } from '@/types/pagination';
+import { cn } from '@/utils/cn';
 
 export type PaginationProps = {
   meta: PaginationMeta;
@@ -32,7 +32,7 @@ export const Pagination: FC<PaginationProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex flex-col items-center justify-between gap-4 border-t border-slate-100 py-4 sm:flex-row dark:border-slate-800',
         className,
       )}

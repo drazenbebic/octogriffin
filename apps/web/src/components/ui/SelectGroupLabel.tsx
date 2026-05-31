@@ -4,7 +4,8 @@ import {
   SelectGroupLabel as BaseSelectGroupLabel,
   SelectGroupLabelProps as BaseSelectGroupLabelProps,
 } from '@ariakit/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export type SelectGroupLabelProps = BaseSelectGroupLabelProps;
 
@@ -15,7 +16,7 @@ export const SelectGroupLabel = forwardRef<
   return (
     <BaseSelectGroupLabel
       ref={ref}
-      className={clsx(
+      className={cn(
         'px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 select-none dark:text-slate-500',
         className,
       )}

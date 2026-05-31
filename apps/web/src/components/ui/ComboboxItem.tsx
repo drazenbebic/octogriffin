@@ -9,9 +9,9 @@ import {
 } from '@ariakit/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { MultiComboboxItemType } from '@/components/ui/MultiCombobox';
+import { cn } from '@/utils/cn';
 
 export type ComboboxItemProps = BaseComboboxItemProps & {
   item: MultiComboboxItemType;
@@ -22,7 +22,7 @@ export const ComboboxItem: FC<ComboboxItemProps> = ({ item }) => {
     <BaseComboboxItem
       value={item.value}
       focusOnHover
-      className={clsx(
+      className={cn(
         'group flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm outline-none transition-colors',
         'text-slate-700 dark:text-slate-300',
         'data-active-item:bg-violet-50 data-active-item:text-violet-700 dark:data-active-item:bg-violet-900/50 dark:data-active-item:text-violet-200',

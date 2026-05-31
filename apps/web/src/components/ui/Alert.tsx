@@ -7,9 +7,9 @@ import {
   InformationCircleIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { Heading } from '@/components/ui/Heading';
+import { cn } from '@/utils/cn';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger' | 'note';
 
@@ -83,7 +83,7 @@ export const Alert: FC<AlertProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'relative flex gap-3 rounded-lg border p-4 text-sm',
         styles.container,
         className,

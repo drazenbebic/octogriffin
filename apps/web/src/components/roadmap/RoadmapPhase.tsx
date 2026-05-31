@@ -1,11 +1,10 @@
 import { FC, ReactNode } from 'react';
 
-import clsx from 'clsx';
-
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
+import { cn } from '@/utils/cn';
 
 export type RoadmapPhaseProps = {
   icon: ReactNode;
@@ -30,7 +29,7 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
     <div className="relative flex gap-8 md:gap-12">
       <div className="hidden md:flex flex-col items-center shrink-0 w-16 pt-2">
         <div
-          className={clsx(
+          className={cn(
             'relative z-10 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white shadow-md dark:border-slate-900',
             dotClass,
           )}
@@ -50,7 +49,7 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
             <div className="mb-8 flex items-start justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div
-                  className={clsx(
+                  className={cn(
                     'flex h-12 w-12 items-center justify-center rounded-xl shadow-sm dark:shadow-none',
                     colorClass,
                   )}

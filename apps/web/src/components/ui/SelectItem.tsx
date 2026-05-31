@@ -7,7 +7,8 @@ import {
 } from '@ariakit/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export type SelectItemProps = BaseSelectItemProps;
 
@@ -17,7 +18,7 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
       <BaseSelectItem
         ref={ref}
         {...props}
-        className={clsx(
+        className={cn(
           'relative flex cursor-pointer select-none items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium outline-none transition-colors text-slate-700 dark:text-slate-300',
           'data-active-item:bg-violet-50 data-active-item:text-violet-900 aria-selected:text-violet-700 dark:data-active-item:bg-violet-900/50 dark:data-active-item:text-violet-100 dark:aria-selected:text-violet-400',
           className,

@@ -9,7 +9,6 @@ import {
   Tick02Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { DocsResourceLink } from '@/components/docs/DocsResourceLink';
@@ -23,6 +22,7 @@ import { Code } from '@/components/ui/Code';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { devSetupJsonLd } from '@/json-ld/docs/dev-setup';
+import { cn } from '@/utils/cn';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 import { generatePageMetadata } from '@/utils/seo';
 
@@ -78,7 +78,7 @@ export default function DocsDevSetupPage() {
   return (
     <>
       <JsonLd data={devSetupJsonLd} />
-      <div className="max-w-3xl space-y-12 pb-20">
+      <div className="space-y-12 pb-20">
         <div>
           <Heading level={1} className="mb-4">
             Development Setup
@@ -250,13 +250,13 @@ export default function DocsDevSetupPage() {
                       ({ category, isMandatory = false }) => (
                         <tr
                           key={category}
-                          className={clsx({
+                          className={cn({
                             'bg-white dark:bg-slate-950': !isMandatory,
                             'bg-slate-50/50 dark:bg-slate-900/50': isMandatory,
                           })}
                         >
                           <td
-                            className={clsx(
+                            className={cn(
                               'px-4 py-2 font-medium dark:text-slate-300',
                             )}
                           >

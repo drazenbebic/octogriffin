@@ -1,7 +1,7 @@
 import { ElementType, FC, ReactNode } from 'react';
 import Link from 'next/link';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 interface PillProps {
   children: ReactNode;
@@ -50,7 +50,7 @@ export const Pill: FC<PillProps> = ({
       )}
 
       <span
-        className={clsx(
+        className={cn(
           'relative flex h-full w-full items-center justify-center gap-2 rounded-full',
           {
             'bg-white px-3 py-1 backdrop-blur-3xl transition-colors group-hover:bg-slate-50 dark:bg-slate-900 dark:group-hover:bg-slate-800':
@@ -67,7 +67,7 @@ export const Pill: FC<PillProps> = ({
     <Tag
       href={href}
       target={target}
-      className={clsx(
+      className={cn(
         baseStyles,
         variant !== 'shiny' && sizeStyles[size],
         variants[variant],

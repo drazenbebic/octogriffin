@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 
 import { Button } from '@/components/ui/Button';
 import { Content } from '@/components/ui/Content';
+import { cn } from '@/utils/cn';
 
 export type DocsResourceLinkProps = {
   href: string;
@@ -27,7 +27,7 @@ export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex flex-col items-start justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:flex-row sm:items-center dark:border-slate-800 dark:bg-slate-900',
         className,
       )}

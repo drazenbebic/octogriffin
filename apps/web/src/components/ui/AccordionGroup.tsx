@@ -11,9 +11,8 @@ import {
   useState,
 } from 'react';
 
-import clsx from 'clsx';
-
 import { AccordionProps } from '@/components/ui/Accordion';
+import { cn } from '@/utils/cn';
 
 type AccordionGroupProps = {
   className?: string;
@@ -57,7 +56,7 @@ export const AccordionGroup = ({
   );
 
   return (
-    <div className={clsx('flex flex-col gap-4', className)}>
+    <div className={cn('flex flex-col gap-4', className)}>
       {accordions.map((accordion, i) => {
         const isOpen = allowMultiple
           ? openIndices.includes(i)

@@ -33,7 +33,7 @@ export default function DocsSettingUpNgrokPage() {
   return (
     <>
       <JsonLd data={settingUpNgrokJsonLd} />
-      <div className="max-w-3xl space-y-12 pb-20">
+      <div className="space-y-12">
         <div>
           <Heading level={1} className="mb-4">
             Setting up Ngrok
@@ -53,9 +53,9 @@ export default function DocsSettingUpNgrokPage() {
         <Alert variant="info" title="Why do we use Ngrok?">
           While GitHub provides a tool called{' '}
           <code className="font-bold">smee-client</code>, we prefer ngrok
-          because it provides a <strong>Static Domain</strong> on the free plan.
-          This means you don&#39;t have to update your GitHub App settings every
-          time you restart your computer.
+          because it provides a <strong>Static Domain</strong>&nbsp;on the free
+          plan. This means you don&#39;t have to update your GitHub App settings
+          every time you restart your computer.
         </Alert>
 
         {/* Step 1: Install */}

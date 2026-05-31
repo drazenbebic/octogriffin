@@ -2,18 +2,17 @@ import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import clsx from 'clsx';
-
 import { MobileMenu } from '@/components/MobileMenu';
 import { Navigation } from '@/components/Navigation';
 import { NavigationUser } from '@/components/NavigationUser';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { UserMenu } from '@/components/UserMenu';
+import { cn } from '@/utils/cn';
 
 export const Header: FC = () => {
   return (
     <header
-      className={clsx(
+      className={cn(
         'sticky top-0 z-50 w-full transition-all duration-200',
         'border-b border-slate-200 bg-white/80 backdrop-blur-md',
         'dark:border-slate-800 dark:bg-slate-950/80',

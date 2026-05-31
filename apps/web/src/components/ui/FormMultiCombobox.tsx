@@ -1,7 +1,6 @@
 import { FC, forwardRef } from 'react';
 
 import { FormControl, useFormContext, useStoreState } from '@ariakit/react';
-import clsx from 'clsx';
 
 import { FormFeedback } from '@/components/ui/FormFeedback';
 import { FormLabel } from '@/components/ui/FormLabel';
@@ -9,6 +8,7 @@ import {
   MultiCombobox,
   MultiComboboxProps,
 } from '@/components/ui/MultiCombobox';
+import { cn } from '@/utils/cn';
 
 export type FormMultiComboboxProps = Omit<
   MultiComboboxProps,
@@ -44,7 +44,7 @@ export const FormMultiCombobox: FC<FormMultiComboboxProps> = forwardRef(
     const value = useStoreState(form, state => state?.values[name] ?? []);
 
     return (
-      <div className={clsx('w-full', className)}>
+      <div className={cn('w-full', className)}>
         {!!label && (
           <FormLabel name={name} isRequired={required}>
             {label}

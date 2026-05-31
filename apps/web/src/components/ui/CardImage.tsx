@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image, { ImageProps } from 'next/image';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 export type CardImageProps = ImageProps;
 
@@ -9,7 +9,7 @@ export const CardImage: FC<CardImageProps> = ({ className, ...props }) => {
   return (
     // eslint-disable-next-line jsx-a11y/alt-text
     <Image
-      className={clsx('h-48 w-full object-cover sm:h-64', className)}
+      className={cn('h-48 w-full object-cover sm:h-64', className)}
       {...props}
     />
   );

@@ -1,10 +1,10 @@
 import { FC, forwardRef } from 'react';
 
 import { FormControl, useFormContext, useStoreState } from '@ariakit/react';
-import clsx from 'clsx';
 
 import { FormLabel } from '@/components/ui/FormLabel';
 import { Select, SelectProps } from '@/components/ui/Select';
+import { cn } from '@/utils/cn';
 
 import { FormFeedback } from './FormFeedback';
 
@@ -43,7 +43,7 @@ export const FormSelect: FC<FormSelectProps> = forwardRef(
     );
 
     return (
-      <div className={clsx('w-full', className)}>
+      <div className={cn('w-full', className)}>
         {!!label && (
           <FormLabel name={name} isRequired={required}>
             {label}

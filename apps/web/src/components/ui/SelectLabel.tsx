@@ -4,7 +4,8 @@ import {
   SelectLabel as BaseSelectLabel,
   SelectLabelProps as BaseSelectLabelProps,
 } from '@ariakit/react';
-import clsx from 'clsx';
+
+import { cn } from '@/utils/cn';
 
 export type SelectLabelProps = BaseSelectLabelProps;
 
@@ -13,7 +14,7 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
     return (
       <BaseSelectLabel
         ref={ref}
-        className={clsx(
+        className={cn(
           'mb-1.5 block text-sm font-medium text-slate-700',
           className,
         )}

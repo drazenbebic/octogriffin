@@ -10,11 +10,11 @@ import {
   ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import clsx from 'clsx';
 import { format } from 'date-fns';
 
 import { Content } from '@/components/ui/Content';
 import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
+import { cn } from '@/utils/cn';
 
 const getEventConfig = (event: string) => {
   if (event.includes('push')) {
@@ -59,7 +59,7 @@ export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
     <div className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between transition-all hover:shadow-md dark:bg-slate-900 dark:ring-slate-800">
       <div className="flex items-start gap-4 overflow-hidden">
         <div
-          className={clsx(
+          className={cn(
             'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
             config.color,
           )}

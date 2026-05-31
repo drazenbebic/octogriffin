@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, ReactNode } from 'react';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 type BadgeVariant =
   | 'primary'
@@ -71,7 +71,7 @@ export const Badge: FC<BadgeProps> = ({
 }) => {
   return (
     <span
-      className={clsx(
+      className={cn(
         badgeBaseStyles,
         variants[variant],
         sizes[size],
@@ -84,14 +84,14 @@ export const Badge: FC<BadgeProps> = ({
         <span className="relative flex h-2 w-2">
           {pulsing && (
             <span
-              className={clsx(
+              className={cn(
                 'absolute inline-flex h-full w-full animate-ping rounded-full opacity-75',
                 dotColors[variant],
               )}
             />
           )}
           <span
-            className={clsx(
+            className={cn(
               'relative inline-flex h-2 w-2 rounded-full',
               dotColors[variant],
             )}
