@@ -5,6 +5,8 @@ import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import pluginUnusedImports from 'eslint-plugin-unused-imports';
 
+import prettierConfig from './prettier.config.mjs';
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -20,19 +22,7 @@ const eslintConfig = defineConfig([
       'simple-import-sort': simpleImportSort,
     },
     rules: {
-      'prettier/prettier': [
-        'error',
-        {
-          printWidth: 80,
-          endOfLine: 'auto',
-          arrowParens: 'avoid',
-          trailingComma: 'all',
-          semi: true,
-          singleQuote: true,
-          useTabs: false,
-          bracketSpacing: true,
-        },
-      ],
+      'prettier/prettier': ['error', prettierConfig],
       'unused-imports/no-unused-imports': 'warn',
       'unused-imports/no-unused-vars': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
