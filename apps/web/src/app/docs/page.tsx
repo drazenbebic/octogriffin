@@ -33,7 +33,7 @@ export default function DocsPage() {
       <JsonLd data={docsIndexJsonLd} />
       <div className="space-y-12">
         {/* Hero Section */}
-        <div className="space-y-4 border-b border-slate-100 pb-10 dark:border-slate-800">
+        <div>
           <Heading level={1}>Octogriffin Documentation</Heading>
           <Content size="lg" className="max-w-2xl">
             Welcome to the knowledge base. Whether you want to set up your local
@@ -48,24 +48,28 @@ export default function DocsPage() {
             title="Development Setup"
             description="Get your local environment running. Includes Docker, Prisma, and GitHub App configuration."
             icon={<HugeiconsIcon icon={Settings02Icon} size={24} />}
+            color="violet"
           />
           <DocsCard
             href="/docs/setting-up-ngrok"
             title="Ngrok Setup"
             description="Expose your localhost to GitHub webhooks securely using Ngrok static domains."
             icon={<HugeiconsIcon icon={Globe02Icon} size={24} />}
+            color="sky"
           />
           <DocsCard
-            href="/docs/contributing"
+            href="/docs/how-to-contribute"
             title="Contributing Guide"
             description="Learn how to open PRs, follow our coding standards, and use the design system."
             icon={<HugeiconsIcon icon={GitPullRequestIcon} size={24} />}
+            color="emerald"
           />
           <DocsCard
             href="/docs/architecture"
             title="Architecture"
             description="Deep dive into how Next.js, Vercel, and Neon DB work together with GitHub Webhooks."
             icon={<HugeiconsIcon icon={CodeCircleIcon} size={24} />}
+            color="amber"
           />
         </div>
 
