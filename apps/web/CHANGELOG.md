@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.8.0...web-v0.9.0) (2026-05-31)
+
+
+### Features
+
+* **web:** add site-wide SEO metadata defaults ([e23838f](https://github.com/drazenbebic/octogriffin/commit/e23838fbfc6e815d72f6da6c611d54b8c4e70689))
+* **web:** show MultiCombobox selections as dismissable badges ([b0838e8](https://github.com/drazenbebic/octogriffin/commit/b0838e84326a8791b845b98aa5f6899d90f313da))
+* **web:** theme docs landing cards by topic ([550df22](https://github.com/drazenbebic/octogriffin/commit/550df2218a357c19932c0aa23a0bda7c4f29da99))
+
+
+### Bug Fixes
+
+* **web:** a11y polish on form labels and dialog dismiss ([d58dddb](https://github.com/drazenbebic/octogriffin/commit/d58dddb93345c97732de2dab8244a9d0753c24d1))
+* **web:** drop invalid placement prop from ComboboxPopover ([942b27d](https://github.com/drazenbebic/octogriffin/commit/942b27dcca7e9360e31f76a7830b3dac1d7563ac))
+
 ## [0.8.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.7.2...web-v0.8.0) (2026-03-25)
 
 
