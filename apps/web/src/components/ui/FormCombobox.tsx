@@ -29,8 +29,7 @@ type FormComboboxMultipleProps = FormComboboxOwnProps &
   >;
 
 export type FormComboboxProps =
-  | FormComboboxSingleProps
-  | FormComboboxMultipleProps;
+  FormComboboxSingleProps | FormComboboxMultipleProps;
 
 export const FormCombobox = forwardRef<HTMLInputElement, FormComboboxProps>(
   (props, ref) => {

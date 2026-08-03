@@ -3,12 +3,7 @@ import { FC, HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
 type BadgeVariant =
-  | 'primary'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'neutral'
-  | 'info';
+  'primary' | 'success' | 'warning' | 'error' | 'neutral' | 'info';
 
 type BadgeSize = 'sm' | 'md';
 
