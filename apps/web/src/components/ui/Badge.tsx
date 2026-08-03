@@ -3,9 +3,9 @@ import { FC, HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
 type BadgeVariant =
-  'primary' | 'success' | 'warning' | 'error' | 'neutral' | 'info';
+  'error' | 'info' | 'neutral' | 'primary' | 'success' | 'warning';
 
-type BadgeSize = 'sm' | 'md';
+type BadgeSize = 'md' | 'sm';
 
 type BadgeShape = 'pill' | 'square';
 
@@ -45,14 +45,14 @@ const shapes: Record<BadgeShape, string> = {
   square: 'rounded-lg',
 };
 
-export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
+export type BadgeProps = {
   children: ReactNode;
   variant?: BadgeVariant;
   size?: BadgeSize;
   hasDot?: boolean;
   pulsing?: boolean;
   shape?: 'pill' | 'square';
-};
+} & HTMLAttributes<HTMLSpanElement>;
 
 export const Badge: FC<BadgeProps> = ({
   children,

@@ -16,7 +16,7 @@ export const LegalPage: FC<LegalPageProps> = ({
 }) => (
   <div className="mx-auto max-w-3xl px-4 py-12 sm:py-20">
     <div className="mb-10 border-b border-slate-200 pb-8 dark:border-slate-800">
-      <Heading level={1} className="mb-4">
+      <Heading className="mb-4" level={1}>
         {title}
       </Heading>
       <Content size="lg">{subtitle}</Content>

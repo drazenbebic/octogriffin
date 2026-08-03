@@ -7,11 +7,11 @@ import {
 
 import { cn } from '@/utils/cn';
 
-export type FormLabelProps = BaseFormLabelProps & {
+export type FormLabelProps = {
   children?: ReactNode;
   isRequired?: boolean;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-};
+  size?: 'lg' | 'md' | 'sm' | 'xl';
+} & BaseFormLabelProps;
 
 export const FormLabel: FC<FormLabelProps> = ({
   className,

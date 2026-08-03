@@ -32,6 +32,7 @@ export const GET = async (request: NextRequest) => {
     );
   } catch (error) {
     logger.error({ error }, 'Health Check Failed');
+
     return NextResponse.json(
       {
         status: 'error',

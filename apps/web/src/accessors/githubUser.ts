@@ -14,7 +14,7 @@ export const getGithubUser = async <T extends Prisma.GithubUsersInclude>(
     include,
   });
 
-  return user as Prisma.GithubUsersGetPayload<{ include: T }> | null;
+  return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
 };
 
 export const getGithubUserUserByLogin = async <
@@ -25,7 +25,7 @@ export const getGithubUserUserByLogin = async <
 ) => {
   const user = await getGithubUser({ login }, include);
 
-  return user as Prisma.GithubUsersGetPayload<{ include: T }> | null;
+  return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
 };
 
 export const getGithubUserBySenderId = async <
@@ -36,7 +36,7 @@ export const getGithubUserBySenderId = async <
 ) => {
   const user = await getGithubUser({ githubId: senderId }, include);
 
-  return user as Prisma.GithubUsersGetPayload<{ include: T }> | null;
+  return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
 };
 
 export const getLinkedGithubUser = async (

@@ -1,6 +1,6 @@
-import React, { FC, ReactNode } from 'react';
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
+import React, { FC, ReactNode } from 'react';
 
 import { AuthGate } from '@/components/AuthGate';
 import { HabiticaStatsCard } from '@/components/dashboard/HabiticaStatsCard';
@@ -39,7 +39,7 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ tabs }) => {
     <div className="mx-auto max-w-7xl px-4 py-12">
       <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <Heading level={1} size="3xl" className="mb-2">
+          <Heading className="mb-2" level={1} size="3xl">
             Dashboard
           </Heading>
           <Content>Manage your Habitica connection and repositories.</Content>

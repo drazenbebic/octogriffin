@@ -26,6 +26,7 @@ export const handleUniversal = async (
 ) => {
   if (!installation || !repository || !sender) {
     logger.info('Ignored: Missing installation, repository, or sender.');
+
     return;
   }
 
@@ -36,11 +37,13 @@ export const handleUniversal = async (
 
   if (!githubInstallation) {
     logger.info('Ignored: Installation not found.');
+
     return;
   }
 
   if (githubInstallation.isSuspended) {
     logger.info('Ignored: Installation is suspended.');
+
     return;
   }
 
@@ -49,6 +52,7 @@ export const handleUniversal = async (
       { repositoryId: repository.id },
       'Ignored: Repository not whitelisted.',
     );
+
     return;
   }
 
@@ -58,6 +62,7 @@ export const handleUniversal = async (
     logger.warn(
       'Ignored: This user has no valid Habitica user or configured triggers.',
     );
+
     return;
   }
 
@@ -68,6 +73,7 @@ export const handleUniversal = async (
       { login: githubUser.login },
       'Habitica API initialization failed.',
     );
+
     return;
   }
 

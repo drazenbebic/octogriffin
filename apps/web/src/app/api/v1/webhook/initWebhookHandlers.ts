@@ -86,6 +86,7 @@ export const initWebhookHandlers = (webhooks: Webhooks) => {
 
     if (!isSupported) {
       logger.info({ eventName: event.name }, 'Ignored: Unsupported Webhook');
+
       return;
     }
 
@@ -93,6 +94,7 @@ export const initWebhookHandlers = (webhooks: Webhooks) => {
 
     if (!senderId) {
       logger.info({ eventName: event.name }, 'Ignored: No sender ID.');
+
       return;
     }
 
@@ -107,11 +109,13 @@ export const initWebhookHandlers = (webhooks: Webhooks) => {
 
     if (!githubUser) {
       logger.info({ eventName: event.name }, 'Ignored: GitHub User not found.');
+
       return;
     }
 
     if (githubUser.triggers.length === 0) {
       logger.info({ eventName: event.name }, 'Ignored: No triggers found.');
+
       return;
     }
 

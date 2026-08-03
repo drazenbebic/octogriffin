@@ -21,18 +21,18 @@ export default function NotFound() {
         <HugeiconsIcon icon={Search01Icon} size={48} />
       </div>
 
-      <Heading level={1} size="3xl" className="mb-4">
+      <Heading className="mb-4" level={1} size="3xl">
         Quest Not Found
       </Heading>
 
-      <Content size="lg" className="mb-8 max-w-md">
+      <Content className="mb-8 max-w-md" size="lg">
         It seems you have wandered into the void. The scroll you are looking for
         does not exist, or it has been stolen by a Rogue.
       </Content>
 
       <Link href="/">
         <Button size="lg">
-          <HugeiconsIcon icon={Home01Icon} size={20} className="mr-2" />
+          <HugeiconsIcon className="mr-2" icon={Home01Icon} size={20} />
           Return to Tavern
         </Button>
       </Link>

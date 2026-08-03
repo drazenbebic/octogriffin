@@ -8,18 +8,18 @@ import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
 
 import { cn } from '@/utils/cn';
 
-type ButtonIconSize = 'sm' | 'md' | 'lg';
-type ButtonIconVariant = 'primary' | 'secondary' | 'ghost' | 'black';
+type ButtonIconSize = 'lg' | 'md' | 'sm';
+type ButtonIconVariant = 'black' | 'ghost' | 'primary' | 'secondary';
 type ButtonIconShape = 'circle' | 'rounded' | 'square';
 
-export type ButtonIconProps = ComponentProps<'button'> & {
+export type ButtonIconProps = {
   size?: ButtonIconSize;
   variant?: ButtonIconVariant;
   shape?: ButtonIconShape;
   isLoading?: boolean;
   disableAnimation?: boolean;
   icon?: IconSvgElement;
-};
+} & ComponentProps<'button'>;
 
 const baseStyles =
   'inline-flex items-center justify-center transition-all duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
@@ -72,7 +72,6 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
 
     return (
       <Button
-        ref={ref}
         className={cn(
           baseStyles,
           variants[variant],
@@ -86,13 +85,14 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
           className,
         )}
         disabled={isLoading || props.disabled}
+        ref={ref}
         {...props}
       >
         {isLoading ? (
           <HugeiconsIcon
+            className="animate-spin"
             icon={Loading03Icon}
             size={iconSizes[size]}
-            className="animate-spin"
           />
         ) : icon ? (
           <HugeiconsIcon icon={icon} size={iconSizes[size]} />

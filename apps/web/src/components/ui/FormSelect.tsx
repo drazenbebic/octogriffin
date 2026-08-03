@@ -8,14 +8,14 @@ import { cn } from '@/utils/cn';
 
 import { FormFeedback } from './FormFeedback';
 
-export type FormSelectProps = Omit<SelectProps, 'value' | 'setValue'> & {
+export type FormSelectProps = {
   label?: string;
   name: string;
   description?: string;
   className?: string;
   placeholder?: string;
   multiple?: boolean;
-};
+} & Omit<SelectProps, 'setValue' | 'value'>;
 
 const errorStyles =
   'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
@@ -45,7 +45,7 @@ export const FormSelect: FC<FormSelectProps> = forwardRef(
     return (
       <div className={cn('w-full', className)}>
         {!!label && (
-          <FormLabel name={name} isRequired={required}>
+          <FormLabel isRequired={required} name={name}>
             {label}
           </FormLabel>
         )}
@@ -54,23 +54,23 @@ export const FormSelect: FC<FormSelectProps> = forwardRef(
           name={name}
           render={
             <Select
-              ref={ref}
-              value={value}
-              setValue={val => form?.setValue(name, val)}
+              className={errorStyles}
               disabled={disabled}
-              required={required}
               multiple={multiple}
               placeholder={placeholder}
-              className={errorStyles}
+              ref={ref}
+              required={required}
+              setValue={val => form?.setValue(name, val)}
+              value={value}
               {...props}
             />
           }
         />
 
         <FormFeedback
-          name={name}
           description={description}
           disabled={disabled}
+          name={name}
         />
       </div>
     );

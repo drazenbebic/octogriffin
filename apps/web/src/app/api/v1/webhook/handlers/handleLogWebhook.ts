@@ -15,6 +15,7 @@ export const handleLogWebhook = async (
 
   if (!ctx) {
     logger.error('Webhook context lost. Cannot log event.');
+
     return;
   }
 
@@ -30,6 +31,7 @@ export const handleLogWebhook = async (
     });
   } catch (error) {
     logger.error({ error }, 'Webhook logging failed.');
+
     return;
   }
 

@@ -31,8 +31,8 @@ export const HabiticaStatsCard: FC = () => {
   if (isLoading) {
     return (
       <Card
-        variant="flat"
         className="bg-violet-600 text-white shadow-lg shadow-violet-900/20 dark:shadow-none"
+        variant="flat"
       >
         <CardBody>
           <div className="flex items-start justify-between">
@@ -59,18 +59,18 @@ export const HabiticaStatsCard: FC = () => {
   if (!habiticaStats) {
     return (
       <Card
-        variant="flat"
         className="bg-slate-100 text-slate-500 dark:text-slate-400"
+        variant="flat"
       >
         <CardBody className="flex flex-col items-center justify-center py-8 text-center">
           <Heading
+            className="mb-2 text-slate-700 dark:text-slate-300"
             level={3}
             size="base"
-            className="mb-2 text-slate-700 dark:text-slate-300"
           >
             No Data Available
           </Heading>
-          <Content size="xs" color="note">
+          <Content color="note" size="xs">
             Connect your Habitica account to view your level and progress.
           </Content>
         </CardBody>
@@ -86,12 +86,12 @@ export const HabiticaStatsCard: FC = () => {
 
   return (
     <Card
-      variant="flat"
       className="bg-violet-600 text-white shadow-violet-900/20 shadow-lg dark:shadow-none"
+      variant="flat"
     >
       <CardBody>
         <div className="flex items-start justify-between">
-          <Heading level={3} size="base" className="text-white/90">
+          <Heading className="text-white/90" level={3} size="base">
             Current Level
           </Heading>
 

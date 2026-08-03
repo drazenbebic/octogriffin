@@ -54,15 +54,15 @@ export const Accordion: FC<AccordionProps> = ({
     >
       <DisclosureProvider open={open} setOpen={setOpen}>
         <Disclosure
-          onClick={onClickCallback}
           className="w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 focus-visible:ring-inset cursor-pointer dark:focus-visible:ring-violet-500"
+          onClick={onClickCallback}
           render={
             <Heading
               as="button"
-              level={4}
-              size="base"
               className="flex items-center justify-between px-6 py-4 text-left"
               color="inherit"
+              level={4}
+              size="base"
             >
               <span
                 className={cn(

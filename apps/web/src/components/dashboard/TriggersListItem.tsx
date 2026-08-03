@@ -26,10 +26,21 @@ const getDifficultyConfig = (
   label: string;
   variant: BadgeProps['variant'];
 } => {
-  if (priority <= 0.1) return { label: 'Trivial', variant: 'neutral' };
-  if (priority === 1) return { label: 'Easy', variant: 'success' };
-  if (priority === 1.5) return { label: 'Medium', variant: 'warning' };
-  if (priority >= 2) return { label: 'Hard', variant: 'error' };
+  if (priority <= 0.1) {
+    return { label: 'Trivial', variant: 'neutral' };
+  }
+
+  if (priority === 1) {
+    return { label: 'Easy', variant: 'success' };
+  }
+
+  if (priority === 1.5) {
+    return { label: 'Medium', variant: 'warning' };
+  }
+
+  if (priority >= 2) {
+    return { label: 'Hard', variant: 'error' };
+  }
 
   return { label: 'Unknown', variant: 'primary' };
 };
@@ -56,13 +67,13 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
 
   return (
     <div
-      key={trigger.uuid}
       className={cn(
         'group flex flex-col gap-4 rounded-xl p-4 shadow-sm ring-1 ring-slate-100 transition-all hover:shadow-md sm:flex-row sm:items-center sm:justify-between',
         !isActive
           ? 'bg-slate-50/80 dark:bg-slate-900/50 dark:ring-slate-800'
           : 'bg-white dark:bg-slate-900 dark:ring-slate-800',
       )}
+      key={trigger.uuid}
     >
       <div className={cn('flex items-center gap-4', !isActive && 'opacity-75')}>
         <div
@@ -79,12 +90,12 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <Heading
-              level={4}
-              size="base"
               className={cn(
                 'font-semibold transition-colors',
                 !isActive && 'text-slate-500 line-through dark:text-slate-500',
               )}
+              level={4}
+              size="base"
             >
               {trigger.taskTitle}
             </Heading>
@@ -122,15 +133,15 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
 
         <div className="flex items-center gap-1 border-l border-slate-100 pl-4 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 dark:border-slate-800">
           <Button
-            onClick={() => onOpenEditAction?.(trigger)}
             className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-600 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+            onClick={() => onOpenEditAction?.(trigger)}
             title="Edit Trigger"
           >
             <HugeiconsIcon icon={Edit02Icon} size={18} />
           </Button>
           <Button
-            onClick={() => onOpenDeleteAction?.(trigger)}
             className="cursor-pointer rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600 dark:text-slate-500 dark:hover:bg-red-950/30 dark:hover:text-red-400"
+            onClick={() => onOpenDeleteAction?.(trigger)}
             title="Delete Trigger"
           >
             <HugeiconsIcon icon={Delete02Icon} size={18} />

@@ -42,6 +42,7 @@ export async function upsertHabiticaUserAction(
       userStats = await habitica.getUserStats();
     } catch (error) {
       console.error('Habitica API Error:', error);
+
       return {
         success: false,
         error: 'Invalid User ID or API Token. Please check your credentials.',

@@ -35,12 +35,12 @@ export const Code: FC<CodeProps> = async ({
       )}
     >
       {!!icon && (
-        <HugeiconsIcon icon={icon} className="m-0 shrink-0" size={20} />
+        <HugeiconsIcon className="m-0 shrink-0" icon={icon} size={20} />
       )}
       <div
         className="w-full [&_>_pre]:bg-transparent!"
-        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: out }}
+        suppressHydrationWarning
       />
     </div>
   );

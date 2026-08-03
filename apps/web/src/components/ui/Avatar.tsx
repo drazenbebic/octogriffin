@@ -1,15 +1,15 @@
-import { FC } from 'react';
 import Image from 'next/image';
+import { FC } from 'react';
 
 import { cn } from '@/utils/cn';
 
 export type AvatarProps = {
-  src?: string | null;
+  src?: null | string;
   alt?: string;
   fallback?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'lg' | 'md' | 'sm';
   shape?: 'circle' | 'rounded' | 'square';
-  status?: 'success' | 'warning' | 'error' | 'neutral';
+  status?: 'error' | 'neutral' | 'success' | 'warning';
   className?: string;
 };
 
@@ -52,11 +52,11 @@ export const Avatar: FC<AvatarProps> = ({
       >
         {!!src ? (
           <Image
-            src={src}
             alt={alt}
-            width={100}
-            height={100}
             className="h-full w-full object-cover"
+            height={100}
+            src={src}
+            width={100}
           />
         ) : (
           <span className="font-medium text-slate-500 uppercase dark:text-slate-400">

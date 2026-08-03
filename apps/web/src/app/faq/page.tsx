@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { Metadata } from 'next';
+import { ReactNode } from 'react';
 
 import { HelpCircleIcon, Mail01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -177,7 +177,7 @@ const gameplay: FAQ[] = [
       <Content>
         Currently, we operate on the &quot;honor system.&quot; However, Smart
         Spam Detection and Daily Caps are top priorities in our upcoming{' '}
-        <Link href="/roadmap" className="text-violet-600 hover:underline">
+        <Link className="text-violet-600 hover:underline" href="/roadmap">
           Anti-Cheese
         </Link>{' '}
         update to help keep you honest.
@@ -276,10 +276,10 @@ export default function FaqPage() {
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
             <HugeiconsIcon icon={HelpCircleIcon} size={32} />
           </div>
-          <Heading level={1} size="3xl" className="mb-4">
+          <Heading className="mb-4" level={1} size="3xl">
             Frequently Asked Questions
           </Heading>
-          <Content size="lg" className="mx-auto max-w-xl">
+          <Content className="mx-auto max-w-xl" size="lg">
             Everything you need to know about the syncing process, XP
             calculations, and security.
           </Content>
@@ -330,14 +330,14 @@ export default function FaqPage() {
         </AccordionGroup>
 
         <Callout
-          title="Still have questions?"
-          headingLevel={3}
-          description="Can't find the answer you're looking for? Our support team is ready to assist."
           button={{
             label: 'Contact Support',
             href: `mailto:${supportEmail()}`,
             icon: Mail01Icon,
           }}
+          description="Can't find the answer you're looking for? Our support team is ready to assist."
+          headingLevel={3}
+          title="Still have questions?"
         />
       </div>
     </>

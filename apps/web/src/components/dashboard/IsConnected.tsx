@@ -15,16 +15,16 @@ export const IsConnected = () => {
   }, [fetchHabiticaConnection]);
 
   if (isLoading) {
-    return <Skeleton variant="circular" className="h-9 w-32" />;
+    return <Skeleton className="h-9 w-32" variant="circular" />;
   }
 
   return (
     <Badge
-      variant={isHabiticaConnected ? 'success' : 'neutral'}
-      size="md"
+      className="px-4 py-2"
       hasDot
       pulsing={isHabiticaConnected}
-      className="px-4 py-2"
+      size="md"
+      variant={isHabiticaConnected ? 'success' : 'neutral'}
     >
       {isHabiticaConnected ? 'Connected' : 'Not Connected'}
     </Badge>

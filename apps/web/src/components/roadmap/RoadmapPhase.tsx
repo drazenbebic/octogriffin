@@ -42,8 +42,8 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
 
       <div className="flex-1">
         <Card
-          variant="elevated"
           className="group hover:shadow-xl hover:shadow-slate-200/50 dark:hover:bg-slate-800/50"
+          variant="elevated"
         >
           <CardBody className="p-6 sm:p-8">
             <div className="mb-8 flex items-start justify-between gap-4">
@@ -61,8 +61,8 @@ export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
                     {phase}
                   </Heading>
                   <Content
-                    size="xs"
                     className="font-semibold uppercase text-slate-500 dark:text-slate-400"
+                    size="xs"
                   >
                     {status}
                   </Content>

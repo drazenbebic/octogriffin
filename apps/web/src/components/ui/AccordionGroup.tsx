@@ -61,6 +61,7 @@ export const AccordionGroup = ({
         const isOpen = allowMultiple
           ? openIndices.includes(i)
           : openIndices[0] === i;
+
         return cloneElement(accordion, {
           onClick,
           index: i,

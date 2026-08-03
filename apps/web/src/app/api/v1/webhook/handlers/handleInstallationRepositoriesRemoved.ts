@@ -17,6 +17,7 @@ export const handleInstallationRepositoriesRemoved = async ({
 
   if (!existingInstallation) {
     logger.warn({ installationId: installation.id }, 'Installation not found.');
+
     return;
   }
 

@@ -12,20 +12,20 @@ import { TriggerSchema } from '@/schemas/triggerSchema';
 import { PaginationMeta, PaginationParams } from '@/types/pagination';
 
 type TriggersStoreState = {
-  trigger: TriggersModel | null;
+  trigger: null | TriggersModel;
   triggers: TriggersModel[];
   meta: PaginationMeta;
   isLoading: boolean;
   fetchTriggers: (params?: PaginationParams) => Promise<void>;
   setPage: (page: number) => void;
   setLimit: (limit: number) => void;
-  createTrigger: (data: TriggerSchema) => Promise<TriggersModel | null>;
-  deleteTrigger: (uuid: string) => Promise<TriggersModel | null>;
-  toggleTrigger: (data: ToggleTriggerSchema) => Promise<TriggersModel | null>;
+  createTrigger: (data: TriggerSchema) => Promise<null | TriggersModel>;
+  deleteTrigger: (uuid: string) => Promise<null | TriggersModel>;
+  toggleTrigger: (data: ToggleTriggerSchema) => Promise<null | TriggersModel>;
   updateTrigger: (
     uuid: string,
     data: TriggerSchema,
-  ) => Promise<TriggersModel | null>;
+  ) => Promise<null | TriggersModel>;
 };
 
 export const useTriggersStore = create<TriggersStoreState>((set, get) => ({

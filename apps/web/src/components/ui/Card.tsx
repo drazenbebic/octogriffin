@@ -2,13 +2,13 @@ import { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
-type CardVariant = 'elevated' | 'outlined' | 'flat';
+type CardVariant = 'elevated' | 'flat' | 'outlined';
 
-export type CardProps = HTMLAttributes<HTMLDivElement> & {
+export type CardProps = {
   children?: ReactNode;
   variant?: CardVariant;
   isHoverable?: boolean;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 const cardBaseStyles =
   'relative flex flex-col overflow-hidden rounded-3xl transition-all duration-300 ease-in-out';

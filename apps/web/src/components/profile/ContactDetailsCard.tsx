@@ -34,7 +34,7 @@ export const ContactDetailsCard: FC<ContactDetailsCardProps> = ({
             <Heading level={3} size="lg">
               Contact & Details
             </Heading>
-            <Content size="sm" className="mt-1">
+            <Content className="mt-1" size="sm">
               Public information from your GitHub profile.
             </Content>
           </div>
@@ -42,34 +42,34 @@ export const ContactDetailsCard: FC<ContactDetailsCardProps> = ({
 
         <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
           <DetailRow
+            fallback="Not public"
             icon={<HugeiconsIcon icon={Mail01Icon} size={18} />}
             label="Email Address"
             value={profile.email}
-            fallback="Not public"
           />
           <DetailRow
+            fallback="Freelance"
             icon={<HugeiconsIcon icon={Building03Icon} size={18} />}
             label="Company"
             value={profile.company}
-            fallback="Freelance"
           />
           <DetailRow
+            fallback="Unknown Realm"
             icon={<HugeiconsIcon icon={Location01Icon} size={18} />}
             label="Location"
             value={profile.location}
-            fallback="Unknown Realm"
           />
           <DetailRow
             icon={<HugeiconsIcon icon={Globe02Icon} size={18} />}
+            isLink
             label="Website"
             value={profile.website}
-            isLink
           />
           <DetailRow
             icon={<HugeiconsIcon icon={GithubIcon} size={18} />}
+            isLink
             label="GitHub Profile"
             value={profile.githubUrl}
-            isLink
           />
         </div>
       </CardBody>

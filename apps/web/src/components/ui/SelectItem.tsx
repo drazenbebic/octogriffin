@@ -2,8 +2,8 @@ import { forwardRef } from 'react';
 
 import {
   SelectItem as BaseSelectItem,
-  SelectItemCheck,
   SelectItemProps as BaseSelectItemProps,
+  SelectItemCheck,
 } from '@ariakit/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -28,8 +28,8 @@ export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
 
         <SelectItemCheck>
           <HugeiconsIcon
-            icon={Tick02Icon}
             className="h-4 w-4 text-violet-600 dark:text-violet-400"
+            icon={Tick02Icon}
           />
         </SelectItemCheck>
       </BaseSelectItem>

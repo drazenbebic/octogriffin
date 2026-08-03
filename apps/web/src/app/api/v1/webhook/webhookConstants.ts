@@ -2,11 +2,11 @@ import { EmitterWebhookEventName } from '@octokit/webhooks';
 
 // These have dedicated handler functions
 export const dedicatedHandlerWebhooks = [
+  'installation_repositories.added',
+  'installation_repositories.removed',
   // installation
   'installation.created',
   'installation.deleted',
-  'installation_repositories.added',
-  'installation_repositories.removed',
   'installation.suspend',
   'installation.unsuspend',
   // push
@@ -19,6 +19,10 @@ export const universalHandlerWebhooks = [
   'create',
   // delete
   'delete',
+  // discussion_comment
+  'discussion_comment.created',
+  'discussion_comment.deleted',
+  'discussion_comment.edited',
   // discussion
   'discussion.answered',
   'discussion.category_changed',
@@ -34,10 +38,6 @@ export const universalHandlerWebhooks = [
   'discussion.unlabeled',
   'discussion.unlocked',
   'discussion.unpinned',
-  // discussion_comment
-  'discussion_comment.created',
-  'discussion_comment.deleted',
-  'discussion_comment.edited',
   // fork
   'fork',
   // gollum
@@ -78,6 +78,17 @@ export const universalHandlerWebhooks = [
   // package
   'package.published',
   'package.updated',
+  // pull_request_review_comment
+  'pull_request_review_comment.created',
+  'pull_request_review_comment.deleted',
+  'pull_request_review_comment.edited',
+  // pull_request_review_thread
+  'pull_request_review_thread.resolved',
+  'pull_request_review_thread.unresolved',
+  // pull_request_review
+  'pull_request_review.dismissed',
+  'pull_request_review.edited',
+  'pull_request_review.submitted',
   // pull_request
   'pull_request.assigned',
   'pull_request.closed',
@@ -96,17 +107,6 @@ export const universalHandlerWebhooks = [
   'pull_request.unassigned',
   'pull_request.unlabeled',
   'pull_request.unlocked',
-  // pull_request_review
-  'pull_request_review.dismissed',
-  'pull_request_review.edited',
-  'pull_request_review.submitted',
-  // pull_request_review_comment
-  'pull_request_review_comment.created',
-  'pull_request_review_comment.deleted',
-  'pull_request_review_comment.edited',
-  // pull_request_review_thread
-  'pull_request_review_thread.resolved',
-  'pull_request_review_thread.unresolved',
   // release
   'release.created',
   'release.deleted',

@@ -10,11 +10,11 @@ type GithubSender = {
   id: number;
   node_id: string;
   avatar_url: string;
-  gravatar_id: string | null;
+  gravatar_id: null | string;
   html_url: string;
   type: string;
-  name?: string | null;
-  email?: string | null;
+  name?: null | string;
+  email?: null | string;
 };
 
 type GithubRepository = {
@@ -68,7 +68,7 @@ export const updateGithubInstallation = async (
 };
 
 export const deleteGithubInstallation = async (
-  installationId: number | bigint,
+  installationId: bigint | number,
 ) => {
   return prisma.githubInstallations.delete({
     where: {
@@ -78,7 +78,7 @@ export const deleteGithubInstallation = async (
 };
 
 export const removeSelectedRepositories = async (
-  installationId: number | bigint,
+  installationId: bigint | number,
   repositoryIds: number[],
 ) => {
   return prisma.githubSelectedRepositories.deleteMany({
@@ -92,10 +92,12 @@ export const removeSelectedRepositories = async (
 };
 
 export const addSelectedRepositories = async (
-  installationId: number | bigint,
+  installationId: bigint | number,
   repositories: GithubRepository[],
 ) => {
-  if (repositories.length === 0) return;
+  if (repositories.length === 0) {
+    return;
+  }
 
   return prisma.githubSelectedRepositories.createMany({
     data: repositories.map(repo => ({

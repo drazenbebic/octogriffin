@@ -8,9 +8,9 @@ export type StructuredDataProps<T extends Thing> = {
 
 export const JsonLd: FC<
   StructuredDataProps<
-    Thing & {
+    {
       '@context': 'https://schema.org';
-    }
+    } & Thing
   >
 > = ({ data }) => {
   if (!data) {
@@ -19,8 +19,8 @@ export const JsonLd: FC<
 
   return (
     <script
-      type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      type="application/ld+json"
     />
   );
 };

@@ -10,10 +10,10 @@ import { TriggerWithRepos } from '@/types/triggers';
 
 export default function DashboardPage() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [editingTrigger, setEditingTrigger] = useState<TriggerWithRepos | null>(
+  const [editingTrigger, setEditingTrigger] = useState<null | TriggerWithRepos>(
     null,
   );
-  const [deletingTrigger, setDeletingTrigger] = useState<TriggersModel | null>(
+  const [deletingTrigger, setDeletingTrigger] = useState<null | TriggersModel>(
     null,
   );
 
@@ -37,28 +37,28 @@ export default function DashboardPage() {
 
       <TriggerModal
         key={editingTrigger ? `edit-${editingTrigger.uuid}` : 'create'}
-        open={isModalOpen}
-        setOpenAction={setModalOpen}
-        trigger={editingTrigger || undefined}
         onSuccessAction={() => {
           setModalOpen(false);
           setEditingTrigger(null);
         }}
+        open={isModalOpen}
+        setOpenAction={setModalOpen}
+        trigger={editingTrigger || undefined}
       />
 
       {deletingTrigger && (
         <DeleteTriggerModal
           key={`delete-${deletingTrigger.uuid}`}
-          trigger={deletingTrigger}
+          onSuccessAction={() => {
+            setEditingTrigger(null);
+          }}
           open={!!deletingTrigger}
           setOpenAction={open => {
             if (!open) {
               setDeletingTrigger(null);
             }
           }}
-          onSuccessAction={() => {
-            setEditingTrigger(null);
-          }}
+          trigger={deletingTrigger}
         />
       )}
     </>

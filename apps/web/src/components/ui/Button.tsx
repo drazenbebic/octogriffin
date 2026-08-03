@@ -11,16 +11,16 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import { cn } from '@/utils/cn';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'black';
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonVariant = 'black' | 'ghost' | 'primary' | 'secondary';
+type ButtonSize = 'lg' | 'md' | 'sm';
 
-export type ButtonProps = BaseButtonProps & {
+export type ButtonProps = {
   children?: ReactNode;
   className?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
-};
+} & BaseButtonProps;
 
 const baseStyles =
   'relative inline-flex gap-2 items-center justify-center rounded-lg font-semibold transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none hover:-translate-y-0.5 active:translate-y-0';
@@ -73,9 +73,9 @@ export const Button: FC<ButtonProps> = ({
     >
       {isLoading && (
         <HugeiconsIcon
+          className="animate-spin"
           icon={Loading03Icon}
           size={iconSizes[size]}
-          className="animate-spin"
         />
       )}
       {children}

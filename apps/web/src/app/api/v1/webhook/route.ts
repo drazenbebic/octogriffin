@@ -30,6 +30,7 @@ export const POST = async (request: NextRequest) => {
 
   if (!isValid) {
     logger.warn('Invalid signature received');
+
     return new NextResponse('Invalid Signature', { status: 401 });
   }
 

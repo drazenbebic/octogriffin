@@ -21,6 +21,7 @@ export const EnvGenerator: FC = () => {
 
     const array = new Uint8Array(32);
     window.crypto.getRandomValues(array);
+
     return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join(
       '',
     );
@@ -73,28 +74,28 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
           </span>
           <div className="flex items-center gap-2">
             <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleRegenerate}
               className="h-7 px-2 text-xs text-slate-400 hover:text-white"
+              onClick={handleRegenerate}
+              size="sm"
+              variant="ghost"
             >
-              <HugeiconsIcon icon={RefreshIcon} size={14} className="mr-1.5" />
+              <HugeiconsIcon className="mr-1.5" icon={RefreshIcon} size={14} />
               Regenerate
             </Button>
             <Button
-              variant="secondary"
-              size="sm"
-              onClick={copyToClipboard}
               className="h-7 px-2 text-xs"
+              onClick={copyToClipboard}
+              size="sm"
+              variant="secondary"
             >
               {copied ? (
                 <HugeiconsIcon
+                  className="mr-1.5 text-emerald-600"
                   icon={CheckmarkCircle02Icon}
                   size={14}
-                  className="mr-1.5 text-emerald-600"
                 />
               ) : (
-                <HugeiconsIcon icon={Copy01Icon} size={14} className="mr-1.5" />
+                <HugeiconsIcon className="mr-1.5" icon={Copy01Icon} size={14} />
               )}
               {copied ? 'Copied' : 'Copy'}
             </Button>

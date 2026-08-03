@@ -1,5 +1,5 @@
-import { ElementType, FC, ReactNode } from 'react';
 import Link from 'next/link';
+import { ElementType, FC, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -8,8 +8,8 @@ interface PillProps {
   href?: string;
   target?: string;
   className?: string;
-  variant?: 'shiny' | 'accent' | 'neutral' | 'outline';
-  size?: 'sm' | 'md';
+  variant?: 'accent' | 'neutral' | 'outline' | 'shiny';
+  size?: 'md' | 'sm';
   as?: ElementType;
 }
 
@@ -65,8 +65,6 @@ export const Pill: FC<PillProps> = ({
 
   return (
     <Tag
-      href={href}
-      target={target}
       className={cn(
         baseStyles,
         variant !== 'shiny' && sizeStyles[size],
@@ -74,6 +72,8 @@ export const Pill: FC<PillProps> = ({
         isLink && 'cursor-pointer',
         className,
       )}
+      href={href}
+      target={target}
     >
       {content}
     </Tag>

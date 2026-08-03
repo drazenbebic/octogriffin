@@ -10,7 +10,7 @@ const DEFAULT_OPTIONS: Intl.DateTimeFormatOptions = {
 };
 
 export function useFormattedDate(
-  date: Date | string | number,
+  date: Date | number | string,
   options: Intl.DateTimeFormatOptions = DEFAULT_OPTIONS,
 ) {
   const [formattedDate, setFormattedDate] = useState<string>('');

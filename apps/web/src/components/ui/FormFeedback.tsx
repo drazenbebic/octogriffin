@@ -32,14 +32,14 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
   if (error && touched) {
     return (
       <FormError
-        name={name}
         className={cn(
           'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs font-medium text-red-600 dark:text-red-400',
         )}
+        name={name}
       >
         <HugeiconsIcon
-          icon={AlertCircleIcon}
           className="mt-0.5 shrink-0"
+          icon={AlertCircleIcon}
           size={14}
         />
         {error as ReactNode}
@@ -50,7 +50,6 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
   if (description) {
     return (
       <FormDescription
-        name={name}
         className={cn(
           'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs',
           {
@@ -58,10 +57,11 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
             'text-slate-400 opacity-75 dark:text-slate-500': disabled,
           },
         )}
+        name={name}
       >
         <HugeiconsIcon
-          icon={InformationCircleIcon}
           className="mt-0.5 shrink-0"
+          icon={InformationCircleIcon}
           size={14}
         />
         {description}

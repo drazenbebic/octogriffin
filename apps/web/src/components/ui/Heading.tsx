@@ -3,8 +3,8 @@ import { createElement, ElementType, FC, ReactNode } from 'react';
 import { cn } from '@/utils/cn';
 
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
-type HeadingSize = '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'base' | 'sm';
-type HeadingColor = 'slate' | 'violet' | 'inherit';
+type HeadingSize = '2xl' | '3xl' | '4xl' | 'base' | 'lg' | 'sm' | 'xl';
+type HeadingColor = 'inherit' | 'slate' | 'violet';
 
 export type HeadingProps = {
   as?: ElementType;

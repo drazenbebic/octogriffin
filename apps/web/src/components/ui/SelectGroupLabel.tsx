@@ -15,11 +15,11 @@ export const SelectGroupLabel = forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <BaseSelectGroupLabel
-      ref={ref}
       className={cn(
         'px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 select-none dark:text-slate-500',
         className,
       )}
+      ref={ref}
       {...props}
     />
   );

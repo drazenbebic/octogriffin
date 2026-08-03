@@ -13,12 +13,12 @@ export type FormInputProps = {
   className?: string;
   description?: string;
   disabled?: boolean;
-  label?: string | ReactNode;
+  label?: ReactNode | string;
   name: string;
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
-  type?: 'text' | 'email' | 'password' | 'phone' | 'number' | 'url';
+  type?: 'email' | 'number' | 'password' | 'phone' | 'text' | 'url';
   leadingIcon?: ReactNode;
 };
 
@@ -56,7 +56,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     return (
       <div className={cn('w-full', className)}>
         {!!label && (
-          <FormLabel name={name} isRequired={required}>
+          <FormLabel isRequired={required} name={name}>
             {label}
           </FormLabel>
         )}
@@ -69,27 +69,27 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           )}
 
           <BaseFormInput
-            ref={ref}
-            name={name}
-            type={inputType}
-            placeholder={placeholder}
-            disabled={disabled}
-            readOnly={readOnly}
-            required={required}
             className={cn(baseStyles, errorStyles, {
               'pl-10': !!leadingIcon,
               'pr-10': isPasswordType,
             })}
+            disabled={disabled}
+            name={name}
+            placeholder={placeholder}
+            readOnly={readOnly}
+            ref={ref}
+            required={required}
+            type={inputType}
             {...props}
           />
 
           {isPasswordType && (
             <div className="absolute right-2 top-1/2 -translate-y-1/2">
               <ButtonIcon
+                className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
+                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                 size="sm"
                 variant="ghost"
-                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
               >
                 <HugeiconsIcon
                   icon={isPasswordVisible ? ViewOffIcon : ViewIcon}

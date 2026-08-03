@@ -39,7 +39,7 @@ export default function InstallationPage() {
             <HugeiconsIcon icon={Rocket01Icon} size={14} />
             Quick Start
           </div>
-          <Heading level={1} className="mb-4">
+          <Heading className="mb-4" level={1}>
             Let&apos;s get you equipped
           </Heading>
           <Content size="lg">
@@ -60,30 +60,30 @@ export default function InstallationPage() {
 
               <div className="pt-1.5 pb-8">
                 <Heading
+                  className="text-slate-900 dark:text-slate-50"
                   level={3}
                   size="lg"
-                  className="text-slate-900 dark:text-slate-50"
                 >
                   Install the App
                 </Heading>
-                <Content size="sm" className="mt-2 mb-4">
+                <Content className="mt-2 mb-4" size="sm">
                   Begin by installing the GitHub App on your account. This
                   grants us permission to listen to your commits securely.
                 </Content>
                 <Link
+                  className="inline-block"
                   href={githubAppUrl()}
                   target="_blank"
-                  className="inline-block"
                 >
                   <Button
-                    size="lg"
                     className="shadow-xl shadow-violet-600/10 hover:shadow-violet-600/20 dark:shadow-none"
+                    size="lg"
                   >
                     Install the GitHub App
                     <HugeiconsIcon
+                      className="opacity-60"
                       icon={ArrowRight01Icon}
                       size={16}
-                      className="opacity-60"
                     />
                   </Button>
                 </Link>
@@ -95,25 +95,25 @@ export default function InstallationPage() {
           <div className="relative">
             <div className="relative z-10 flex gap-6">
               <Card
-                variant="flat"
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+                variant="flat"
               >
                 <span className="font-bold">2</span>
               </Card>
               <div className="pt-2 pb-6">
                 <Heading
+                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
                   level={3}
                   size="base"
-                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
                 >
                   Select Repositories
                   <HugeiconsIcon
+                    className="text-blue-500"
                     icon={CheckmarkCircle02Icon}
                     size={18}
-                    className="text-blue-500"
                   />
                 </Heading>
-                <Content size="sm" className="mt-2">
+                <Content className="mt-2" size="sm">
                   During installation, choose <strong>All Repositories</strong>{' '}
                   or select specific projects you want to gamify.
                 </Content>
@@ -125,25 +125,25 @@ export default function InstallationPage() {
           <div className="relative">
             <div className="relative z-10 flex gap-6">
               <Card
-                variant="flat"
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+                variant="flat"
               >
                 <span className="font-bold">3</span>
               </Card>
               <div className="pt-2 pb-6">
                 <Heading
+                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
                   level={3}
                   size="base"
-                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
                 >
                   Enter Credentials
                   <HugeiconsIcon
+                    className="text-amber-500"
                     icon={Key01Icon}
                     size={18}
-                    className="text-amber-500"
                   />
                 </Heading>
-                <Content size="sm" className="mt-2">
+                <Content className="mt-2" size="sm">
                   You will be redirected to the dashboard. Enter your Habitica{' '}
                   <strong>User ID</strong> and <strong>API Token</strong> (found
                   in Dashboard &gt; Settings).
@@ -156,25 +156,25 @@ export default function InstallationPage() {
           <div className="relative">
             <div className="relative z-10 flex gap-6">
               <Card
-                variant="flat"
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+                variant="flat"
               >
                 <span className="font-bold">4</span>
               </Card>
               <div className="pt-2">
                 <Heading
+                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
                   level={3}
                   size="base"
-                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
                 >
                   Set Triggers
                   <HugeiconsIcon
+                    className="text-emerald-500"
                     icon={Settings02Icon}
                     size={18}
-                    className="text-emerald-500"
                   />
                 </Heading>
-                <Content size="sm" className="mt-2 mb-4">
+                <Content className="mt-2 mb-4" size="sm">
                   Finally, map GitHub events to rewards to start earning.
                 </Content>
               </div>

@@ -70,9 +70,9 @@ export default function HomePage() {
 
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
             <Pill
-              variant="shiny"
               href={githubRepositoryUrl(`/releases/tag/web-v${version}`)}
               target="_blank"
+              variant="shiny"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
@@ -81,8 +81,8 @@ export default function HomePage() {
 
               <Content
                 as="span"
-                color="note"
                 className="font-medium group-hover:text-violet-700 transition-colors dark:group-hover:text-violet-300"
+                color="note"
               >
                 v{version} is now live
               </Content>
@@ -91,26 +91,26 @@ export default function HomePage() {
 
               <Content
                 as="span"
-                color="note"
                 className="flex items-center gap-1 group-hover:text-violet-600 transition-colors"
+                color="note"
               >
                 <span className="text-xs font-medium">Changelog</span>
                 <HugeiconsIcon
+                  className="-ml-1 translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
                   icon={ArrowRight01Icon}
                   size={14}
-                  className="-ml-1 translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
                 />
               </Content>
             </Pill>
 
             <Heading level={1} size="4xl">
               Turn your Commits into <br />
-              <TextAccent glowing breathing>
+              <TextAccent breathing glowing>
                 Gold and XP
               </TextAccent>
             </Heading>
 
-            <Content size="lg" className="max-w-2xl text-center">
+            <Content className="max-w-2xl text-center" size="lg">
               Connect your GitHub Account to our Octogriffin App. Level up your
               Habitica character, find items, and slay monsters just by writing
               code.
@@ -125,18 +125,18 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <Link href={githubRepositoryUrl()} target="_blank">
-                  <Button variant="black" size="lg">
+                  <Button size="lg" variant="black">
                     <HugeiconsIcon icon={GithubIcon} size={20} />
                     Open Source
                   </Button>
                 </Link>
               </div>
 
-              <Content size="sm" color="note">
+              <Content color="note" size="sm">
                 Want to see how it works first?{' '}
                 <Link
-                  href="/docs"
                   className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                  href="/docs"
                 >
                   Read the Docs &rarr;
                 </Link>
@@ -147,7 +147,7 @@ export default function HomePage() {
 
         <section className="mx-auto max-w-6xl px-4 py-12">
           <div className="mb-16 text-center">
-            <Heading level={2} size="3xl" className="tracking-tight">
+            <Heading className="tracking-tight" level={2} size="3xl">
               How it works
             </Heading>
             <Content className="mt-4" size="lg">
@@ -161,9 +161,9 @@ export default function HomePage() {
             </div>
 
             <Card
-              variant="elevated"
-              isHoverable
               className="shadow-blue-900/5! hover:shadow-blue-900/20!"
+              isHoverable
+              variant="elevated"
             >
               <CardBody className="items-center text-center">
                 <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-600 shadow-inner ring-4 ring-white dark:from-blue-950 dark:to-blue-900/40 dark:text-blue-400 dark:ring-slate-900">
@@ -182,7 +182,7 @@ export default function HomePage() {
               </CardBody>
             </Card>
 
-            <Card variant="elevated" isHoverable>
+            <Card isHoverable variant="elevated">
               <CardBody className="items-center text-center">
                 <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-violet-50 to-violet-100 text-violet-600 shadow-inner ring-4 ring-white dark:from-violet-950 dark:to-violet-900/40 dark:text-violet-400 dark:ring-slate-900">
                   <HugeiconsIcon icon={CheckmarkCircle01Icon} size={32} />
@@ -201,9 +201,9 @@ export default function HomePage() {
             </Card>
 
             <Card
-              variant="elevated"
-              isHoverable
               className="shadow-emerald-900/5! hover:shadow-emerald-900/20!"
+              isHoverable
+              variant="elevated"
             >
               <CardBody className="items-center text-center">
                 <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-600 shadow-inner ring-4 ring-white dark:from-emerald-950 dark:to-emerald-900/40 dark:text-emerald-400 dark:ring-slate-900">
@@ -226,58 +226,58 @@ export default function HomePage() {
 
         <section className="mx-auto w-full max-w-3xl px-4 text-center">
           <Card
-            variant="outlined"
             className="relative overflow-hidden border-violet-200 bg-linear-to-b from-white via-violet-50/30 to-violet-100/30 shadow-xs dark:border-violet-900/50 dark:from-slate-900 dark:via-violet-950/10 dark:to-violet-950/20"
+            variant="outlined"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] bg-size-[20px_20px] opacity-[0.04] dark:bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] dark:opacity-[0.1]" />
 
             <div className="pointer-events-none absolute -left-8 -top-8 text-violet-200/60 opacity-50 dark:text-violet-900/40">
-              <HugeiconsIcon icon={StarIcon} size={80} className="-rotate-12" />
+              <HugeiconsIcon className="-rotate-12" icon={StarIcon} size={80} />
             </div>
             <div className="pointer-events-none absolute -bottom-8 -right-8 text-violet-200/60 opacity-50 dark:text-violet-900/40">
               <HugeiconsIcon
+                className="rotate-12"
                 icon={Target02Icon}
                 size={80}
-                className="rotate-12"
               />
             </div>
 
             <CardBody className="relative z-10 flex flex-col items-center px-6 py-12 sm:px-12">
               <Pill
-                variant="neutral"
                 className="mb-4 inline-flex items-center gap-1.5 border-violet-200 bg-white/80 shadow-xs backdrop-blur-sm dark:border-violet-900/50 dark:bg-slate-900/80"
+                variant="neutral"
               >
                 <HugeiconsIcon
+                  className="shrink-0"
                   icon={Rocket01Icon}
                   size={14}
-                  className="shrink-0"
                 />
                 <Content
-                  color="violet"
                   as="span"
-                  size="sm"
                   className="font-semibold"
+                  color="violet"
+                  size="sm"
                 >
                   Upcoming Features
                 </Content>
               </Pill>
 
-              <Heading level={2} size="3xl" className="mb-4">
+              <Heading className="mb-4" level={2} size="3xl">
                 We are just{' '}
                 <span className="text-violet-600 dark:text-violet-400">
                   getting started.
                 </span>
               </Heading>
 
-              <Content size="lg" className="mx-auto mb-8 max-w-lg">
+              <Content className="mx-auto mb-8 max-w-lg" size="lg">
                 We have ambitious plans to make your workflow even more
                 immersive. See what features are currently in the forge.
               </Content>
 
               <Link href="/roadmap">
                 <Button
-                  size="lg"
                   className="shadow-lg shadow-violet-200/50 dark:shadow-none"
+                  size="lg"
                 >
                   <HugeiconsIcon icon={Calendar03Icon} size={20} />
                   View Roadmap
@@ -310,50 +310,50 @@ export default function HomePage() {
 
               <div className="flex flex-col gap-4">
                 <RewardRow
+                  action="Triggers"
+                  badgeVariant="success"
                   icon={
                     <HugeiconsIcon
+                      className="text-emerald-500"
                       icon={GitCommitIcon}
                       size={20}
-                      className="text-emerald-500"
                     />
                   }
-                  action="Triggers"
                   reward="Commits, PRs, Merges & Reviews, and muuuuuch more!"
-                  badgeVariant="success"
                 />
                 <RewardRow
+                  action="Difficulty"
+                  badgeVariant="info"
                   icon={
                     <HugeiconsIcon
+                      className="text-blue-500"
                       icon={Target02Icon}
                       size={20}
-                      className="text-blue-500"
                     />
                   }
-                  action="Difficulty"
                   reward="Trivial, Easy, Medium or Hard"
-                  badgeVariant="info"
                 />
                 <RewardRow
+                  action="Rewards"
+                  badgeVariant="warning"
                   icon={
                     <HugeiconsIcon
+                      className="text-amber-500"
                       icon={StarIcon}
                       size={20}
-                      className="text-amber-500"
                     />
                   }
-                  action="Rewards"
                   reward="Reward with XP/Gold, or lose Health!"
-                  badgeVariant="warning"
                 />
                 <RewardRow
+                  action="Scope"
                   icon={
                     <HugeiconsIcon
+                      className="text-violet-500"
                       icon={GitBranchIcon}
                       size={20}
-                      className="text-violet-500"
                     />
                   }
-                  action="Scope"
                   reward="Global or Repository specific"
                 />
               </div>

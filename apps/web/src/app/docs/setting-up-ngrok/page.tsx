@@ -35,7 +35,7 @@ export default function DocsSettingUpNgrokPage() {
       <JsonLd data={settingUpNgrokJsonLd} />
       <div className="space-y-12">
         <div>
-          <Heading level={1} className="mb-4">
+          <Heading className="mb-4" level={1}>
             Setting up Ngrok
           </Heading>
           <Content size="lg">
@@ -50,7 +50,7 @@ export default function DocsSettingUpNgrokPage() {
         </div>
 
         {/* Why Ngrok? */}
-        <Alert variant="info" title="Why do we use Ngrok?">
+        <Alert title="Why do we use Ngrok?" variant="info">
           While GitHub provides a tool called{' '}
           <code className="font-bold">smee-client</code>, we prefer ngrok
           because it provides a <strong>Static Domain</strong>&nbsp;on the free
@@ -59,21 +59,21 @@ export default function DocsSettingUpNgrokPage() {
         </Alert>
 
         {/* Step 1: Install */}
-        <DocsStep step={1} heading="Install Ngrok CLI">
+        <DocsStep heading="Install Ngrok CLI" step={1}>
           <Content>
             Download and install the ngrok command line tool for your operating
             system from the official website.
           </Content>
           <div className="mt-4">
             <Button
-              variant="black"
               render={
                 <NextLink
                   href="https://ngrok.com/download"
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
                 />
               }
+              variant="black"
             >
               Go to ngrok.com/download
             </Button>
@@ -81,7 +81,7 @@ export default function DocsSettingUpNgrokPage() {
         </DocsStep>
 
         {/* Step 2: Account */}
-        <DocsStep step={2} heading="Create Account & Authenticate">
+        <DocsStep heading="Create Account & Authenticate" step={2}>
           <Content>
             Create a free account on{' '}
             <Link href="https://ngrok.com" target="_blank">
@@ -98,7 +98,7 @@ export default function DocsSettingUpNgrokPage() {
         </DocsStep>
 
         {/* Step 3: Domain */}
-        <DocsStep step={3} heading="Locate Static Domain">
+        <DocsStep heading="Locate Static Domain" step={3}>
           <Content>
             Ngrok automatically assigns a free static domain to your account.
             You can find it in the dashboard under{' '}
@@ -114,7 +114,7 @@ export default function DocsSettingUpNgrokPage() {
         </DocsStep>
 
         {/* Step 4: Configuration */}
-        <DocsStep step={4} heading="Configure Tunnel Agent">
+        <DocsStep heading="Configure Tunnel Agent" step={4}>
           <Content>
             Instead of typing long flags every time, we will define a persistent
             configuration. Open your ngrok configuration file:
@@ -149,7 +149,7 @@ export default function DocsSettingUpNgrokPage() {
         </DocsStep>
 
         {/* Step 5: Start */}
-        <DocsStep step={5} heading="Start the Tunnel">
+        <DocsStep heading="Start the Tunnel" step={5}>
           <Content>
             Now you can start your tunnel with a single short command:
           </Content>
@@ -163,8 +163,8 @@ export default function DocsSettingUpNgrokPage() {
 
           <div className="mt-4 flex items-start gap-3 rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
             <HugeiconsIcon
-              icon={CheckmarkCircle02Icon}
               className="shrink-0 text-emerald-600 dark:text-emerald-400"
+              icon={CheckmarkCircle02Icon}
               size={20}
             />
             <Content className="text-inherit!">
@@ -178,7 +178,7 @@ export default function DocsSettingUpNgrokPage() {
         </DocsStep>
 
         {/* Step 6: Update GitHub */}
-        <DocsStep step={6} heading="Update GitHub App">
+        <DocsStep heading="Update GitHub App" step={6}>
           <Content>Now tell GitHub to send events to this URL.</Content>
           <ol className="list-decimal list-inside space-y-2 text-slate-700 ml-2 dark:text-slate-400">
             <Content as="li">

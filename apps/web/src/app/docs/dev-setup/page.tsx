@@ -80,7 +80,7 @@ export default function DocsDevSetupPage() {
       <JsonLd data={devSetupJsonLd} />
       <div className="space-y-12 pb-20">
         <div>
-          <Heading level={1} className="mb-4">
+          <Heading className="mb-4" level={1}>
             Development Setup
           </Heading>
           <Content size="lg">
@@ -97,23 +97,23 @@ export default function DocsDevSetupPage() {
           </Heading>
           <div className="grid gap-3 sm:grid-cols-2">
             <Card
-              variant="flat"
               className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
+              variant="flat"
             >
               <HugeiconsIcon
-                icon={CheckmarkCircle02Icon}
                 className="text-emerald-500 shrink-0"
+                icon={CheckmarkCircle02Icon}
                 size={24}
               />
               <Content className="font-medium">Node.js 22+</Content>
             </Card>
             <Card
-              variant="flat"
               className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
+              variant="flat"
             >
               <HugeiconsIcon
-                icon={CheckmarkCircle02Icon}
                 className="text-emerald-500 shrink-0"
+                icon={CheckmarkCircle02Icon}
                 size={24}
               />
               <Content className="font-medium">Docker (for PostgreSQL)</Content>
@@ -122,27 +122,27 @@ export default function DocsDevSetupPage() {
         </section>
 
         {/* Step 1: Webhook Tunneling */}
-        <DocsStep step={1} heading="Expose Localhost">
+        <DocsStep heading="Expose Localhost" step={1}>
           <Content>
             GitHub Webhooks require a public URL to reach your machine. Since
             localhost is not accessible from the internet, we use a tunnel.
           </Content>
 
           <DocsResourceLink
-            href="/docs/setting-up-ngrok"
-            title="Set up Ngrok Tunnel"
             description="Required to receive webhook events locally."
+            href="/docs/setting-up-ngrok"
             icon={<HugeiconsIcon icon={Globe02Icon} size={18} />}
+            title="Set up Ngrok Tunnel"
           />
 
-          <Alert variant="info" title="Alternatives">
+          <Alert title="Alternatives" variant="info">
             While we recommend Ngrok for stability, you are free to use
             alternatives like Smee or Localtunnel.
           </Alert>
         </DocsStep>
 
         {/* Step 2: Create GitHub App */}
-        <DocsStep step={2} heading="Create GitHub App">
+        <DocsStep heading="Create GitHub App" step={2}>
           <Content>
             Go to{' '}
             <Link href="https://github.com/settings/apps/new" target="_blank">
@@ -157,11 +157,11 @@ export default function DocsDevSetupPage() {
                 1. General
               </Heading>
               <Card
-                variant="flat"
                 className="grid gap-2 p-4 text-sm dark:bg-slate-900/50"
+                variant="flat"
               >
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     GitHub App Name
                   </Content>
                   <span className="font-mono font-bold text-slate-900 dark:text-slate-100">
@@ -169,7 +169,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     Homepage URL
                   </Content>
                   <span className="font-mono text-slate-900 dark:text-slate-300">
@@ -177,7 +177,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     Callback URL
                   </Content>
                   <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
@@ -185,7 +185,7 @@ export default function DocsDevSetupPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     Callback URL (2)
                   </Content>
                   <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
@@ -199,7 +199,7 @@ export default function DocsDevSetupPage() {
                 </div>
 
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     Setup URL
                   </Content>
                   <span className="font-mono text-slate-900 dark:text-slate-300">
@@ -207,7 +207,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     Webhook URL
                   </Content>
                   <span className="font-mono text-slate-900 dark:text-slate-300">
@@ -218,7 +218,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" color="note" className="font-medium">
+                  <Content as="span" className="font-medium" color="note">
                     Webhook Secret
                   </Content>
                   <span className="text-slate-500 italic dark:text-slate-500">
@@ -249,11 +249,11 @@ export default function DocsDevSetupPage() {
                     {GITHUB_PERMISSIONS.map(
                       ({ category, isMandatory = false }) => (
                         <tr
-                          key={category}
                           className={cn({
                             'bg-white dark:bg-slate-950': !isMandatory,
                             'bg-slate-50/50 dark:bg-slate-900/50': isMandatory,
                           })}
+                          key={category}
                         >
                           <td
                             className={cn(
@@ -283,17 +283,17 @@ export default function DocsDevSetupPage() {
               </Content>
 
               <Card
-                variant="flat"
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 p-4 dark:bg-slate-900/50"
+                variant="flat"
               >
                 {GITHUB_EVENTS.map(event => (
                   <div
-                    key={event}
                     className="flex items-center gap-2.5 rounded-lg bg-white px-3 py-2 text-sm text-slate-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800"
+                    key={event}
                   >
                     <HugeiconsIcon
-                      icon={Tick02Icon}
                       className="text-emerald-500 shrink-0"
+                      icon={Tick02Icon}
                       size={16}
                     />
                     <span className="font-medium">{event}</span>
@@ -302,7 +302,7 @@ export default function DocsDevSetupPage() {
               </Card>
             </div>
 
-            <Alert variant="warning" title="Important">
+            <Alert title="Important" variant="warning">
               After clicking &quot;Create GitHub App&quot;, locate the{' '}
               <span className="font-mono font-bold">Client ID</span> and
               generate a new{' '}
@@ -313,7 +313,7 @@ export default function DocsDevSetupPage() {
         </DocsStep>
 
         {/* Step 3: Fork & Clone */}
-        <DocsStep step={3} heading="Fork & Clone">
+        <DocsStep heading="Fork & Clone" step={3}>
           <Content>
             If you plan to contribute,{' '}
             <Link href={githubRepositoryUrl('/fork')} target="_blank">
@@ -332,7 +332,7 @@ export default function DocsDevSetupPage() {
         </DocsStep>
 
         {/* Step 4: Install Dependencies */}
-        <DocsStep step={4} heading="Install Dependencies">
+        <DocsStep heading="Install Dependencies" step={4}>
           <Content>Install the project dependencies.</Content>
           <Code
             code={['yarn install']}
@@ -343,13 +343,13 @@ export default function DocsDevSetupPage() {
         </DocsStep>
 
         {/* Step 5: Environment Config */}
-        <DocsStep step={5} heading="Configure Environment">
+        <DocsStep heading="Configure Environment" step={5}>
           <div className="space-y-2">
-            <Heading className="flex items-center gap-2" size="base" level={4}>
+            <Heading className="flex items-center gap-2" level={4} size="base">
               <HugeiconsIcon
+                className="text-slate-400"
                 icon={Folder01Icon}
                 size={16}
-                className="text-slate-400"
               />
               Copy Configuration Files
             </Heading>
@@ -368,11 +368,11 @@ export default function DocsDevSetupPage() {
           </div>
 
           <div className="space-y-2 pt-2">
-            <Heading className="flex items-center gap-2" size="base" level={4}>
+            <Heading className="flex items-center gap-2" level={4} size="base">
               <HugeiconsIcon
+                className="text-slate-400"
                 icon={Settings01Icon}
                 size={16}
-                className="text-slate-400"
               />
               Fill <code className="text-sm">apps/web/.env.local</code>
             </Heading>
@@ -388,7 +388,7 @@ export default function DocsDevSetupPage() {
         </DocsStep>
 
         {/* Step 6: Database */}
-        <DocsStep step={6} heading="Start Database">
+        <DocsStep heading="Start Database" step={6}>
           <Content>
             Start the PostgreSQL container from the project root.
           </Content>
@@ -407,7 +407,7 @@ export default function DocsDevSetupPage() {
         </DocsStep>
 
         {/* Step 7: Prisma Setup */}
-        <DocsStep step={7} heading="Initialize Database">
+        <DocsStep heading="Initialize Database" step={7}>
           <Content>
             Run the following commands to generate the client, apply migrations,
             and seed demo data.
@@ -433,13 +433,13 @@ export default function DocsDevSetupPage() {
         </DocsStep>
 
         {/* Step 8: Launch */}
-        <DocsStep step={8} heading="Launch Server">
+        <DocsStep heading="Launch Server" step={8}>
           <Content>Everything is ready! Start the development server:</Content>
           <Code
             code={['yarn dev']}
+            disableNumbers
             icon={CommandLineIcon}
             language="bash"
-            disableNumbers
           />
           <Content className="mt-4">
             Open{' '}

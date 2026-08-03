@@ -13,8 +13,8 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
   ({ className, children, ...props }, ref) => {
     return (
       <BaseSelectGroup
-        ref={ref}
         className={cn('group first:mt-0 mt-2', className)}
+        ref={ref}
         {...props}
       >
         {children}

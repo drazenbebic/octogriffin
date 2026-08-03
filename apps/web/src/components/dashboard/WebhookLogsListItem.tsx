@@ -35,6 +35,7 @@ const getEventConfig = (event: string) => {
         'text-violet-600 bg-violet-50 dark:bg-violet-950/50 dark:text-violet-400',
     };
   }
+
   if (event.includes('pull_request')) {
     return {
       icon: <HugeiconsIcon icon={GitPullRequestIcon} size={18} />,
@@ -42,6 +43,7 @@ const getEventConfig = (event: string) => {
       color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 dark:text-blue-400',
     };
   }
+
   if (event.includes('issue')) {
     return {
       icon: <HugeiconsIcon icon={SourceCodeIcon} size={18} />,
@@ -50,6 +52,7 @@ const getEventConfig = (event: string) => {
         'text-amber-600 bg-amber-50 dark:bg-amber-950/50 dark:text-amber-400',
     };
   }
+
   return {
     icon: <HugeiconsIcon icon={ZapIcon} size={18} />,
     label: event,
@@ -88,7 +91,7 @@ export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
             className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400"
             title="Delivery UUID"
           >
-            <HugeiconsIcon icon={PackageIcon} size={14} className="shrink-0" />
+            <HugeiconsIcon className="shrink-0" icon={PackageIcon} size={14} />
             <span className="truncate font-mono">{log.deliveryUuid}</span>
           </div>
         </div>

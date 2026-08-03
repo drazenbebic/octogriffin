@@ -1,8 +1,8 @@
 'use client';
 
-import { FC, useState } from 'react';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FC, useState } from 'react';
 
 import { Dialog, DialogDisclosure, useDialogStore } from '@ariakit/react';
 import {
@@ -38,9 +38,9 @@ export const MobileMenu: FC = () => {
   return (
     <>
       <DialogDisclosure
-        store={dialog}
-        className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-lg text-slate-600 transition-colors hover:bg-slate-100 active:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 dark:active:bg-slate-700 md:hidden"
         aria-label={open ? 'Close Menu' : 'Open Menu'}
+        className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-lg text-slate-600 transition-colors hover:bg-slate-100 active:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 dark:active:bg-slate-700 md:hidden"
+        store={dialog}
       >
         {open ? (
           <HugeiconsIcon icon={Cancel01Icon} size={20} />
@@ -50,13 +50,13 @@ export const MobileMenu: FC = () => {
       </DialogDisclosure>
 
       <Dialog
-        store={dialog}
-        modal
         className={cn(
           'fixed inset-0 top-16 z-40 flex flex-col overflow-hidden',
           'bg-white/95 backdrop-blur-xl dark:bg-slate-950/95',
           'animate-in fade-in slide-in-from-top-2 duration-300 ease-out',
         )}
+        modal
+        store={dialog}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] bg-size-[16px_16px] opacity-50" />
 
@@ -70,10 +70,10 @@ export const MobileMenu: FC = () => {
 
               return (
                 <NextLink
-                  key={href}
-                  href={href}
-                  onClick={() => dialog.hide()}
                   className="group flex items-center justify-between"
+                  href={href}
+                  key={href}
+                  onClick={() => dialog.hide()}
                 >
                   <div className="flex flex-col">
                     <span
@@ -92,14 +92,14 @@ export const MobileMenu: FC = () => {
                   </div>
 
                   <HugeiconsIcon
-                    icon={ArrowRight01Icon}
-                    size={24}
                     className={cn(
                       'transition-all duration-300',
                       isActive
                         ? 'opacity-100 translate-x-0 text-violet-600 dark:text-violet-400'
                         : 'opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-violet-400',
                     )}
+                    icon={ArrowRight01Icon}
+                    size={24}
                   />
                 </NextLink>
               );
@@ -109,25 +109,25 @@ export const MobileMenu: FC = () => {
           <div className="mt-auto border-t border-slate-100 pt-8 dark:border-slate-800">
             <div className="mb-6 flex gap-4">
               <NextLink
-                href={githubRepositoryUrl()}
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-900 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-100 dark:hover:text-slate-900"
                 aria-label="GitHub Repository"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-900 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-100 dark:hover:text-slate-900"
+                href={githubRepositoryUrl()}
+                rel="noreferrer"
+                target="_blank"
               >
                 <HugeiconsIcon icon={GithubIcon} size={20} />
               </NextLink>
               <NextLink
-                href="https://www.bebic.dev"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-violet-600 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-violet-600 dark:hover:text-white"
                 aria-label="Drazen Bebic Homepage"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-violet-600 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-violet-600 dark:hover:text-white"
+                href="https://www.bebic.dev"
+                rel="noreferrer"
+                target="_blank"
               >
                 <HugeiconsIcon icon={Globe02Icon} size={20} />
               </NextLink>
             </div>
-            <Content size="sm" color="note">
+            <Content color="note" size="sm">
               &copy; {new Date().getFullYear()} Octogriffin. All rights
               reserved.
             </Content>

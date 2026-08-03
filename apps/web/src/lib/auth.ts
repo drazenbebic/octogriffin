@@ -1,6 +1,6 @@
-import { cookies } from 'next/headers';
 import { NextAuthOptions } from 'next-auth';
 import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
+import { cookies } from 'next/headers';
 
 import prisma from '@/lib/prisma';
 

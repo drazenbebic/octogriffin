@@ -26,7 +26,7 @@ export const RewardRow: FC<RewardRowProps> = ({
       </Content>
     </div>
 
-    <Badge className={badgeClassName} variant={badgeVariant} size="md">
+    <Badge className={badgeClassName} size="md" variant={badgeVariant}>
       {reward}
     </Badge>
   </div>

@@ -1,13 +1,13 @@
 export type UserProfile = {
   name: string;
   handle: string;
-  avatar: string | null;
-  location: string | null;
-  company: string | null;
-  website: string | null;
-  email: string | null;
+  avatar: null | string;
+  location: null | string;
+  company: null | string;
+  website: null | string;
+  email: null | string;
   joinedAt: bigint;
   isLinked: boolean;
   hasInstallation: boolean;
-  githubUrl: string | null;
+  githubUrl: null | string;
 };

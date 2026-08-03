@@ -1,8 +1,8 @@
 'use client';
 
-import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FC } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -24,14 +24,14 @@ export const Navigation: FC<{ className?: string }> = ({ className }) => {
 
         return (
           <Link
-            key={href}
-            href={href}
             className={cn(
               'text-sm font-medium transition-colors hover:text-violet-600 dark:hover:text-violet-400',
               isActive
                 ? 'text-violet-600 dark:text-violet-400'
                 : 'text-slate-600 dark:text-slate-400',
             )}
+            href={href}
+            key={href}
           >
             {label}
           </Link>

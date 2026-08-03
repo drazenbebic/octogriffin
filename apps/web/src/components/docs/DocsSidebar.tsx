@@ -1,8 +1,8 @@
 'use client';
 
-import { FC } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { FC } from 'react';
 
 import { Heading } from '@/components/ui/Heading';
 import { docsNavigation } from '@/config/docsNavigation';
@@ -17,10 +17,10 @@ export const DocsSidebar: FC = () => {
         {docsNavigation.map(section => (
           <div key={section.title}>
             <Heading
-              level={4}
-              size="base"
               className="mb-3 text-xs font-bold uppercase tracking-wider"
               color="slate"
+              level={4}
+              size="base"
             >
               {section.title}
             </Heading>
@@ -31,13 +31,13 @@ export const DocsSidebar: FC = () => {
                 return (
                   <li key={item.href}>
                     <Link
-                      href={item.href}
                       className={cn(
                         'group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200',
                         isActive
                           ? 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-200'
                           : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/40 dark:hover:text-slate-100',
                       )}
+                      href={item.href}
                     >
                       <span
                         className={cn(

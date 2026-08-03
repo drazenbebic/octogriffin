@@ -1,7 +1,7 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { FC, useEffect, useState } from 'react';
 
 import { Moon01Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 
@@ -19,11 +19,11 @@ export const ThemeSwitcher: FC = () => {
   if (!mounted) {
     return (
       <ButtonIcon
-        icon={Sun01Icon}
-        variant="ghost"
-        size="md"
         className="opacity-0"
         disabled
+        icon={Sun01Icon}
+        size="md"
+        variant="ghost"
       />
     );
   }
@@ -32,12 +32,12 @@ export const ThemeSwitcher: FC = () => {
 
   return (
     <ButtonIcon
-      icon={isDark ? Sun01Icon : Moon01Icon}
-      variant="ghost"
-      size="md"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label="Toggle theme"
       className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+      icon={isDark ? Sun01Icon : Moon01Icon}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      size="md"
+      variant="ghost"
     />
   );
 };

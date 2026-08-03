@@ -43,6 +43,7 @@ export const HabiticaUserForm: FC = () => {
 
     if (!success) {
       setIsLoading(false);
+
       return;
     }
 
@@ -70,29 +71,29 @@ export const HabiticaUserForm: FC = () => {
   }, [habiticaCredentials]);
 
   return (
-    <Form resetOnSubmit={false} store={form} className="flex flex-col gap-6">
+    <Form className="flex flex-col gap-6" resetOnSubmit={false} store={form}>
       <FormInput
-        name="userId"
-        label="User ID"
         disabled={isLoading}
-        placeholder="e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        label="User ID"
         leadingIcon={<HugeiconsIcon icon={Link01Icon} size={20} />}
+        name="userId"
+        placeholder="e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
         required
       />
 
       <FormInput
-        name="apiToken"
-        label="API Token"
-        type="password"
         disabled={isLoading}
-        placeholder="••••••••••••••••••••••••••••••"
+        label="API Token"
         leadingIcon={<HugeiconsIcon icon={AlertCircleIcon} size={20} />}
+        name="apiToken"
+        placeholder="••••••••••••••••••••••••••••••"
         required
+        type="password"
       />
 
       <div className="pt-2">
-        <Button type="submit" isLoading={isLoading} disabled={isLoading}>
-          <HugeiconsIcon icon={FloppyDiskIcon} size={20} className="mr-2" />
+        <Button disabled={isLoading} isLoading={isLoading} type="submit">
+          <HugeiconsIcon className="mr-2" icon={FloppyDiskIcon} size={20} />
           Save Configuration
         </Button>
       </div>

@@ -2,11 +2,11 @@ import { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
-export type CardBodyProps = HTMLAttributes<HTMLDivElement> & {
+export type CardBodyProps = {
   children?: ReactNode;
   noPadding?: boolean;
-  padding?: 'sm' | 'md' | 'lg';
-};
+  padding?: 'lg' | 'md' | 'sm';
+} & HTMLAttributes<HTMLDivElement>;
 
 export const CardBody: FC<CardBodyProps> = ({
   children,

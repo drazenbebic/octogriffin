@@ -56,7 +56,7 @@ type ComboboxMultipleProps = ComboboxBaseProps & {
   onChangeAction?: (value: string[]) => void;
 };
 
-export type ComboboxProps = ComboboxSingleProps | ComboboxMultipleProps;
+export type ComboboxProps = ComboboxMultipleProps | ComboboxSingleProps;
 
 const singleInputStyles =
   'relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 hover:bg-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 dark:focus:border-violet-500 dark:hover:bg-slate-900 aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
@@ -74,8 +74,11 @@ const setRef = (
   ref: Ref<HTMLInputElement> | undefined,
   node: HTMLInputElement | null,
 ) => {
-  if (typeof ref === 'function') ref(node);
-  else if (ref) (ref as { current: HTMLInputElement | null }).current = node;
+  if (typeof ref === 'function') {
+    ref(node);
+  } else if (ref) {
+    (ref as { current: HTMLInputElement | null }).current = node;
+  }
 };
 
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
@@ -87,7 +90,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       label,
       placeholder,
       ...inputProps
-    } = props as ComboboxBaseProps & { multiple?: boolean };
+    } = props as { multiple?: boolean } & ComboboxBaseProps;
 
     const [isPending, startTransition] = useTransition();
     const [searchValue, setSearchValue] = useState('');
@@ -107,8 +110,10 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
         const sorted = matchSorter(items, deferredSearchValue, {
           keys: ['label'],
         });
+
         return Object.entries(groupBy(sorted, 'group'));
       }
+
       return matchSorter(items, deferredSearchValue, { keys: ['label'] });
     }, [deferredSearchValue, hasGroups, items]);
 
@@ -119,14 +124,20 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
     };
 
     const selectedItems = useMemo(() => {
-      if (!props.multiple) return [];
+      if (!props.multiple) {
+        return [];
+      }
+
       return (selected as string[])
         .map(value => items.find(item => item.value === value))
         .filter((item): item is ComboboxItemType => !!item);
     }, [props.multiple, items, selected]);
 
     const handleDismiss = (value: string) => {
-      if (!props.multiple) return;
+      if (!props.multiple) {
+        return;
+      }
+
       const newVal = (selected as string[]).filter(v => v !== value);
       setSelected(newVal);
       props.onChangeAction?.(newVal);
@@ -140,7 +151,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       }
     };
 
-    const setSelectedValue = (val: string | readonly string[]) => {
+    const setSelectedValue = (val: readonly string[] | string) => {
       if (props.multiple) {
         const newVal = Array.isArray(val) ? [...val] : [val as string];
         setSelected(newVal);
@@ -172,25 +183,25 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
 
           {props.multiple ? (
             <div
-              onMouseDown={handleWrapperMouseDown}
               className={multiWrapperStyles}
+              onMouseDown={handleWrapperMouseDown}
             >
               {selectedItems.map(item => (
                 <DismissableBadge
-                  key={item.value}
-                  variant="primary"
                   dismissLabel={`Remove ${item.label}`}
+                  key={item.value}
                   onDismiss={() => handleDismiss(item.value)}
+                  variant="primary"
                 >
                   {item.label}
                 </DismissableBadge>
               ))}
               <BaseCombobox
-                ref={inputRefCallback}
+                className={multiInputStyles}
                 placeholder={
                   selectedItems.length === 0 ? placeholder : undefined
                 }
-                className={multiInputStyles}
+                ref={inputRefCallback}
                 {...inputProps}
               />
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -200,9 +211,9 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
           ) : (
             <div className="relative">
               <BaseCombobox
-                ref={inputRefCallback}
-                placeholder={placeholder}
                 className={singleInputStyles}
+                placeholder={placeholder}
+                ref={inputRefCallback}
                 {...inputProps}
               />
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -212,12 +223,12 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
           )}
 
           <ComboboxPopover
+            aria-busy={isPending}
+            className={popoverStyles}
+            flip={false}
+            gutter={8}
             modal
             sameWidth
-            gutter={8}
-            flip={false}
-            className={popoverStyles}
-            aria-busy={isPending}
           >
             {matches?.length > 0 ? (
               hasGroups ? (
@@ -231,7 +242,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                         {group}
                       </ComboboxGroupLabel>
                       {groupItems.map(item => (
-                        <ComboboxItem key={item.value} item={item} />
+                        <ComboboxItem item={item} key={item.value} />
                       ))}
                     </ComboboxGroup>
                   ),
@@ -239,7 +250,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               ) : (
                 <div className="flex flex-col gap-1">
                   {(matches as ComboboxItemType[]).map(item => (
-                    <ComboboxItem key={item.value} item={item} />
+                    <ComboboxItem item={item} key={item.value} />
                   ))}
                 </div>
               )

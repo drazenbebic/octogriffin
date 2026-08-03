@@ -24,17 +24,17 @@ export default function ImprintPage() {
   return (
     <>
       <JsonLd data={imprintJsonLd} />
-      <LegalPage title="Imprint" subtitle="Legal Disclosure">
+      <LegalPage subtitle="Legal Disclosure" title="Imprint">
         <div className="flex flex-col gap-10">
           {/* 1. Information according to § 5 ECG */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               Information according to § 5 ECG
             </Heading>
 
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
-                <Heading level={3} size="base" className="mb-1">
+                <Heading className="mb-1" level={3} size="base">
                   Media Owner & Publisher
                 </Heading>
                 <Content className="font-medium">
@@ -47,7 +47,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading level={3} size="base" className="mb-1">
+                <Heading className="mb-1" level={3} size="base">
                   Contact
                 </Heading>
                 <Content>
@@ -56,8 +56,8 @@ export default function ImprintPage() {
                       Email:
                     </Content>{' '}
                     <Link
-                      href={`mailto:${email}`}
                       className="text-violet-600 hover:underline dark:text-violet-400"
+                      href={`mailto:${email}`}
                     >
                       {email}
                     </Link>
@@ -69,12 +69,12 @@ export default function ImprintPage() {
 
           {/* 2. Business Details */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               Business Details
             </Heading>
             <div className="space-y-4">
               <div>
-                <Heading level={3} size="base" className="mb-1">
+                <Heading className="mb-1" level={3} size="base">
                   Business Purpose
                 </Heading>
                 <Content>
@@ -84,7 +84,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading level={3} size="base" className="mb-1">
+                <Heading className="mb-1" level={3} size="base">
                   Applicable Legislation
                 </Heading>
                 <Content>
@@ -98,7 +98,7 @@ export default function ImprintPage() {
 
           {/* 3. Dispute Resolution */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               EU Dispute Resolution
             </Heading>
             <Content>
@@ -110,10 +110,10 @@ export default function ImprintPage() {
               European Commission&apos;s Online Dispute Resolution platform at:
               <br />
               <Link
-                href="https://ec.europa.eu/consumers/odr"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="mt-2 inline-block font-medium text-violet-600 hover:underline"
+                href="https://ec.europa.eu/consumers/odr"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 https://ec.europa.eu/consumers/odr
               </Link>
@@ -124,7 +124,7 @@ export default function ImprintPage() {
           <section className="rounded-2xl bg-slate-50 p-6 sm:p-8 dark:bg-slate-900/50">
             <div className="space-y-6">
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   Liability for Content
                 </Heading>
                 <Content size="sm">
@@ -140,7 +140,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   Liability for Links
                 </Heading>
                 <Content size="sm">
@@ -153,7 +153,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   Copyright
                 </Heading>
                 <Content size="sm">

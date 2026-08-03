@@ -19,12 +19,12 @@ export type MainPanelProps = {
 
 export const MainPanel: FC<MainPanelProps> = ({ children }) => {
   return (
-    <Card variant="elevated" className="h-full">
+    <Card className="h-full" variant="elevated">
       <TabProvider>
         <div className="border-b border-slate-100 px-6 pt-6 dark:border-slate-800">
           <TabList
-            className="-mb-px flex space-x-6"
             aria-label="Dashboard Views"
+            className="-mb-px flex space-x-6"
           >
             <TabItem href="/dashboard" icon={FlashIcon}>
               Triggers

@@ -34,7 +34,7 @@ export default function DocsArchitecturePage() {
     <div className="max-w-3xl space-y-12 pb-20">
       {/* Header */}
       <div>
-        <Heading level={1} className="mb-4">
+        <Heading className="mb-4" level={1}>
           Architecture
         </Heading>
         <Content size="lg">
@@ -50,53 +50,53 @@ export default function DocsArchitecturePage() {
           Technology Stack
         </Heading>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Card variant="outlined" className="p-5">
+          <Card className="p-5" variant="outlined">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
               <HugeiconsIcon icon={Layout01Icon} size={20} />
             </div>
             <Heading level={3} size="base">
               App Router (Frontend)
             </Heading>
-            <Content size="sm" className="mt-1">
+            <Content className="mt-1" size="sm">
               Next.js 16 using React Server Components. Styled with Tailwind CSS
               and Hugeicons.
             </Content>
           </Card>
 
-          <Card variant="outlined" className="p-5">
+          <Card className="p-5" variant="outlined">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
               <HugeiconsIcon icon={CloudServerIcon} size={20} />
             </div>
             <Heading level={3} size="base">
               Serverless Backend
             </Heading>
-            <Content size="sm" className="mt-1">
+            <Content className="mt-1" size="sm">
               API Routes and Webhook handlers running on Vercel Serverless
               Functions.
             </Content>
           </Card>
 
-          <Card variant="outlined" className="p-5">
+          <Card className="p-5" variant="outlined">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
               <HugeiconsIcon icon={Database01Icon} size={20} />
             </div>
             <Heading level={3} size="base">
               Data Layer
             </Heading>
-            <Content size="sm" className="mt-1">
+            <Content className="mt-1" size="sm">
               Neon (Serverless PostgreSQL) managed via Prisma ORM for type-safe
               database access.
             </Content>
           </Card>
 
-          <Card variant="outlined" className="p-5">
+          <Card className="p-5" variant="outlined">
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
               <HugeiconsIcon icon={LockKeyIcon} size={20} />
             </div>
             <Heading level={3} size="base">
               Authentication
             </Heading>
-            <Content size="sm" className="mt-1">
+            <Content className="mt-1" size="sm">
               NextAuth.js handling GitHub OAuth sessions and secure session
               management.
             </Content>
@@ -121,7 +121,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading level={4} className="font-bold" size="base">
+              <Heading className="font-bold" level={4} size="base">
                 GitHub Event
               </Heading>
               <Content size="sm">
@@ -140,7 +140,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={Shield01Icon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading level={4} className="font-bold" size="base">
+              <Heading className="font-bold" level={4} size="base">
                 Security Check
               </Heading>
               <Content size="sm">
@@ -160,7 +160,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={ZapIcon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading level={4} className="font-bold" size="base">
+              <Heading className="font-bold" level={4} size="base">
                 Trigger Matching
               </Heading>
               <Content size="sm">
@@ -177,7 +177,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={Globe02Icon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading level={4} className="font-bold" size="base">
+              <Heading className="font-bold" level={4} size="base">
                 Habitica Sync
               </Heading>
               <Content size="sm">
@@ -196,7 +196,7 @@ export default function DocsArchitecturePage() {
         </Heading>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <Heading level={3} size="base" className="mb-2">
+            <Heading className="mb-2" level={3} size="base">
               GitHub Actor
             </Heading>
             <Content size="sm">
@@ -210,7 +210,7 @@ export default function DocsArchitecturePage() {
             </Content>
           </div>
           <div>
-            <Heading level={3} size="base" className="mb-2">
+            <Heading className="mb-2" level={3} size="base">
               Habitica Agent
             </Heading>
             <Content size="sm">
@@ -225,7 +225,7 @@ export default function DocsArchitecturePage() {
         </div>
       </section>
 
-      <Alert variant="info" title="Asynchronous Processing">
+      <Alert title="Asynchronous Processing" variant="info">
         To maintain strict performance limits and prevent timeouts,{' '}
         <strong className="text-slate-900 dark:text-slate-100">
           every webhook

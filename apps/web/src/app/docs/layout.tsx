@@ -1,7 +1,7 @@
 import './DocsPage.scss';
 
-import { ReactNode } from 'react';
 import { Metadata } from 'next';
+import { ReactNode } from 'react';
 
 import { DocsSidebar } from '@/components/docs/DocsSidebar';
 

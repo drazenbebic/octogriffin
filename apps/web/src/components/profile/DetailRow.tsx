@@ -1,5 +1,5 @@
-import { FC, ReactNode, useMemo } from 'react';
 import Link from 'next/link';
+import { FC, ReactNode, useMemo } from 'react';
 
 import { Content } from '@/components/ui/Content';
 import { cn } from '@/utils/cn';
@@ -7,7 +7,7 @@ import { cn } from '@/utils/cn';
 export type DetailRowProps = {
   icon: ReactNode;
   label: string;
-  value: string | null | undefined;
+  value: null | string | undefined;
   fallback?: string;
   isLink?: boolean;
 };
@@ -36,7 +36,7 @@ export const DetailRow: FC<DetailRowProps> = ({
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-white group-hover:text-violet-600 group-hover:shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-800 dark:text-slate-400 dark:group-hover:bg-slate-700 dark:group-hover:text-violet-400 dark:ring-slate-800">
           {icon}
         </div>
-        <Content as="span" size="sm" color="note" className="font-medium">
+        <Content as="span" className="font-medium" color="note" size="sm">
           {label}
         </Content>
       </div>
@@ -44,11 +44,11 @@ export const DetailRow: FC<DetailRowProps> = ({
       <div className="text-right">
         {isLink && value ? (
           <Link
-            href={value}
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label={`Visit ${label}`}
             className="text-sm font-semibold text-violet-600 hover:text-violet-700 hover:underline decoration-violet-300 underline-offset-4 dark:text-violet-400 dark:hover:text-violet-300 dark:decoration-violet-900"
+            href={value}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             {linkText}
           </Link>

@@ -12,10 +12,10 @@ export const DocsFeedback: FC = () => (
       <span>Something went wrong?</span>
     </div>
     <a
-      href={githubRepositoryUrl('/issues')}
-      target="_blank"
-      rel="noreferrer"
       className="text-sm font-bold text-violet-700 hover:text-violet-900 hover:underline dark:text-violet-400 dark:hover:text-violet-300"
+      href={githubRepositoryUrl('/issues')}
+      rel="noreferrer"
+      target="_blank"
     >
       Open an Issue on GitHub &rarr;
     </a>

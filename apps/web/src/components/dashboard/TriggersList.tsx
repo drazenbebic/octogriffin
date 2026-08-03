@@ -52,8 +52,8 @@ export const TriggersList: FC<TriggersListProps> = ({
 
         {[...Array(skeletonCount)].map((_, i) => (
           <div
-            key={i}
             className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between dark:bg-slate-900 dark:ring-slate-800"
+            key={i}
           >
             <div className="flex items-center gap-4">
               <Skeleton className="h-10 w-10 shrink-0 rounded-lg" />
@@ -93,14 +93,14 @@ export const TriggersList: FC<TriggersListProps> = ({
       <div className="flex h-full flex-col gap-4">
         <div className="flex justify-end gap-2">
           <ButtonIcon
+            aria-label="Refresh triggers list"
+            onClick={() => fetchTriggers()}
             size="sm"
             variant="secondary"
-            onClick={() => fetchTriggers()}
-            aria-label="Refresh triggers list"
           >
             <HugeiconsIcon icon={RefreshIcon} size={16} />
           </ButtonIcon>
-          <Button size="sm" onClick={onOpenCreateAction}>
+          <Button onClick={onOpenCreateAction} size="sm">
             + New Trigger
           </Button>
         </div>
@@ -109,17 +109,17 @@ export const TriggersList: FC<TriggersListProps> = ({
           {triggers.map(trigger => (
             <TriggersListItem
               key={trigger.uuid}
-              trigger={trigger}
               onOpenDeleteAction={onOpenDeleteAction}
               onOpenEditAction={onOpenEditAction}
+              trigger={trigger}
             />
           ))}
         </div>
 
         <Pagination
           meta={meta}
-          onPageChange={setPage}
           onLimitChange={setLimit}
+          onPageChange={setPage}
         />
       </div>
     );
@@ -130,15 +130,15 @@ export const TriggersList: FC<TriggersListProps> = ({
       <div className="flex h-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-12 text-center dark:bg-slate-900/50 dark:border-slate-800">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
           <HugeiconsIcon
-            icon={ZapIcon}
             className="text-slate-400 dark:text-slate-500"
+            icon={ZapIcon}
             size={24}
           />
         </div>
-        <Heading level={3} size="base" className="mb-1">
+        <Heading className="mb-1" level={3} size="base">
           No triggers defined
         </Heading>
-        <Content size="sm" color="note" className="mb-6 max-w-sm">
+        <Content className="mb-6 max-w-sm" color="note" size="sm">
           Create your first trigger to start earning XP automatically when you
           push code.
         </Content>

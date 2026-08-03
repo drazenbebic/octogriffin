@@ -8,9 +8,9 @@ import {
 import { DialogBackdrop } from '@/components/ui/DialogBackdrop';
 import { cn } from '@/utils/cn';
 
-export type DialogProps = BaseDialogProps & {
-  size?: 'sm' | 'md' | 'lg';
-};
+export type DialogProps = {
+  size?: 'lg' | 'md' | 'sm';
+} & BaseDialogProps;
 
 const sizes = {
   sm: 'max-w-lg',
@@ -22,7 +22,6 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   ({ className, size = 'md', ...props }, ref) => {
     return (
       <BaseDialog
-        ref={ref}
         backdrop={<DialogBackdrop />}
         className={cn(
           'fixed left-1/2 top-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2',
@@ -32,6 +31,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           sizes[size],
           className,
         )}
+        ref={ref}
         {...props}
       />
     );

@@ -11,15 +11,15 @@ import { UserCredentials, UserStats } from '@/types/habitica';
 type HabiticaStoreState = {
   isLoading: boolean;
   isHabiticaConnected: boolean;
-  habiticaStats: UserStats | null;
-  habiticaCredentials: UserCredentials | null;
+  habiticaStats: null | UserStats;
+  habiticaCredentials: null | UserCredentials;
   setIsLoading: (isLoading: boolean) => void;
-  fetchHabiticaCredentials: () => Promise<UserCredentials | null>;
-  fetchHabiticaStats: () => Promise<UserStats | null>;
+  fetchHabiticaCredentials: () => Promise<null | UserCredentials>;
+  fetchHabiticaStats: () => Promise<null | UserStats>;
   fetchHabiticaConnection: () => Promise<boolean>;
   upsertHabiticaUser: (
     data: HabiticaUserSchema,
-  ) => Promise<UserCredentials | null>;
+  ) => Promise<null | UserCredentials>;
 };
 
 export const useHabiticaStore = create<HabiticaStoreState>(set => ({
@@ -34,12 +34,14 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
 
       if (result.success && result.data) {
         set({ habiticaCredentials: result.data });
+
         return result.data;
       }
 
       return null;
     } catch (error) {
       console.error('Zustand fetch credentials error:', error);
+
       return null;
     }
   },
@@ -51,12 +53,14 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
 
       if (result.success && result.data) {
         set({ habiticaStats: result.data });
+
         return result.data;
       }
 
       return null;
     } catch (error) {
       console.error('Zustand fetch stats error:', error);
+
       return null;
     } finally {
       set({ isLoading: false });
@@ -66,6 +70,7 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
     try {
       const isHabiticaConnected = await isHabiticaConnectedAction();
       set({ isHabiticaConnected });
+
       return true;
     } catch (error) {
       console.error('Zustand connection check error:', error);
@@ -80,6 +85,7 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
 
       if (!result.success || !result.data) {
         toast.error(result.error || 'Failed to save configuration');
+
         return null;
       }
 
@@ -94,6 +100,7 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
     } catch (error) {
       console.error('Zustand upsert error:', error);
       toast.error('An unexpected error occurred');
+
       return null;
     }
   },

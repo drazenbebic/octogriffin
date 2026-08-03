@@ -4,12 +4,12 @@ import { Checkbox, CheckboxProps } from '@ariakit/react';
 
 import { cn } from '@/utils/cn';
 
-export type SwitchProps = CheckboxProps & {
+export type SwitchProps = {
   as?: ElementType;
   label?: ReactNode;
   description?: ReactNode;
   containerClassName?: string;
-};
+} & CheckboxProps;
 
 export const Switch: FC<SwitchProps> = ({
   as: Tag = Checkbox,

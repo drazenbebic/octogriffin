@@ -46,21 +46,21 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
     return (
       <div className={cn('w-full', className)}>
         {!!label && (
-          <FormLabel name={name} isRequired={required}>
+          <FormLabel isRequired={required} name={name}>
             {label}
           </FormLabel>
         )}
 
         <div className="relative">
           <FormInput
-            // @ts-expect-error type mismatch
-            ref={ref}
-            name={name}
-            render={<textarea rows={rows} />}
             className={cn(baseStyles, errorStyles)}
             disabled={disabled}
             maxLength={maxLength}
+            name={name}
             placeholder={placeholder}
+            // @ts-expect-error type mismatch
+            ref={ref}
+            render={<textarea rows={rows} />}
             required={required}
             {...props}
           />

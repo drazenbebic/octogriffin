@@ -6,7 +6,7 @@ export type SkeletonProps = {
   as?: ElementType;
   children?: ReactNode;
   className?: string;
-  variant?: 'text' | 'circular' | 'rectangular' | 'rounded';
+  variant?: 'circular' | 'rectangular' | 'rounded' | 'text';
 };
 
 export const Skeleton: FC<SkeletonProps> = ({

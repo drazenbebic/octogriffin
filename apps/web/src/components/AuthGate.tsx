@@ -19,21 +19,21 @@ export const AuthGate = () => {
         <div className="absolute -right-1 -top-1 h-6 w-6 rounded-full border-4 border-white bg-amber-500 dark:border-slate-950" />
       </div>
 
-      <Heading level={1} size="3xl" className="mb-4">
+      <Heading className="mb-4" level={1} size="3xl">
         Restricted Area
       </Heading>
 
-      <Content size="lg" className="mb-8 max-w-md">
+      <Content className="mb-8 max-w-md" size="lg">
         This mission control center is for registered adventurers only. Identify
         yourself to access your configurations.
       </Content>
 
       <Button
-        size="lg"
-        onClick={() => signIn('github', { callbackUrl: window.location.href })}
         className="shadow-xl shadow-violet-600/20 transition-transform active:scale-95"
+        onClick={() => signIn('github', { callbackUrl: window.location.href })}
+        size="lg"
       >
-        <HugeiconsIcon icon={GithubIcon} size={20} className="mr-2" />
+        <HugeiconsIcon className="mr-2" icon={GithubIcon} size={20} />
         Access with GitHub
       </Button>
     </div>

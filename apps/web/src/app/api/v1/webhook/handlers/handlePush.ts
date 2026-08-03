@@ -17,6 +17,7 @@ export const handlePush = async ({
 }: EmitterWebhookEvent<'push'>) => {
   if (!installation?.id || !repository || !sender?.id) {
     logger.info('Ignored: Missing installation, repository, or sender.');
+
     return;
   }
 
@@ -27,6 +28,7 @@ export const handlePush = async ({
 
   if (validCommits.length === 0) {
     logger.info('Ignored: No valid commits found.');
+
     return;
   }
 
@@ -37,11 +39,13 @@ export const handlePush = async ({
 
   if (!githubInstallation) {
     logger.info('Ignored: Installation not found.');
+
     return;
   }
 
   if (githubInstallation.isSuspended) {
     logger.info('Ignored: Installation is suspended.');
+
     return;
   }
 
@@ -50,6 +54,7 @@ export const handlePush = async ({
       { repoId: repository.id },
       'Ignored: Repository not whitelisted.',
     );
+
     return;
   }
 
@@ -64,6 +69,7 @@ export const handlePush = async ({
     logger.warn(
       'Ignored: There are no users with valid Habitica users or configured triggers.',
     );
+
     return;
   }
 
@@ -86,6 +92,7 @@ export const handlePush = async ({
           { login: user.login },
           'Habitica API initialization failed.',
         );
+
         return;
       }
 

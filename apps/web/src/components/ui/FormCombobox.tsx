@@ -19,17 +19,17 @@ type FormComboboxOwnProps = {
 type FormComboboxSingleProps = FormComboboxOwnProps &
   Omit<
     Extract<ComboboxProps, { multiple?: false }>,
-    'onChangeAction' | 'defaultValue'
+    'defaultValue' | 'onChangeAction'
   >;
 
 type FormComboboxMultipleProps = FormComboboxOwnProps &
   Omit<
     Extract<ComboboxProps, { multiple: true }>,
-    'onChangeAction' | 'defaultValue'
+    'defaultValue' | 'onChangeAction'
   >;
 
 export type FormComboboxProps =
-  FormComboboxSingleProps | FormComboboxMultipleProps;
+  FormComboboxMultipleProps | FormComboboxSingleProps;
 
 export const FormCombobox = forwardRef<HTMLInputElement, FormComboboxProps>(
   (props, ref) => {
@@ -42,33 +42,33 @@ export const FormCombobox = forwardRef<HTMLInputElement, FormComboboxProps>(
 
     const renderCombobox = props.multiple ? (
       <Combobox
-        ref={ref}
-        multiple
-        items={props.items}
         defaultValue={value as string[]}
-        onChangeAction={val => form?.setValue(props.name, val)}
-        placeholder={props.placeholder}
-        required={props.required}
         disabled={props.disabled}
         disableLabel
+        items={props.items}
+        multiple
+        onChangeAction={val => form?.setValue(props.name, val)}
+        placeholder={props.placeholder}
+        ref={ref}
+        required={props.required}
       />
     ) : (
       <Combobox
-        ref={ref}
-        items={props.items}
         defaultValue={value as string}
-        onChangeAction={val => form?.setValue(props.name, val)}
-        placeholder={props.placeholder}
-        required={props.required}
         disabled={props.disabled}
         disableLabel
+        items={props.items}
+        onChangeAction={val => form?.setValue(props.name, val)}
+        placeholder={props.placeholder}
+        ref={ref}
+        required={props.required}
       />
     );
 
     return (
       <div className={cn('w-full', props.className)}>
         {!!props.label && (
-          <FormLabel name={props.name} isRequired={props.required}>
+          <FormLabel isRequired={props.required} name={props.name}>
             {props.label}
           </FormLabel>
         )}
@@ -76,9 +76,9 @@ export const FormCombobox = forwardRef<HTMLInputElement, FormComboboxProps>(
         <FormControl name={props.name} render={renderCombobox} />
 
         <FormFeedback
-          name={props.name}
           description={props.description}
           disabled={props.disabled}
+          name={props.name}
         />
       </div>
     );

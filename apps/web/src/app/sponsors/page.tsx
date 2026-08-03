@@ -36,25 +36,25 @@ export default function SponsorsPage() {
       <JsonLd data={sponsorsJsonLd} />
       <div className="mx-auto max-w-6xl px-4 py-20">
         <div className="mb-16 flex flex-col items-center text-center">
-          <Pill variant="accent" className="mb-6">
+          <Pill className="mb-6" variant="accent">
             <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300">
               <HugeiconsIcon
+                className="text-rose-500 fill-rose-500"
                 icon={FavouriteIcon}
                 size={14}
-                className="text-rose-500 fill-rose-500"
               />
               Community Supported
             </span>
           </Pill>
 
-          <Heading level={1} size="4xl" className="mb-4 tracking-tight">
+          <Heading className="mb-4 tracking-tight" level={1} size="4xl">
             Fuel the{' '}
-            <TextAccent variant="brand" breathing>
+            <TextAccent breathing variant="brand">
               Octogriffin!
             </TextAccent>
           </Heading>
 
-          <Content size="lg" className="max-w-xl">
+          <Content className="max-w-xl" size="lg">
             Octogriffin is 100% open source and free to use. Your sponsorship
             helps cover server costs (Vercel & Neon) and ensures dedicated
             development time for new features.
@@ -63,8 +63,8 @@ export default function SponsorsPage() {
 
         <div className="mx-auto mb-20 max-w-2xl">
           <Card
-            variant="elevated"
             className="relative overflow-hidden border-violet-100 bg-linear-to-b from-white to-violet-50/50 dark:border-violet-900/50 dark:from-slate-900 dark:to-violet-950/20"
+            variant="elevated"
           >
             <div className="pointer-events-none absolute -right-12 -top-12 opacity-5 dark:opacity-10 dark:text-violet-400">
               <HugeiconsIcon icon={ChampionIcon} size={200} />
@@ -75,7 +75,7 @@ export default function SponsorsPage() {
                 <HugeiconsIcon icon={Rocket01Icon} size={32} />
               </div>
 
-              <Heading level={2} size="2xl" className="mb-2">
+              <Heading className="mb-2" level={2} size="2xl">
                 Be the First!
               </Heading>
 
@@ -91,19 +91,19 @@ export default function SponsorsPage() {
                   target="_blank"
                 >
                   <Button
-                    size="lg"
                     className="border-[#D63E9A] bg-[#EA4AAA] shadow-lg shadow-rose-200/50 hover:bg-[#D63E9A]! dark:shadow-none"
+                    size="lg"
                   >
                     <HugeiconsIcon
+                      className="fill-white/20"
                       icon={FavouriteIcon}
                       size={20}
-                      className="fill-white/20"
                     />
                     Sponsor on GitHub
                   </Button>
                 </Link>
                 <Link href="https://ko-fi.com/drazen" target="_blank">
-                  <Button variant="secondary" size="lg">
+                  <Button size="lg" variant="secondary">
                     <HugeiconsIcon icon={Coffee02Icon} size={20} />
                     Buy me a Coffee
                   </Button>
@@ -115,8 +115,8 @@ export default function SponsorsPage() {
 
         <div className="grid gap-6 md:grid-cols-3">
           <Card
-            variant="outlined"
             className="transition-colors hover:border-stone-300 dark:hover:border-stone-700"
+            variant="outlined"
           >
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
@@ -127,20 +127,20 @@ export default function SponsorsPage() {
                   $2 / mo
                 </span>
               </div>
-              <Heading level={3} size="lg" className="mb-2">
+              <Heading className="mb-2" level={3} size="lg">
                 Coffee Fund
               </Heading>
-              <Content size="sm" className="mb-6 min-h-20">
+              <Content className="mb-6 min-h-20" size="sm">
                 You use Octogriffin and it works. This is a &quot;thank
                 you&quot; to help keep my caffeine levels up while I fix bugs on
                 weekends.
               </Content>
               <ul className="space-y-3">
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-600" />
                   Sponsor badge on profile
                 </Content>
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-600" />
                   My gratitude! 🫶
                 </Content>
@@ -149,39 +149,39 @@ export default function SponsorsPage() {
           </Card>
 
           <Card
-            variant="outlined"
             className="transition-colors hover:border-amber-300 dark:hover:border-amber-900/50"
+            variant="outlined"
           >
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
                 <div className="rounded-lg bg-amber-100 p-2 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
                   <HugeiconsIcon
+                    className="fill-amber-600 dark:fill-amber-400"
                     icon={ZapIcon}
                     size={24}
-                    className="fill-amber-600 dark:fill-amber-400"
                   />
                 </div>
                 <span className="text-xl font-bold text-slate-900 dark:text-slate-100">
                   $5 / mo
                 </span>
               </div>
-              <Heading level={3} size="lg" className="mb-2">
+              <Heading className="mb-2" level={3} size="lg">
                 Server Fuel
               </Heading>
-              <Content size="sm" className="mb-6 min-h-20">
+              <Content className="mb-6 min-h-20" size="sm">
                 You are literally keeping the lights on. This covers your share
                 of the Neon database and Vercel hosting costs.
               </Content>
               <ul className="space-y-3">
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                   <strong>Listed in README</strong>
                 </Content>
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                   Sponsor badge on profile
                 </Content>
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
                   My gratitude! 🫶
                 </Content>
@@ -190,8 +190,8 @@ export default function SponsorsPage() {
           </Card>
 
           <Card
-            variant="outlined"
             className="border-violet-200 bg-violet-50/10 transition-colors hover:border-violet-300 dark:border-violet-900/50 dark:hover:border-violet-800"
+            variant="outlined"
           >
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
@@ -202,27 +202,27 @@ export default function SponsorsPage() {
                   $15 / mo
                 </span>
               </div>
-              <Heading level={3} size="lg" className="mb-2">
+              <Heading className="mb-2" level={3} size="lg">
                 Feature Backer
               </Heading>
-              <Content size="sm" className="mb-6 min-h-20">
+              <Content className="mb-6 min-h-20" size="sm">
                 You are serious about gamifying your life. This tier supports
                 active development time for complex features.
               </Content>
               <ul className="space-y-3">
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                   <strong>Listed on Website</strong>
                 </Content>
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                   Priority feature requests
                 </Content>
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                   Listed in README
                 </Content>
-                <Content as="li" size="sm" className="flex items-center gap-2">
+                <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                   Sponsor badge + Gratitude 🫶
                 </Content>

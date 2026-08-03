@@ -12,7 +12,7 @@ export const createWebhookLog = async (
 };
 
 export const getWebhookLogs = async (
-  githubUserId: number | bigint,
+  githubUserId: bigint | number,
   params: PaginationParams = {},
 ): Promise<PaginatedResult<WebhookLogsModel>> => {
   const page = params.page || 1;

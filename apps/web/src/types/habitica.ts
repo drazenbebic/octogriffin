@@ -89,7 +89,6 @@ export type CreateTaskParameters = {
   }[];
   frequency?: TaskFrequency;
   repeat?:
-    | true
     | {
         su?: boolean;
         m?: boolean;
@@ -98,7 +97,8 @@ export type CreateTaskParameters = {
         th?: boolean;
         f?: boolean;
         s?: boolean;
-      };
+      }
+    | true;
   everyX?: number;
   streak?: number;
   daysOfMonth?: number[];
@@ -129,7 +129,7 @@ export type Buffs = {
 
 export type ScoreTaskResponse = {
   delta: number;
-  _tmp: Record<string, string | number>;
+  _tmp: Record<string, number | string>;
   hp: number;
   mp: number;
   exp: number;

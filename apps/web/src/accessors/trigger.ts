@@ -7,7 +7,7 @@ import { PaginatedResult, PaginationParams } from '@/types/pagination';
 
 export const getTrigger = async (
   uuid: string,
-  githubUserId: number | bigint,
+  githubUserId: bigint | number,
 ) => {
   return prisma.triggers.findUnique({
     where: { uuid, githubUserId },
@@ -16,7 +16,7 @@ export const getTrigger = async (
 };
 
 export const getTriggers = async (
-  githubUserId: number | bigint,
+  githubUserId: bigint | number,
   params: PaginationParams = {},
 ): Promise<PaginatedResult<TriggersModel>> => {
   const page = params.page || 1;
@@ -51,7 +51,7 @@ export const getTriggers = async (
 
 export const deleteTrigger = async (
   uuid: string,
-  githubUserId: number | bigint,
+  githubUserId: bigint | number,
 ) => {
   return prisma.triggers.delete({
     where: { uuid, githubUserId },

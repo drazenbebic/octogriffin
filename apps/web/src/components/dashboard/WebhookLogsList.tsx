@@ -39,8 +39,8 @@ export const WebhookLogsList: FC = () => {
 
         {[...Array(skeletonCount)].map((_, i) => (
           <div
-            key={i}
             className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between dark:bg-slate-900 dark:ring-slate-800"
+            key={i}
           >
             <div className="flex items-center gap-4">
               <Skeleton className="h-10 w-10 shrink-0 rounded-lg" />
@@ -75,10 +75,10 @@ export const WebhookLogsList: FC = () => {
       <div className="flex h-full flex-col gap-4">
         <div className="flex justify-end">
           <ButtonIcon
+            aria-label="Refresh webhook logs"
+            onClick={() => fetchWebhookLogs()}
             size="sm"
             variant="secondary"
-            onClick={() => fetchWebhookLogs()}
-            aria-label="Refresh webhook logs"
           >
             <HugeiconsIcon icon={RefreshIcon} size={16} />
           </ButtonIcon>
@@ -92,8 +92,8 @@ export const WebhookLogsList: FC = () => {
 
         <Pagination
           meta={meta}
-          onPageChange={setPage}
           onLimitChange={setLimit}
+          onPageChange={setPage}
         />
       </div>
     );
@@ -103,10 +103,10 @@ export const WebhookLogsList: FC = () => {
     <div className="flex h-full flex-col gap-4">
       <div className="mb-2 flex justify-end">
         <ButtonIcon
+          aria-label="Refresh logs"
+          onClick={() => fetchWebhookLogs()}
           size="sm"
           variant="ghost"
-          onClick={() => fetchWebhookLogs()}
-          aria-label="Refresh logs"
         >
           <HugeiconsIcon icon={RefreshIcon} size={16} />
         </ButtonIcon>
@@ -114,15 +114,15 @@ export const WebhookLogsList: FC = () => {
       <div className="flex h-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-16 text-center dark:bg-slate-900/50 dark:border-slate-800">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">
           <HugeiconsIcon
-            icon={Activity04Icon}
             className="text-slate-400 dark:text-slate-500"
+            icon={Activity04Icon}
             size={24}
           />
         </div>
-        <Heading level={3} size="base" className="mb-1">
+        <Heading className="mb-1" level={3} size="base">
           No Activity Recorded
         </Heading>
-        <Content size="sm" color="note" className="max-w-sm">
+        <Content className="max-w-sm" color="note" size="sm">
           We haven&#39;t received any webhook events from GitHub for your
           account yet.
         </Content>

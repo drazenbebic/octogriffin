@@ -17,6 +17,7 @@ export const handleInstallationCreated = async ({
 
   if (existingGithubInstallation) {
     logger.info('Installation already exists, skipping.');
+
     return;
   }
 

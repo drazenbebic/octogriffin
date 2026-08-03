@@ -41,7 +41,7 @@ export default function DocsHowToContributePage() {
       <div className="max-w-3xl space-y-12 pb-20">
         {/* Header */}
         <div>
-          <Heading level={1} className="mb-4">
+          <Heading className="mb-4" level={1}>
             How to Contribute
           </Heading>
           <Content size="lg">
@@ -52,26 +52,26 @@ export default function DocsHowToContributePage() {
         </div>
 
         {/* Step 1: Finding Work */}
-        <DocsStep step={1} heading="Find a Task">
+        <DocsStep heading="Find a Task" step={1}>
           <Content>
             We use <strong>GitHub Milestones</strong> to organize upcoming
             releases. Before starting, check the{' '}
             <a
+              className="text-violet-600 hover:underline font-medium dark:text-violet-400"
               href={githubRepositoryUrl('/milestones')}
               target="_blank"
-              className="text-violet-600 hover:underline font-medium dark:text-violet-400"
             >
               Active Milestone
             </a>{' '}
             to see what work is prioritized.
           </Content>
           <Card
-            variant="flat"
             className="mt-4 flex flex-row items-start gap-3 p-4 dark:bg-slate-900/50"
+            variant="flat"
           >
             <HugeiconsIcon
-              icon={Search01Icon}
               className="shrink-0 text-slate-500 mt-0.5 dark:text-slate-400"
+              icon={Search01Icon}
               size={20}
             />
             <Content size="sm">
@@ -89,7 +89,7 @@ export default function DocsHowToContributePage() {
         </DocsStep>
 
         {/* Step 2: Forking */}
-        <DocsStep step={2} heading="Fork the Repository">
+        <DocsStep heading="Fork the Repository" step={2}>
           <Content>
             You cannot push directly to the main repository. You must create
             your own copy (fork) to work on.
@@ -106,24 +106,24 @@ export default function DocsHowToContributePage() {
               code={[
                 'git clone https://github.com/YOUR_USERNAME/octogriffin.git',
               ]}
-              language="bash"
               disableNumbers
               icon={GitForkIcon}
+              language="bash"
             />
           </div>
 
           <div className="mt-4">
             <DocsResourceLink
-              href="/docs/dev-setup"
-              title="First time setup?"
               description="Follow our guide to configure Docker, Ngrok, and the GitHub App."
+              href="/docs/dev-setup"
               icon={<HugeiconsIcon icon={Settings02Icon} size={18} />}
+              title="First time setup?"
             />
           </div>
         </DocsStep>
 
         {/* Step 3: Branching */}
-        <DocsStep step={3} heading="Branching Strategy">
+        <DocsStep heading="Branching Strategy" step={3}>
           <Content>
             Create a new branch for your work. Do not commit directly to your
             fork&#39;s{' '}
@@ -133,12 +133,12 @@ export default function DocsHowToContributePage() {
             branch.
           </Content>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <Card variant="flat" className="p-4 dark:bg-slate-900/50">
+            <Card className="p-4 dark:bg-slate-900/50" variant="flat">
               <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
                 <HugeiconsIcon
+                  className="text-violet-600 dark:text-violet-400"
                   icon={GitForkIcon}
                   size={18}
-                  className="text-violet-600 dark:text-violet-400"
                 />
                 <span>Features</span>
               </div>
@@ -146,12 +146,12 @@ export default function DocsHowToContributePage() {
                 feature/add-new-trigger
               </code>
             </Card>
-            <Card variant="flat" className="p-4 dark:bg-slate-900/50">
+            <Card className="p-4 dark:bg-slate-900/50" variant="flat">
               <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
                 <HugeiconsIcon
+                  className="text-emerald-600 dark:text-emerald-400"
                   icon={GitForkIcon}
                   size={18}
-                  className="text-emerald-600 dark:text-emerald-400"
                 />
                 <span>Fixes</span>
               </div>
@@ -163,14 +163,14 @@ export default function DocsHowToContributePage() {
         </DocsStep>
 
         {/* Step 4: Commits */}
-        <DocsStep step={4} heading="Conventional Commits">
+        <DocsStep heading="Conventional Commits" step={4}>
           <Content>
             We use <strong>Release Please</strong> to automate versioning. For
             this to work, your commit messages <strong>must</strong> follow the{' '}
             <a
+              className="text-violet-600 hover:underline dark:text-violet-400"
               href="https://www.conventionalcommits.org/"
               target="_blank"
-              className="text-violet-600 hover:underline dark:text-violet-400"
             >
               Conventional Commits
             </a>{' '}
@@ -180,8 +180,8 @@ export default function DocsHowToContributePage() {
           <div className="mt-4 space-y-3">
             <div className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50/50 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/20">
               <HugeiconsIcon
-                icon={Tick02Icon}
                 className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400"
+                icon={Tick02Icon}
                 size={20}
               />
               <div className="space-y-1">
@@ -207,14 +207,14 @@ export default function DocsHowToContributePage() {
         </DocsStep>
 
         {/* Step 5: Development */}
-        <DocsStep step={5} heading="Development Standards">
+        <DocsStep heading="Development Standards" step={5}>
           <div className="space-y-6">
             <div>
               <div className="mb-2 flex items-center gap-2">
                 <HugeiconsIcon
+                  className="text-violet-600 dark:text-violet-400"
                   icon={PaintBoardIcon}
                   size={20}
-                  className="text-violet-600 dark:text-violet-400"
                 />
                 <Heading level={4} size="base">
                   UI Components
@@ -241,9 +241,9 @@ export default function DocsHowToContributePage() {
             <div>
               <div className="mb-2 flex items-center gap-2">
                 <HugeiconsIcon
+                  className="text-violet-600 dark:text-violet-400"
                   icon={Message01Icon}
                   size={20}
-                  className="text-violet-600 dark:text-violet-400"
                 />
                 <Heading level={4} size="base">
                   Icons
@@ -270,7 +270,7 @@ export default function DocsHowToContributePage() {
         </DocsStep>
 
         {/* Step 6: Pull Request */}
-        <DocsStep step={6} heading="Open a Pull Request">
+        <DocsStep heading="Open a Pull Request" step={6}>
           <Content>
             When your code is ready, push your branch to your fork and open a
             Pull Request against{' '}
@@ -292,9 +292,9 @@ export default function DocsHowToContributePage() {
           <div className="mt-4">
             <Code
               code={['git push -u origin feature/my-cool-feature']}
-              language="bash"
               disableNumbers
               icon={GitPullRequestIcon}
+              language="bash"
             />
           </div>
         </DocsStep>

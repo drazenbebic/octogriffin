@@ -75,17 +75,17 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
 
         <div className="flex justify-end gap-3">
           <Button
-            variant="secondary"
-            onClick={() => setOpenAction(false)}
             disabled={isPending}
+            onClick={() => setOpenAction(false)}
+            variant="secondary"
           >
             Cancel
           </Button>
           <Button
-            variant="primary"
-            onClick={handleDelete}
-            isLoading={isPending}
             className="bg-red-600 hover:bg-red-700 text-white"
+            isLoading={isPending}
+            onClick={handleDelete}
+            variant="primary"
           >
             Delete Trigger
           </Button>

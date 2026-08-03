@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import Image, { ImageProps } from 'next/image';
+import { FC } from 'react';
 
 import { cn } from '@/utils/cn';
 

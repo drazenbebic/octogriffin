@@ -1,6 +1,6 @@
-import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FC } from 'react';
 
 import {
   FavouriteIcon,
@@ -24,33 +24,33 @@ export const Footer: FC = () => {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2">
+            <Link className="flex items-center gap-2" href="/">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 shadow-md shadow-violet-600/20">
                 <Image
-                  src="/octogriffin_white.png"
                   alt="Octogriffin Logo"
-                  width={20}
-                  height={20}
                   className="h-5 w-5 object-contain"
+                  height={20}
+                  src="/octogriffin_white.png"
+                  width={20}
                 />
               </div>
               <span className="font-bold text-slate-900 dark:text-slate-50">
                 Octogriffin
               </span>
             </Link>
-            <Content size="sm" className="max-w-xs">
+            <Content className="max-w-xs" size="sm">
               Level up your RPG character automatically while you code. Open
               source, secure, and built for developers.
             </Content>
 
             <Link
-              href="/sponsors"
               className="mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-rose-500 hover:text-rose-500 hover:shadow-md active:scale-95 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-rose-500/50"
+              href="/sponsors"
             >
               <HugeiconsIcon
+                className="text-rose-500 fill-rose-500"
                 icon={FavouriteIcon}
                 size={18}
-                className="text-rose-500 fill-rose-500"
               />
               <span>Become a Sponsor</span>
             </Link>
@@ -58,7 +58,7 @@ export const Footer: FC = () => {
 
           <div className="grid grid-cols-2 gap-8 lg:col-span-2 lg:grid-cols-3">
             <div className="flex flex-col gap-3">
-              <Heading level={3} className="font-semibold text-base">
+              <Heading className="font-semibold text-base" level={3}>
                 Product
               </Heading>
               <FooterLink href="/">Home</FooterLink>
@@ -69,7 +69,7 @@ export const Footer: FC = () => {
             </div>
 
             <div className="flex flex-col gap-3">
-              <Heading level={3} className="font-semibold text-base">
+              <Heading className="font-semibold text-base" level={3}>
                 Resources
               </Heading>
               <FooterLink href="/docs">Documentation</FooterLink>
@@ -84,7 +84,7 @@ export const Footer: FC = () => {
             </div>
 
             <div className="flex flex-col gap-3">
-              <Heading level={3} className="font-semibold text-base">
+              <Heading className="font-semibold text-base" level={3}>
                 Legal
               </Heading>
               <FooterLink href="/imprint">Imprint</FooterLink>
@@ -113,16 +113,16 @@ export const Footer: FC = () => {
             <div className="hidden items-center gap-1.5 text-sm text-slate-500 md:flex dark:text-slate-400">
               <span>Made with</span>
               <HugeiconsIcon
+                className="fill-red-500 text-red-500"
                 icon={FavouriteIcon}
                 size={16}
-                className="fill-red-500 text-red-500"
               />
               <span>by</span>
               <Link
-                href="https://www.bebic.dev"
-                target="_blank"
-                rel="noreferrer"
                 className="font-medium text-slate-900 transition-colors hover:text-violet-600 dark:text-slate-300 dark:hover:text-violet-400"
+                href="https://www.bebic.dev"
+                rel="noreferrer"
+                target="_blank"
               >
                 Drazen Bebic
               </Link>
@@ -131,29 +131,29 @@ export const Footer: FC = () => {
 
             <div className="flex gap-4">
               <Link
-                href="https://github.com/drazenbebic"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
                 aria-label="GitHub Profile"
+                className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
+                href="https://github.com/drazenbebic"
+                rel="noreferrer"
+                target="_blank"
               >
                 <HugeiconsIcon icon={GithubIcon} size={20} />
               </Link>
               <Link
-                href="https://twitter.com/drazenbebic"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
                 aria-label="X Profile"
+                className="text-slate-400 transition-colors hover:text-slate-900 dark:hover:text-slate-100"
+                href="https://twitter.com/drazenbebic"
+                rel="noreferrer"
+                target="_blank"
               >
                 <HugeiconsIcon icon={NewTwitterIcon} size={20} />
               </Link>
               <Link
-                href="https://www.bebic.dev"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 transition-colors hover:text-violet-600 dark:hover:text-violet-400"
                 aria-label="Personal Website"
+                className="text-slate-400 transition-colors hover:text-violet-600 dark:hover:text-violet-400"
+                href="https://www.bebic.dev"
+                rel="noreferrer"
+                target="_blank"
               >
                 <HugeiconsIcon icon={Globe02Icon} size={20} />
               </Link>

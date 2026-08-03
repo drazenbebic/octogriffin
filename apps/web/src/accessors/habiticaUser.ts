@@ -20,7 +20,7 @@ export const upsertHabiticaUser = async (
   });
 };
 
-export const getHabiticaUser = async (githubUserId: number | bigint) => {
+export const getHabiticaUser = async (githubUserId: bigint | number) => {
   return prisma.habiticaUsers.findFirst({
     where: { githubUserId },
   });

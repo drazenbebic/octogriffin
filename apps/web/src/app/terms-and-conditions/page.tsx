@@ -29,13 +29,13 @@ export default function TermsAndConditionsPage() {
     <>
       <JsonLd data={termsJsonLd} />
       <LegalPage
-        title="Terms & Conditions"
         subtitle={`Last updated: ${LAST_UPDATED}`}
+        title="Terms & Conditions"
       >
         <div className="flex flex-col gap-10">
           {/* 1. Introduction */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               1. Introduction
             </Heading>
             <Content className="mb-4">
@@ -53,7 +53,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 2. Description of Service */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               2. Description of Service
             </Heading>
             <Content className="mb-4">
@@ -76,7 +76,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 3. User Responsibilities */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               3. User Responsibilities
             </Heading>
             <Content className="mb-4">
@@ -106,7 +106,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 4. Limitation of Liability */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               4. Limitation of Liability
             </Heading>
             <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 dark:bg-amber-950/20 dark:border-amber-900/50">
@@ -125,7 +125,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 5. Intellectual Property */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               5. Intellectual Property
             </Heading>
             <Content className="mb-4">
@@ -147,7 +147,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 6. Termination */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               6. Termination
             </Heading>
             <Content>
@@ -160,7 +160,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 7. Governing Law */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               7. Governing Law
             </Heading>
             <Content>
@@ -171,13 +171,13 @@ export default function TermsAndConditionsPage() {
           </section>
 
           <Callout
-            title="Contact Us"
-            description={`For any legal inquiries regarding these terms, reach out to ${email}.`}
             button={{
               label: 'Send Email',
               href: `mailto:${email}`,
               icon: Mail01Icon,
             }}
+            description={`For any legal inquiries regarding these terms, reach out to ${email}.`}
+            title="Contact Us"
           />
         </div>
       </LegalPage>

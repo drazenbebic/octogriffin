@@ -11,7 +11,7 @@ import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
 import { Heading } from '@/components/ui/Heading';
 import { cn } from '@/utils/cn';
 
-export type AlertVariant = 'info' | 'success' | 'warning' | 'danger' | 'note';
+export type AlertVariant = 'danger' | 'info' | 'note' | 'success' | 'warning';
 
 const variantStyles: Record<
   AlertVariant,
@@ -75,9 +75,9 @@ export const Alert: FC<AlertProps> = ({
       icon
     ) : (
       <HugeiconsIcon
+        className={styles.icon}
         icon={styles.defaultIcon}
         size={20}
-        className={styles.icon}
       />
     );
 
@@ -93,10 +93,10 @@ export const Alert: FC<AlertProps> = ({
       <div className="flex-1 space-y-1">
         {!!title && (
           <Heading
+            as="h5"
+            className="font-bold leading-none text-inherit!"
             level={5}
             size="base"
-            className="font-bold leading-none text-inherit!"
-            as="h5"
           >
             {title}
           </Heading>

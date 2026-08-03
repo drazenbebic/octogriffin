@@ -30,13 +30,13 @@ export default function PrivacyPolicyPage() {
     <>
       <JsonLd data={privacyJsonLd} />
       <LegalPage
-        title="Privacy Policy"
         subtitle={`Last updated: ${LAST_UPDATED}`}
+        title="Privacy Policy"
       >
         <div className="flex flex-col gap-10">
           {/* 1. Introduction */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               1. Introduction
             </Heading>
             <Content>
@@ -49,13 +49,13 @@ export default function PrivacyPolicyPage() {
 
           {/* 2. Controller */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               2. Controller
             </Heading>
             <Content className="mb-2">
               The data controller responsible for this website is:
             </Content>
-            <Card variant="flat" className="px-6 py-4 dark:bg-slate-900/50">
+            <Card className="px-6 py-4 dark:bg-slate-900/50" variant="flat">
               <Content className="font-semibold">Drazen Bebic</Content>
               <Content>Postfach 0029 1190 Vienna, Austria</Content>
               <Content>Email: {email}</Content>
@@ -64,7 +64,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 3. Data We Collect */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               3. The Data We Collect
             </Heading>
             <Content className="mb-4">
@@ -92,8 +92,8 @@ export default function PrivacyPolicyPage() {
 
             <blockquote className="px-6 py-4 rounded-2xl bg-violet-100 dark:bg-violet-950/30">
               <Content
-                color="violet"
                 className="font-medium dark:text-violet-300"
+                color="violet"
               >
                 Important: We do not access, read, or store your source code
                 files.
@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 4. Cookies and local storage */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               4. Cookies & Local Storage
             </Heading>
             <Content className="mb-4">
@@ -127,7 +127,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 5. Infrastructure & Processors */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               5. Infrastructure & Data Processors
             </Heading>
             <Content className="mb-4">
@@ -137,7 +137,7 @@ export default function PrivacyPolicyPage() {
 
             <div className="space-y-6">
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   5.1. Hosting (Vercel)
                 </Heading>
                 <Content>
@@ -150,7 +150,7 @@ export default function PrivacyPolicyPage() {
               </div>
 
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   5.2. Database (Neon)
                 </Heading>
                 <Content>
@@ -162,7 +162,7 @@ export default function PrivacyPolicyPage() {
               </div>
 
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   5.3. Habitica API
                 </Heading>
                 <Content>
@@ -174,7 +174,7 @@ export default function PrivacyPolicyPage() {
               </div>
 
               <div>
-                <Heading level={3} size="lg" className="mb-2">
+                <Heading className="mb-2" level={3} size="lg">
                   5.4. Analytics & Performance
                 </Heading>
                 <Content>
@@ -192,7 +192,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 6. User Rights */}
           <section>
-            <Heading level={2} size="xl" className="mb-4">
+            <Heading className="mb-4" level={2} size="xl">
               6. Your Rights (GDPR)
             </Heading>
             <Content className="mb-4">
@@ -213,13 +213,13 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <Callout
-            title="Questions?"
-            description={`If you have any questions about this policy, reach out to ${email}.`}
             button={{
               label: 'Send Email',
               href: `mailto:${email}`,
               icon: Mail01Icon,
             }}
+            description={`If you have any questions about this policy, reach out to ${email}.`}
+            title="Questions?"
           />
         </div>
       </LegalPage>

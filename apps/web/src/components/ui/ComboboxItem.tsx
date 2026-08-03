@@ -4,8 +4,8 @@ import { FC } from 'react';
 
 import {
   ComboboxItem as BaseComboboxItem,
-  ComboboxItemCheck,
   ComboboxItemProps as BaseComboboxItemProps,
+  ComboboxItemCheck,
 } from '@ariakit/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -13,21 +13,21 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { ComboboxItemType } from '@/components/ui/Combobox';
 import { cn } from '@/utils/cn';
 
-export type ComboboxItemProps = BaseComboboxItemProps & {
+export type ComboboxItemProps = {
   item: ComboboxItemType;
-};
+} & BaseComboboxItemProps;
 
 export const ComboboxItem: FC<ComboboxItemProps> = ({ item }) => {
   return (
     <BaseComboboxItem
-      value={item.value}
-      focusOnHover
       className={cn(
         'group flex cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm outline-none transition-colors',
         'text-slate-700 dark:text-slate-300',
         'data-active-item:bg-violet-50 data-active-item:text-violet-700 dark:data-active-item:bg-violet-900/50 dark:data-active-item:text-violet-200',
         'aria-selected:bg-violet-50 aria-selected:font-medium aria-selected:text-violet-900 dark:aria-selected:bg-violet-900/30 dark:aria-selected:text-violet-100',
       )}
+      focusOnHover
+      value={item.value}
     >
       <span className="truncate">{item.label}</span>
       <span className="flex items-center justify-center text-violet-600 opacity-0 transition-opacity group-aria-selected:opacity-100 dark:text-violet-400">

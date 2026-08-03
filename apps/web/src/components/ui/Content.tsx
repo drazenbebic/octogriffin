@@ -2,8 +2,8 @@ import { ElementType, FC, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
-type ContentSize = 'xs' | 'sm' | 'base' | 'lg';
-type ContentColor = 'slate' | 'violet' | 'note';
+type ContentSize = 'base' | 'lg' | 'sm' | 'xs';
+type ContentColor = 'note' | 'slate' | 'violet';
 
 export type ContentProps = {
   as?: ElementType;

@@ -1,8 +1,8 @@
 import './globals.css';
 
-import React, { FC, ReactNode } from 'react';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import React, { FC, ReactNode } from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -63,7 +63,7 @@ const RootLayout: FC<Props> = async ({ children }) => {
       >
         <Providers>
           <Header />
-          <main id="content" className="flex-1 w-full">
+          <main className="flex-1 w-full" id="content">
             {children}
           </main>
           <Footer />

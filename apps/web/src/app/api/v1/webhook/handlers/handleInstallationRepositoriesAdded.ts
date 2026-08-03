@@ -19,6 +19,7 @@ export const handleInstallationRepositoriesAdded = async ({
 
   if (!existingInstallation) {
     logger.warn({ installationId: installation.id }, 'Installation not found.');
+
     return;
   }
 

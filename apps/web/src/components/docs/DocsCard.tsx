@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
 import NextLink from 'next/link';
+import { FC, ReactNode } from 'react';
 
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -8,7 +8,7 @@ import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { cn } from '@/utils/cn';
 
-export type DocsCardColor = 'violet' | 'indigo' | 'sky' | 'emerald' | 'amber';
+export type DocsCardColor = 'amber' | 'emerald' | 'indigo' | 'sky' | 'violet';
 
 export type DocsCardProps = {
   href: string;
@@ -38,12 +38,12 @@ export const DocsCard: FC<DocsCardProps> = ({
   color = 'violet',
 }) => (
   <NextLink
-    href={href}
     className={cn(
       'group relative flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 ease-in-out',
       'hover:-translate-y-1 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-900/5',
       'dark:border-slate-800 dark:bg-slate-900 dark:hover:border-violet-800 dark:hover:shadow-violet-900/10',
     )}
+    href={href}
   >
     <div
       className={cn(
@@ -55,23 +55,23 @@ export const DocsCard: FC<DocsCardProps> = ({
     </div>
 
     <Heading
+      className="font-bold text-slate-900 dark:text-slate-100"
       level={3}
       size="lg"
-      className="font-bold text-slate-900 dark:text-slate-100"
     >
       {title}
     </Heading>
 
     <Content
-      size="sm"
       className="leading-relaxed text-slate-500 dark:text-slate-400"
+      size="sm"
     >
       {description}
     </Content>
 
     <div className="mt-auto pt-4 flex items-center text-sm font-semibold text-violet-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-violet-400">
       Read more{' '}
-      <HugeiconsIcon icon={ArrowRight01Icon} size={16} className="ml-1" />
+      <HugeiconsIcon className="ml-1" icon={ArrowRight01Icon} size={16} />
     </div>
   </NextLink>
 );

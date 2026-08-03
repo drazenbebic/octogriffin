@@ -83,11 +83,13 @@ export const TriggerModal: FC<TriggerModalProps> = ({
       validation.error.issues.forEach(issue => {
         form.setError(issue.path[0] as string, issue.message);
       });
+
       return;
     }
 
     startTransition(async () => {
       let result;
+
       if (isEdit && trigger) {
         result = await updateTrigger(trigger.uuid, validation.data);
       } else {
@@ -100,9 +102,11 @@ export const TriggerModal: FC<TriggerModalProps> = ({
             ? 'Trigger updated successfully'
             : 'Trigger created successfully',
         );
+
         if (!isEdit) {
           form.reset();
         }
+
         setOpenAction(false);
         onSuccessAction?.();
       }
@@ -120,9 +124,9 @@ export const TriggerModal: FC<TriggerModalProps> = ({
   return (
     <DialogProvider open={open} setOpen={setOpenAction}>
       <Dialog
+        className="max-h-[calc(100vh-2rem)] overflow-y-auto"
         onClose={handleDialogClose}
         size="lg"
-        className="max-h-[calc(100vh-2rem)] overflow-y-auto"
       >
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -141,7 +145,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
           />
         </div>
 
-        <Form resetOnSubmit={false} store={form} className="space-y-8">
+        <Form className="space-y-8" resetOnSubmit={false} store={form}>
           <p className="text-xs text-slate-500 dark:text-slate-400">
             Fields marked with <span className="text-red-500">*</span> are
             required.
@@ -155,29 +159,29 @@ export const TriggerModal: FC<TriggerModalProps> = ({
               </div>
               <Heading
                 as="h3"
-                size="sm"
                 className="font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400"
+                size="sm"
               >
                 1. GitHub Trigger
               </Heading>
             </div>
 
             <Card variant="flat">
-              <CardBody padding="sm" className="grid gap-4 sm:grid-cols-2">
+              <CardBody className="grid gap-4 sm:grid-cols-2" padding="sm">
                 <FormCombobox
-                  name="event"
+                  items={githubEventOptions}
                   label="Event"
+                  name="event"
                   placeholder="Select a GitHub event..."
                   required
-                  items={githubEventOptions}
                 />
 
                 <FormCombobox
+                  items={repositoryOptions}
+                  label="Repositories"
                   multiple
                   name="repositories"
-                  label="Repositories"
                   placeholder="Select repositories..."
-                  items={repositoryOptions}
                 />
               </CardBody>
             </Card>
@@ -191,54 +195,54 @@ export const TriggerModal: FC<TriggerModalProps> = ({
               </div>
               <Heading
                 as="h3"
-                size="sm"
                 className="font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400"
+                size="sm"
               >
                 2. Habitica Task
               </Heading>
             </div>
 
             <Card variant="flat">
-              <CardBody padding="sm" className="grid gap-4 sm:grid-cols-2">
+              <CardBody className="grid gap-4 sm:grid-cols-2" padding="sm">
                 <div className="sm:col-span-2">
                   <FormInput
-                    name="taskTitle"
-                    label="Task Title"
-                    placeholder="e.g. Pushed Code"
                     description="A new task will be created if it doesn't exist."
+                    label="Task Title"
+                    name="taskTitle"
+                    placeholder="e.g. Pushed Code"
                     required
                   />
                 </div>
 
                 <div className="sm:col-span-2">
                   <FormTextarea
-                    name="taskNote"
                     label="Notes"
-                    placeholder="Add extra details..."
                     maxLength={255}
+                    name="taskNote"
+                    placeholder="Add extra details..."
                   />
                 </div>
 
-                <FormSelect name="taskPriority" label="Difficulty">
+                <FormSelect label="Difficulty" name="taskPriority">
                   <SelectItem value="0.1">Trivial</SelectItem>
                   <SelectItem value="1">Easy</SelectItem>
                   <SelectItem value="1.5">Medium</SelectItem>
                   <SelectItem value="2">Hard</SelectItem>
                 </FormSelect>
 
-                <FormSelect name="taskAttribute" label="Attribute">
+                <FormSelect label="Attribute" name="taskAttribute">
                   <SelectItem value="str">STR</SelectItem>
                   <SelectItem value="int">INT</SelectItem>
                   <SelectItem value="con">CON</SelectItem>
                   <SelectItem value="per">PER</SelectItem>
                 </FormSelect>
 
-                <FormSelect name="scoreDirection" label="Action">
+                <FormSelect label="Action" name="scoreDirection">
                   <SelectItem value="up">Reward (XP/Gold)</SelectItem>
                   <SelectItem value="down">Punish (Lose Health)</SelectItem>
                 </FormSelect>
 
-                <FormSelect name="taskFrequency" label="Reset Counter">
+                <FormSelect label="Reset Counter" name="taskFrequency">
                   <SelectItem value="daily">Daily</SelectItem>
                   <SelectItem value="weekly">Weekly</SelectItem>
                   <SelectItem value="monthly">Monthly</SelectItem>
@@ -257,18 +261,18 @@ export const TriggerModal: FC<TriggerModalProps> = ({
               >
                 <span className="text-xs">Advanced Settings</span>
                 <HugeiconsIcon
+                  className="text-slate-400 transition-transform group-aria-expanded:rotate-180 dark:text-slate-500"
                   icon={ArrowDown01Icon}
                   size={16}
-                  className="text-slate-400 transition-transform group-aria-expanded:rotate-180 dark:text-slate-500"
                 />
               </Disclosure>
 
               <DisclosureContent className="border-t border-slate-100 px-5 py-5 dark:border-slate-800">
                 <FormInput
-                  name="taskAlias"
-                  label="Task Alias"
-                  placeholder="e.g. my-habit-alias"
                   description="Unique identifier for API operations."
+                  label="Task Alias"
+                  name="taskAlias"
+                  placeholder="e.g. my-habit-alias"
                 />
               </DisclosureContent>
             </Card>
@@ -276,9 +280,9 @@ export const TriggerModal: FC<TriggerModalProps> = ({
 
           <div className="flex justify-end gap-3 pt-2">
             <Button
-              variant="secondary"
               onClick={() => setOpenAction(false)}
               type="button"
+              variant="secondary"
             >
               Cancel
             </Button>

@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
 import NextLink from 'next/link';
+import { FC, ReactNode } from 'react';
 
 import { HugeiconsIcon, HugeiconsIconProps } from '@hugeicons/react';
 
@@ -47,16 +47,16 @@ export const Callout: FC<CalloutProps> = ({
         className,
       )}
     >
-      <Heading level={headingLevel} size="lg" className="mb-2">
+      <Heading className="mb-2" level={headingLevel} size="lg">
         {title}
       </Heading>
       <Content className="mb-6">{description}</Content>
       <NextLink
         href={button.href}
-        target={button.isExternal ? '_blank' : undefined}
         rel={button.isExternal ? 'noopener noreferrer' : undefined}
+        target={button.isExternal ? '_blank' : undefined}
       >
-        <Button variant={button.variant ?? 'secondary'} size={size}>
+        <Button size={size} variant={button.variant ?? 'secondary'}>
           {button.icon && (
             <HugeiconsIcon icon={button.icon} size={iconSizes[size]} />
           )}

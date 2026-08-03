@@ -12,9 +12,9 @@ import {
 
 import {
   Select as BaseSelect,
+  SelectProps as BaseSelectProps,
   SelectArrow,
   SelectPopover,
-  SelectProps as BaseSelectProps,
   SelectProvider,
   useSelectStore,
   useStoreState,
@@ -59,7 +59,9 @@ const getSelectedLabel = (
   let label: ReactNode | undefined;
 
   Children.forEach(children, child => {
-    if (label || !isValidElement(child)) return;
+    if (label || !isValidElement(child)) {
+      return;
+    }
 
     const element = child as ReactElement<SelectItemProps>;
     const props = element.props;
@@ -68,7 +70,10 @@ const getSelectedLabel = (
       label = props.children;
     } else if (props.children) {
       const nestedLabel = getSelectedLabel(props.children, singleValue, false);
-      if (nestedLabel) label = nestedLabel;
+
+      if (nestedLabel) {
+        label = nestedLabel;
+      }
     }
   });
 
@@ -135,9 +140,9 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
         <BaseSelect
           ref={ref}
           {...props}
-          store={select}
-          onBlur={onBlur}
           className={cn(triggerStyles, className)}
+          onBlur={onBlur}
+          store={select}
         >
           <span className="truncate">
             {hasValue ? (
@@ -151,20 +156,20 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
           <SelectArrow>
             <HugeiconsIcon
-              icon={ArrowDown01Icon}
               className="h-4 w-4 text-slate-400"
+              icon={ArrowDown01Icon}
             />
           </SelectArrow>
         </BaseSelect>
 
         <SelectPopover
-          store={select}
-          modal
-          sameWidth
+          className={popoverStyles}
           gutter={8}
+          modal
           onBlur={onBlur}
           portalRef={portalRef}
-          className={popoverStyles}
+          sameWidth
+          store={select}
         >
           {children}
         </SelectPopover>

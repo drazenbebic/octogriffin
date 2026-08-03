@@ -1,7 +1,7 @@
 'use client';
 
-import React, { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
+import React, { FC, useEffect, useState } from 'react';
 
 import {
   ArrowDown01Icon,
@@ -49,7 +49,7 @@ export const RepositoryListCard: FC = () => {
   const hasHiddenItems = repos.length > MAX_VISIBLE;
 
   return (
-    <Card variant="outlined" className="bg-slate-50 dark:bg-slate-900/50">
+    <Card className="bg-slate-50 dark:bg-slate-900/50" variant="outlined">
       <CardBody>
         <div className="mb-4 flex items-center gap-2 text-slate-900 dark:text-slate-100">
           <HugeiconsIcon icon={GithubIcon} size={20} />
@@ -63,8 +63,8 @@ export const RepositoryListCard: FC = () => {
             <>
               {[...Array(3)].map((_, i) => (
                 <div
-                  key={i}
                   className="flex items-center justify-between rounded-xl bg-white p-3 shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800"
+                  key={i}
                 >
                   <div className="flex items-center gap-3">
                     <Skeleton className="h-2 w-2 rounded-full" />
@@ -78,11 +78,11 @@ export const RepositoryListCard: FC = () => {
             <>
               {visibleRepos.map(repo => (
                 <Link
-                  key={repo.id}
                   className="flex items-center justify-between rounded-xl bg-white p-3 shadow-sm ring-1 ring-slate-100 transition-shadow hover:shadow-md dark:bg-slate-900 dark:ring-slate-800 dark:hover:bg-slate-800/50"
                   href={repo.htmlUrl}
-                  target="_blank"
+                  key={repo.id}
                   rel="noreferrer"
+                  target="_blank"
                 >
                   <div className="flex items-center gap-3 overflow-hidden">
                     <div
@@ -103,11 +103,11 @@ export const RepositoryListCard: FC = () => {
                     >
                       {repo.private ? (
                         <HugeiconsIcon
-                          icon={SquareLock01Icon}
                           className="h-4 w-4"
+                          icon={SquareLock01Icon}
                         />
                       ) : (
-                        <HugeiconsIcon icon={Globe02Icon} className="h-4 w-4" />
+                        <HugeiconsIcon className="h-4 w-4" icon={Globe02Icon} />
                       )}
                     </div>
 
@@ -120,26 +120,26 @@ export const RepositoryListCard: FC = () => {
 
               {hasHiddenItems && (
                 <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => setIsExpanded(!isExpanded)}
                   className="mt-1 w-full text-slate-500"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  size="sm"
+                  variant="secondary"
                 >
                   {isExpanded ? (
                     <>
                       <HugeiconsIcon
+                        className="mr-2"
                         icon={ArrowUp01Icon}
                         size={16}
-                        className="mr-2"
                       />
                       Show Less
                     </>
                   ) : (
                     <>
                       <HugeiconsIcon
+                        className="mr-2"
                         icon={ArrowDown01Icon}
                         size={16}
-                        className="mr-2"
                       />
                       Show {repos.length - MAX_VISIBLE} More
                     </>
@@ -154,16 +154,16 @@ export const RepositoryListCard: FC = () => {
           )}
 
           <Link
-            href={githubAppUrl()}
-            target="_blank"
-            rel="noreferrer"
             className="group mt-2 flex items-center justify-center gap-2 rounded-xl border border-dashed border-slate-300 py-3 text-sm font-medium text-slate-500 transition-colors hover:border-violet-300 hover:bg-violet-50 hover:text-violet-600 dark:border-slate-700 dark:text-slate-400 dark:hover:border-violet-900/50 dark:hover:bg-violet-950/30 dark:hover:text-violet-400"
+            href={githubAppUrl()}
+            rel="noreferrer"
+            target="_blank"
           >
             <span>+ Manage Repositories</span>
           </Link>
         </div>
 
-        <Content size="sm" className="mt-4">
+        <Content className="mt-4" size="sm">
           Install the GitHub App on your repositories to start tracking commits.
         </Content>
       </CardBody>
