@@ -1,4 +1,4 @@
-import type { Organization, Person } from 'schema-dts';
+import type { HowToStep, Organization, Person } from 'schema-dts';
 
 import { absoluteUrl, pageUrl } from '@/seo/pageCatalog';
 import { githubAppUrl } from '@/utils/githubAppUrl';
@@ -54,3 +54,17 @@ export const OCTOGRIFFIN_ORG: Organization = {
   sameAs: OCTOGRIFFIN_SAME_AS,
   url: pageUrl('/'),
 };
+
+type Step = {
+  name: string;
+  text: string;
+  url?: string;
+};
+
+// Numbers the steps of a how-to guide in the order they are listed.
+export const howToSteps = (steps: Step[]): HowToStep[] =>
+  steps.map((step, index) => ({
+    '@type': 'HowToStep',
+    position: index + 1,
+    ...step,
+  }));
