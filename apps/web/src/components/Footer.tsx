@@ -73,6 +73,15 @@ export const Footer: FC = () => {
                 Resources
               </Heading>
               <FooterLink href="/docs">Documentation</FooterLink>
+              <FooterLink href="/docs/coding-habits">
+                Coding Habit Recipes
+              </FooterLink>
+              <FooterLink href="/docs/supported-github-events">
+                Supported GitHub Events
+              </FooterLink>
+              <FooterLink href="/docs/habitica-api-token">
+                Habitica API Token
+              </FooterLink>
               <FooterLink href="/docs/how-to-contribute">
                 Contributing
               </FooterLink>

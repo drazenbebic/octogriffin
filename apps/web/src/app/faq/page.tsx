@@ -62,7 +62,11 @@ const setup: FAQ[] = [
           It is a simple two-step process. First, install our GitHub App on the
           repositories you want to track. Second, log in to the{' '}
           <Link href="/dashboard/settings">Dashboard</Link> and enter your
-          Habitica User ID and API Token (found in your Habitica Settings API).
+          Habitica User ID and API Token.{' '}
+          <Link href="/docs/habitica-api-token">
+            Here is where Habitica keeps them
+          </Link>
+          .
         </Content>
         <Content>
           You&#39;re now ready to configure your triggers and start earning
@@ -81,7 +85,8 @@ const setup: FAQ[] = [
           &#34;When I [Push Code] to [This Repo], score a [Medium] task&#34;
         </em>
         . You can create as many triggers as you want for different events and
-        repositories.
+        repositories. For ready-made examples, see the{' '}
+        <Link href="/docs/coding-habits">coding habit recipes</Link>.
       </Content>
     ),
     question: 'How do I configure my rewards?',

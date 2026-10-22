@@ -167,8 +167,14 @@ export default function HomePage() {
                   Link Account
                 </Heading>
                 <Content size="sm">
-                  Sign in and add your Habitica API keys. Your data is encrypted
-                  at rest.
+                  Sign in and add your{' '}
+                  <Link
+                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                    href="/docs/habitica-api-token"
+                  >
+                    Habitica API Token
+                  </Link>
+                  . Your data is encrypted at rest.
                 </Content>
               </CardBody>
             </Card>
@@ -189,8 +195,14 @@ export default function HomePage() {
                   Get Rewards
                 </Heading>
                 <Content size="sm">
-                  Push code, merge PRs, or review code. Watch your character
-                  gain XP automatically.
+                  Push code, merge PRs, or review code. Any of over{' '}
+                  <Link
+                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                    href="/docs/supported-github-events"
+                  >
+                    100 GitHub events
+                  </Link>{' '}
+                  can earn your character XP automatically.
                 </Content>
               </CardBody>
             </Card>
