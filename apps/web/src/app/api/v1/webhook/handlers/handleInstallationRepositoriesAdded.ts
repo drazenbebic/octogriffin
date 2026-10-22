@@ -1,4 +1,4 @@
-import { EmitterWebhookEvent } from '@octokit/webhooks';
+import type { EmitterWebhookEvent } from '@octokit/webhooks';
 
 import {
   addSelectedRepositories,

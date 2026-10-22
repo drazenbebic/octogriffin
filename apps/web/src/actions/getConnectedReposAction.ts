@@ -3,11 +3,11 @@
 import { runUserAction } from '@/lib/userAction';
 
 export type ConnectedRepository = {
+  fullName: string;
+  htmlUrl: string;
   id: number;
   name: string;
-  fullName: string;
   private: boolean;
-  htmlUrl: string;
 };
 
 export async function getConnectedReposAction() {
@@ -15,11 +15,11 @@ export async function getConnectedReposAction() {
     'getConnectedReposAction',
     async (githubUser): Promise<ConnectedRepository[]> =>
       githubUser.installation.selectedRepositories.map(repository => ({
+        fullName: repository.fullName,
+        htmlUrl: `https://github.com/${repository.fullName}`,
         id: repository.githubRepositoryId,
         name: repository.name,
-        fullName: repository.fullName,
         private: repository.private,
-        htmlUrl: `https://github.com/${repository.fullName}`,
       })),
     {
       installation: {

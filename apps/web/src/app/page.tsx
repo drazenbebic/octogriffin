@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import {
@@ -29,32 +29,32 @@ import { homeJsonLd } from '@/json-ld/home';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const metadata: Metadata = {
-  title: 'Octogriffin - Gamify Your GitHub Workflow',
   description:
     'Level up your RPG character automatically while you code. Connect GitHub to Habitica and turn commits, PRs, and reviews into XP, Gold, and Loot.',
   openGraph: {
-    title: 'Octogriffin - Gamify Your GitHub Workflow',
     description:
       'Turn your code commits into RPG rewards. Open source and secure.',
-    url: 'https://octogriffin.com',
-    siteName: 'Octogriffin',
-    locale: 'en_US',
-    type: 'website',
     images: [
       {
+        alt: 'Octogriffin - Gamify Your GitHub Workflow',
+        height: 630,
         url: 'https://octogriffin.com/og-image.png',
         width: 1200,
-        height: 630,
-        alt: 'Octogriffin - Gamify Your GitHub Workflow',
       },
     ],
+    locale: 'en_US',
+    siteName: 'Octogriffin',
+    title: 'Octogriffin - Gamify Your GitHub Workflow',
+    type: 'website',
+    url: 'https://octogriffin.com',
   },
+  title: 'Octogriffin - Gamify Your GitHub Workflow',
   twitter: {
     card: 'summary_large_image',
-    title: 'Octogriffin - Gamify Your GitHub Workflow',
     description:
       'Turn your code commits into RPG rewards. Open source and secure.',
     images: ['https://octogriffin.com/og-image.png'],
+    title: 'Octogriffin - Gamify Your GitHub Workflow',
   },
 };
 

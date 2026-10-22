@@ -2,18 +2,19 @@ import { forwardRef } from 'react';
 
 import { FormControl, useFormContext, useStoreState } from '@ariakit/react';
 
-import { Combobox, ComboboxProps } from '@/components/ui/Combobox';
+import type { ComboboxProps } from '@/components/ui/Combobox';
+import { Combobox } from '@/components/ui/Combobox';
 import { FormFeedback } from '@/components/ui/FormFeedback';
 import { FormLabel } from '@/components/ui/FormLabel';
 import { cn } from '@/utils/cn';
 
 type FormComboboxOwnProps = {
+  className?: string;
+  description?: string;
+  disabled?: boolean;
   label?: string;
   name: string;
-  description?: string;
-  className?: string;
   required?: boolean;
-  disabled?: boolean;
 };
 
 type FormComboboxSingleProps = FormComboboxOwnProps &

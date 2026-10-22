@@ -1,6 +1,6 @@
-import { TaskDirection } from '@/enums/habitica';
+import type { TaskDirection } from '@/enums/habitica';
 import logger from '@/lib/logger';
-import {
+import type {
   APIResponse,
   CreateTaskParameters,
   ScoreTaskResponse,
@@ -29,8 +29,8 @@ class HabiticaApi {
 
     this.headers = {
       'Content-Type': 'application/json',
-      'x-api-user': userId,
       'x-api-key': apiToken,
+      'x-api-user': userId,
       'x-client': `${devId}-${appName}`,
     };
   }
@@ -66,8 +66,8 @@ class HabiticaApi {
 
   createTask = (payload: CreateTaskParameters) => {
     return this.request<Task>('/tasks/user', {
-      method: 'POST',
       body: JSON.stringify(payload),
+      method: 'POST',
     });
   };
 

@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
 import logger from '@/lib/logger';
 import prisma from '@/lib/prisma';
@@ -16,18 +17,18 @@ export const GET = async (request: NextRequest) => {
 
     return NextResponse.json(
       {
-        status: 'ok',
         database: 'connected',
+        region: process.env.VERCEL_REGION || 'dev',
+        status: 'ok',
         timestamp: new Date().toISOString(),
         uptime: process.uptime(),
-        region: process.env.VERCEL_REGION || 'dev',
       },
       {
-        status: 200,
         headers: {
           'Cache-Control':
             'no-store, no-cache, must-revalidate, proxy-revalidate',
         },
+        status: 200,
       },
     );
   } catch (error) {
@@ -35,9 +36,9 @@ export const GET = async (request: NextRequest) => {
 
     return NextResponse.json(
       {
-        status: 'error',
         database: 'disconnected',
         error: error instanceof Error ? error.message : 'Unknown error',
+        status: 'error',
       },
       { status: 503 },
     );

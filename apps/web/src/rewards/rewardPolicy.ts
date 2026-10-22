@@ -1,7 +1,8 @@
-import { TaskAttribute, TaskDirection, TaskFrequency } from '@/enums/habitica';
+import type { TaskAttribute, TaskFrequency } from '@/enums/habitica';
+import { TaskDirection } from '@/enums/habitica';
 import logger from '@/lib/logger';
 
-import {
+import type {
   Actor,
   LinkedUser,
   RecipientRewards,
@@ -17,18 +18,18 @@ const isSameActor = (actor: Actor, user: LinkedUser) =>
     : actor.login === user.login;
 
 const toReward = (trigger: TriggerRule, times: number): Reward => ({
-  triggerUuid: trigger.uuid,
-  task: {
-    title: trigger.taskTitle,
-    alias: trigger.taskAlias || undefined,
-    note: trigger.taskNote || undefined,
-    priority: trigger.taskPriority,
-    attribute: trigger.taskAttribute as TaskAttribute,
-    frequency: trigger.taskFrequency as TaskFrequency,
-  },
   direction:
     trigger.scoreDirection === 'up' ? TaskDirection.UP : TaskDirection.DOWN,
+  task: {
+    alias: trigger.taskAlias || undefined,
+    attribute: trigger.taskAttribute as TaskAttribute,
+    frequency: trigger.taskFrequency as TaskFrequency,
+    note: trigger.taskNote || undefined,
+    priority: trigger.taskPriority,
+    title: trigger.taskTitle,
+  },
   times,
+  triggerUuid: trigger.uuid,
 });
 
 /**
@@ -96,9 +97,9 @@ export const evaluateRewards = async (
 
       return {
         recipient: {
+          credentials: user.credentials,
           githubUserId: user.id,
           login: user.login,
-          credentials: user.credentials,
         },
         rewards,
       };

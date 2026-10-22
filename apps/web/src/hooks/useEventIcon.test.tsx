@@ -53,7 +53,7 @@ describe('useEventIcon', () => {
   });
 
   it('should pass props correctly to the icon', () => {
-    const props = { size: 32, className: 'text-red-500' };
+    const props = { className: 'text-red-500', size: 32 };
     const { result } = renderHook(() => useEventIcon('push', props));
 
     // Verify the props on the returned React Element

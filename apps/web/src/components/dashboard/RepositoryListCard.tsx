@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import React, { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   ArrowDown01Icon,
@@ -12,10 +13,8 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import {
-  ConnectedRepository,
-  getConnectedReposAction,
-} from '@/actions/getConnectedReposAction';
+import type { ConnectedRepository } from '@/actions/getConnectedReposAction';
+import { getConnectedReposAction } from '@/actions/getConnectedReposAction';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';

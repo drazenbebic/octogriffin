@@ -1,22 +1,22 @@
 import Image from 'next/image';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { cn } from '@/utils/cn';
 
 export type AvatarProps = {
-  src?: null | string;
   alt?: string;
-  fallback?: string;
-  size?: 'lg' | 'md' | 'sm';
-  shape?: 'circle' | 'rounded' | 'square';
-  status?: 'error' | 'neutral' | 'success' | 'warning';
   className?: string;
+  fallback?: string;
+  shape?: 'circle' | 'rounded' | 'square';
+  size?: 'lg' | 'md' | 'sm';
+  src?: null | string;
+  status?: 'error' | 'neutral' | 'success' | 'warning';
 };
 
 const sizeStyles: Record<string, string> = {
-  sm: 'h-8 w-8 text-xs',
-  md: 'h-10 w-10 text-sm',
   lg: 'h-12 w-12 text-base',
+  md: 'h-10 w-10 text-sm',
+  sm: 'h-8 w-8 text-xs',
 };
 
 const shapeStyles: Record<string, string> = {
@@ -26,20 +26,20 @@ const shapeStyles: Record<string, string> = {
 };
 
 const statusColors: Record<string, string> = {
-  success: 'bg-emerald-500',
-  warning: 'bg-amber-500',
   error: 'bg-red-500',
   neutral: 'bg-slate-400',
+  success: 'bg-emerald-500',
+  warning: 'bg-amber-500',
 };
 
 export const Avatar: FC<AvatarProps> = ({
-  src,
   alt = 'User avatar',
-  fallback,
-  size = 'md',
-  shape = 'circle',
-  status,
   className,
+  fallback,
+  shape = 'circle',
+  size = 'md',
+  src,
+  status,
 }) => {
   return (
     <div className={cn('relative inline-flex shrink-0', className)}>

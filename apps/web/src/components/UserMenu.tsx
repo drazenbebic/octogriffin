@@ -2,7 +2,7 @@
 
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import {
   DashboardSquare02Icon,

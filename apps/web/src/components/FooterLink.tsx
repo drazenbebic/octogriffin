@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC, HTMLAttributeAnchorTarget, ReactNode } from 'react';
+import type { FC, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 
 export type FooterLinkProps = {
   children: ReactNode;

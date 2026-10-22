@@ -1,23 +1,24 @@
-import { ElementType, FC, ReactNode } from 'react';
+import type { ElementType, FC, ReactNode } from 'react';
 
-import { Checkbox, CheckboxProps } from '@ariakit/react';
+import type { CheckboxProps } from '@ariakit/react';
+import { Checkbox } from '@ariakit/react';
 
 import { cn } from '@/utils/cn';
 
 export type SwitchProps = {
   as?: ElementType;
-  label?: ReactNode;
-  description?: ReactNode;
   containerClassName?: string;
+  description?: ReactNode;
+  label?: ReactNode;
 } & CheckboxProps;
 
 export const Switch: FC<SwitchProps> = ({
   as: Tag = Checkbox,
   className,
   containerClassName,
-  label,
   description,
   disabled,
+  label,
   ...props
 }) => {
   return (

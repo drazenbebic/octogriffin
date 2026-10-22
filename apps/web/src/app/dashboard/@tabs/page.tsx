@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { DeleteTriggerModal } from '@/components/dashboard/DeleteTriggerModal';
 import { TriggerModal } from '@/components/dashboard/TriggerModal';
 import { TriggersList } from '@/components/dashboard/TriggersList';
-import { TriggersModel } from '@/generated/prisma/models/Triggers';
-import { TriggerWithRepos } from '@/types/triggers';
+import type { TriggersModel } from '@/generated/prisma/models/Triggers';
+import type { TriggerWithRepos } from '@/types/triggers';
 
 export default function DashboardPage() {
   const [isModalOpen, setModalOpen] = useState(false);

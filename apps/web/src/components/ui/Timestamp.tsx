@@ -1,6 +1,6 @@
 'use client';
 
-import { ElementType, FC } from 'react';
+import type { ElementType, FC } from 'react';
 
 import { useFormattedDate } from '@/hooks/useFormattedDate';
 

@@ -1,7 +1,7 @@
 import { TaskDirection } from '@/enums/habitica';
 
 import { deliverRewards } from './deliverRewards';
-import {
+import type {
   InstallationStatus,
   LinkedUser,
   RecipientRewards,
@@ -15,10 +15,10 @@ import {
 jest.mock('@/lib/logger', () => ({
   __esModule: true,
   default: {
+    debug: jest.fn(),
     error: jest.fn(),
     info: jest.fn(),
     warn: jest.fn(),
-    debug: jest.fn(),
   },
 }));
 
@@ -26,26 +26,26 @@ const INSTALLATION_ID = 100;
 const REPOSITORY_ID = 200;
 
 const makeTrigger = (overrides: Partial<TriggerRule> = {}): TriggerRule => ({
-  uuid: 'trigger-1',
   event: 'push',
   isActive: true,
   repositoryIds: [REPOSITORY_ID],
-  taskTitle: 'Write code',
+  scoreDirection: 'up',
   taskAlias: null,
-  taskNote: null,
-  taskPriority: 1,
   taskAttribute: 'str',
   taskFrequency: 'daily',
-  scoreDirection: 'up',
+  taskNote: null,
+  taskPriority: 1,
+  taskTitle: 'Write code',
+  uuid: 'trigger-1',
   ...overrides,
 });
 
 const makeUser = (overrides: Partial<LinkedUser> = {}): LinkedUser => ({
-  id: BigInt(1),
+  credentials: { apiToken: 'habitica-token', userId: 'habitica-user' },
   githubId: 42,
-  login: 'octocat',
+  id: BigInt(1),
   installationId: INSTALLATION_ID,
-  credentials: { userId: 'habitica-user', apiToken: 'habitica-token' },
+  login: 'octocat',
   triggers: [makeTrigger()],
   ...overrides,
 });
@@ -53,22 +53,21 @@ const makeUser = (overrides: Partial<LinkedUser> = {}): LinkedUser => ({
 const makeEvent = (
   overrides: Partial<RewardableEvent> = {},
 ): RewardableEvent => ({
-  delivery: { id: 'delivery-1', signature: 'sha256=abc', hookId: 'hook-1' },
-  name: 'push',
-  installationId: INSTALLATION_ID,
-  repositoryId: REPOSITORY_ID,
   contributions: [{ actor: { login: 'octocat' }, count: 1 }],
+  delivery: { hookId: 'hook-1', id: 'delivery-1', signature: 'sha256=abc' },
+  installationId: INSTALLATION_ID,
+  name: 'push',
+  repositoryId: REPOSITORY_ID,
   ...overrides,
 });
 
 const inMemoryDirectory = (
   users: LinkedUser[],
   status: InstallationStatus | null = {
-    isSuspended: false,
     isRepositorySelected: true,
+    isSuspended: false,
   },
 ): RewardDirectory => ({
-  getInstallationStatus: async () => status,
   findLinkedUsers: async actors =>
     users.filter(user =>
       actors.some(actor =>
@@ -77,6 +76,7 @@ const inMemoryDirectory = (
           : actor.login === user.login,
       ),
     ),
+  getInstallationStatus: async () => status,
 });
 
 const recordingSink = () => {
@@ -87,7 +87,7 @@ const recordingSink = () => {
     },
   };
 
-  return { sink, applied };
+  return { applied, sink };
 };
 
 const recordingLog = () => {
@@ -119,35 +119,35 @@ const recordingLog = () => {
 
 describe('deliverRewards', () => {
   it('rewards a commit author once per commit', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
 
     await deliverRewards(
       makeEvent({ contributions: [{ actor: { login: 'octocat' }, count: 3 }] }),
-      { directory: inMemoryDirectory([makeUser()]), sink, log },
+      { directory: inMemoryDirectory([makeUser()]), log, sink },
     );
 
     expect(applied).toHaveLength(1);
     expect(applied[0].recipient.login).toBe('octocat');
     expect(applied[0].rewards).toEqual([
       {
-        triggerUuid: 'trigger-1',
+        direction: TaskDirection.UP,
         task: {
-          title: 'Write code',
           alias: undefined,
-          note: undefined,
-          priority: 1,
           attribute: 'str',
           frequency: 'daily',
+          note: undefined,
+          priority: 1,
+          title: 'Write code',
         },
-        direction: TaskDirection.UP,
         times: 3,
+        triggerUuid: 'trigger-1',
       },
     ]);
   });
 
   it('matches event senders by GitHub ID', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
     const user = makeUser({
       triggers: [
@@ -157,10 +157,10 @@ describe('deliverRewards', () => {
 
     await deliverRewards(
       makeEvent({
-        name: 'pull_request.closed',
         contributions: [{ actor: { githubId: 42 }, count: 1 }],
+        name: 'pull_request.closed',
       }),
-      { directory: inMemoryDirectory([user]), sink, log },
+      { directory: inMemoryDirectory([user]), log, sink },
     );
 
     expect(applied[0].rewards[0]).toMatchObject({
@@ -170,20 +170,20 @@ describe('deliverRewards', () => {
   });
 
   it('only uses active triggers for the same event', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
     const user = makeUser({
       triggers: [
         makeTrigger({ uuid: 'active' }),
-        makeTrigger({ uuid: 'inactive', isActive: false }),
-        makeTrigger({ uuid: 'other-event', event: 'star.created' }),
+        makeTrigger({ isActive: false, uuid: 'inactive' }),
+        makeTrigger({ event: 'star.created', uuid: 'other-event' }),
       ],
     });
 
     await deliverRewards(makeEvent(), {
       directory: inMemoryDirectory([user]),
-      sink,
       log,
+      sink,
     });
 
     expect(applied[0].rewards.map(reward => reward.triggerUuid)).toEqual([
@@ -192,19 +192,19 @@ describe('deliverRewards', () => {
   });
 
   it('only uses triggers set up for the repository', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
     const user = makeUser({
       triggers: [
         makeTrigger({ uuid: 'this-repo' }),
-        makeTrigger({ uuid: 'other-repo', repositoryIds: [999] }),
+        makeTrigger({ repositoryIds: [999], uuid: 'other-repo' }),
       ],
     });
 
     await deliverRewards(makeEvent(), {
       directory: inMemoryDirectory([user]),
-      sink,
       log,
+      sink,
     });
 
     expect(applied[0].rewards.map(reward => reward.triggerUuid)).toEqual([
@@ -216,47 +216,47 @@ describe('deliverRewards', () => {
     ['the installation is unknown', null],
     [
       'the installation is suspended',
-      { isSuspended: true, isRepositorySelected: true },
+      { isRepositorySelected: true, isSuspended: true },
     ],
     [
       'the repository is not selected',
-      { isSuspended: false, isRepositorySelected: false },
+      { isRepositorySelected: false, isSuspended: false },
     ],
   ])('rewards nobody when %s', async (_, status) => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
 
     await deliverRewards(makeEvent(), {
       directory: inMemoryDirectory([makeUser()], status),
-      sink,
       log,
+      sink,
     });
 
     expect(applied).toHaveLength(0);
   });
 
   it('only rewards the owner of the installation', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
     const stranger = makeUser({ installationId: 999 });
 
     await deliverRewards(makeEvent(), {
       directory: inMemoryDirectory([stranger]),
-      sink,
       log,
+      sink,
     });
 
     expect(applied).toHaveLength(0);
   });
 
   it('skips users without matching triggers', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log } = recordingLog();
 
     await deliverRewards(makeEvent(), {
       directory: inMemoryDirectory([makeUser({ triggers: [] })]),
-      sink,
       log,
+      sink,
     });
 
     expect(applied).toHaveLength(0);
@@ -271,10 +271,10 @@ describe('deliverRewards', () => {
 
     await deliverRewards(
       makeEvent({
-        name: 'pull_request.closed',
         contributions: [{ actor: { githubId: 42 }, count: 1 }],
+        name: 'pull_request.closed',
       }),
-      { directory: inMemoryDirectory([user]), sink, log },
+      { directory: inMemoryDirectory([user]), log, sink },
     );
 
     expect(recorded).toEqual([
@@ -292,17 +292,17 @@ describe('deliverRewards', () => {
 
     await deliverRewards(makeEvent({ name: 'star.created' }), {
       directory: inMemoryDirectory([makeUser()]),
-      sink,
       log,
+      sink,
     });
 
     expect(recorded).toHaveLength(0);
   });
 
   it('rewards a delivery only once, even when it arrives again', async () => {
-    const { sink, applied } = recordingSink();
+    const { applied, sink } = recordingSink();
     const { log, recorded } = recordingLog();
-    const deps = { directory: inMemoryDirectory([makeUser()]), sink, log };
+    const deps = { directory: inMemoryDirectory([makeUser()]), log, sink };
 
     await deliverRewards(makeEvent(), deps);
     await deliverRewards(makeEvent(), deps);

@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, useState, useTransition } from 'react';
+import type { FC } from 'react';
+import { useState, useTransition } from 'react';
 
 import {
   DialogProvider,
@@ -34,45 +35,46 @@ import { Heading } from '@/components/ui/Heading';
 import { SelectItem } from '@/components/ui/SelectItem';
 import { useRepositories } from '@/hooks/useRepositories';
 import { useRepositoryOptions } from '@/hooks/useRepositoryOptions';
-import { TriggerSchema, triggerSchema } from '@/schemas/triggerSchema';
+import type { TriggerSchema } from '@/schemas/triggerSchema';
+import { triggerSchema } from '@/schemas/triggerSchema';
 import { useTriggersStore } from '@/store/useTriggersStore';
-import { TriggerWithRepos } from '@/types/triggers';
+import type { TriggerWithRepos } from '@/types/triggers';
 import { cn } from '@/utils/cn';
 import { getGroupedGithubEvents } from '@/utils/githubEvents';
 
 export type TriggerModalProps = {
+  onSuccessAction?: () => void;
   open: boolean;
   setOpenAction: (open: boolean) => void;
   trigger?: TriggerWithRepos;
-  onSuccessAction?: () => void;
 };
 
 export const TriggerModal: FC<TriggerModalProps> = ({
+  onSuccessAction,
   open,
   setOpenAction,
   trigger,
-  onSuccessAction,
 }) => {
   const isEdit = !!trigger;
 
   const [values, setValues] = useState<TriggerSchema>({
     event: trigger?.event || '',
     repositories: trigger?.repositories.map(({ uuid }) => uuid) || [],
-    taskTitle: trigger?.taskTitle || '',
-    taskNote: trigger?.taskNote || '',
     scoreDirection: trigger?.scoreDirection || 'up',
-    taskPriority: trigger?.taskPriority || 1,
+    taskAlias: trigger?.taskAlias || '',
     taskAttribute: trigger?.taskAttribute || 'str',
     taskFrequency: trigger?.taskFrequency || 'daily',
-    taskAlias: trigger?.taskAlias || '',
+    taskNote: trigger?.taskNote || '',
+    taskPriority: trigger?.taskPriority || 1,
     taskTags: (trigger?.taskTags || '') as string,
+    taskTitle: trigger?.taskTitle || '',
   });
 
   const createTrigger = useTriggersStore(state => state.createTrigger);
   const updateTrigger = useTriggersStore(state => state.updateTrigger);
   const repositories = useRepositories();
   const githubEventOptions = getGroupedGithubEvents();
-  const form = useFormStore<TriggerSchema>({ values, setValues });
+  const form = useFormStore<TriggerSchema>({ setValues, values });
   const [isPending, startTransition] = useTransition();
   const repositoryOptions = useRepositoryOptions(repositories);
 

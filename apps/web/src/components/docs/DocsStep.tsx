@@ -1,19 +1,19 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Heading } from '@/components/ui/Heading';
 import { cn } from '@/utils/cn';
 
 export type DocsStepProps = {
-  className?: string;
   children: ReactNode;
+  className?: string;
   heading?: string;
   step?: number;
   withoutBorder?: boolean;
 };
 
 export const DocsStep: FC<DocsStepProps> = ({
-  className,
   children,
+  className,
   heading,
   step,
   withoutBorder = false,

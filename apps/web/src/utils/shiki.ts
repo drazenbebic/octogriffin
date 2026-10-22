@@ -1,10 +1,6 @@
 import { h } from 'hastscript';
-import {
-  BundledLanguage,
-  createHighlighter,
-  makeSingletonHighlighter,
-  ShikiTransformer,
-} from 'shiki';
+import type { BundledLanguage, ShikiTransformer } from 'shiki';
+import { createHighlighter, makeSingletonHighlighter } from 'shiki';
 
 import { cn } from '@/utils/cn';
 
@@ -20,7 +16,6 @@ export const copyCodeButtonTransformer: ShikiTransformer = {
       'button',
       {
         'aria-label': 'Copy code',
-        type: 'button',
         class: cn(
           'copy-button group',
           'absolute top-3 right-3 z-20',
@@ -42,29 +37,30 @@ export const copyCodeButtonTransformer: ShikiTransformer = {
             this.setAttribute('aria-label', 'Copy code');
           }, 2000);
         `,
+        type: 'button',
       },
       [
         // Default Icon
         h(
           'svg',
           {
+            'aria-hidden': 'true',
             class: cn('w-4 h-4', 'block [.copied_&]:hidden'),
-            viewBox: '0 0 24 24',
             fill: 'none',
             stroke: 'currentColor',
-            'stroke-width': '2',
             'stroke-linecap': 'round',
             'stroke-linejoin': 'round',
-            'aria-hidden': 'true',
+            'stroke-width': '2',
+            viewBox: '0 0 24 24',
           },
           [
             h('rect', {
-              width: '14',
               height: '14',
-              x: '8',
-              y: '8',
               rx: '2',
               ry: '2',
+              width: '14',
+              x: '8',
+              y: '8',
             }),
             h('path', {
               d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2',
@@ -75,11 +71,11 @@ export const copyCodeButtonTransformer: ShikiTransformer = {
         h(
           'svg',
           {
-            class: cn('w-4 h-4 text-emerald-500', 'hidden [.copied_&]:block'),
-            viewBox: '0 0 24 24',
-            fill: 'none',
-            xmlns: 'http://www.w3.org/2000/svg',
             'aria-hidden': 'true',
+            class: cn('w-4 h-4 text-emerald-500', 'hidden [.copied_&]:block'),
+            fill: 'none',
+            viewBox: '0 0 24 24',
+            xmlns: 'http://www.w3.org/2000/svg',
           },
           [
             h('path', {
@@ -104,7 +100,6 @@ export const codeToHtml = async ({
   language: BundledLanguage;
 }) => {
   const highlighter = await getHighlighter({
-    themes: [THEME_LIGHT, THEME_DARK],
     langs: [
       'javascript',
       'typescript',
@@ -116,6 +111,7 @@ export const codeToHtml = async ({
       'bash',
       'yml',
     ],
+    themes: [THEME_LIGHT, THEME_DARK],
   });
 
   return highlighter.codeToHtml(code, {

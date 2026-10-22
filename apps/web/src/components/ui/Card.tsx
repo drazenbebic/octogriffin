@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, ReactNode } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -6,8 +6,8 @@ type CardVariant = 'elevated' | 'flat' | 'outlined';
 
 export type CardProps = {
   children?: ReactNode;
-  variant?: CardVariant;
   isHoverable?: boolean;
+  variant?: CardVariant;
 } & HTMLAttributes<HTMLDivElement>;
 
 const cardBaseStyles =
@@ -16,23 +16,23 @@ const cardBaseStyles =
 const variants: Record<CardVariant, string> = {
   elevated:
     'bg-white border border-slate-100 shadow-xl shadow-violet-900/5 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none',
-  outlined: 'bg-transparent border-2 border-slate-200 dark:border-slate-800',
   flat: 'bg-slate-50 dark:bg-slate-900',
+  outlined: 'bg-transparent border-2 border-slate-200 dark:border-slate-800',
 };
 
 const hoverStyles: Record<string, string> = {
   elevated:
     'hover:shadow-2xl hover:shadow-violet-900/10 hover:-translate-y-1 cursor-pointer dark:hover:bg-slate-800/50',
+  flat: 'hover:bg-slate-100 cursor-pointer dark:hover:bg-slate-800/50',
   outlined:
     'hover:border-violet-200 hover:bg-slate-50 cursor-pointer dark:hover:border-violet-800 dark:hover:bg-slate-800/50',
-  flat: 'hover:bg-slate-100 cursor-pointer dark:hover:bg-slate-800/50',
 };
 
 export const Card: FC<CardProps> = ({
   children,
   className,
-  variant = 'elevated',
   isHoverable = false,
+  variant = 'elevated',
   ...props
 }) => {
   return (

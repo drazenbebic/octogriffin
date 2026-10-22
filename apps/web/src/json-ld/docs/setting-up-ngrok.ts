@@ -1,48 +1,48 @@
-import { HowTo, WithContext } from 'schema-dts';
+import type { HowTo, WithContext } from 'schema-dts';
 
 export const settingUpNgrokJsonLd: WithContext<HowTo> = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
-  name: 'Setting up Ngrok for Octogriffin',
   description:
     'How to expose your local development environment to GitHub webhooks using Ngrok static domains.',
-  url: 'https://octogriffin.com/docs/setting-up-ngrok',
+  name: 'Setting up Ngrok for Octogriffin',
   step: [
     {
       '@type': 'HowToStep',
-      position: 1,
       name: 'Install Ngrok CLI',
+      position: 1,
       text: 'Download and install the ngrok command line tool.',
     },
     {
       '@type': 'HowToStep',
-      position: 2,
       name: 'Authenticate',
+      position: 2,
       text: 'Configure your ngrok authtoken.',
     },
     {
       '@type': 'HowToStep',
-      position: 3,
       name: 'Locate Static Domain',
+      position: 3,
       text: 'Find your free static domain in the ngrok dashboard.',
     },
     {
       '@type': 'HowToStep',
-      position: 4,
       name: 'Configure Tunnel',
+      position: 4,
       text: 'Define a persistent tunnel configuration in ngrok.yml.',
     },
     {
       '@type': 'HowToStep',
-      position: 5,
       name: 'Start the Tunnel',
+      position: 5,
       text: 'Launch the tunnel using ngrok start octogriffin.',
     },
     {
       '@type': 'HowToStep',
-      position: 6,
       name: 'Update GitHub App',
+      position: 6,
       text: 'Configure your GitHub App to send webhooks to the ngrok URL.',
     },
   ],
+  url: 'https://octogriffin.com/docs/setting-up-ngrok',
 };

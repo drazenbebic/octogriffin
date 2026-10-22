@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 
@@ -12,13 +12,13 @@ import { Heading } from '@/components/ui/Heading';
 import { authOptions } from '@/lib/auth';
 
 export const metadata: Metadata = {
-  title: 'Profile',
   description:
     'View your adventurer identity, manage account details, and check your Habitica connection status.',
   robots: {
-    index: false,
     follow: false,
+    index: false,
   },
+  title: 'Profile',
 };
 
 export default async function ProfilePage() {

@@ -1,19 +1,19 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Badge } from '@/components/ui/Badge';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 
 export type RoadmapFeatureItemProps = {
-  title: string;
   description: string;
   tags?: string[];
+  title: string;
 };
 
 export const RoadmapFeatureItem: FC<RoadmapFeatureItemProps> = ({
-  title,
   description,
   tags = [],
+  title,
 }) => {
   return (
     <div className="relative pl-8">

@@ -1,9 +1,11 @@
 import NextLink from 'next/link';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
-import { HugeiconsIcon, HugeiconsIconProps } from '@hugeicons/react';
+import type { HugeiconsIconProps } from '@hugeicons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
 
-import { Button, ButtonProps } from '@/components/ui/Button';
+import type { ButtonProps } from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { cn } from '@/utils/cn';
@@ -11,32 +13,32 @@ import { cn } from '@/utils/cn';
 type ButtonSize = NonNullable<ButtonProps['size']>;
 
 export type CalloutProps = {
-  title: string;
-  description: ReactNode;
   button: {
-    label: string;
     href: string;
     icon?: HugeiconsIconProps['icon'];
-    variant?: ButtonProps['variant'];
-    size?: ButtonSize;
     isExternal?: boolean;
+    label: string;
+    size?: ButtonSize;
+    variant?: ButtonProps['variant'];
   };
-  headingLevel?: 2 | 3;
   className?: string;
+  description: ReactNode;
+  headingLevel?: 2 | 3;
+  title: string;
 };
 
 const iconSizes: Record<ButtonSize, number> = {
-  sm: 14,
-  md: 18,
   lg: 20,
+  md: 18,
+  sm: 14,
 };
 
 export const Callout: FC<CalloutProps> = ({
-  title,
-  description,
   button,
-  headingLevel = 2,
   className,
+  description,
+  headingLevel = 2,
+  title,
 }) => {
   const size = button.size ?? 'md';
 

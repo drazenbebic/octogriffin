@@ -1,23 +1,23 @@
-import { ElementType, FC, ReactNode } from 'react';
+import type { ElementType, FC, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
 export type TextAccentProps = {
   as?: ElementType;
+  breathing?: boolean;
   children: ReactNode;
   className?: string;
-  variant?: 'brand' | 'gold' | 'mana';
   glowing?: boolean;
-  breathing?: boolean;
+  variant?: 'brand' | 'gold' | 'mana';
 };
 
 export const TextAccent: FC<TextAccentProps> = ({
   as: Tag = 'span',
+  breathing = false,
   children,
   className,
-  variant = 'brand',
   glowing = false,
-  breathing = false,
+  variant = 'brand',
   ...props
 }) => {
   const variants = {

@@ -21,7 +21,7 @@ describe('@/lib/crypto.ts', () => {
   it('should encrypt and decrypt a string correctly', async () => {
     process.env.ENCRYPTION_KEY = 'test-key-must-be-32-bytes-long-!!';
 
-    const { encrypt, decrypt } = await import('@/lib/crypto');
+    const { decrypt, encrypt } = await import('@/lib/crypto');
 
     const originalText = 'This will be encrypted and decrypted';
     const encrypted = encrypt(originalText);

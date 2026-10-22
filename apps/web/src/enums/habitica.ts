@@ -1,15 +1,15 @@
 export enum TaskType {
-  HABIT = 'habit',
   DAILY = 'daily',
-  TODO = 'todo',
+  HABIT = 'habit',
   REWARD = 'reward',
+  TODO = 'todo',
 }
 
 export enum TaskAttribute {
-  STR = 'str',
+  CON = 'con',
   INT = 'int',
   PER = 'per',
-  CON = 'con',
+  STR = 'str',
 }
 
 export enum TaskPriority {
@@ -21,11 +21,11 @@ export enum TaskPriority {
 
 export enum TaskFrequency {
   DAILY = 'daily',
-  WEEKLY = 'weekly',
   MONTHLY = 'monthly',
+  WEEKLY = 'weekly',
 }
 
 export enum TaskDirection {
-  UP = 'up',
   DOWN = 'down',
+  UP = 'up',
 }

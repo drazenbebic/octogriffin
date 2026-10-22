@@ -1,7 +1,9 @@
 import React, { forwardRef } from 'react';
 
-import { Tab as BaseTab, TabProps } from '@ariakit/react';
-import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
+import type { TabProps } from '@ariakit/react';
+import { Tab as BaseTab } from '@ariakit/react';
+import type { IconSvgElement } from '@hugeicons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { cn } from '@/utils/cn';
 

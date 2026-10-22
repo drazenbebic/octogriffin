@@ -1,7 +1,7 @@
 import logger from '@/lib/logger';
 
 import { evaluateRewards } from './rewardPolicy';
-import {
+import type {
   RewardableEvent,
   RewardDirectory,
   RewardLog,
@@ -10,8 +10,8 @@ import {
 
 export type RewardDeps = {
   directory: RewardDirectory;
-  sink: RewardSink;
   log: RewardLog;
+  sink: RewardSink;
 };
 
 /**
@@ -20,7 +20,7 @@ export type RewardDeps = {
  */
 export const deliverRewards = async (
   event: RewardableEvent,
-  { directory, sink, log }: RewardDeps,
+  { directory, log, sink }: RewardDeps,
 ) => {
   const plan = await evaluateRewards(event, directory);
 

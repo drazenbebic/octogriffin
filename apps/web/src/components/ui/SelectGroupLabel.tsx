@@ -1,9 +1,7 @@
 import { forwardRef } from 'react';
 
-import {
-  SelectGroupLabel as BaseSelectGroupLabel,
-  SelectGroupLabelProps as BaseSelectGroupLabelProps,
-} from '@ariakit/react';
+import type { SelectGroupLabelProps as BaseSelectGroupLabelProps } from '@ariakit/react';
+import { SelectGroupLabel as BaseSelectGroupLabel } from '@ariakit/react';
 
 import { cn } from '@/utils/cn';
 

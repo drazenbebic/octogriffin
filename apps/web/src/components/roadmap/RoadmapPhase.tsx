@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
@@ -7,23 +7,23 @@ import { Heading } from '@/components/ui/Heading';
 import { cn } from '@/utils/cn';
 
 export type RoadmapPhaseProps = {
-  icon: ReactNode;
-  phase: string;
-  status: string;
+  children: ReactNode;
   colorClass: string;
   dotClass: string;
-  children: ReactNode;
+  icon: ReactNode;
   isActive?: boolean;
+  phase: string;
+  status: string;
 };
 
 export const RoadmapPhase: FC<RoadmapPhaseProps> = ({
-  icon,
-  phase,
-  status,
+  children,
   colorClass,
   dotClass,
-  children,
+  icon,
   isActive = false,
+  phase,
+  status,
 }) => {
   return (
     <div className="relative flex gap-8 md:gap-12">

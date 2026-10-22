@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { JsonLd } from '@/components/JsonLd';
@@ -11,10 +11,10 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Imprint',
     description:
       'Legal disclosure and provider identification for Octogriffin. Operated by Drazen Bebic in Vienna, Austria.',
     path: 'imprint',
+    title: 'Imprint',
   });
 };
 

@@ -1,40 +1,48 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 const DEFAULT_OPTIONS: Intl.DateTimeFormatOptions = {
-  month: 'short',
   day: 'numeric',
   hour: 'numeric',
   minute: 'numeric',
+  month: 'short',
 };
 
+const subscribe = () => () => {};
+
+/**
+ * Formats a date in the visitor's locale. Renders an empty string on the
+ * server and during hydration, so server and client markup always match.
+ */
 export function useFormattedDate(
   date: Date | number | string,
   options: Intl.DateTimeFormatOptions = DEFAULT_OPTIONS,
 ) {
-  const [formattedDate, setFormattedDate] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(true);
+  const isClient = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
-  useEffect(() => {
-    const dateObj = new Date(date);
+  if (!isClient) {
+    return { formattedDate: '', isLoading: true };
+  }
 
-    const locale =
-      typeof navigator !== 'undefined' ? navigator.language : 'en-US';
+  const dateObj = new Date(date);
 
-    try {
-      const formatted = new Intl.DateTimeFormat(locale, options).format(
-        dateObj,
-      );
-      setFormattedDate(formatted);
-    } catch {
-      setFormattedDate(
-        new Intl.DateTimeFormat('en-US', options).format(dateObj),
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [date, options]);
-
-  return { formattedDate, isLoading };
+  try {
+    return {
+      formattedDate: new Intl.DateTimeFormat(
+        navigator.language,
+        options,
+      ).format(dateObj),
+      isLoading: false,
+    };
+  } catch {
+    return {
+      formattedDate: new Intl.DateTimeFormat('en-US', options).format(dateObj),
+      isLoading: false,
+    };
+  }
 }

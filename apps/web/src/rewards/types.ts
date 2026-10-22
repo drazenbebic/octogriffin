@@ -1,5 +1,9 @@
-import { TaskAttribute, TaskDirection, TaskFrequency } from '@/enums/habitica';
-import { UserCredentials } from '@/types/habitica';
+import type {
+  TaskAttribute,
+  TaskDirection,
+  TaskFrequency,
+} from '@/enums/habitica';
+import type { UserCredentials } from '@/types/habitica';
 
 /**
  * Someone who did something on GitHub. Commit authors are only known by
@@ -16,43 +20,43 @@ export type Contribution = {
  * The GitHub webhook delivery an event arrived with.
  */
 export type Delivery = {
+  hookId: string;
   id: string;
   signature: string;
-  hookId: string;
 };
 
 /**
  * A GitHub event, normalised to what the Reward Policy needs to know.
  */
 export type RewardableEvent = {
+  contributions: Contribution[];
   delivery: Delivery;
+  installationId: number;
   /** Full event name as stored on triggers, e.g. `push` or `pull_request.closed`. */
   name: string;
-  installationId: number;
   repositoryId: number;
-  contributions: Contribution[];
 };
 
 export type Recipient = {
+  credentials: UserCredentials;
   githubUserId: bigint;
   login: string;
-  credentials: UserCredentials;
 };
 
 export type HabiticaTask = {
-  title: string;
   alias?: string;
-  note?: string;
-  priority: number;
   attribute: TaskAttribute;
   frequency: TaskFrequency;
+  note?: string;
+  priority: number;
+  title: string;
 };
 
 export type Reward = {
-  triggerUuid: string;
-  task: HabiticaTask;
   direction: TaskDirection;
+  task: HabiticaTask;
   times: number;
+  triggerUuid: string;
 };
 
 export type RecipientRewards = {
@@ -61,45 +65,45 @@ export type RecipientRewards = {
 };
 
 export type TriggerRule = {
-  uuid: string;
   event: string;
   isActive: boolean;
   repositoryIds: number[];
-  taskTitle: string;
+  scoreDirection: string;
   taskAlias: null | string;
-  taskNote: null | string;
-  taskPriority: number;
   taskAttribute: string;
   taskFrequency: string;
-  scoreDirection: string;
+  taskNote: null | string;
+  taskPriority: number;
+  taskTitle: string;
+  uuid: string;
 };
 
 /**
  * A GitHub user with a linked Habitica account, and all of their triggers.
  */
 export type LinkedUser = {
-  id: bigint;
-  githubId: number;
-  login: string;
-  installationId: number;
   credentials: UserCredentials;
+  githubId: number;
+  id: bigint;
+  installationId: number;
+  login: string;
   triggers: TriggerRule[];
 };
 
 export type InstallationStatus = {
-  isSuspended: boolean;
   isRepositorySelected: boolean;
+  isSuspended: boolean;
 };
 
 /**
  * Where the Reward Policy looks things up.
  */
 export type RewardDirectory = {
+  findLinkedUsers: (actors: Actor[]) => Promise<LinkedUser[]>;
   getInstallationStatus: (
     installationId: number,
     repositoryId: number,
   ) => Promise<InstallationStatus | null>;
-  findLinkedUsers: (actors: Actor[]) => Promise<LinkedUser[]>;
 };
 
 /**

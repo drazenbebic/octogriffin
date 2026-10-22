@@ -1,10 +1,9 @@
 import { getInstallationStatus } from '@/accessors/githubInstallation';
 import prisma from '@/lib/prisma';
 
-import { RewardDirectory } from './types';
+import type { RewardDirectory } from './types';
 
 export const prismaRewardDirectory: RewardDirectory = {
-  getInstallationStatus,
   findLinkedUsers: async actors => {
     const githubIds = actors.flatMap(actor =>
       'githubId' in actor ? [actor.githubId] : [],
@@ -14,10 +13,6 @@ export const prismaRewardDirectory: RewardDirectory = {
     );
 
     const users = await prisma.githubUsers.findMany({
-      where: {
-        habiticaUser: { isNot: null },
-        OR: [{ githubId: { in: githubIds } }, { login: { in: logins } }],
-      },
       include: {
         habiticaUser: true,
         installation: { select: { installationId: true } },
@@ -27,20 +22,24 @@ export const prismaRewardDirectory: RewardDirectory = {
           },
         },
       },
+      where: {
+        habiticaUser: { isNot: null },
+        OR: [{ githubId: { in: githubIds } }, { login: { in: logins } }],
+      },
     });
 
     return users.flatMap(user =>
       user.habiticaUser
         ? [
             {
-              id: user.id,
-              githubId: user.githubId,
-              login: user.login,
-              installationId: user.installation.installationId,
               credentials: {
-                userId: user.habiticaUser.userId,
                 apiToken: user.habiticaUser.apiToken,
+                userId: user.habiticaUser.userId,
               },
+              githubId: user.githubId,
+              id: user.id,
+              installationId: user.installation.installationId,
+              login: user.login,
               triggers: user.triggers.map(trigger => ({
                 ...trigger,
                 repositoryIds: trigger.repositories.map(
@@ -52,4 +51,5 @@ export const prismaRewardDirectory: RewardDirectory = {
         : [],
     );
   },
+  getInstallationStatus,
 };

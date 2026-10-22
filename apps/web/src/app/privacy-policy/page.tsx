@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import { Mail01Icon } from '@hugeicons/core-free-icons';
 
@@ -14,10 +14,10 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Privacy Policy',
     description:
       'We protect your code and data. Learn about our GDPR compliance, zero-storage policy for source code, and secure infrastructure in Frankfurt.',
     path: 'privacy-policy',
+    title: 'Privacy Policy',
   });
 };
 
@@ -214,9 +214,9 @@ export default function PrivacyPolicyPage() {
 
           <Callout
             button={{
-              label: 'Send Email',
               href: `mailto:${email}`,
               icon: Mail01Icon,
+              label: 'Send Email',
             }}
             description={`If you have any questions about this policy, reach out to ${email}.`}
             title="Questions?"

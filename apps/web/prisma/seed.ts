@@ -6,7 +6,7 @@ const AMOUNT_TO_CREATE = 100;
 
 async function createSeededUser(index: number) {
   return prisma.$transaction(async tx => {
-    const installationId = faker.number.int({ min: 1, max: 2147483647 });
+    const installationId = faker.number.int({ max: 2147483647, min: 1 });
 
     const installation = await tx.githubInstallations.create({
       data: { installationId },
@@ -14,24 +14,24 @@ async function createSeededUser(index: number) {
 
     const githubUser = await tx.githubUsers.create({
       data: {
-        installationId: installation.id,
-        login: faker.internet.username() + index,
-        githubId: faker.number.int({ max: 9999999 }),
-        nodeId: faker.string.alphanumeric(20),
         avatarUrl: faker.image.avatar(),
+        email: faker.internet.email(),
+        githubId: faker.number.int({ max: 9999999 }),
         gravatarId: '',
         htmlUrl: faker.internet.url(),
-        type: 'User',
+        installationId: installation.id,
+        login: faker.internet.username() + index,
         name: faker.person.fullName(),
-        email: faker.internet.email(),
+        nodeId: faker.string.alphanumeric(20),
+        type: 'User',
       },
     });
 
     await tx.habiticaUsers.create({
       data: {
+        apiToken: faker.string.uuid(),
         githubUserId: githubUser.id,
         userId: faker.string.uuid(),
-        apiToken: faker.string.uuid(),
       },
     });
 
@@ -48,10 +48,10 @@ async function createSeededUser(index: number) {
           'pull_request_review.submitted',
           'push',
         ]),
-        signature: `sha256=${faker.string.alphanumeric(64)}`.toLowerCase(),
-        hookId: faker.number.int({ min: 400000000, max: 499999999 }).toString(),
         githubUserId: githubUser.id,
+        hookId: faker.number.int({ max: 499999999, min: 400000000 }).toString(),
         payload: { data: 'dummy' },
+        signature: `sha256=${faker.string.alphanumeric(64)}`.toLowerCase(),
       };
     });
 

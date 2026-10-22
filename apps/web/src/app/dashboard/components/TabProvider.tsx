@@ -2,10 +2,8 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import {
-  TabProvider as BaseTabProvider,
-  TabProviderProps,
-} from '@ariakit/react';
+import type { TabProviderProps } from '@ariakit/react';
+import { TabProvider as BaseTabProvider } from '@ariakit/react';
 
 export const TabProvider = (props: TabProviderProps) => {
   const router = useRouter();

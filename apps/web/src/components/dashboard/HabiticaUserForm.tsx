@@ -1,6 +1,7 @@
 'use client';
 
-import React, { FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Form, useFormStore } from '@ariakit/react';
 import {
@@ -17,27 +18,27 @@ import { useHabiticaStore } from '@/store/useHabiticaStore';
 
 export const HabiticaUserForm: FC = () => {
   const {
-    habiticaCredentials,
-    fetchHabiticaCredentials,
     fetchHabiticaConnection,
+    fetchHabiticaCredentials,
     fetchHabiticaStats,
-    upsertHabiticaUser,
+    habiticaCredentials,
     isLoading,
     setIsLoading,
+    upsertHabiticaUser,
   } = useHabiticaStore();
 
   const [values, setValues] = useState({
-    userId: '',
     apiToken: '',
+    userId: '',
   });
-  const form = useFormStore({ values, setValues });
+  const form = useFormStore({ setValues, values });
 
   form.useSubmit(async state => {
     setIsLoading(true);
 
     const success = await upsertHabiticaUser({
-      userId: state.values.userId,
       apiToken: state.values.apiToken,
+      userId: state.values.userId,
     });
 
     if (!success) {
@@ -61,14 +62,18 @@ export const HabiticaUserForm: FC = () => {
     })();
   }, [fetchHabiticaCredentials, fetchHabiticaConnection, setIsLoading]);
 
-  useEffect(() => {
-    if (!habiticaCredentials) {
-      return;
-    }
+  const [previousCredentials, setPreviousCredentials] =
+    useState(habiticaCredentials);
 
-    // The saved API token never reaches the browser
-    setValues({ userId: habiticaCredentials.userId, apiToken: '' });
-  }, [habiticaCredentials]);
+  // Fill in the saved account once it loads. The saved API token never
+  // reaches the browser.
+  if (habiticaCredentials !== previousCredentials) {
+    setPreviousCredentials(habiticaCredentials);
+
+    if (habiticaCredentials) {
+      setValues({ apiToken: '', userId: habiticaCredentials.userId });
+    }
+  }
 
   const hasSavedToken = !!habiticaCredentials;
 

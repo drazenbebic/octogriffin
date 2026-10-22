@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { cn } from '@/utils/cn';
 

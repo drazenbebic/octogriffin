@@ -4,11 +4,9 @@ import { upsertHabiticaUser } from '@/accessors/habiticaUser';
 import HabiticaApi from '@/lib/HabiticaApi';
 import logger from '@/lib/logger';
 import { ActionError, parseInput, runUserAction } from '@/lib/userAction';
-import {
-  HabiticaUserSchema,
-  habiticaUserSchema,
-} from '@/schemas/habiticaUserSchema';
-import { HabiticaAccount } from '@/types/habitica';
+import type { HabiticaUserSchema } from '@/schemas/habiticaUserSchema';
+import { habiticaUserSchema } from '@/schemas/habiticaUserSchema';
+import type { HabiticaAccount } from '@/types/habitica';
 
 export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
   return runUserAction(
@@ -33,8 +31,8 @@ export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
 
       const habiticaUser = await upsertHabiticaUser(
         githubUser.id,
-        { userId: input.userId, apiToken },
-        { userId: input.userId, apiToken },
+        { apiToken, userId: input.userId },
+        { apiToken, userId: input.userId },
       );
 
       return { userId: habiticaUser.userId };

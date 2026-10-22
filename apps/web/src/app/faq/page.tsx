@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
-import { ReactNode } from 'react';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 import { HelpCircleIcon, Mail01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -16,22 +16,21 @@ import { generatePageMetadata } from '@/utils/seo';
 import { supportEmail } from '@/utils/supportEmail';
 
 type FAQ = {
-  question: string;
   answer: ReactNode;
+  question: string;
 };
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'FAQs',
     description:
       'Common questions about how Octogriffin processes your GitHub activity and rewards you.',
     path: 'faq',
+    title: 'FAQs',
   });
 };
 
 const setup: FAQ[] = [
   {
-    question: 'Is this free to use?',
     answer: (
       <>
         <Content className="mb-4">
@@ -61,9 +60,9 @@ const setup: FAQ[] = [
         </Content>
       </>
     ),
+    question: 'Is this free to use?',
   },
   {
-    question: 'How do I install Octogriffin?',
     answer: (
       <>
         <Content className="mb-4">
@@ -78,9 +77,9 @@ const setup: FAQ[] = [
         </Content>
       </>
     ),
+    question: 'How do I install Octogriffin?',
   },
   {
-    question: 'How do I configure my rewards?',
     answer: (
       <Content>
         Once linked, head to the <Link href="/dashboard">Dashboard</Link> to
@@ -92,9 +91,9 @@ const setup: FAQ[] = [
         repositories.
       </Content>
     ),
+    question: 'How do I configure my rewards?',
   },
   {
-    question: 'Does this work with private repositories?',
     answer: (
       <Content>
         Absolutely. Since Octogriffin works as a GitHub App, you explicitly
@@ -102,9 +101,9 @@ const setup: FAQ[] = [
         private. We process the webhooks securely regardless of visibility.
       </Content>
     ),
+    question: 'Does this work with private repositories?',
   },
   {
-    question: 'How exactly does the syncing work?',
     answer: (
       <>
         <Content className="mb-4">
@@ -120,12 +119,12 @@ const setup: FAQ[] = [
         </Content>
       </>
     ),
+    question: 'How exactly does the syncing work?',
   },
 ];
 
 const dataPrivacy: FAQ[] = [
   {
-    question: 'Is my Habitica API Token secure?',
     answer: (
       <Content>
         Your API credentials are <strong>encrypted at rest</strong> in our
@@ -134,9 +133,9 @@ const dataPrivacy: FAQ[] = [
         server to send requests to Habitica on your behalf.
       </Content>
     ),
+    question: 'Is my Habitica API Token secure?',
   },
   {
-    question: 'Does Octogriffin have access to my source code?',
     answer: (
       <Content>
         <strong>No.</strong> We strictly request the minimum permissions
@@ -145,9 +144,9 @@ const dataPrivacy: FAQ[] = [
         source code.
       </Content>
     ),
+    question: 'Does Octogriffin have access to my source code?',
   },
   {
-    question: 'Where is my data hosted?',
     answer: (
       <Content>
         We take data sovereignty seriously. Our primary database is hosted in{' '}
@@ -155,9 +154,9 @@ const dataPrivacy: FAQ[] = [
         remains within the EU and is protected by strict privacy standards.
       </Content>
     ),
+    question: 'Where is my data hosted?',
   },
   {
-    question: 'How do I revoke access?',
     answer: (
       <Content>
         You remain in control. You can uninstall the GitHub App from your
@@ -167,12 +166,12 @@ const dataPrivacy: FAQ[] = [
         instantly.
       </Content>
     ),
+    question: 'How do I revoke access?',
   },
 ];
 
 const gameplay: FAQ[] = [
   {
-    question: 'What prevents me from spamming commits for infinite Gold?',
     answer: (
       <Content>
         Currently, we operate on the &quot;honor system.&quot; However, Smart
@@ -183,9 +182,9 @@ const gameplay: FAQ[] = [
         update to help keep you honest.
       </Content>
     ),
+    question: 'What prevents me from spamming commits for infinite Gold?',
   },
   {
-    question: 'Can I lose health instead of gaining XP?',
     answer: (
       <Content>
         Yes! In the <strong>Control Freak</strong> update, you can set the
@@ -194,9 +193,9 @@ const gameplay: FAQ[] = [
         breaking the build.
       </Content>
     ),
+    question: 'Can I lose health instead of gaining XP?',
   },
   {
-    question: "I pushed code, but didn't get any XP. Why?",
     answer: (
       <Content>
         First, check if your trigger is set to <strong>Active</strong> in the
@@ -205,9 +204,9 @@ const gameplay: FAQ[] = [
         of a few seconds.
       </Content>
     ),
+    question: "I pushed code, but didn't get any XP. Why?",
   },
   {
-    question: 'If I delete a Trigger, does it delete the Task in Habitica?',
     answer: (
       <Content>
         <strong>No.</strong> Deleting a trigger in Octogriffin only stops future
@@ -216,12 +215,12 @@ const gameplay: FAQ[] = [
         manually in the Habitica app.
       </Content>
     ),
+    question: 'If I delete a Trigger, does it delete the Task in Habitica?',
   },
 ];
 
 const troubleshooting: FAQ[] = [
   {
-    question: "I pushed code, but didn't get any XP. Why?",
     answer: (
       <Content>
         First, check if your trigger is set to <strong>Active</strong> in the
@@ -230,9 +229,9 @@ const troubleshooting: FAQ[] = [
         of a few seconds.
       </Content>
     ),
+    question: "I pushed code, but didn't get any XP. Why?",
   },
   {
-    question: 'My triggers suddenly stopped working.',
     answer: (
       <Content>
         Did you recently reset your password or regenerate your API Token in
@@ -241,9 +240,9 @@ const troubleshooting: FAQ[] = [
         API Token to resume syncing.
       </Content>
     ),
+    question: 'My triggers suddenly stopped working.',
   },
   {
-    question: 'It is scoring the wrong Habitica task.',
     answer: (
       <Content>
         Octogriffin tries to find a task with the exact title you specified. If
@@ -253,9 +252,9 @@ const troubleshooting: FAQ[] = [
         in the Advanced Settings of your trigger for 100% precision.
       </Content>
     ),
+    question: 'It is scoring the wrong Habitica task.',
   },
   {
-    question: "I'm getting double XP for the same event.",
     answer: (
       <Content>
         Check your <Link href="/dashboard">Dashboard</Link>. You might have
@@ -264,6 +263,7 @@ const troubleshooting: FAQ[] = [
         Disable one of them to fix the issue.
       </Content>
     ),
+    question: "I'm getting double XP for the same event.",
   },
 ];
 
@@ -331,9 +331,9 @@ export default function FaqPage() {
 
         <Callout
           button={{
-            label: 'Contact Support',
             href: `mailto:${supportEmail()}`,
             icon: Mail01Icon,
+            label: 'Contact Support',
           }}
           description="Can't find the answer you're looking for? Our support team is ready to assist."
           headingLevel={3}

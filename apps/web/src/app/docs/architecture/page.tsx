@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import {
   CloudServerIcon,
@@ -21,11 +21,11 @@ import { generatePageMetadata } from '@/utils/seo';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Architecture',
     description:
       'High-level overview of the Octogriffin technology stack, data flow, and security model.',
-    suffix: 'Octogriffin Docs',
     path: 'docs/architecture',
+    suffix: 'Octogriffin Docs',
+    title: 'Architecture',
   });
 };
 

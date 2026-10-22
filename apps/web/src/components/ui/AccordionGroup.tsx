@@ -1,24 +1,23 @@
 'use client';
 
+import type { ReactElement, ReactNode } from 'react';
 import {
   Children,
   cloneElement,
   isValidElement,
-  ReactElement,
-  ReactNode,
   useCallback,
   useMemo,
   useState,
 } from 'react';
 
-import { AccordionProps } from '@/components/ui/Accordion';
+import type { AccordionProps } from '@/components/ui/Accordion';
 import { cn } from '@/utils/cn';
 
 type AccordionGroupProps = {
-  className?: string;
-  children: ReactNode;
-  openIndex?: number;
   allowMultiple?: boolean;
+  children: ReactNode;
+  className?: string;
+  openIndex?: number;
 };
 
 function isAccordionElement(
@@ -28,10 +27,10 @@ function isAccordionElement(
 }
 
 export const AccordionGroup = ({
+  allowMultiple = false,
   children,
   className,
   openIndex: defaultOpenIndex,
-  allowMultiple = false,
 }: AccordionGroupProps) => {
   const [openIndices, setOpenIndices] = useState<number[]>(
     defaultOpenIndex !== undefined ? [defaultOpenIndex] : [],
@@ -63,8 +62,8 @@ export const AccordionGroup = ({
           : openIndices[0] === i;
 
         return cloneElement(accordion, {
-          onClick,
           index: i,
+          onClick,
           open: isOpen,
         });
       })}

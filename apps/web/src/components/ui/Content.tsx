@@ -1,4 +1,4 @@
-import { ElementType, FC, ReactNode } from 'react';
+import type { ElementType, FC, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -14,16 +14,16 @@ export type ContentProps = {
 };
 
 const sizes: Record<ContentSize, string> = {
-  xs: 'text-xs',
-  sm: 'text-sm',
   base: 'text-base',
   lg: 'text-lg',
+  sm: 'text-sm',
+  xs: 'text-xs',
 };
 
 const colors: Record<ContentColor, string> = {
+  note: 'text-slate-500 dark:text-slate-400',
   slate: 'text-slate-600 dark:text-slate-400',
   violet: 'text-violet-600 dark:text-violet-400',
-  note: 'text-slate-500 dark:text-slate-400',
 };
 
 export const Content: FC<ContentProps> = ({

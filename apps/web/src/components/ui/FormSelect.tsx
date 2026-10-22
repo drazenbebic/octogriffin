@@ -1,20 +1,22 @@
-import { FC, forwardRef } from 'react';
+import type { FC } from 'react';
+import { forwardRef } from 'react';
 
 import { FormControl, useFormContext, useStoreState } from '@ariakit/react';
 
 import { FormLabel } from '@/components/ui/FormLabel';
-import { Select, SelectProps } from '@/components/ui/Select';
+import type { SelectProps } from '@/components/ui/Select';
+import { Select } from '@/components/ui/Select';
 import { cn } from '@/utils/cn';
 
 import { FormFeedback } from './FormFeedback';
 
 export type FormSelectProps = {
-  label?: string;
-  name: string;
-  description?: string;
   className?: string;
-  placeholder?: string;
+  description?: string;
+  label?: string;
   multiple?: boolean;
+  name: string;
+  placeholder?: string;
 } & Omit<SelectProps, 'setValue' | 'value'>;
 
 const errorStyles =
@@ -23,14 +25,14 @@ const errorStyles =
 export const FormSelect: FC<FormSelectProps> = forwardRef(
   (
     {
-      name,
-      label,
-      description,
       className,
-      required,
+      description,
       disabled,
-      placeholder,
+      label,
       multiple,
+      name,
+      placeholder,
+      required,
       ...props
     },
     ref,

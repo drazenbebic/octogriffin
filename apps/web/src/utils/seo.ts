@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 type Params = {
   description: string;
@@ -16,29 +16,29 @@ export const generatePageMetadata = ({
   const imageUrl = 'https://octogriffin.com/og-image.png';
 
   return {
-    title,
     description,
     openGraph: {
-      title: `${title} - ${suffix}`,
       description,
-      url: `https://octogriffin.com/${path}`,
-      siteName: 'Octogriffin',
-      locale: 'en_US',
-      type: 'website',
       images: [
         {
+          alt: 'Octogriffin logo',
+          height: 630,
           url: imageUrl,
           width: 1200,
-          height: 630,
-          alt: 'Octogriffin logo',
         },
       ],
+      locale: 'en_US',
+      siteName: 'Octogriffin',
+      title: `${title} - ${suffix}`,
+      type: 'website',
+      url: `https://octogriffin.com/${path}`,
     },
+    title,
     twitter: {
       card: 'summary_large_image',
-      title: `${title} - ${suffix}`,
       description,
       images: [imageUrl],
+      title: `${title} - ${suffix}`,
     },
   };
 };

@@ -1,15 +1,15 @@
-import { Prisma } from '@/generated/prisma/client';
-import { TriggersModel } from '@/generated/prisma/models/Triggers';
+import type { Prisma } from '@/generated/prisma/client';
+import type { TriggersModel } from '@/generated/prisma/models/Triggers';
 import prisma from '@/lib/prisma';
-import { PaginatedResult, PaginationParams } from '@/types/pagination';
+import type { PaginatedResult, PaginationParams } from '@/types/pagination';
 
 export const getTrigger = async (
   uuid: string,
   githubUserId: bigint | number,
 ) => {
   return prisma.triggers.findUnique({
-    where: { uuid, githubUserId },
     include: { repositories: true },
+    where: { githubUserId, uuid },
   });
 };
 
@@ -26,22 +26,22 @@ export const getTriggers = async (
       where: { githubUserId },
     }),
     prisma.triggers.findMany({
-      where: { githubUserId },
-      orderBy: { id: 'desc' },
-      skip,
-      take: limit,
       include: {
         repositories: true,
       },
+      orderBy: { id: 'desc' },
+      skip,
+      take: limit,
+      where: { githubUserId },
     }),
   ]);
 
   return {
     data,
     meta: {
-      total,
-      page,
       limit,
+      page,
+      total,
       totalPages: Math.ceil(total / limit),
     },
   };
@@ -52,7 +52,7 @@ export const deleteTrigger = async (
   githubUserId: bigint | number,
 ) => {
   return prisma.triggers.delete({
-    where: { uuid, githubUserId },
+    where: { githubUserId, uuid },
   });
 };
 
@@ -67,10 +67,10 @@ export const updateTrigger = async (
   data: Prisma.TriggersUncheckedUpdateInput,
 ) => {
   return prisma.triggers.update({
-    where,
     data,
     include: {
       repositories: true,
     },
+    where,
   });
 };

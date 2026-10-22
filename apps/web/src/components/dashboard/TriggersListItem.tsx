@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Button } from '@ariakit/react';
 import {
@@ -12,10 +12,11 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { Badge, BadgeProps } from '@/components/ui/Badge';
+import type { BadgeProps } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/Badge';
 import { Heading } from '@/components/ui/Heading';
 import { Switch } from '@/components/ui/Switch';
-import { TriggersModel } from '@/generated/prisma/models/Triggers';
+import type { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { useEventIcon } from '@/hooks/useEventIcon';
 import { useTriggersStore } from '@/store/useTriggersStore';
 import { cn } from '@/utils/cn';
@@ -46,15 +47,15 @@ const getDifficultyConfig = (
 };
 
 export type TriggersListItemProps = {
-  trigger: TriggersModel;
   onOpenDeleteAction?: (trigger: TriggersModel) => void;
   onOpenEditAction?: (trigger: TriggersModel) => void;
+  trigger: TriggersModel;
 };
 
 export const TriggersListItem: FC<TriggersListItemProps> = ({
-  trigger,
   onOpenDeleteAction,
   onOpenEditAction,
+  trigger,
 }) => {
   const icon = useEventIcon(trigger.event, { size: 18 });
   const toggleTrigger = useTriggersStore(state => state.toggleTrigger);
@@ -62,7 +63,7 @@ export const TriggersListItem: FC<TriggersListItemProps> = ({
   const isActive = trigger.isActive;
 
   const handleToggle = (checked: boolean) => {
-    toggleTrigger({ uuid: trigger.uuid, isActive: checked });
+    toggleTrigger({ isActive: checked, uuid: trigger.uuid });
   };
 
   return (

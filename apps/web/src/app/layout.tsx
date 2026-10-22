@@ -1,8 +1,9 @@
 import './globals.css';
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import React, { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+import React from 'react';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -19,33 +20,33 @@ type Props = {
 
 const inter = Inter({
   display: 'swap',
-  subsets: ['latin'],
-  preload: true,
   fallback: ['sans-serif'],
+  preload: true,
+  subsets: ['latin'],
   variable: '--font-heading',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || 'https://octogriffin.com',
-  ),
-  title: {
-    template: '%s | Octogriffin',
-    default: 'Octogriffin',
-  },
   description: 'Gamify your GitHub workflow with Habitica integration.',
   icons: {
     icon: [
       {
-        url: '/octogriffin_logo_square.png',
         href: '/octogriffin_logo_square.png',
+        url: '/octogriffin_logo_square.png',
       },
     ],
   },
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || 'https://octogriffin.com',
+  ),
   openGraph: {
-    siteName: 'Octogriffin',
     locale: 'en_US',
+    siteName: 'Octogriffin',
     type: 'website',
+  },
+  title: {
+    default: 'Octogriffin',
+    template: '%s | Octogriffin',
   },
   twitter: {
     card: 'summary_large_image',

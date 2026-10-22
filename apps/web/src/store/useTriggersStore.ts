@@ -6,22 +6,22 @@ import { deleteTriggerAction } from '@/actions/triggers/deleteTriggerAction';
 import { getTriggersAction } from '@/actions/triggers/getTriggersAction';
 import { toggleTriggerAction } from '@/actions/triggers/toggleTriggerAction';
 import { updateTriggerAction } from '@/actions/triggers/updateTriggerAction';
-import { TriggersModel } from '@/generated/prisma/models/Triggers';
-import { ToggleTriggerSchema } from '@/schemas/toggleTriggerSchema';
-import { TriggerSchema } from '@/schemas/triggerSchema';
-import { PaginationMeta, PaginationParams } from '@/types/pagination';
+import type { TriggersModel } from '@/generated/prisma/models/Triggers';
+import type { ToggleTriggerSchema } from '@/schemas/toggleTriggerSchema';
+import type { TriggerSchema } from '@/schemas/triggerSchema';
+import type { PaginationMeta, PaginationParams } from '@/types/pagination';
 
 type TriggersStoreState = {
-  trigger: null | TriggersModel;
-  triggers: TriggersModel[];
-  meta: PaginationMeta;
-  isLoading: boolean;
-  fetchTriggers: (params?: PaginationParams) => Promise<void>;
-  setPage: (page: number) => void;
-  setLimit: (limit: number) => void;
   createTrigger: (data: TriggerSchema) => Promise<null | TriggersModel>;
   deleteTrigger: (uuid: string) => Promise<null | TriggersModel>;
+  fetchTriggers: (params?: PaginationParams) => Promise<void>;
+  isLoading: boolean;
+  meta: PaginationMeta;
+  setLimit: (limit: number) => void;
+  setPage: (page: number) => void;
   toggleTrigger: (data: ToggleTriggerSchema) => Promise<null | TriggersModel>;
+  trigger: null | TriggersModel;
+  triggers: TriggersModel[];
   updateTrigger: (
     uuid: string,
     data: TriggerSchema,
@@ -29,63 +29,6 @@ type TriggersStoreState = {
 };
 
 export const useTriggersStore = create<TriggersStoreState>((set, get) => ({
-  trigger: null,
-  triggers: [],
-  isLoading: false,
-  meta: {
-    page: 1,
-    limit: 5,
-    total: 0,
-    totalPages: 0,
-  },
-  fetchTriggers: async (params = {}) => {
-    set({ isLoading: true });
-
-    const currentMeta = get().meta;
-    let targetPage = params.page || currentMeta.page;
-    const targetLimit = params.limit || currentMeta.limit;
-
-    try {
-      let result = await getTriggersAction({
-        page: targetPage,
-        limit: targetLimit,
-        ...params,
-      });
-
-      if (
-        result.success &&
-        result.data &&
-        result.data.data.length === 0 &&
-        targetPage > 1
-      ) {
-        targetPage = targetPage - 1;
-        result = await getTriggersAction({
-          page: targetPage,
-          limit: targetLimit,
-          ...params,
-        });
-      }
-
-      if (result.success && result.data) {
-        set({
-          triggers: result.data.data,
-          meta: result.data.meta,
-        });
-      } else {
-        console.error('Failed to fetch triggers:', result.error);
-      }
-    } catch (error) {
-      console.error('Zustand fetchTriggers error:', error);
-    } finally {
-      set({ isLoading: false });
-    }
-  },
-  setPage: (page: number) => {
-    get().fetchTriggers({ page });
-  },
-  setLimit: (limit: number) => {
-    get().fetchTriggers({ page: 1, limit });
-  },
   createTrigger: async data => {
     set({ isLoading: true });
 
@@ -134,6 +77,61 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => ({
       return null;
     }
   },
+  fetchTriggers: async (params = {}) => {
+    set({ isLoading: true });
+
+    const currentMeta = get().meta;
+    let targetPage = params.page || currentMeta.page;
+    const targetLimit = params.limit || currentMeta.limit;
+
+    try {
+      let result = await getTriggersAction({
+        limit: targetLimit,
+        page: targetPage,
+        ...params,
+      });
+
+      if (
+        result.success &&
+        result.data &&
+        result.data.data.length === 0 &&
+        targetPage > 1
+      ) {
+        targetPage = targetPage - 1;
+        result = await getTriggersAction({
+          limit: targetLimit,
+          page: targetPage,
+          ...params,
+        });
+      }
+
+      if (result.success && result.data) {
+        set({
+          meta: result.data.meta,
+          triggers: result.data.data,
+        });
+      } else {
+        console.error('Failed to fetch triggers:', result.error);
+      }
+    } catch (error) {
+      console.error('Zustand fetchTriggers error:', error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  isLoading: false,
+  meta: {
+    limit: 5,
+    page: 1,
+    total: 0,
+    totalPages: 0,
+  },
+  setLimit: (limit: number) => {
+    get().fetchTriggers({ limit, page: 1 });
+  },
+  setPage: (page: number) => {
+    get().fetchTriggers({ page });
+  },
   toggleTrigger: async data => {
     const previousTriggers = get().triggers;
     set(state => ({
@@ -161,6 +159,8 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => ({
       return null;
     }
   },
+  trigger: null,
+  triggers: [],
   updateTrigger: async (uuid, data) => {
     const previousTriggers = get().triggers;
 

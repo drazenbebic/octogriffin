@@ -1,4 +1,4 @@
-import { Prisma } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
 export const upsertHabiticaUser = async (
@@ -7,13 +7,13 @@ export const upsertHabiticaUser = async (
   updateData: Prisma.HabiticaUsersUncheckedUpdateInput,
 ) => {
   return prisma.habiticaUsers.upsert({
-    where: {
-      githubUserId,
-    },
     create: {
       ...createData,
       githubUserId,
     },
     update: updateData,
+    where: {
+      githubUserId,
+    },
   });
 };

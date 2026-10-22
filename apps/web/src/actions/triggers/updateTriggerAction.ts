@@ -2,7 +2,8 @@
 
 import { getTrigger, updateTrigger } from '@/accessors/trigger';
 import { ActionError, parseInput, runUserAction } from '@/lib/userAction';
-import { TriggerSchema, triggerSchema } from '@/schemas/triggerSchema';
+import type { TriggerSchema } from '@/schemas/triggerSchema';
+import { triggerSchema } from '@/schemas/triggerSchema';
 
 export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
   return runUserAction('updateTriggerAction', async githubUser => {
@@ -24,13 +25,13 @@ export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
             uuid: repositoryUuid,
           })),
         },
-        taskTitle: trigger.taskTitle,
+        scoreDirection: trigger.scoreDirection,
         taskAlias: trigger.taskAlias,
-        taskNote: trigger.taskNote,
-        taskPriority: trigger.taskPriority,
         taskAttribute: trigger.taskAttribute,
         taskFrequency: trigger.taskFrequency,
-        scoreDirection: trigger.scoreDirection,
+        taskNote: trigger.taskNote,
+        taskPriority: trigger.taskPriority,
+        taskTitle: trigger.taskTitle,
       },
     );
   });

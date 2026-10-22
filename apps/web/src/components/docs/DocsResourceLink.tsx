@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -9,21 +9,21 @@ import { Content } from '@/components/ui/Content';
 import { cn } from '@/utils/cn';
 
 export type DocsResourceLinkProps = {
-  href: string;
-  title: string;
+  className?: string;
   description: string;
+  href: string;
   icon: ReactNode;
   label?: string;
-  className?: string;
+  title: string;
 };
 
 export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
-  href,
-  title,
+  className,
   description,
+  href,
   icon,
   label = 'View Guide',
-  className,
+  title,
 }) => {
   return (
     <div

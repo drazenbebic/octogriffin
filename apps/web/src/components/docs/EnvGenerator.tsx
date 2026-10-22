@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import {
   CheckmarkCircle02Icon,
@@ -29,10 +30,10 @@ export const EnvGenerator: FC = () => {
 
   function generateValues() {
     return {
-      webhook: generateRandomString(),
-      nextAuth: generateRandomString(),
       encryption: generateRandomString(),
       health: generateRandomString(),
+      nextAuth: generateRandomString(),
+      webhook: generateRandomString(),
     };
   }
 

@@ -1,4 +1,4 @@
-import {
+import type {
   TaskAttribute,
   TaskFrequency,
   TaskPriority,
@@ -6,44 +6,44 @@ import {
 } from '@/enums/habitica';
 
 export type ChecklistItem = {
-  text: string;
   completed?: boolean;
+  text: string;
 };
 
 export type Task = {
-  userId: string;
+  _id: string;
   alias: string;
-  text: string;
-  type: TaskType;
-  notes: string;
-  tags: string[];
-  value: number;
-  priority: TaskPriority;
   attribute: TaskAttribute;
   challenge: {
     id: string;
   };
-  group: {
-    assignedUsers: string[];
-    approval: {
-      required: boolean;
-      approved: boolean;
-      requested: boolean;
-    };
-  };
-  reminders: string[];
-  _id: string;
-  createdAt: string;
-  updatedAt: string;
   checklist: ChecklistItem[];
   collapsedChecklist: boolean;
   completed: boolean;
+  createdAt: string;
+  group: {
+    approval: {
+      approved: boolean;
+      requested: boolean;
+      required: boolean;
+    };
+    assignedUsers: string[];
+  };
   id: string;
+  notes: string;
+  priority: TaskPriority;
+  reminders: string[];
+  tags: string[];
+  text: string;
+  type: TaskType;
+  updatedAt: string;
+  userId: string;
+  value: number;
 };
 
 export type UserCredentials = {
-  userId: string;
   apiToken: string;
+  userId: string;
 };
 
 /**
@@ -55,105 +55,105 @@ export type HabiticaAccount = {
 };
 
 export type UserStats = {
+  buffs: Buffs;
   class: string;
-  str: number;
   con: number;
-  int: number;
-  per: number;
   exp: number;
-  lvl: number;
   gp: number;
   hp: number;
+  int: number;
+  lvl: number;
   maxHealth: number;
-  mp: number;
   maxMP: number;
+  mp: number;
+  per: number;
   points: number;
+  str: number;
   toNextLevel: number;
-  userId: string;
-  buffs: Buffs;
   training: {
-    str: number;
     con: number;
     int: number;
     per: number;
+    str: number;
   };
+  userId: string;
 };
 
 export type CreateTaskParameters = {
-  text: string;
-  type: TaskType;
-  tags?: string[];
   alias?: string;
   attribute?: TaskAttribute;
   checklist?: ChecklistItem[];
   collapseChecklist?: boolean;
-  notes?: string;
   date?: Date;
+  daysOfMonth?: number[];
+  down?: boolean;
+  everyX?: number;
+  frequency?: TaskFrequency;
+  notes?: string;
   priority?: TaskPriority;
   reminders?: {
     id: string;
     startDate: string;
     time: string;
   }[];
-  frequency?: TaskFrequency;
   repeat?:
     | {
-        su?: boolean;
-        m?: boolean;
-        t?: boolean;
-        w?: boolean;
-        th?: boolean;
         f?: boolean;
+        m?: boolean;
         s?: boolean;
+        su?: boolean;
+        t?: boolean;
+        th?: boolean;
+        w?: boolean;
       }
     | true;
-  everyX?: number;
   streak?: number;
-  daysOfMonth?: number[];
-  weeksOfMonth?: number[];
+  tags?: string[];
+  text: string;
+  type: TaskType;
   up?: boolean;
-  down?: boolean;
   value?: number;
+  weeksOfMonth?: number[];
 };
 
 export type APIResponse<M> = {
-  success: boolean;
   data: M;
   notifications: string[];
+  success: boolean;
 };
 
 export type Buffs = {
-  str: number;
   con: number;
   int: number;
   per: number;
-  stealth: number;
-  streaks: boolean;
+  seafoam: boolean;
+  shinySeed: boolean;
   snowball: boolean;
   spookySparkles: boolean;
-  shinySeed: boolean;
-  seafoam: boolean;
+  stealth: number;
+  str: number;
+  streaks: boolean;
 };
 
 export type ScoreTaskResponse = {
-  delta: number;
   _tmp: Record<string, number | string>;
-  hp: number;
-  mp: number;
+  buffs: Buffs;
+  class: string;
+  con: number;
+  delta: number;
   exp: number;
   gp: number;
+  hp: number;
+  int: number;
   lvl: number;
-  class: string;
+  mp: number;
+  per: number;
   points: null;
   str: number;
-  con: number;
-  int: number;
-  per: number;
-  buffs: Buffs;
   training: {
-    str: number;
     con: number;
     int: number;
     per: number;
+    str: number;
   };
 };

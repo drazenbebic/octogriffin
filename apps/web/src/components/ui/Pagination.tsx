@@ -1,26 +1,26 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Button } from '@ariakit/react';
 import { ArrowLeft01Icon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { PaginationMeta } from '@/types/pagination';
+import type { PaginationMeta } from '@/types/pagination';
 import { cn } from '@/utils/cn';
 
 export type PaginationProps = {
-  meta: PaginationMeta;
-  onPageChange: (page: number) => void;
-  onLimitChange: (limit: number) => void;
   className?: string;
+  meta: PaginationMeta;
+  onLimitChange: (limit: number) => void;
+  onPageChange: (page: number) => void;
 };
 
 export const Pagination: FC<PaginationProps> = ({
-  meta,
-  onPageChange,
-  onLimitChange,
   className,
+  meta,
+  onLimitChange,
+  onPageChange,
 }) => {
-  const { page, totalPages, total, limit } = meta;
+  const { limit, page, total, totalPages } = meta;
   const hasPrev = page > 1;
   const hasNext = page < totalPages;
   const start = (page - 1) * limit + 1;

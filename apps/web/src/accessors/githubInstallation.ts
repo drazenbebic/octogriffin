@@ -1,18 +1,18 @@
-import { Prisma } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
 type GithubInstallation = { id: number };
 
 type GithubSender = {
-  login: string;
-  id: number;
-  node_id: string;
   avatar_url: string;
+  email?: null | string;
   gravatar_id: null | string;
   html_url: string;
-  type: string;
+  id: number;
+  login: string;
   name?: null | string;
-  email?: null | string;
+  node_id: string;
+  type: string;
 };
 
 type GithubRepository = {
@@ -34,15 +34,15 @@ export const getInstallationStatus = async (
   repositoryId: number,
 ) => {
   const githubInstallation = await prisma.githubInstallations.findUnique({
-    where: { installationId },
     select: {
-      suspended: true,
       selectedRepositories: {
-        where: { githubRepositoryId: repositoryId },
         select: { id: true },
         take: 1,
+        where: { githubRepositoryId: repositoryId },
       },
+      suspended: true,
     },
+    where: { installationId },
   });
 
   if (!githubInstallation) {
@@ -50,8 +50,8 @@ export const getInstallationStatus = async (
   }
 
   return {
-    isSuspended: !!githubInstallation.suspended,
     isRepositorySelected: githubInstallation.selectedRepositories.length > 0,
+    isSuspended: !!githubInstallation.suspended,
   };
 };
 
@@ -60,8 +60,8 @@ export const updateGithubInstallation = async (
   data: Prisma.GithubInstallationsUncheckedUpdateInput,
 ) => {
   return prisma.githubInstallations.update({
-    where,
     data,
+    where,
   });
 };
 
@@ -81,10 +81,10 @@ export const removeSelectedRepositories = async (
 ) => {
   return prisma.githubSelectedRepositories.deleteMany({
     where: {
-      installationId: BigInt(installationId),
       githubRepositoryId: {
         in: repositoryIds,
       },
+      installationId: BigInt(installationId),
     },
   });
 };
@@ -99,11 +99,11 @@ export const addSelectedRepositories = async (
 
   return prisma.githubSelectedRepositories.createMany({
     data: repositories.map(repo => ({
-      installationId: BigInt(installationId),
-      githubRepositoryId: repo.id,
-      nodeId: repo.node_id,
-      name: repo.name,
       fullName: repo.full_name,
+      githubRepositoryId: repo.id,
+      installationId: BigInt(installationId),
+      name: repo.name,
+      nodeId: repo.node_id,
       private: repo.private,
     })),
     skipDuplicates: true,
@@ -124,27 +124,27 @@ export const initializeGithubInstallation = async (
 
     await tx.githubUsers.create({
       data: {
-        installationId: githubInstallation.id,
-        login: sender.login,
-        githubId: sender.id,
-        nodeId: sender.node_id,
         avatarUrl: sender.avatar_url,
+        email: sender.email,
+        githubId: sender.id,
         gravatarId: sender.gravatar_id,
         htmlUrl: sender.html_url,
-        type: sender.type,
+        installationId: githubInstallation.id,
+        login: sender.login,
         name: sender.name,
-        email: sender.email,
+        nodeId: sender.node_id,
+        type: sender.type,
       },
     });
 
     if (repositories && repositories.length > 0) {
       await tx.githubSelectedRepositories.createMany({
         data: repositories.map(repository => ({
-          installationId: githubInstallation.id,
-          githubRepositoryId: repository.id,
-          nodeId: repository.node_id,
-          name: repository.name,
           fullName: repository.full_name,
+          githubRepositoryId: repository.id,
+          installationId: githubInstallation.id,
+          name: repository.name,
+          nodeId: repository.node_id,
           private: repository.private,
         })),
         skipDuplicates: true,

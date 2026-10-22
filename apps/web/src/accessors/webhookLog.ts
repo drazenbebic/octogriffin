@@ -1,7 +1,7 @@
-import { Prisma } from '@/generated/prisma/client';
-import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
+import type { Prisma } from '@/generated/prisma/client';
+import type { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
 import prisma from '@/lib/prisma';
-import { PaginatedResult, PaginationParams } from '@/types/pagination';
+import type { PaginatedResult, PaginationParams } from '@/types/pagination';
 
 export const createWebhookLog = async (
   data: Prisma.WebhookLogsUncheckedCreateInput,
@@ -22,19 +22,19 @@ export const getWebhookLogs = async (
       where: { githubUserId },
     }),
     prisma.webhookLogs.findMany({
-      where: { githubUserId },
       orderBy: { id: 'desc' },
       skip,
       take: limit,
+      where: { githubUserId },
     }),
   ]);
 
   return {
     data,
     meta: {
-      total,
-      page,
       limit,
+      page,
+      total,
       totalPages: Math.ceil(total / limit),
     },
   };

@@ -4,7 +4,7 @@ import { TaskType } from '@/enums/habitica';
 import HabiticaApi from '@/lib/HabiticaApi';
 import logger from '@/lib/logger';
 
-import { RewardSink } from './types';
+import type { RewardSink } from './types';
 
 export const habiticaRewardSink: RewardSink = {
   apply: async ({ recipient, rewards }) => {
@@ -19,13 +19,13 @@ export const habiticaRewardSink: RewardSink = {
       rewards.map(reward => async () => {
         try {
           const task = await habiticaApi.findOrCreateTask({
-            type: TaskType.HABIT,
-            text: reward.task.title,
             alias: reward.task.alias,
-            notes: reward.task.note,
-            priority: reward.task.priority,
             attribute: reward.task.attribute,
             frequency: reward.task.frequency,
+            notes: reward.task.note,
+            priority: reward.task.priority,
+            text: reward.task.title,
+            type: TaskType.HABIT,
           });
 
           // Score sequentially to ensure reliability
@@ -35,15 +35,15 @@ export const habiticaRewardSink: RewardSink = {
 
           logger.info(
             {
-              user: recipient.login,
-              task: reward.task.title,
               count: reward.times,
+              task: reward.task.title,
+              user: recipient.login,
             },
             'Event processed successfully.',
           );
         } catch (error) {
           logger.error(
-            { error, user: recipient.login, trigger: reward.triggerUuid },
+            { error, trigger: reward.triggerUuid, user: recipient.login },
             'Failed to process trigger',
           );
         }

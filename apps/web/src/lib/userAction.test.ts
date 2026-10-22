@@ -32,7 +32,7 @@ describe('runUserAction', () => {
       habiticaUser: true,
     });
 
-    expect(result).toEqual({ success: true, data: 'octocat' });
+    expect(result).toEqual({ data: 'octocat', success: true });
     expect(mockGetGithubUser).toHaveBeenCalledWith('octocat', {
       habiticaUser: true,
     });
@@ -43,8 +43,8 @@ describe('runUserAction', () => {
     const handler = jest.fn();
 
     await expect(runUserAction('test', handler)).resolves.toEqual({
-      success: false,
       error: 'Unauthorized',
+      success: false,
     });
     expect(handler).not.toHaveBeenCalled();
   });
@@ -53,8 +53,8 @@ describe('runUserAction', () => {
     mockGetGithubUser.mockResolvedValue(null);
 
     await expect(runUserAction('test', jest.fn())).resolves.toEqual({
-      success: false,
       error: 'GitHub user account not found.',
+      success: false,
     });
   });
 
@@ -63,7 +63,7 @@ describe('runUserAction', () => {
       throw new ActionError('Trigger not found.');
     });
 
-    expect(result).toEqual({ success: false, error: 'Trigger not found.' });
+    expect(result).toEqual({ error: 'Trigger not found.', success: false });
   });
 
   it('hides the details of unexpected errors', async () => {
@@ -72,8 +72,8 @@ describe('runUserAction', () => {
     });
 
     expect(result).toEqual({
-      success: false,
       error: 'An unexpected error occurred. Please try again later.',
+      success: false,
     });
   });
 
@@ -83,8 +83,8 @@ describe('runUserAction', () => {
     );
 
     expect(result).toEqual({
-      success: false,
       error: 'Invalid form data provided.',
+      success: false,
     });
   });
 });

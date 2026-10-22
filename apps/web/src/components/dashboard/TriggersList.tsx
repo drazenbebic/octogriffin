@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 
 import { RefreshIcon, ZapIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -12,7 +13,7 @@ import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { Pagination } from '@/components/ui/Pagination';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { TriggersModel } from '@/generated/prisma/models/Triggers';
+import type { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { useTriggersStore } from '@/store/useTriggersStore';
 
 export type TriggersListProps = {

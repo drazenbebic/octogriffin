@@ -1,48 +1,48 @@
-import { HowTo, WithContext } from 'schema-dts';
+import type { HowTo, WithContext } from 'schema-dts';
 
 export const howToContributeJsonLd: WithContext<HowTo> = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
-  name: 'How to Contribute to Octogriffin',
   description:
     'Guidelines for contributing to Octogriffin. Learn about our branching strategy, commit conventions, and pull request process.',
-  url: 'https://octogriffin.com/docs/how-to-contribute',
+  name: 'How to Contribute to Octogriffin',
   step: [
     {
       '@type': 'HowToStep',
-      position: 1,
       name: 'Find a Task',
+      position: 1,
       text: 'Check GitHub Milestones or look for "good first issue" labels.',
     },
     {
       '@type': 'HowToStep',
-      position: 2,
       name: 'Fork the Repository',
+      position: 2,
       text: 'Create your own copy of the repository and clone it locally.',
     },
     {
       '@type': 'HowToStep',
-      position: 3,
       name: 'Branching Strategy',
+      position: 3,
       text: 'Create a feature or fix branch from main.',
     },
     {
       '@type': 'HowToStep',
-      position: 4,
       name: 'Conventional Commits',
+      position: 4,
       text: 'Use the Conventional Commits specification for all commit messages.',
     },
     {
       '@type': 'HowToStep',
-      position: 5,
       name: 'Development Standards',
+      position: 5,
       text: 'Follow UI component standards and icon usage guidelines.',
     },
     {
       '@type': 'HowToStep',
-      position: 6,
       name: 'Open a Pull Request',
+      position: 6,
       text: 'Submit your changes for review and ensure all builds pass.',
     },
   ],
+  url: 'https://octogriffin.com/docs/how-to-contribute',
 };

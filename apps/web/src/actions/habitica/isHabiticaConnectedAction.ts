@@ -8,6 +8,6 @@ export async function isHabiticaConnectedAction() {
     async githubUser =>
       // Must have the GitHub App installed and active, and linked Habitica credentials
       !githubUser.installation.suspended && !!githubUser.habiticaUser,
-    { installation: true, habiticaUser: true },
+    { habiticaUser: true, installation: true },
   );
 }

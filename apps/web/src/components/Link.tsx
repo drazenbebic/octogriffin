@@ -1,5 +1,6 @@
-import NextLink, { LinkProps as NextLinkProps } from 'next/link';
-import { FC, ReactNode } from 'react';
+import type { LinkProps as NextLinkProps } from 'next/link';
+import NextLink from 'next/link';
+import type { FC, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 

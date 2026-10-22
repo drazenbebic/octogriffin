@@ -1,4 +1,5 @@
-import { createElement, ElementType, FC, ReactNode } from 'react';
+import type { ElementType, FC, ReactNode } from 'react';
+import { createElement } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -8,27 +9,27 @@ type HeadingColor = 'inherit' | 'slate' | 'violet';
 
 export type HeadingProps = {
   as?: ElementType;
-  level?: HeadingLevel;
-  size?: HeadingSize;
   children?: ReactNode;
   className?: string;
   color?: HeadingColor;
+  level?: HeadingLevel;
+  size?: HeadingSize;
 };
 
 const sizes: Record<HeadingSize, string> = {
-  '4xl': 'text-4xl sm:text-5xl font-extrabold tracking-tight',
-  '3xl': 'text-3xl sm:text-4xl font-bold tracking-tight',
   '2xl': 'text-2xl font-bold tracking-tight',
-  xl: 'text-xl font-bold tracking-tight',
-  lg: 'text-lg font-semibold tracking-tight',
+  '3xl': 'text-3xl sm:text-4xl font-bold tracking-tight',
+  '4xl': 'text-4xl sm:text-5xl font-extrabold tracking-tight',
   base: 'text-base font-semibold tracking-tight',
+  lg: 'text-lg font-semibold tracking-tight',
   sm: 'text-sm font-semibold tracking-tight',
+  xl: 'text-xl font-bold tracking-tight',
 };
 
 const colors: Record<HeadingColor, string> = {
+  inherit: 'text-inherit',
   slate: 'text-slate-900 dark:text-slate-50',
   violet: 'text-violet-900 dark:text-violet-100',
-  inherit: 'text-inherit',
 };
 
 const defaultSizeMap: Record<HeadingLevel, HeadingSize> = {
@@ -42,11 +43,11 @@ const defaultSizeMap: Record<HeadingLevel, HeadingSize> = {
 
 export const Heading: FC<HeadingProps> = ({
   as,
-  level = 2,
-  size,
   children,
   className,
   color = 'slate',
+  level = 2,
+  size,
   ...props
 }) => {
   const Tag = as || `h${level}`;

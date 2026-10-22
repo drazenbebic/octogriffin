@@ -1,6 +1,7 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
-import React, { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+import React from 'react';
 
 import { AuthGate } from '@/components/AuthGate';
 import { HabiticaStatsCard } from '@/components/dashboard/HabiticaStatsCard';
@@ -12,15 +13,15 @@ import { Heading } from '@/components/ui/Heading';
 import { authOptions } from '@/lib/auth';
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | Octogriffin Dashboard',
-    default: 'Octogriffin Dashboard',
-  },
   description:
     'Manage your Habitica API connections, configure repository webhooks, and track your gamification progress.',
   robots: {
-    index: false,
     follow: false,
+    index: false,
+  },
+  title: {
+    default: 'Octogriffin Dashboard',
+    template: '%s | Octogriffin Dashboard',
   },
 };
 

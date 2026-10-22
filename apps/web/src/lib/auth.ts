@@ -1,24 +1,13 @@
-import { NextAuthOptions } from 'next-auth';
-import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
+import type { NextAuthOptions } from 'next-auth';
+import type { GithubProfile } from 'next-auth/providers/github';
+import GithubProvider from 'next-auth/providers/github';
 import { cookies } from 'next/headers';
 
 import prisma from '@/lib/prisma';
 
 export const authOptions: NextAuthOptions = {
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      authorization: {
-        params: {
-          scope: 'read:user',
-        },
-      },
-    }),
-  ],
-  secret: process.env.NEXTAUTH_SECRET!,
   callbacks: {
-    async jwt({ token, profile }) {
+    async jwt({ profile, token }) {
       const githubProfile = profile as GithubProfile;
 
       if (githubProfile) {
@@ -26,6 +15,13 @@ export const authOptions: NextAuthOptions = {
       }
 
       return token;
+    },
+    async session({ session, token }) {
+      if (session.user && token.username) {
+        session.user.name = token.username as string;
+      }
+
+      return session;
     },
     async signIn({ account, profile }) {
       if (!account || !profile) {
@@ -50,33 +46,38 @@ export const authOptions: NextAuthOptions = {
       }
 
       await prisma.githubUsers.update({
-        where: { githubId: githubProfile.id },
         data: {
-          nodeId: githubProfile.node_id,
+          accessToken: account.access_token,
           avatarUrl: githubProfile.avatar_url,
+          blog: githubProfile.blog,
+          company: githubProfile.company,
+          email: githubProfile.email,
+          expiresIn: account.expires_at,
           gravatarId: githubProfile.gravatar_id,
           htmlUrl: githubProfile.html_url,
-          type: githubProfile.type,
-          name: githubProfile.name,
-          company: githubProfile.company,
-          blog: githubProfile.blog,
           location: githubProfile.location,
-          email: githubProfile.email,
-          accessToken: account.access_token,
-          expiresIn: account.expires_at,
+          name: githubProfile.name,
+          nodeId: githubProfile.node_id,
           scope: account.scope,
           tokenType: account.token_type,
+          type: githubProfile.type,
         },
+        where: { githubId: githubProfile.id },
       });
 
       return true;
     },
-    async session({ session, token }) {
-      if (session.user && token.username) {
-        session.user.name = token.username as string;
-      }
-
-      return session;
-    },
   },
+  providers: [
+    GithubProvider({
+      authorization: {
+        params: {
+          scope: 'read:user',
+        },
+      },
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
+  ],
+  secret: process.env.NEXTAUTH_SECRET!,
 };

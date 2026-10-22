@@ -3,7 +3,7 @@
 import { startTransition, useEffect, useState } from 'react';
 
 import { getRepositoriesAction } from '@/actions/repositories/getRepositoriesAction';
-import { GithubSelectedRepositoriesModel } from '@/generated/prisma/models/GithubSelectedRepositories';
+import type { GithubSelectedRepositoriesModel } from '@/generated/prisma/models/GithubSelectedRepositories';
 
 export const useRepositories = (): GithubSelectedRepositoriesModel[] => {
   const [repositories, setRepositories] = useState<

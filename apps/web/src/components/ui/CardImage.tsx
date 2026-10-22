@@ -1,5 +1,6 @@
-import Image, { ImageProps } from 'next/image';
-import { FC } from 'react';
+import type { ImageProps } from 'next/image';
+import Image from 'next/image';
+import type { FC } from 'react';
 
 import { cn } from '@/utils/cn';
 

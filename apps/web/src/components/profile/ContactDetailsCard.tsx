@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import {
   Building03Icon,
@@ -13,18 +13,18 @@ import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
-import { UserProfile } from '@/types/profile';
+import type { UserProfile } from '@/types/profile';
 
 import { DetailRow } from './DetailRow';
 
 export type ContactDetailsCardProps = {
-  profile: UserProfile;
   className?: string;
+  profile: UserProfile;
 };
 
 export const ContactDetailsCard: FC<ContactDetailsCardProps> = ({
-  profile,
   className,
+  profile,
 }) => {
   return (
     <Card className={className} variant="elevated">

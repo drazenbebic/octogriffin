@@ -17,17 +17,12 @@ import {
   Tag01Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
-import {
-  HugeiconsIcon,
-  HugeiconsIconProps,
-  IconSvgElement,
-} from '@hugeicons/react';
+import type { HugeiconsIconProps, IconSvgElement } from '@hugeicons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 const EVENT_ICONS: Record<string, IconSvgElement> = {
-  push: GitCommitIcon,
   create: GitBranchIcon,
   delete: GitBranchIcon,
-  pull_request: GitPullRequestIcon,
   discussion: Comment01Icon,
   fork: GitForkIcon,
   gollum: BookOpen01Icon,
@@ -35,6 +30,8 @@ const EVENT_ICONS: Record<string, IconSvgElement> = {
   label: Tag01Icon,
   milestone: Flag01Icon,
   package: PackageIcon,
+  pull_request: GitPullRequestIcon,
+  push: GitCommitIcon,
   release: Rocket01Icon,
   repository: CodeFolderIcon,
   star: StarIcon,

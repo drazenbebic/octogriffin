@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import {
   CheckmarkCircle02Icon,
@@ -66,11 +66,11 @@ const GITHUB_EVENTS = [
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Development Setup',
     description:
       'Complete guide to setting up Octogriffin locally. Learn how to configure Docker, create a GitHub App, and initialize the database for development.',
-    suffix: 'Octogriffin Docs',
     path: 'docs/dev-setup',
+    suffix: 'Octogriffin Docs',
+    title: 'Development Setup',
   });
 };
 
@@ -250,8 +250,8 @@ export default function DocsDevSetupPage() {
                       ({ category, isMandatory = false }) => (
                         <tr
                           className={cn({
-                            'bg-white dark:bg-slate-950': !isMandatory,
                             'bg-slate-50/50 dark:bg-slate-900/50': isMandatory,
+                            'bg-white dark:bg-slate-950': !isMandatory,
                           })}
                           key={category}
                         >

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import {
   CodeCircleIcon,
@@ -20,11 +20,11 @@ import { generatePageMetadata } from '@/utils/seo';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Introduction',
     description:
       'The complete guide to Octogriffin. Explore documentation for installation, configuration, architecture, and contributing to the open-source codebase.',
-    suffix: 'Octogriffin Docs',
     path: 'docs',
+    suffix: 'Octogriffin Docs',
+    title: 'Introduction',
   });
 };
 
@@ -76,10 +76,10 @@ export default function DocsPage() {
 
         <Callout
           button={{
-            label: 'View GitHub Issues',
             href: githubRepositoryUrl('/issues'),
             icon: GithubIcon,
             isExternal: true,
+            label: 'View GitHub Issues',
           }}
           description="If you can't find what you're looking for, check our GitHub Issues or reach out directly."
           headingLevel={3}

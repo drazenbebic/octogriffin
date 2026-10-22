@@ -1,4 +1,4 @@
-import { EmitterWebhookEvent } from '@octokit/webhooks';
+import type { EmitterWebhookEvent } from '@octokit/webhooks';
 
 import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
 import logger from '@/lib/logger';
@@ -7,7 +7,7 @@ import { rewardDeps } from '@/rewards/rewardDeps';
 
 export const handlePush = async ({
   id,
-  payload: { commits, repository, installation },
+  payload: { commits, installation, repository },
 }: EmitterWebhookEvent<'push'>) => {
   if (!installation?.id || !repository) {
     logger.info('Ignored: Missing installation or repository.');
@@ -31,14 +31,14 @@ export const handlePush = async ({
 
   await deliverRewards(
     {
-      delivery: getDelivery(id),
-      name: 'push',
-      installationId: installation.id,
-      repositoryId: repository.id,
       contributions: [...commitCounts].map(([login, count]) => ({
         actor: { login },
         count,
       })),
+      delivery: getDelivery(id),
+      installationId: installation.id,
+      name: 'push',
+      repositoryId: repository.id,
     },
     rewardDeps,
   );

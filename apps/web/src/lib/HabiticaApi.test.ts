@@ -7,10 +7,10 @@ import HabiticaApi from './HabiticaApi';
 jest.mock('@/lib/logger', () => ({
   __esModule: true,
   default: {
+    debug: jest.fn(),
     error: jest.fn(),
     info: jest.fn(),
     warn: jest.fn(),
-    debug: jest.fn(),
   },
 }));
 
@@ -34,8 +34,8 @@ describe('@/lib/habitica-api.ts', () => {
 
     process.env = {
       ...originalEnv,
-      HABITICA_USER_ID: TEST_DEV_ID,
       HABITICA_APP_NAME: TEST_APP_NAME,
+      HABITICA_USER_ID: TEST_DEV_ID,
     };
 
     api = new HabiticaApi(userId, apiToken);
@@ -47,8 +47,8 @@ describe('@/lib/habitica-api.ts', () => {
 
   const mockSuccessResponse = (data: unknown) => {
     mockFetch.mockResolvedValueOnce({
+      json: async () => ({ data, success: true }),
       ok: true,
-      json: async () => ({ success: true, data }),
     });
   };
 
@@ -76,11 +76,11 @@ describe('@/lib/habitica-api.ts', () => {
       // 5. Update expectation to match the new format: DEV_ID - APP_NAME
       expect(fetchOptions.headers).toEqual(
         expect.objectContaining({
-          'x-api-user': userId,
+          'Content-Type': 'application/json',
           'x-api-key': apiToken,
+          'x-api-user': userId,
           // ✅ Correct: Expects developer ID, not user ID
           'x-client': `${TEST_DEV_ID}-${TEST_APP_NAME}`,
-          'Content-Type': 'application/json',
         }),
       );
     });
@@ -122,8 +122,8 @@ describe('@/lib/habitica-api.ts', () => {
       expect(mockFetch).toHaveBeenCalledWith(
         'https://habitica.com/api/v3/tasks/user',
         expect.objectContaining({
-          method: 'POST',
           body: JSON.stringify(taskData),
+          method: 'POST',
         }),
       );
       expect(result).toEqual(expectedResponse);
@@ -160,9 +160,9 @@ describe('@/lib/habitica-api.ts', () => {
 
   describe('findOrCreateTask', () => {
     const payload = {
+      alias: 'write-code',
       text: 'Write code',
       type: TaskType.HABIT,
-      alias: 'write-code',
     };
 
     it('should return the task found by its alias', async () => {

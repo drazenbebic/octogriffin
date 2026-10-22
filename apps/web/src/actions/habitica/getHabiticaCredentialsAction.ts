@@ -1,7 +1,7 @@
 'use server';
 
 import { ActionError, runUserAction } from '@/lib/userAction';
-import { HabiticaAccount } from '@/types/habitica';
+import type { HabiticaAccount } from '@/types/habitica';
 
 export async function getHabiticaCredentialsAction() {
   return runUserAction(

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import {
@@ -23,10 +23,10 @@ import { generatePageMetadata } from '@/utils/seo';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Sponsors',
     description:
       'Support the development of Octogriffin and keep the servers running.',
     path: 'sponsors',
+    title: 'Sponsors',
   });
 };
 

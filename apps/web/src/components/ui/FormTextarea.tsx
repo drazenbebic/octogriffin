@@ -78,9 +78,9 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
           {!!maxLength && (
             <div
               className={cn('mt-1.5 shrink-0 text-xs font-medium', {
-                'text-slate-400': !disabled,
-                'text-slate-300 dark:text-slate-600': disabled,
                 'text-red-500 dark:text-red-400': value.length >= maxLength,
+                'text-slate-300 dark:text-slate-600': disabled,
+                'text-slate-400': !disabled,
               })}
             >
               {value.length} / {maxLength}

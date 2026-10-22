@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import {
@@ -22,10 +22,10 @@ import { generatePageMetadata } from '@/utils/seo';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Installation',
     description:
       'Get up and running in minutes. Follow our step-by-step guide to install the GitHub App, configure permissions, and link your Habitica account.',
     path: 'installation',
+    title: 'Installation',
   });
 };
 

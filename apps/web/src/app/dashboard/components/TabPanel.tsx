@@ -2,9 +2,9 @@
 
 import { forwardRef } from 'react';
 
+import type { TabPanelProps } from '@ariakit/react';
 import {
   TabPanel as BaseTabPanel,
-  TabPanelProps,
   useStoreState,
   useTabContext,
 } from '@ariakit/react';

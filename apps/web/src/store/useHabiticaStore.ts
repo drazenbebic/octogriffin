@@ -5,29 +5,38 @@ import { getHabiticaCredentialsAction } from '@/actions/habitica/getHabiticaCred
 import { getHabiticaStatsAction } from '@/actions/habitica/getHabiticaStatsAction';
 import { isHabiticaConnectedAction } from '@/actions/habitica/isHabiticaConnectedAction';
 import { upsertHabiticaUserAction } from '@/actions/habitica/upsertHabiticaUserAction';
-import { HabiticaUserSchema } from '@/schemas/habiticaUserSchema';
-import { HabiticaAccount, UserStats } from '@/types/habitica';
+import type { HabiticaUserSchema } from '@/schemas/habiticaUserSchema';
+import type { HabiticaAccount, UserStats } from '@/types/habitica';
 
 type HabiticaStoreState = {
-  isLoading: boolean;
-  isHabiticaConnected: boolean;
-  habiticaStats: null | UserStats;
-  habiticaCredentials: HabiticaAccount | null;
-  setIsLoading: (isLoading: boolean) => void;
+  fetchHabiticaConnection: () => Promise<boolean>;
   fetchHabiticaCredentials: () => Promise<HabiticaAccount | null>;
   fetchHabiticaStats: () => Promise<null | UserStats>;
-  fetchHabiticaConnection: () => Promise<boolean>;
+  habiticaCredentials: HabiticaAccount | null;
+  habiticaStats: null | UserStats;
+  isHabiticaConnected: boolean;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
   upsertHabiticaUser: (
     data: HabiticaUserSchema,
   ) => Promise<HabiticaAccount | null>;
 };
 
 export const useHabiticaStore = create<HabiticaStoreState>(set => ({
-  isLoading: false,
-  isHabiticaConnected: false,
-  habiticaStats: null,
-  habiticaCredentials: null,
-  setIsLoading: isLoading => set({ isLoading }),
+  fetchHabiticaConnection: async () => {
+    try {
+      const result = await isHabiticaConnectedAction();
+      const isHabiticaConnected = result.success && !!result.data;
+      set({ isHabiticaConnected });
+
+      return isHabiticaConnected;
+    } catch (error) {
+      console.error('Zustand connection check error:', error);
+      set({ isHabiticaConnected: false });
+
+      return false;
+    }
+  },
   fetchHabiticaCredentials: async () => {
     try {
       const result = await getHabiticaCredentialsAction();
@@ -66,20 +75,11 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
       set({ isLoading: false });
     }
   },
-  fetchHabiticaConnection: async () => {
-    try {
-      const result = await isHabiticaConnectedAction();
-      const isHabiticaConnected = result.success && !!result.data;
-      set({ isHabiticaConnected });
-
-      return isHabiticaConnected;
-    } catch (error) {
-      console.error('Zustand connection check error:', error);
-      set({ isHabiticaConnected: false });
-
-      return false;
-    }
-  },
+  habiticaCredentials: null,
+  habiticaStats: null,
+  isHabiticaConnected: false,
+  isLoading: false,
+  setIsLoading: isLoading => set({ isLoading }),
   upsertHabiticaUser: async data => {
     try {
       const result = await upsertHabiticaUserAction(data);

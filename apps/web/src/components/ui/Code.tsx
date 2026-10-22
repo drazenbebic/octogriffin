@@ -1,25 +1,27 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
-import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react';
-import { BundledLanguage } from 'shiki';
+import type { IconSvgElement } from '@hugeicons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import type { BundledLanguage } from 'shiki';
 
 import { cn } from '@/utils/cn';
 import { codeToHtml } from '@/utils/shiki';
 
 export type CodeProps = {
-  code: string[];
   className?: string;
-  language: BundledLanguage;
+  code: string[];
   disableNumbers?: boolean;
   icon?: IconSvgElement;
+  language: BundledLanguage;
 };
 
 export const Code: FC<CodeProps> = async ({
-  code,
   className,
-  language = 'javascript',
+  code,
   disableNumbers = false,
   icon,
+  language = 'javascript',
 }) => {
   const trimmed = code.join(`\n`).trim();
   const out = await codeToHtml({ code: trimmed, language });

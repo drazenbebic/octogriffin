@@ -1,28 +1,29 @@
-import { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { Badge, BadgeProps } from '@/components/ui/Badge';
+import type { BadgeProps } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/Badge';
 import { cn } from '@/utils/cn';
 
 export type DismissableBadgeProps = Omit<BadgeProps, 'children'> & {
   children: ReactNode;
-  onDismiss: () => void;
   dismissLabel: string;
+  onDismiss: () => void;
 };
 
 const iconSizes: Record<NonNullable<BadgeProps['size']>, number> = {
-  sm: 12,
   md: 14,
+  sm: 12,
 };
 
 export const DismissableBadge: FC<DismissableBadgeProps> = ({
   children,
-  onDismiss,
-  dismissLabel,
-  size = 'sm',
   className,
+  dismissLabel,
+  onDismiss,
+  size = 'sm',
   ...badgeProps
 }) => (
   <Badge className={cn('pr-1', className)} size={size} {...badgeProps}>

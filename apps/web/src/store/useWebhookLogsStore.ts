@@ -1,28 +1,20 @@
 import { create } from 'zustand';
 
 import { getWebhookLogsAction } from '@/actions/webhookLogs/getWebhookLogsAction';
-import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
-import { PaginationMeta, PaginationParams } from '@/types/pagination';
+import type { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
+import type { PaginationMeta, PaginationParams } from '@/types/pagination';
 
 type WebhookLogsStoreState = {
-  webhookLogs: WebhookLogsModel[];
-  meta: PaginationMeta;
-  isLoading: boolean;
   fetchWebhookLogs: (params?: PaginationParams) => Promise<void>;
-  setPage: (page: number) => void;
+  isLoading: boolean;
+  meta: PaginationMeta;
   setLimit: (limit: number) => void;
+  setPage: (page: number) => void;
+  webhookLogs: WebhookLogsModel[];
 };
 
 export const useWebhookLogsStore = create<WebhookLogsStoreState>(
   (set, get) => ({
-    webhookLogs: [],
-    isLoading: false,
-    meta: {
-      page: 1,
-      limit: 5,
-      total: 0,
-      totalPages: 0,
-    },
     fetchWebhookLogs: async (params = {}) => {
       set({ isLoading: true });
 
@@ -32,8 +24,8 @@ export const useWebhookLogsStore = create<WebhookLogsStoreState>(
 
       try {
         let result = await getWebhookLogsAction({
-          page: targetPage,
           limit: targetLimit,
+          page: targetPage,
           ...params,
         });
 
@@ -45,16 +37,16 @@ export const useWebhookLogsStore = create<WebhookLogsStoreState>(
         ) {
           targetPage = targetPage - 1;
           result = await getWebhookLogsAction({
-            page: targetPage,
             limit: targetLimit,
+            page: targetPage,
             ...params,
           });
         }
 
         if (result.success && result.data) {
           set({
-            webhookLogs: result.data.data,
             meta: result.data.meta,
+            webhookLogs: result.data.data,
           });
         } else {
           console.error('Failed to fetch webhookLogs:', result.error);
@@ -65,11 +57,19 @@ export const useWebhookLogsStore = create<WebhookLogsStoreState>(
         set({ isLoading: false });
       }
     },
-    setPage: (page: number) => {
-      get().fetchWebhookLogs({ page });
+    isLoading: false,
+    meta: {
+      limit: 5,
+      page: 1,
+      total: 0,
+      totalPages: 0,
     },
     setLimit: (limit: number) => {
       get().fetchWebhookLogs({ limit, page: 1 });
     },
+    setPage: (page: number) => {
+      get().fetchWebhookLogs({ page });
+    },
+    webhookLogs: [],
   }),
 );

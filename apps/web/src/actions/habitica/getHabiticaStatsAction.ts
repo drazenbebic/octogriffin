@@ -3,7 +3,7 @@
 import HabiticaApi from '@/lib/HabiticaApi';
 import logger from '@/lib/logger';
 import { ActionError, runUserAction } from '@/lib/userAction';
-import { UserStats } from '@/types/habitica';
+import type { UserStats } from '@/types/habitica';
 
 export async function getHabiticaStatsAction() {
   return runUserAction(

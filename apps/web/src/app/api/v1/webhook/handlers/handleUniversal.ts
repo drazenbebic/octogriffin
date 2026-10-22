@@ -1,10 +1,10 @@
-import {
+import type {
   EmitterWebhookEvent,
   EmitterWebhookEventName,
 } from '@octokit/webhooks';
 
 import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
-import { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConstants';
+import type { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
 import { rewardDeps } from '@/rewards/rewardDeps';
@@ -25,11 +25,11 @@ export const handleUniversal = async (
 
   await deliverRewards(
     {
-      delivery: getDelivery(id),
-      name: event,
-      installationId: installation.id,
-      repositoryId: repository.id,
       contributions: [{ actor: { githubId: sender.id }, count: 1 }],
+      delivery: getDelivery(id),
+      installationId: installation.id,
+      name: event,
+      repositoryId: repository.id,
     },
     rewardDeps,
   );

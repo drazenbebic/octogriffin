@@ -14,20 +14,6 @@ const prismaClientSingleton = () => {
 
   return prisma.$extends({
     name: 'encrypt-decrypt',
-    result: {
-      habiticaUsers: {
-        apiToken: {
-          needs: { apiToken: true },
-          compute(user) {
-            try {
-              return decrypt(user.apiToken);
-            } catch {
-              return user.apiToken;
-            }
-          },
-        },
-      },
-    },
     query: {
       habiticaUsers: {
         async create({ args, query }) {
@@ -57,6 +43,20 @@ const prismaClientSingleton = () => {
           }
 
           return query(args);
+        },
+      },
+    },
+    result: {
+      habiticaUsers: {
+        apiToken: {
+          compute(user) {
+            try {
+              return decrypt(user.apiToken);
+            } catch {
+              return user.apiToken;
+            }
+          },
+          needs: { apiToken: true },
         },
       },
     },

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import {
   GitCommitIcon,
@@ -13,50 +13,50 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Content } from '@/components/ui/Content';
 import { Timestamp } from '@/components/ui/Timestamp';
-import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
+import type { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
 import { cn } from '@/utils/cn';
 
 const TIMESTAMP_OPTIONS: Intl.DateTimeFormatOptions = {
-  year: 'numeric',
-  month: 'short',
   day: 'numeric',
   hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
   hour12: false,
+  minute: '2-digit',
+  month: 'short',
+  second: '2-digit',
+  year: 'numeric',
 };
 
 const getEventConfig = (event: string) => {
   if (event.includes('push')) {
     return {
-      icon: <HugeiconsIcon icon={GitCommitIcon} size={18} />,
-      label: 'Push Event',
       color:
         'text-violet-600 bg-violet-50 dark:bg-violet-950/50 dark:text-violet-400',
+      icon: <HugeiconsIcon icon={GitCommitIcon} size={18} />,
+      label: 'Push Event',
     };
   }
 
   if (event.includes('pull_request')) {
     return {
+      color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 dark:text-blue-400',
       icon: <HugeiconsIcon icon={GitPullRequestIcon} size={18} />,
       label: 'Pull Request',
-      color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 dark:text-blue-400',
     };
   }
 
   if (event.includes('issue')) {
     return {
-      icon: <HugeiconsIcon icon={SourceCodeIcon} size={18} />,
-      label: 'Issue Event',
       color:
         'text-amber-600 bg-amber-50 dark:bg-amber-950/50 dark:text-amber-400',
+      icon: <HugeiconsIcon icon={SourceCodeIcon} size={18} />,
+      label: 'Issue Event',
     };
   }
 
   return {
+    color: 'text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-slate-400',
     icon: <HugeiconsIcon icon={ZapIcon} size={18} />,
     label: event,
-    color: 'text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-slate-400',
   };
 };
 

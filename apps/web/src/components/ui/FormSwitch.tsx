@@ -1,8 +1,10 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { FormCheckbox, FormCheckboxProps } from '@ariakit/react';
+import type { FormCheckboxProps } from '@ariakit/react';
+import { FormCheckbox } from '@ariakit/react';
 
-import { Switch, SwitchProps } from './Switch';
+import type { SwitchProps } from './Switch';
+import { Switch } from './Switch';
 
 export type FormSwitchProps = FormCheckboxProps & Omit<SwitchProps, 'as'>;
 

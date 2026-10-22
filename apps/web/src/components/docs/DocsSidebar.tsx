@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { Heading } from '@/components/ui/Heading';
 import { docsNavigation } from '@/config/docsNavigation';

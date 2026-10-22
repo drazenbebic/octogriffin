@@ -1,9 +1,8 @@
 'use client';
 
+import type { MouseEvent, Ref } from 'react';
 import {
   forwardRef,
-  MouseEvent,
-  Ref,
   useDeferredValue,
   useMemo,
   useRef,
@@ -29,30 +28,30 @@ import { DismissableBadge } from '@/components/ui/DismissableBadge';
 import { cn } from '@/utils/cn';
 
 export type ComboboxItemType = {
-  value: string;
-  label: string;
   group?: string;
+  label: string;
+  value: string;
 };
 
 type ComboboxBaseProps = {
   className?: string;
+  disabled?: boolean;
   disableLabel?: boolean;
   items: ComboboxItemType[];
   label?: string;
   placeholder?: string;
   required?: boolean;
-  disabled?: boolean;
 };
 
 type ComboboxSingleProps = ComboboxBaseProps & {
-  multiple?: false;
   defaultValue?: string;
+  multiple?: false;
   onChangeAction?: (value: string) => void;
 };
 
 type ComboboxMultipleProps = ComboboxBaseProps & {
-  multiple: true;
   defaultValue?: string[];
+  multiple: true;
   onChangeAction?: (value: string[]) => void;
 };
 

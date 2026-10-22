@@ -2,26 +2,27 @@
 
 import { createTrigger } from '@/accessors/trigger';
 import { parseInput, runUserAction } from '@/lib/userAction';
-import { TriggerSchema, triggerSchema } from '@/schemas/triggerSchema';
+import type { TriggerSchema } from '@/schemas/triggerSchema';
+import { triggerSchema } from '@/schemas/triggerSchema';
 
 export async function createTriggerAction(data: TriggerSchema) {
   return runUserAction('createTriggerAction', async githubUser => {
     const trigger = parseInput(triggerSchema, data);
 
     return createTrigger({
+      event: trigger.event,
       githubUserId: githubUser.id,
       isActive: true,
-      event: trigger.event,
       repositories: {
         connect: trigger.repositories.map(uuid => ({ uuid })),
       },
-      taskTitle: trigger.taskTitle,
+      scoreDirection: trigger.scoreDirection,
       taskAlias: trigger.taskAlias,
-      taskNote: trigger.taskNote,
-      taskPriority: trigger.taskPriority,
       taskAttribute: trigger.taskAttribute,
       taskFrequency: trigger.taskFrequency,
-      scoreDirection: trigger.scoreDirection,
+      taskNote: trigger.taskNote,
+      taskPriority: trigger.taskPriority,
+      taskTitle: trigger.taskTitle,
     });
   });
 }

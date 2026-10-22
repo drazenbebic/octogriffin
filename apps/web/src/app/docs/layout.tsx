@@ -1,14 +1,14 @@
 import './DocsPage.scss';
 
-import { Metadata } from 'next';
-import { ReactNode } from 'react';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 import { DocsSidebar } from '@/components/docs/DocsSidebar';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Octogriffin Docs',
     default: 'Octogriffin Docs',
+    template: '%s | Octogriffin Docs',
   },
 };
 

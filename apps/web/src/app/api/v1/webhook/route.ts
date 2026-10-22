@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { after } from 'next/server';
 
 import { Webhooks } from '@octokit/webhooks';
@@ -36,7 +37,7 @@ export const POST = async (request: NextRequest) => {
 
   after(async () => {
     await requestContext.run(
-      { requestId: id, eventName, signature, hookId },
+      { eventName, hookId, requestId: id, signature },
       async () => {
         try {
           logger.info('Processing in background.');
@@ -59,7 +60,7 @@ export const POST = async (request: NextRequest) => {
   });
 
   return NextResponse.json(
-    { message: 'Accepted', deliveryUuid: id },
+    { deliveryUuid: id, message: 'Accepted' },
     { status: 202 },
   );
 };

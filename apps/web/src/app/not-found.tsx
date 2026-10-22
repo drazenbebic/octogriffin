@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { Home01Icon, Search01Icon } from '@hugeicons/core-free-icons';
@@ -9,8 +9,8 @@ import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 
 export const metadata: Metadata = {
-  title: '404 Not Found',
   description: "The page you're looking for could not be found.",
+  title: '404 Not Found',
 };
 
 export default function NotFound() {

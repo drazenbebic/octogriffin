@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import {
   GitForkIcon,
@@ -26,11 +26,11 @@ import { generatePageMetadata } from '@/utils/seo';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'How to Contribute',
     description:
       'Guidelines for contributing to Octogriffin. Learn about our branching strategy, commit conventions, and pull request process.',
-    suffix: 'Octogriffin Docs',
     path: 'docs/how-to-contribute',
+    suffix: 'Octogriffin Docs',
+    title: 'How to Contribute',
   });
 };
 

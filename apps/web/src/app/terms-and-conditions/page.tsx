@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 import { Mail01Icon } from '@hugeicons/core-free-icons';
 
@@ -13,10 +13,10 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Terms & Conditions',
     description:
       'User agreement, usage guidelines, and liability disclaimers for the Octogriffin GitHub integration.',
     path: 'terms-and-conditions',
+    title: 'Terms & Conditions',
   });
 };
 
@@ -172,9 +172,9 @@ export default function TermsAndConditionsPage() {
 
           <Callout
             button={{
-              label: 'Send Email',
               href: `mailto:${email}`,
               icon: Mail01Icon,
+              label: 'Send Email',
             }}
             description={`For any legal inquiries regarding these terms, reach out to ${email}.`}
             title="Contact Us"

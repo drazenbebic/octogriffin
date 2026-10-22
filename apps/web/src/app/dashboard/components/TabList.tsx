@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 
-import { TabList as BaseTabList, TabListProps } from '@ariakit/react';
+import type { TabListProps } from '@ariakit/react';
+import { TabList as BaseTabList } from '@ariakit/react';
 
 export const TabList = forwardRef<HTMLDivElement, TabListProps>(
   ({ className, ...props }, ref) => {

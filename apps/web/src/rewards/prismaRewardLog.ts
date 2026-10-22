@@ -1,7 +1,7 @@
 import { createWebhookLog } from '@/accessors/webhookLog';
 import { Prisma } from '@/generated/prisma/client';
 
-import { RewardLog } from './types';
+import type { RewardLog } from './types';
 
 const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
 
@@ -11,9 +11,9 @@ export const prismaRewardLog: RewardLog = {
       await createWebhookLog({
         deliveryUuid: delivery.id,
         event: name,
-        signature: delivery.signature,
-        hookId: delivery.hookId,
         githubUserId: recipient.githubUserId,
+        hookId: delivery.hookId,
+        signature: delivery.signature,
       });
 
       return true;

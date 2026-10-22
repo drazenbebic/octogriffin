@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import NextLink from 'next/link';
 
 import {
@@ -21,11 +21,11 @@ import { generatePageMetadata } from '@/utils/seo';
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return generatePageMetadata({
-    title: 'Setting up Ngrok',
     description:
       'How to expose your local development environment to GitHub webhooks using Ngrok.',
-    suffix: 'Octogriffin Docs',
     path: 'docs/setting-up-ngrok',
+    suffix: 'Octogriffin Docs',
+    title: 'Setting up Ngrok',
   });
 };
 

@@ -1,4 +1,5 @@
-import { forwardRef, ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import { forwardRef, useState } from 'react';
 
 import { FormInput as BaseFormInput } from '@ariakit/react';
 import { ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons';
@@ -14,12 +15,12 @@ export type FormInputProps = {
   description?: string;
   disabled?: boolean;
   label?: ReactNode | string;
+  leadingIcon?: ReactNode;
   name: string;
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
   type?: 'email' | 'number' | 'password' | 'phone' | 'text' | 'url';
-  leadingIcon?: ReactNode;
 };
 
 const baseStyles =
@@ -35,12 +36,12 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       description,
       disabled = false,
       label,
+      leadingIcon,
       name,
       placeholder,
       readOnly = false,
       required = false,
       type = 'text',
-      leadingIcon,
       ...props
     },
     ref,

@@ -1,23 +1,24 @@
 import Link from 'next/link';
-import { FC, ReactNode, useMemo } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useMemo } from 'react';
 
 import { Content } from '@/components/ui/Content';
 import { cn } from '@/utils/cn';
 
 export type DetailRowProps = {
+  fallback?: string;
   icon: ReactNode;
+  isLink?: boolean;
   label: string;
   value: null | string | undefined;
-  fallback?: string;
-  isLink?: boolean;
 };
 
 export const DetailRow: FC<DetailRowProps> = ({
+  fallback,
   icon,
+  isLink,
   label,
   value,
-  fallback,
-  isLink,
 }) => {
   const displayValue = value || fallback;
 
@@ -55,8 +56,8 @@ export const DetailRow: FC<DetailRowProps> = ({
         ) : (
           <span
             className={cn('text-sm font-medium', {
-              'text-slate-900 dark:text-slate-100': value,
               'text-slate-400 italic dark:text-slate-500': !value,
+              'text-slate-900 dark:text-slate-100': value,
             })}
           >
             {displayValue}

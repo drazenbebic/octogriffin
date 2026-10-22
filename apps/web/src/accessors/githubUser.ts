@@ -1,4 +1,4 @@
-import { Prisma } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
 export const getGithubUser = async <T extends Prisma.GithubUsersInclude>(
@@ -6,8 +6,8 @@ export const getGithubUser = async <T extends Prisma.GithubUsersInclude>(
   include?: T,
 ) => {
   const user = await prisma.githubUsers.findUnique({
-    where,
     include,
+    where,
   });
 
   return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;

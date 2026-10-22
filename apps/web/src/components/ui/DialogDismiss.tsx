@@ -1,9 +1,7 @@
 import { forwardRef } from 'react';
 
-import {
-  DialogDismiss as BaseDialogDismiss,
-  DialogDismissProps as BaseDialogDismissProps,
-} from '@ariakit/react';
+import type { DialogDismissProps as BaseDialogDismissProps } from '@ariakit/react';
+import { DialogDismiss as BaseDialogDismiss } from '@ariakit/react';
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 

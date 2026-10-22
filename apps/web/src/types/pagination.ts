@@ -1,13 +1,13 @@
 export type PaginationParams = {
-  page?: number;
   limit?: number;
+  page?: number;
   search?: string;
 };
 
 export type PaginationMeta = {
-  total: number;
-  page: number;
   limit: number;
+  page: number;
+  total: number;
   totalPages: number;
 };
 

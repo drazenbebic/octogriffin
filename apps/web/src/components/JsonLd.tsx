@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
-import { Thing, WithContext } from 'schema-dts';
+import type { Thing, WithContext } from 'schema-dts';
 
 export type StructuredDataProps<T extends Thing> = {
   data?: WithContext<T>;

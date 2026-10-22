@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, useTransition } from 'react';
+import type { FC } from 'react';
+import { useTransition } from 'react';
 
 import { DialogProvider } from '@ariakit/react';
 import { Delete02Icon } from '@hugeicons/core-free-icons';
@@ -12,21 +13,21 @@ import { Content } from '@/components/ui/Content';
 import { Dialog } from '@/components/ui/Dialog';
 import { DialogDismiss } from '@/components/ui/DialogDismiss';
 import { Heading } from '@/components/ui/Heading';
-import { TriggersModel } from '@/generated/prisma/models/Triggers';
+import type { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { useTriggersStore } from '@/store/useTriggersStore';
 
 export type DeleteWebhookTriggerModalProps = {
+  onSuccessAction?: () => void;
   open: boolean;
   setOpenAction: (open: boolean) => void;
   trigger: TriggersModel;
-  onSuccessAction?: () => void;
 };
 
 export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
+  onSuccessAction,
   open,
   setOpenAction,
   trigger,
-  onSuccessAction,
 }) => {
   const deleteTrigger = useTriggersStore(state => state.deleteTrigger);
   const [isPending, startTransition] = useTransition();

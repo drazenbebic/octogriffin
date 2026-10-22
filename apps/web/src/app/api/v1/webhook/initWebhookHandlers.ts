@@ -1,4 +1,4 @@
-import {
+import type {
   EmitterWebhookEvent,
   EmitterWebhookEventName,
   Webhooks,
@@ -14,11 +14,11 @@ import { handleInstallationSuspend } from './handlers/handleInstallationSuspend'
 import { handleInstallationUnsuspend } from './handlers/handleInstallationUnsuspend';
 import { handlePush } from './handlers/handlePush';
 import { handleUniversal } from './handlers/handleUniversal';
-import {
+import type {
   DedicatedWebhookEvents,
-  universalHandlerWebhooks,
   UniversalWebhookEvents,
 } from './webhookConstants';
+import { universalHandlerWebhooks } from './webhookConstants';
 
 // Map the dedicated webhook events to their handlers
 export const dedicatedWebhookHandlerMap: {
@@ -26,10 +26,10 @@ export const dedicatedWebhookHandlerMap: {
     params: EmitterWebhookEvent<K>,
   ) => Promise<void>;
 } = {
-  'installation.created': handleInstallationCreated,
-  'installation.deleted': handleInstallationDeleted,
   'installation_repositories.added': handleInstallationRepositoriesAdded,
   'installation_repositories.removed': handleInstallationRepositoriesRemoved,
+  'installation.created': handleInstallationCreated,
+  'installation.deleted': handleInstallationDeleted,
   'installation.suspend': handleInstallationSuspend,
   'installation.unsuspend': handleInstallationUnsuspend,
   push: handlePush,

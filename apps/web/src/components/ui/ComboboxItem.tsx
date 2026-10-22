@@ -1,16 +1,16 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 
+import type { ComboboxItemProps as BaseComboboxItemProps } from '@ariakit/react';
 import {
   ComboboxItem as BaseComboboxItem,
-  ComboboxItemProps as BaseComboboxItemProps,
   ComboboxItemCheck,
 } from '@ariakit/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { ComboboxItemType } from '@/components/ui/Combobox';
+import type { ComboboxItemType } from '@/components/ui/Combobox';
 import { cn } from '@/utils/cn';
 
 export type ComboboxItemProps = {

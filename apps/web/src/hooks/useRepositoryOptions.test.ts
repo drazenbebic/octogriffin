@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import { GithubSelectedRepositoriesModel } from '@/generated/prisma/models/GithubSelectedRepositories';
+import type { GithubSelectedRepositoriesModel } from '@/generated/prisma/models/GithubSelectedRepositories';
 
 import { useRepositoryOptions } from './useRepositoryOptions';
 
@@ -12,24 +12,24 @@ describe('useRepositoryOptions', () => {
 
   it('should correctly map repositories to options', () => {
     const mockRepositories = [
-      { uuid: 'uuid-1', fullName: 'user/repo-one' },
-      { uuid: 'uuid-2', fullName: 'user/repo-two' },
+      { fullName: 'user/repo-one', uuid: 'uuid-1' },
+      { fullName: 'user/repo-two', uuid: 'uuid-2' },
     ] as GithubSelectedRepositoriesModel[];
 
     const { result } = renderHook(() => useRepositoryOptions(mockRepositories));
 
     expect(result.current).toEqual([
-      { value: 'uuid-1', label: 'user/repo-one' },
-      { value: 'uuid-2', label: 'user/repo-two' },
+      { label: 'user/repo-one', value: 'uuid-1' },
+      { label: 'user/repo-two', value: 'uuid-2' },
     ]);
   });
 
   it('should memoize the result', () => {
     const mockRepositories = [
-      { uuid: 'uuid-1', fullName: 'user/repo-one' },
+      { fullName: 'user/repo-one', uuid: 'uuid-1' },
     ] as GithubSelectedRepositoriesModel[];
 
-    const { result, rerender } = renderHook(
+    const { rerender, result } = renderHook(
       props => useRepositoryOptions(props),
       { initialProps: mockRepositories },
     );

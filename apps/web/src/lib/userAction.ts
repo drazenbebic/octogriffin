@@ -1,12 +1,12 @@
 import { getServerSession } from 'next-auth';
 
-import { z } from 'zod';
+import type { z } from 'zod';
 
 import { getGithubUserUserByLogin } from '@/accessors/githubUser';
-import { Prisma } from '@/generated/prisma/client';
+import type { Prisma } from '@/generated/prisma/client';
 import { authOptions } from '@/lib/auth';
 import logger from '@/lib/logger';
-import { ServerActionResult } from '@/types/serverAction';
+import type { ServerActionResult } from '@/types/serverAction';
 
 /**
  * An expected failure. Its message is shown to the user as-is.
@@ -52,7 +52,7 @@ export const runUserAction = async <
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.name) {
-      return { success: false, error: 'Unauthorized' };
+      return { error: 'Unauthorized', success: false };
     }
 
     const githubUser = await getGithubUserUserByLogin(
@@ -61,20 +61,20 @@ export const runUserAction = async <
     );
 
     if (!githubUser) {
-      return { success: false, error: 'GitHub user account not found.' };
+      return { error: 'GitHub user account not found.', success: false };
     }
 
-    return { success: true, data: await handler(githubUser) };
+    return { data: await handler(githubUser), success: true };
   } catch (error) {
     if (error instanceof ActionError) {
-      return { success: false, error: error.message };
+      return { error: error.message, success: false };
     }
 
     logger.error({ error }, `${name} failed.`);
 
     return {
-      success: false,
       error: 'An unexpected error occurred. Please try again later.',
+      success: false,
     };
   }
 };

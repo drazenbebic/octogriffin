@@ -2,7 +2,8 @@
 
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import { Dialog, DialogDisclosure, useDialogStore } from '@ariakit/react';
 import {
@@ -20,14 +21,14 @@ import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 const links = [
   {
+    description: 'Installation Guide',
     href: '/installation',
     label: 'Get Started',
-    description: 'Installation Guide',
   },
-  { href: '/docs', label: 'Documentation', description: 'Guides & API' },
-  { href: '/roadmap', label: 'Roadmap', description: 'Future plans' },
-  { href: '/sponsors', label: 'Sponsors', description: 'Our supporters' },
-  { href: '/faq', label: 'FAQ', description: 'Questions' },
+  { description: 'Guides & API', href: '/docs', label: 'Documentation' },
+  { description: 'Future plans', href: '/roadmap', label: 'Roadmap' },
+  { description: 'Our supporters', href: '/sponsors', label: 'Sponsors' },
+  { description: 'Questions', href: '/faq', label: 'FAQ' },
 ];
 
 export const MobileMenu: FC = () => {
@@ -64,7 +65,7 @@ export const MobileMenu: FC = () => {
 
         <div className="flex flex-1 flex-col p-6 sm:p-8">
           <nav className="flex flex-col gap-6 pt-4">
-            {links.map(({ href, label, description }) => {
+            {links.map(({ description, href, label }) => {
               const isActive =
                 href === '/' ? pathname === href : pathname.startsWith(href);
 

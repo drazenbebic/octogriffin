@@ -2,7 +2,7 @@
 
 import { getWebhookLogs } from '@/accessors/webhookLog';
 import { runUserAction } from '@/lib/userAction';
-import { PaginationParams } from '@/types/pagination';
+import type { PaginationParams } from '@/types/pagination';
 
 export async function getWebhookLogsAction(params?: PaginationParams) {
   return runUserAction('getWebhookLogsAction', async githubUser =>

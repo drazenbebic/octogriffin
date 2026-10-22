@@ -1,18 +1,14 @@
-import {
-  Children,
+import type {
   FocusEvent,
   FocusEventHandler,
-  forwardRef,
-  isValidElement,
   ReactElement,
   ReactNode,
-  useMemo,
-  useRef,
 } from 'react';
+import { Children, forwardRef, isValidElement, useMemo, useRef } from 'react';
 
+import type { SelectProps as BaseSelectProps } from '@ariakit/react';
 import {
   Select as BaseSelect,
-  SelectProps as BaseSelectProps,
   SelectArrow,
   SelectPopover,
   SelectProvider,
@@ -22,16 +18,16 @@ import {
 import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { SelectItemProps } from '@/components/ui/SelectItem';
+import type { SelectItemProps } from '@/components/ui/SelectItem';
 import { cn } from '@/utils/cn';
 
 export type SelectProps = BaseSelectProps & {
-  value?: string | string[];
-  setValue?: (value: string | string[]) => void;
   defaultValue?: string | string[];
-  onBlur?: FocusEventHandler<HTMLElement>;
   multiple?: boolean;
+  onBlur?: FocusEventHandler<HTMLElement>;
   placeholder?: string;
+  setValue?: (value: string | string[]) => void;
+  value?: string | string[];
 };
 
 const triggerStyles =
@@ -85,16 +81,16 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     {
       children,
       className,
-      value,
-      setValue,
       defaultValue,
       multiple = false,
       placeholder,
+      setValue,
+      value,
       ...props
     },
     ref,
   ) => {
-    const select = useSelectStore({ value, setValue, defaultValue });
+    const select = useSelectStore({ defaultValue, setValue, value });
     const portalRef = useRef<HTMLDivElement>(null);
     const selectValue = useStoreState(select, 'value');
 
@@ -106,7 +102,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     const onBlur = (event: FocusEvent<HTMLElement>) => {
       const portal = portalRef.current;
-      const { selectElement, popoverElement } = select.getState();
+      const { popoverElement, selectElement } = select.getState();
 
       if (
         portal?.contains(event.relatedTarget) ||

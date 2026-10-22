@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   Disclosure,
@@ -14,27 +15,30 @@ import { Heading } from '@/components/ui/Heading';
 import { cn } from '@/utils/cn';
 
 export type AccordionProps = {
-  title: string;
   children: ReactNode;
   className?: string;
   index?: number;
   onClick?: (open: boolean, index: number) => void;
   open?: boolean;
+  title: string;
 };
 
 export const Accordion: FC<AccordionProps> = ({
-  title,
   children,
   className,
   index = -1,
   onClick,
   open: isOpen = false,
+  title,
 }) => {
   const [open, setOpen] = useState(isOpen);
+  const [previousIsOpen, setPreviousIsOpen] = useState(isOpen);
 
-  useEffect(() => {
+  // Follow the `open` prop whenever the parent changes it
+  if (isOpen !== previousIsOpen) {
+    setPreviousIsOpen(isOpen);
     setOpen(isOpen);
-  }, [isOpen]);
+  }
 
   const onClickCallback = useCallback(() => {
     if (onClick) {

@@ -1,9 +1,7 @@
 import { forwardRef } from 'react';
 
-import {
-  Dialog as BaseDialog,
-  DialogProps as BaseDialogProps,
-} from '@ariakit/react';
+import type { DialogProps as BaseDialogProps } from '@ariakit/react';
+import { Dialog as BaseDialog } from '@ariakit/react';
 
 import { DialogBackdrop } from '@/components/ui/DialogBackdrop';
 import { cn } from '@/utils/cn';
@@ -13,9 +11,9 @@ export type DialogProps = {
 } & BaseDialogProps;
 
 const sizes = {
-  sm: 'max-w-lg',
-  md: 'max-w-2xl',
   lg: 'max-w-3xl',
+  md: 'max-w-2xl',
+  sm: 'max-w-lg',
 };
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(

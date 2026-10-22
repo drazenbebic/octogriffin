@@ -1,10 +1,7 @@
 import { forwardRef } from 'react';
 
-import {
-  SelectItem as BaseSelectItem,
-  SelectItemProps as BaseSelectItemProps,
-  SelectItemCheck,
-} from '@ariakit/react';
+import type { SelectItemProps as BaseSelectItemProps } from '@ariakit/react';
+import { SelectItem as BaseSelectItem, SelectItemCheck } from '@ariakit/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
@@ -13,7 +10,7 @@ import { cn } from '@/utils/cn';
 export type SelectItemProps = BaseSelectItemProps;
 
 export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ children, className, ...props }, ref) => {
     return (
       <BaseSelectItem
         ref={ref}

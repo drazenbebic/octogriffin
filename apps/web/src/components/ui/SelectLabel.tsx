@@ -1,9 +1,7 @@
 import { forwardRef } from 'react';
 
-import {
-  SelectLabel as BaseSelectLabel,
-  SelectLabelProps as BaseSelectLabelProps,
-} from '@ariakit/react';
+import type { SelectLabelProps as BaseSelectLabelProps } from '@ariakit/react';
+import { SelectLabel as BaseSelectLabel } from '@ariakit/react';
 
 import { cn } from '@/utils/cn';
 

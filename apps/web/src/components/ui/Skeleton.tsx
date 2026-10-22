@@ -1,4 +1,4 @@
-import { ElementType, FC, ReactNode } from 'react';
+import type { ElementType, FC, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -11,16 +11,16 @@ export type SkeletonProps = {
 
 export const Skeleton: FC<SkeletonProps> = ({
   as: Tag = 'div',
-  className,
   children,
+  className,
   variant = 'text',
   ...props
 }) => {
   const variants = {
-    text: 'rounded-md',
     circular: 'rounded-full',
     rectangular: 'rounded-none',
     rounded: 'rounded-lg',
+    text: 'rounded-md',
   };
 
   return (
