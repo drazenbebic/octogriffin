@@ -7,7 +7,7 @@ export const privacyJsonLd: WithContext<WebPage> = {
   '@type': 'WebPage',
   description:
     'Our commitment to protecting your code and data. GDPR compliance, zero-storage policy for source code, and secure infrastructure.',
-  lastReviewed: '2026-01-12',
+  lastReviewed: '2026-10-22',
   mainEntity: {
     '@type': 'CreativeWork',
     author: {
@@ -15,7 +15,7 @@ export const privacyJsonLd: WithContext<WebPage> = {
       name: 'Drazen Bebic',
       url: 'https://bebic.dev',
     },
-    dateModified: '2026-01-12',
+    dateModified: '2026-10-22',
     name: 'Octogriffin Privacy Policy',
     publisher: {
       '@type': 'Organization',

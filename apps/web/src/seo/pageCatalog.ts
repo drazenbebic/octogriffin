@@ -98,7 +98,7 @@ const pages = {
     description:
       'We protect your code and data. Learn about our GDPR compliance, zero-storage policy for source code, and secure infrastructure in Frankfurt.',
     title: 'Privacy Policy',
-    updatedAt: '2026-01-12',
+    updatedAt: '2026-10-22',
   },
   '/roadmap': {
     description: 'Our development plan for the future of Octogriffin.',

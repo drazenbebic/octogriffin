@@ -14,7 +14,7 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const metadata: Metadata = pageMetadata('/privacy-policy');
 
-const LAST_UPDATED = '12.01.2026';
+const LAST_UPDATED = '22.10.2026';
 
 export default function PrivacyPolicyPage() {
   const email = supportEmail();
@@ -80,6 +80,15 @@ export default function PrivacyPolicyPage() {
               <Content as="li">
                 <strong>Webhook Data:</strong> Metadata about your GitHub
                 activity (commits, pull requests, issue comments).
+              </Content>
+              <Content as="li">
+                <strong>GitHub Marketplace Data:</strong> When you add, change
+                or cancel Octogriffin through GitHub Marketplace, GitHub sends
+                us the account&apos;s username and ID, the username and ID of
+                the person who made the change, and the chosen plan. We keep a
+                record of these events, even if you never sign in to
+                Octogriffin. We do not store organizations&apos; billing email
+                addresses.
               </Content>
             </ul>
 
