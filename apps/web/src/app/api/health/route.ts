@@ -1,14 +1,33 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
+import { createHash, timingSafeEqual } from 'crypto';
+
 import logger from '@/lib/logger';
 import prisma from '@/lib/prisma';
 
-export const GET = async (request: NextRequest) => {
-  const key = request.nextUrl.searchParams.get('key');
-  const secret = process.env.HEALTH_CHECK_SECRET;
+const BEARER_PREFIX = 'Bearer ';
 
-  if (!secret || key !== secret) {
+const getKey = (request: NextRequest) => {
+  const authorization = request.headers.get('authorization');
+
+  if (authorization?.startsWith(BEARER_PREFIX)) {
+    return authorization.slice(BEARER_PREFIX.length);
+  }
+
+  // Still accepted for existing monitors. It ends up in request logs, so
+  // prefer the header.
+  return request.nextUrl.searchParams.get('key');
+};
+
+// Hashing gives both sides the same length, which timingSafeEqual needs
+const sha256 = (value: string) => createHash('sha256').update(value).digest();
+
+const isAuthorized = (key: null | string, secret: string | undefined) =>
+  !!key && !!secret && timingSafeEqual(sha256(key), sha256(secret));
+
+export const GET = async (request: NextRequest) => {
+  if (!isAuthorized(getKey(request), process.env.HEALTH_CHECK_SECRET)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -37,7 +56,6 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json(
       {
         database: 'disconnected',
-        error: error instanceof Error ? error.message : 'Unknown error',
         status: 'error',
       },
       { status: 503 },
