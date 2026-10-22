@@ -6,20 +6,20 @@ import { getHabiticaStatsAction } from '@/actions/habitica/getHabiticaStatsActio
 import { isHabiticaConnectedAction } from '@/actions/habitica/isHabiticaConnectedAction';
 import { upsertHabiticaUserAction } from '@/actions/habitica/upsertHabiticaUserAction';
 import { HabiticaUserSchema } from '@/schemas/habiticaUserSchema';
-import { UserCredentials, UserStats } from '@/types/habitica';
+import { HabiticaAccount, UserStats } from '@/types/habitica';
 
 type HabiticaStoreState = {
   isLoading: boolean;
   isHabiticaConnected: boolean;
   habiticaStats: null | UserStats;
-  habiticaCredentials: null | UserCredentials;
+  habiticaCredentials: HabiticaAccount | null;
   setIsLoading: (isLoading: boolean) => void;
-  fetchHabiticaCredentials: () => Promise<null | UserCredentials>;
+  fetchHabiticaCredentials: () => Promise<HabiticaAccount | null>;
   fetchHabiticaStats: () => Promise<null | UserStats>;
   fetchHabiticaConnection: () => Promise<boolean>;
   upsertHabiticaUser: (
     data: HabiticaUserSchema,
-  ) => Promise<null | UserCredentials>;
+  ) => Promise<HabiticaAccount | null>;
 };
 
 export const useHabiticaStore = create<HabiticaStoreState>(set => ({
@@ -90,14 +90,9 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
         return null;
       }
 
-      const credentials = {
-        userId: result.data.userId,
-        apiToken: result.data.apiToken,
-      };
+      set({ habiticaCredentials: result.data });
 
-      set({ habiticaCredentials: credentials });
-
-      return credentials;
+      return result.data;
     } catch (error) {
       console.error('Zustand upsert error:', error);
       toast.error('An unexpected error occurred');

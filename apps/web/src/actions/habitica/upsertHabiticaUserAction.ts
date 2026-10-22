@@ -8,15 +8,21 @@ import {
   HabiticaUserSchema,
   habiticaUserSchema,
 } from '@/schemas/habiticaUserSchema';
+import { HabiticaAccount } from '@/types/habitica';
 
 export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
   return runUserAction(
     'upsertHabiticaUserAction',
-    async (githubUser): Promise<HabiticaUserSchema> => {
-      const { userId, apiToken } = parseInput(habiticaUserSchema, data);
+    async (githubUser): Promise<HabiticaAccount> => {
+      const input = parseInput(habiticaUserSchema, data);
+      const apiToken = input.apiToken || githubUser.habiticaUser?.apiToken;
+
+      if (!apiToken) {
+        throw new ActionError('Please enter your Habitica API Token.');
+      }
 
       try {
-        await new HabiticaApi(userId, apiToken).getUserStats();
+        await new HabiticaApi(input.userId, apiToken).getUserStats();
       } catch (error) {
         logger.error({ error }, 'Habitica API Error');
 
@@ -27,14 +33,12 @@ export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
 
       const habiticaUser = await upsertHabiticaUser(
         githubUser.id,
-        { userId, apiToken },
-        { userId, apiToken },
+        { userId: input.userId, apiToken },
+        { userId: input.userId, apiToken },
       );
 
-      return {
-        userId: habiticaUser.userId,
-        apiToken: habiticaUser.apiToken,
-      };
+      return { userId: habiticaUser.userId };
     },
+    { habiticaUser: true },
   );
 }

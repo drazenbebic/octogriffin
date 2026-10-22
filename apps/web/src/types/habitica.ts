@@ -46,6 +46,14 @@ export type UserCredentials = {
   apiToken: string;
 };
 
+/**
+ * The Habitica account a user linked, as shown in the browser. The API token
+ * never leaves the server.
+ */
+export type HabiticaAccount = {
+  userId: string;
+};
+
 export type UserStats = {
   class: string;
   str: number;

@@ -14,7 +14,6 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/Button';
 import { FormInput } from '@/components/ui/FormInput';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
-import { UserCredentials } from '@/types/habitica';
 
 export const HabiticaUserForm: FC = () => {
   const {
@@ -27,7 +26,7 @@ export const HabiticaUserForm: FC = () => {
     setIsLoading,
   } = useHabiticaStore();
 
-  const [values, setValues] = useState<UserCredentials>({
+  const [values, setValues] = useState({
     userId: '',
     apiToken: '',
   });
@@ -67,8 +66,11 @@ export const HabiticaUserForm: FC = () => {
       return;
     }
 
-    setValues(habiticaCredentials);
+    // The saved API token never reaches the browser
+    setValues({ userId: habiticaCredentials.userId, apiToken: '' });
   }, [habiticaCredentials]);
+
+  const hasSavedToken = !!habiticaCredentials;
 
   return (
     <Form className="flex flex-col gap-6" resetOnSubmit={false} store={form}>
@@ -86,8 +88,12 @@ export const HabiticaUserForm: FC = () => {
         label="API Token"
         leadingIcon={<HugeiconsIcon icon={AlertCircleIcon} size={20} />}
         name="apiToken"
-        placeholder="••••••••••••••••••••••••••••••"
-        required
+        placeholder={
+          hasSavedToken
+            ? 'Saved. Leave empty to keep your current token.'
+            : '••••••••••••••••••••••••••••••'
+        }
+        required={!hasSavedToken}
         type="password"
       />
 

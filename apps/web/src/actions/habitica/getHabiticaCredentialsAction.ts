@@ -1,20 +1,17 @@
 'use server';
 
 import { ActionError, runUserAction } from '@/lib/userAction';
-import { UserCredentials } from '@/types/habitica';
+import { HabiticaAccount } from '@/types/habitica';
 
 export async function getHabiticaCredentialsAction() {
   return runUserAction(
     'getHabiticaCredentialsAction',
-    async (githubUser): Promise<UserCredentials> => {
+    async (githubUser): Promise<HabiticaAccount> => {
       if (!githubUser.habiticaUser) {
         throw new ActionError('User is not connected to Habitica.');
       }
 
-      return {
-        userId: githubUser.habiticaUser.userId,
-        apiToken: githubUser.habiticaUser.apiToken,
-      };
+      return { userId: githubUser.habiticaUser.userId };
     },
     { habiticaUser: true },
   );
