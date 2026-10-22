@@ -1,5 +1,43 @@
 # Changelog
 
+## [0.10.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.9.0...web-v0.10.0) (2026-10-22)
+
+
+### Features
+
+* **web:** add a guide to finding your Habitica User ID and API Token ([9762662](https://github.com/drazenbebic/octogriffin/commit/9762662fdd9263663070133dc7f5505970690faa))
+* **web:** add a list of every GitHub event you can earn rewards for ([8ca40fe](https://github.com/drazenbebic/octogriffin/commit/8ca40fe6a78661e0e4bbfb1c8ce1d9e93813688b))
+* **web:** add ready-made recipes for building coding habits in Habitica ([a92a607](https://github.com/drazenbebic/octogriffin/commit/a92a60706deafa1a9322d846bef810e08e06841c))
+* **web:** explain what the GitHub App can access and how to check your setup works ([0bb3d2a](https://github.com/drazenbebic/octogriffin/commit/0bb3d2a36e0c6ee41529b8d1f0b2d124d6b19eaf))
+* **web:** keep a record of everyone who adds Octogriffin from GitHub Marketplace ([4430282](https://github.com/drazenbebic/octogriffin/commit/4430282702ec33e6c06b749cdfec36588e94ca5f))
+
+
+### Bug Fixes
+
+* **web:** ask you to re-enter your Habitica API token when it can't be read ([75e3918](https://github.com/drazenbebic/octogriffin/commit/75e3918bb1aa7baffd83ea8f83cea1c5600a5a9e))
+* **web:** clear the event and repository pickers after creating a trigger ([2758576](https://github.com/drazenbebic/octogriffin/commit/27585760c7ed2f18666d21c8525e16afd86444ab))
+* **web:** correct the FAQ answer about whether Octogriffin can read your code ([a712691](https://github.com/drazenbebic/octogriffin/commit/a712691c1651c2d96820b9480fa45b7df652a887))
+* **web:** create the Habitica task for triggers with a task alias ([87f3c0d](https://github.com/drazenbebic/octogriffin/commit/87f3c0de796da40f6e0d2c4b30426fe1b4e16f05))
+* **web:** give the documentation home page a descriptive title in search results ([b63c599](https://github.com/drazenbebic/octogriffin/commit/b63c599498d61f4848e4c100861fcd0bc3f35809))
+* **web:** keep internal database functions private to the server ([b819722](https://github.com/drazenbebic/octogriffin/commit/b8197227ca6006629ac194e336e2e6acf1ce896c))
+* **web:** keep the Habitica settings form locked until your account loads ([6eee38f](https://github.com/drazenbebic/octogriffin/commit/6eee38f3e2d0cbb5cee6c21357c201bb1cae86f9))
+* **web:** keep your triggers list on screen while a trigger is saved ([47dde7c](https://github.com/drazenbebic/octogriffin/commit/47dde7cdbbb5326f6b1f048064ccbf67fc5928d3))
+* **web:** limit how many rewards a single push can give ([194ab59](https://github.com/drazenbebic/octogriffin/commit/194ab59d8368e1dde185af8ab5a0fbbc4054a312))
+* **web:** link to the setup guides and habit recipes from every page ([9c535d6](https://github.com/drazenbebic/octogriffin/commit/9c535d6b26a031ff857e76e63c3a1828d2d2d87d))
+* **web:** make Octogriffin easier to find when searching for a Habitica GitHub integration ([67c9e04](https://github.com/drazenbebic/octogriffin/commit/67c9e046a33ab27384341b7043e0a9d1139731be))
+* **web:** never reward the same GitHub event twice ([14691a9](https://github.com/drazenbebic/octogriffin/commit/14691a98a777de7f2a42db19fa977763584cc9a4))
+* **web:** only accept triggers for GitHub events Octogriffin supports ([34c4100](https://github.com/drazenbebic/octogriffin/commit/34c4100f1b09f6e045631ef9d22955aee068551a))
+* **web:** only reward triggers in the repositories you picked for them ([53a5fed](https://github.com/drazenbebic/octogriffin/commit/53a5fed085bd5fabca55826868c728adeea697e8))
+* **web:** only tell search engines a page changed when it really did ([4668a93](https://github.com/drazenbebic/octogriffin/commit/4668a931363e374ff64d611bab04f4f20e5b7456))
+* **web:** remove a question that appeared twice in the FAQ ([8eab03b](https://github.com/drazenbebic/octogriffin/commit/8eab03b19ee15fd21ccba1cfd8f1c5090a959544))
+* **web:** retry when Habitica is busy instead of dropping rewards ([0156068](https://github.com/drazenbebic/octogriffin/commit/0156068530237dc91697eb9756cfe46926c3e696))
+* **web:** show one error message when deleting a trigger fails ([0a779b5](https://github.com/drazenbebic/octogriffin/commit/0a779b5c4989d55a6808f2d8a79d607d7dd81b2b))
+* **web:** show pull requests, reviews and other events in your history ([1d362cf](https://github.com/drazenbebic/octogriffin/commit/1d362cf20a10da0866e6929eb277e37dda4826bb))
+* **web:** show the same page titles in search results and link previews ([c4d599c](https://github.com/drazenbebic/octogriffin/commit/c4d599c0634901935c87be6b6b1d5a0baf251ecc))
+* **web:** stop sending your Habitica API token to the browser ([8096e07](https://github.com/drazenbebic/octogriffin/commit/8096e07eb364f7daae80884312fabc2a24117a22))
+* **web:** tell search engines that the GitHub repository and app belong to Octogriffin ([b36cd06](https://github.com/drazenbebic/octogriffin/commit/b36cd06b82a5a32448386a6c3e3687bee5f59b78))
+* **web:** tell search engines the one official address of every page ([3fd96f2](https://github.com/drazenbebic/octogriffin/commit/3fd96f2f3eee0c224f8a017dd54621d23a7f912c))
+
 ## [0.9.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.8.0...web-v0.9.0) (2026-05-31)
 
 
