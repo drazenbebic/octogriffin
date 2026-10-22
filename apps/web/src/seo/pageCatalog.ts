@@ -24,8 +24,7 @@ const pages = {
   '/docs': {
     description:
       'The complete guide to Octogriffin. Explore documentation for installation, configuration, architecture, and contributing to the open-source codebase.',
-    isDocs: true,
-    title: 'Introduction',
+    title: 'Octogriffin Docs: Habitica GitHub Integration Guides',
     updatedAt: '2026-10-22',
   },
   '/docs/architecture': {
@@ -136,12 +135,12 @@ export const ogImageUrl = absoluteUrl('/og-image.png');
 
 /**
  * The title shown in search results, browser tabs and link previews alike.
- * The home page title already names Octogriffin, so it gets no suffix.
+ * Titles that already name Octogriffin get no suffix.
  */
 const fullTitle = (path: PagePath) => {
   const { isDocs, title }: Page = pages[path];
 
-  if (path === '/') {
+  if (title.includes('Octogriffin')) {
     return title;
   }
 
