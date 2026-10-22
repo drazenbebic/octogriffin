@@ -188,6 +188,17 @@ describe('@/lib/habitica-api.ts', () => {
       );
     });
 
+    it('should keep the alias inside the task path', async () => {
+      mockSuccessResponse({ id: 'task-1' });
+
+      await api.findOrCreateTask({ ...payload, alias: '../user' });
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://habitica.com/api/v3/tasks/..%2Fuser',
+        expect.anything(),
+      );
+    });
+
     it('should not hide other errors while looking up the alias', async () => {
       mockErrorResponse(401, 'Unauthorized');
 

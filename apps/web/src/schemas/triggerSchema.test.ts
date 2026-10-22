@@ -23,6 +23,36 @@ describe('triggerSchema', () => {
     expect(rejected).toEqual([]);
   });
 
+  it.each(['', 'write-code', 'Write_Code_2'])(
+    'accepts the alias "%s"',
+    taskAlias => {
+      expect(
+        triggerSchema.safeParse({ ...validTrigger, taskAlias }).success,
+      ).toBe(true);
+    },
+  );
+
+  it.each(['../user', 'write code', 'x'.repeat(256)])(
+    'rejects the alias "%s"',
+    taskAlias => {
+      expect(
+        triggerSchema.safeParse({ ...validTrigger, taskAlias }).success,
+      ).toBe(false);
+    },
+  );
+
+  it.each(['0.1', 1, 1.5, '2'])('accepts the difficulty %s', taskPriority => {
+    expect(
+      triggerSchema.safeParse({ ...validTrigger, taskPriority }).success,
+    ).toBe(true);
+  });
+
+  it.each([0, 3, 'hard'])('rejects the difficulty %s', taskPriority => {
+    expect(
+      triggerSchema.safeParse({ ...validTrigger, taskPriority }).success,
+    ).toBe(false);
+  });
+
   it('rejects events Octogriffin does not handle', () => {
     const result = triggerSchema.safeParse({
       ...validTrigger,

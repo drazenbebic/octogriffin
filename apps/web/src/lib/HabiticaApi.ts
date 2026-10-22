@@ -135,7 +135,7 @@ class HabiticaApi {
 
   findTaskByAlias = async (alias: string) => {
     try {
-      return await this.request<Task>(`/tasks/${alias}`, {
+      return await this.request<Task>(`/tasks/${encodeURIComponent(alias)}`, {
         method: 'GET',
       });
     } catch (error) {
@@ -173,7 +173,7 @@ class HabiticaApi {
 
   scoreTask = (taskId: string, direction: TaskDirection) => {
     return this.request<ScoreTaskResponse>(
-      `/tasks/${taskId}/score/${direction}`,
+      `/tasks/${encodeURIComponent(taskId)}/score/${direction}`,
       {
         method: 'POST',
       },
@@ -181,9 +181,12 @@ class HabiticaApi {
   };
 
   tagTask = (taskId: string, tagId: string) => {
-    return this.request<Task>(`/tasks/${taskId}/tags/${tagId}`, {
-      method: 'POST',
-    });
+    return this.request<Task>(
+      `/tasks/${encodeURIComponent(taskId)}/tags/${encodeURIComponent(tagId)}`,
+      {
+        method: 'POST',
+      },
+    );
   };
 
   getUserStats = () => {
