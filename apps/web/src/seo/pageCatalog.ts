@@ -165,7 +165,7 @@ export const pageMetadata = (path: PagePath): Metadata => {
 export const sitemapEntries = (): MetadataRoute.Sitemap =>
   pagePaths.map(path => ({
     changeFrequency: 'monthly',
-    lastModified: new Date(),
+    lastModified: pages[path].updatedAt,
     priority: path === '/' ? 1 : 0.3,
     url: pageUrl(path),
   }));

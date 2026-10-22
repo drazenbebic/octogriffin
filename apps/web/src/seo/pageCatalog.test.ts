@@ -39,6 +39,12 @@ describe('pageCatalog', () => {
     );
   });
 
+  it('dates sitemap entries by their last content change, not the build', () => {
+    for (const { lastModified } of sitemapEntries()) {
+      expect(lastModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+
   it.each(pagePaths)(
     'gives %s a description, canonical address and link preview',
     page => {
