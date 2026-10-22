@@ -6,6 +6,7 @@ import {
   GitPullRequestIcon,
   Globe02Icon,
   Settings02Icon,
+  ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
@@ -29,13 +30,21 @@ export default function DocsPage() {
         <div>
           <Heading level={1}>Octogriffin Documentation</Heading>
           <Content className="max-w-2xl" size="lg">
-            Welcome to the knowledge base. Whether you want to set up your local
-            environment, understand the architecture, or contribute to the
-            codebase, you are in the right place.
+            Welcome to the knowledge base. Whether you want to get more out of
+            Octogriffin, set up your local environment, understand the
+            architecture, or contribute to the codebase, you are in the right
+            place.
           </Content>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
+          <DocsCard
+            color="indigo"
+            description="Every GitHub event you can reward, and how pushes and other events are counted."
+            href="/docs/supported-github-events"
+            icon={<HugeiconsIcon icon={ZapIcon} size={24} />}
+            title="Supported GitHub Events"
+          />
           <DocsCard
             color="violet"
             description="Get your local environment running. Includes Docker, Prisma, and GitHub App configuration."

@@ -6,6 +6,7 @@ import {
   GitPullRequestIcon,
   Globe02Icon,
   Settings02Icon,
+  ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
@@ -23,6 +24,16 @@ export type DocsNavSection = {
 };
 
 export const docsNavigation: DocsNavSection[] = [
+  {
+    items: [
+      {
+        href: '/docs/supported-github-events',
+        icon: <HugeiconsIcon icon={ZapIcon} size={18} />,
+        title: 'Supported GitHub Events',
+      },
+    ],
+    title: 'Using Octogriffin',
+  },
   {
     items: [
       {

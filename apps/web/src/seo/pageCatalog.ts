@@ -26,7 +26,7 @@ const pages = {
       'The complete guide to Octogriffin. Explore documentation for installation, configuration, architecture, and contributing to the open-source codebase.',
     isDocs: true,
     title: 'Introduction',
-    updatedAt: '2026-05-31',
+    updatedAt: '2026-10-22',
   },
   '/docs/architecture': {
     description:
@@ -55,6 +55,13 @@ const pages = {
     isDocs: true,
     title: 'Setting up Ngrok',
     updatedAt: '2026-03-25',
+  },
+  '/docs/supported-github-events': {
+    description:
+      'Every GitHub event Octogriffin can turn into Habitica XP and Gold: pushes, pull requests, reviews, issues, releases, discussions, workflows and more.',
+    isDocs: true,
+    title: 'Supported GitHub Events',
+    updatedAt: '2026-10-22',
   },
   '/faq': {
     description:
