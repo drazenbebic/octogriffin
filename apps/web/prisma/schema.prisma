@@ -128,6 +128,30 @@ model WebhookLogs {
   @@map("webhook_logs")
 }
 
+// Plan changes from GitHub Marketplace. The account may never have signed in
+// to Octogriffin, so these rows stand on their own.
+model MarketplaceEvents {
+  id            BigInt   @id @default(autoincrement()) @map("id") @db.BigInt
+  uuid          String   @unique @default(uuid()) @map("uuid") @db.VarChar(36)
+  deliveryUuid  String   @unique @map("delivery_uuid") @db.VarChar(36)
+  action        String   @map("action") @db.VarChar(255)
+  accountId     BigInt   @map("account_id") @db.BigInt
+  accountLogin  String   @map("account_login") @db.VarChar(255)
+  accountType   String   @map("account_type") @db.VarChar(255)
+  senderId      BigInt   @map("sender_id") @db.BigInt
+  senderLogin   String   @map("sender_login") @db.VarChar(255)
+  planId        Int      @map("plan_id") @db.Integer
+  planName      String   @map("plan_name") @db.VarChar(255)
+  effectiveDate DateTime @map("effective_date")
+  // The full delivery, minus the organisation's billing email.
+  payload       Json     @map("payload")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@index([accountId])
+  @@map("marketplace_events")
+}
+
 enum Frequency {
   daily
   weekly

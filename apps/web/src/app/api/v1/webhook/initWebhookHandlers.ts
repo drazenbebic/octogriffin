@@ -12,6 +12,7 @@ import { handleInstallationRepositoriesAdded } from './handlers/handleInstallati
 import { handleInstallationRepositoriesRemoved } from './handlers/handleInstallationRepositoriesRemoved';
 import { handleInstallationSuspend } from './handlers/handleInstallationSuspend';
 import { handleInstallationUnsuspend } from './handlers/handleInstallationUnsuspend';
+import { handleMarketplacePurchase } from './handlers/handleMarketplacePurchase';
 import { handlePush } from './handlers/handlePush';
 import { handleUniversal } from './handlers/handleUniversal';
 import type {
@@ -32,6 +33,7 @@ export const dedicatedWebhookHandlerMap: {
   'installation.deleted': handleInstallationDeleted,
   'installation.suspend': handleInstallationSuspend,
   'installation.unsuspend': handleInstallationUnsuspend,
+  marketplace_purchase: handleMarketplacePurchase,
   push: handlePush,
 };
 

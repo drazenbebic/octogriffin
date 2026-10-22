@@ -7,6 +7,8 @@ export const dedicatedHandlerWebhooks = [
   'installation.deleted',
   'installation.suspend',
   'installation.unsuspend',
+  // marketplace_purchase
+  'marketplace_purchase',
   // push
   'push',
 ] as const;
