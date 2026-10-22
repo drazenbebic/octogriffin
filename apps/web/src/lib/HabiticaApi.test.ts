@@ -196,4 +196,66 @@ describe('@/lib/habitica-api.ts', () => {
       );
     });
   });
+
+  describe('rate limiting', () => {
+    const mockRateLimitResponse = (retryAfter?: string) => {
+      mockFetch.mockResolvedValueOnce({
+        headers: {
+          get: (name: string) =>
+            name.toLowerCase() === 'retry-after' ? (retryAfter ?? null) : null,
+        },
+        ok: false,
+        status: 429,
+        statusText: 'Too Many Requests',
+        text: async () => 'Too many requests',
+      });
+    };
+
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('should wait for Retry-After and try again', async () => {
+      mockRateLimitResponse('2');
+      mockSuccessResponse({ delta: 1 });
+
+      const request = api.scoreTask('task-1', TaskDirection.UP);
+
+      await jest.advanceTimersByTimeAsync(1_999);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+
+      await jest.advanceTimersByTimeAsync(1);
+      await expect(request).resolves.toEqual({ delta: 1 });
+      expect(mockFetch).toHaveBeenCalledTimes(2);
+    });
+
+    it('should give up when Habitica asks to wait too long', async () => {
+      mockRateLimitResponse('60');
+
+      await expect(api.scoreTask('task-1', TaskDirection.UP)).rejects.toThrow(
+        'Habitica API Error [429]',
+      );
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should stop retrying after a few attempts', async () => {
+      mockRateLimitResponse('1');
+      mockRateLimitResponse('1');
+      mockRateLimitResponse('1');
+      mockRateLimitResponse('1');
+
+      const request = api.scoreTask('task-1', TaskDirection.UP);
+      const assertion = expect(request).rejects.toThrow(
+        'Habitica API Error [429]',
+      );
+
+      await jest.advanceTimersByTimeAsync(3_000);
+      await assertion;
+      expect(mockFetch).toHaveBeenCalledTimes(4);
+    });
+  });
 });

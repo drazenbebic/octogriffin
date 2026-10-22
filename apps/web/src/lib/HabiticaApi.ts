@@ -10,6 +10,38 @@ import type {
 
 const BASE_URL = 'https://habitica.com/api/v3';
 
+const TOO_MANY_REQUESTS = 429;
+const MAX_RATE_LIMIT_RETRIES = 3;
+// Webhooks must finish within a minute, so don't wait longer than this.
+const MAX_RATE_LIMIT_WAIT_MS = 15_000;
+const DEFAULT_RATE_LIMIT_WAIT_MS = 1_000;
+
+/**
+ * How long Habitica asks us to wait before retrying, from `Retry-After`
+ * (seconds or an HTTP date).
+ */
+const getRetryAfterMs = (response: Response) => {
+  const retryAfter = response.headers.get('retry-after');
+
+  if (!retryAfter) {
+    return DEFAULT_RATE_LIMIT_WAIT_MS;
+  }
+
+  const seconds = Number(retryAfter);
+
+  if (!Number.isNaN(seconds)) {
+    return seconds * 1_000;
+  }
+
+  const date = Date.parse(retryAfter);
+
+  return Number.isNaN(date)
+    ? DEFAULT_RATE_LIMIT_WAIT_MS
+    : Math.max(0, date - Date.now());
+};
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export class HabiticaApiError extends Error {
   constructor(
     message: string,
@@ -41,14 +73,27 @@ class HabiticaApi {
   ): Promise<T> {
     const url = `${BASE_URL}${endpoint}`;
 
-    const response = await fetch(url, {
-      cache: 'no-store',
-      ...options,
-      headers: {
-        ...this.headers,
-        ...options.headers,
-      },
-    });
+    let response = await this.fetch(url, options);
+
+    // Respect Habitica's rate limit, as long as the wait stays reasonable
+    for (
+      let attempt = 1;
+      response.status === TOO_MANY_REQUESTS &&
+      attempt <= MAX_RATE_LIMIT_RETRIES;
+      attempt++
+    ) {
+      const waitMs = getRetryAfterMs(response);
+
+      if (waitMs > MAX_RATE_LIMIT_WAIT_MS) {
+        break;
+      }
+
+      logger.warn({ attempt, endpoint, waitMs }, 'Habitica rate limit hit.');
+
+      await wait(waitMs);
+
+      response = await this.fetch(url, options);
+    }
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -62,6 +107,17 @@ class HabiticaApi {
     const json = (await response.json()) as APIResponse<T>;
 
     return json.data;
+  }
+
+  private fetch(url: string, options: RequestInit) {
+    return fetch(url, {
+      cache: 'no-store',
+      ...options,
+      headers: {
+        ...this.headers,
+        ...options.headers,
+      },
+    });
   }
 
   createTask = (payload: CreateTaskParameters) => {
