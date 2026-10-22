@@ -1,6 +1,8 @@
 import type { Organization, Person } from 'schema-dts';
 
 import { absoluteUrl, pageUrl } from '@/seo/pageCatalog';
+import { githubAppUrl } from '@/utils/githubAppUrl';
+import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const AUTHOR_PERSON: Person = {
   '@type': 'Person',
@@ -24,6 +26,12 @@ export const AUTHOR_PERSON: Person = {
   url: 'https://bebic.dev',
 };
 
+// Other pages that represent Octogriffin itself.
+export const OCTOGRIFFIN_SAME_AS = [
+  githubRepositoryUrl(),
+  githubAppUrl(),
+].filter(Boolean);
+
 export const OCTOGRIFFIN_ORG: Organization = {
   '@type': 'Organization',
   address: {
@@ -43,5 +51,6 @@ export const OCTOGRIFFIN_ORG: Organization = {
     url: absoluteUrl('/octogriffin_logo_square.png'),
   },
   name: 'Octogriffin',
+  sameAs: OCTOGRIFFIN_SAME_AS,
   url: pageUrl('/'),
 };

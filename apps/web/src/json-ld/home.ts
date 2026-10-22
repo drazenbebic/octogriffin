@@ -2,7 +2,7 @@ import type { WebApplication, WithContext } from 'schema-dts';
 
 import { ogImageUrl, pageUrl } from '@/seo/pageCatalog';
 
-import { AUTHOR_PERSON, OCTOGRIFFIN_ORG } from './shared';
+import { AUTHOR_PERSON, OCTOGRIFFIN_ORG, OCTOGRIFFIN_SAME_AS } from './shared';
 
 export const homeJsonLd: WithContext<WebApplication> = {
   '@context': 'https://schema.org',
@@ -32,6 +32,7 @@ export const homeJsonLd: WithContext<WebApplication> = {
   },
   operatingSystem: 'Any',
   publisher: OCTOGRIFFIN_ORG,
+  sameAs: OCTOGRIFFIN_SAME_AS,
   screenshot: ogImageUrl,
   url: pageUrl('/'),
 };
