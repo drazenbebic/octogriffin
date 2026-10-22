@@ -5,14 +5,15 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  pull-requests: write
-  deployments: write
+# Each job asks for what it needs
+permissions: {}
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     outputs:
       web_released: ${{ steps.release.outputs['apps/web--release_created'] }}
     steps:
@@ -27,11 +28,18 @@ jobs:
     needs: release-please
     if: ${{ needs.release-please.outputs.web_released == 'true' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    # Never run two production deploys at once
+    concurrency:
+      group: production-deploy
+      cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: npm install --global vercel@65
 
       - name: Create GitHub Deployment
         uses: chrnorm/deployment-action@v2
@@ -46,7 +54,7 @@ jobs:
         id: vercel
         run: |
           URL=$(vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }})
-          echo "url=$URL" >> $GITHUB_OUTPUT
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
