@@ -113,12 +113,23 @@ export const pageUrl = (path: PagePath) => absoluteUrl(path);
 
 export const ogImageUrl = absoluteUrl('/og-image.png');
 
+/**
+ * The title shown in search results, browser tabs and link previews alike.
+ * The home page title already names Octogriffin, so it gets no suffix.
+ */
+const fullTitle = (path: PagePath) => {
+  const { isDocs, title }: Page = pages[path];
+
+  if (path === '/') {
+    return title;
+  }
+
+  return `${title} | ${isDocs ? 'Octogriffin Docs' : 'Octogriffin'}`;
+};
+
 export const pageMetadata = (path: PagePath): Metadata => {
-  const { description, isDocs, title }: Page = pages[path];
-  const socialTitle =
-    path === '/'
-      ? title
-      : `${title} - ${isDocs ? 'Octogriffin Docs' : 'Octogriffin'}`;
+  const { description }: Page = pages[path];
+  const title = fullTitle(path);
 
   return {
     description,
@@ -134,16 +145,16 @@ export const pageMetadata = (path: PagePath): Metadata => {
       ],
       locale: 'en_US',
       siteName: 'Octogriffin',
-      title: socialTitle,
+      title,
       type: 'website',
       url: pageUrl(path),
     },
-    title,
+    title: { absolute: title },
     twitter: {
       card: 'summary_large_image',
       description,
       images: [ogImageUrl],
-      title: socialTitle,
+      title,
     },
   };
 };

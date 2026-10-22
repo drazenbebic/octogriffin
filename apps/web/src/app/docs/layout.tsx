@@ -1,16 +1,8 @@
 import './DocsPage.scss';
 
-import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 import { DocsSidebar } from '@/components/docs/DocsSidebar';
-
-export const metadata: Metadata = {
-  title: {
-    default: 'Octogriffin Docs',
-    template: '%s | Octogriffin Docs',
-  },
-};
 
 export default function DocsLayout({ children }: { children: ReactNode }) {
   return (

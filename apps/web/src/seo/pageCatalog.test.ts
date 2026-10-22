@@ -47,4 +47,16 @@ describe('pageCatalog', () => {
       new URL(page, 'https://octogriffin.com').toString(),
     );
   });
+
+  it.each(pagePaths)(
+    'shows %s with the same title in search results and link previews',
+    page => {
+      const metadata = pageMetadata(page);
+      const { absolute } = metadata.title as { absolute: string };
+
+      expect(absolute).toMatch(/Octogriffin/);
+      expect(metadata.openGraph?.title).toBe(absolute);
+      expect(metadata.twitter?.title).toBe(absolute);
+    },
+  );
 });
