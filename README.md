@@ -36,7 +36,7 @@ It is built with **Next.js**, **Prisma**, and **PostgreSQL**.
 ## Features
 
 - **Automated Rewards**:
-  - **Push Commits**: Earn XP for every commit (with configurable anti-spam caps).
+  - **Push Commits**: Earn XP for every commit, up to 10 per push and trigger (configurable with `MAX_REWARDS_PER_EVENT`).
   - **Pull Requests**: Get a large XP boost for opening and merging PRs.
   - **Code Reviews**: Incentivize team collaboration by rewarding code reviews.
 - **Bank-Grade Security**:
@@ -63,6 +63,7 @@ If you simply want to connect your repositories to Habitica, you do not need to 
 Follow our **[Installation Guide](https://octogriffin.com/installation)** to get started in minutes.
 
 ### For Developers
+
 We have moved our technical setup instructions to our documentation portal.
 
 To run the project locally (including Docker, Ngrok, and GitHub App configuration), please see the **[Developer Setup Guide](https://octogriffin.com/docs/dev-setup)**.
@@ -71,10 +72,10 @@ To run the project locally (including Docker, Ngrok, and GitHub App configuratio
 
 We welcome contributions! Please read our **[Contribution Guide](https://octogriffin.com/docs/how-to-contribute)** for details on our:
 
-* Branching strategy
-* Commit conventions (Conventional Commits)
-* Pull Request process
-* Design system standards
+- Branching strategy
+- Commit conventions (Conventional Commits)
+- Pull Request process
+- Design system standards
 
 Please ensure you check the [Roadmap](https://octogriffin.com/roadmap) before starting large features.
 

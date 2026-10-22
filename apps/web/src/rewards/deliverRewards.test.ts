@@ -146,6 +146,40 @@ describe('deliverRewards', () => {
     ]);
   });
 
+  it('caps how often one event can score a trigger', async () => {
+    const { applied, sink } = recordingSink();
+    const { log } = recordingLog();
+
+    await deliverRewards(
+      makeEvent({
+        contributions: [{ actor: { login: 'octocat' }, count: 250 }],
+      }),
+      { directory: inMemoryDirectory([makeUser()]), log, sink },
+    );
+
+    expect(applied[0].rewards[0].times).toBe(10);
+  });
+
+  it('lets the instance change the cap', async () => {
+    const { applied, sink } = recordingSink();
+    const { log } = recordingLog();
+
+    process.env.MAX_REWARDS_PER_EVENT = '3';
+
+    try {
+      await deliverRewards(
+        makeEvent({
+          contributions: [{ actor: { login: 'octocat' }, count: 5 }],
+        }),
+        { directory: inMemoryDirectory([makeUser()]), log, sink },
+      );
+    } finally {
+      delete process.env.MAX_REWARDS_PER_EVENT;
+    }
+
+    expect(applied[0].rewards[0].times).toBe(3);
+  });
+
   it('matches event senders by GitHub ID', async () => {
     const { applied, sink } = recordingSink();
     const { log } = recordingLog();

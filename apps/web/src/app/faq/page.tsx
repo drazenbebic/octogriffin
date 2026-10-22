@@ -174,8 +174,10 @@ const gameplay: FAQ[] = [
   {
     answer: (
       <Content>
-        Currently, we operate on the &quot;honor system.&quot; However, Smart
-        Spam Detection and Daily Caps are top priorities in our upcoming{' '}
+        A single push rewards each trigger at most 10 times, no matter how many
+        commits it contains. Beyond that, we operate on the &quot;honor
+        system.&quot; Smart Spam Detection and Daily Caps are top priorities in
+        our upcoming{' '}
         <Link className="text-violet-600 hover:underline" href="/roadmap">
           Anti-Cheese
         </Link>{' '}
