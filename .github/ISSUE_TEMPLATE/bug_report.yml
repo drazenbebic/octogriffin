@@ -1,0 +1,52 @@
+name: Bug report
+description: Something isn't working as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug!
+        **Never** paste your Habitica API token or any other secret here. Security issues go through [SECURITY.md](https://github.com/drazenbebic/octogriffin/blob/main/SECURITY.md), not public issues.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Create a trigger for the "Push" event
+        2. Push a commit to the repository
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: event
+    attributes:
+      label: GitHub event
+      description: Which GitHub event was involved, if any?
+      placeholder: e.g. Push, Pull request, Pull request review
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did it happen?
+      options:
+        - octogriffin.com
+        - Self-hosted / local development
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      description: For problems with the website or dashboard.
+      placeholder: e.g. Firefox 140 on macOS
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, error messages or logs (with secrets removed).

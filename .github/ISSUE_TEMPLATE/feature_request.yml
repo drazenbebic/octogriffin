@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest an idea for Octogriffin
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Please check the [roadmap](https://octogriffin.com/roadmap) and existing issues first, it may already be planned.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: Describe the problem or the habit you want to build, not only the solution.
+      placeholder: I'd like to lose Health when a pull request of mine gets changes requested...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: How could Octogriffin help?
+      description: What would the feature look like for you?
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Contributing
+      options:
+        - label: I'd like to work on this myself

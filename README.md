@@ -7,14 +7,14 @@
   </p>
 
   <p>
-    <a href="https://github.com/drazenbebic/habitica/actions/workflows/release-deploy.yaml">
-      <img src="https://img.shields.io/github/actions/workflow/status/drazenbebic/habitica/release-deploy.yaml?branch=main" alt="Build Status">
+    <a href="https://github.com/drazenbebic/octogriffin/actions/workflows/ci.yaml">
+      <img src="https://img.shields.io/github/actions/workflow/status/drazenbebic/octogriffin/ci.yaml?branch=main&label=CI" alt="CI Status">
+    </a>
+    <a href="https://github.com/drazenbebic/octogriffin/actions/workflows/release-deploy.yaml">
+      <img src="https://img.shields.io/github/actions/workflow/status/drazenbebic/octogriffin/release-deploy.yaml?branch=main&label=deploy" alt="Deploy Status">
     </a>
     <a href="LICENSE">
       <img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="License: AGPL v3">
-    </a>
-    <a href="https://twitter.com/drazenbebic">
-      <img src="https://img.shields.io/twitter/follow/drazenbebic?style=social" alt="Follow on Twitter">
     </a>
   </p>
 
@@ -29,31 +29,33 @@
 
 ## About
 
-**Octogriffin** acts as a bridge between your GitHub workflow and your Habitica RPG character. Instead of manually checking off "Did code today" tasks, this application listens to GitHub webhooks and automatically rewards you based on the complexity and impact of your work.
+**Octogriffin** acts as a bridge between your GitHub workflow and your Habitica RPG character. Instead of manually checking off "Did code today" tasks, it listens to GitHub webhooks and scores Habitica habits for you whenever you push, open a pull request, review code and more.
 
-It is built with **Next.js**, **Prisma**, and **PostgreSQL**.
+It is built with **Next.js**, **Prisma** and **PostgreSQL**, and runs as a GitHub App.
 
 ## Features
 
-- **Automated Rewards**:
-  - **Push Commits**: Earn XP for every commit, up to 10 per push and trigger (configurable with `MAX_REWARDS_PER_EVENT`).
-  - **Pull Requests**: Get a large XP boost for opening and merging PRs.
-  - **Code Reviews**: Incentivize team collaboration by rewarding code reviews.
-- **Bank-Grade Security**:
-  - **AES-256 Encryption**: User API tokens are encrypted at rest.
-  - **Webhook Verification**: Strictly verifies GitHub SHA-256 signatures to prevent spoofing.
-- **Configurable**: Define your own difficulty multipliers (e.g., "Hard Mode" for legacy repos).
-- **Open Source**: Licensed under AGPLv3.
+- **Triggers you define**: Pick a GitHub event and the Habitica habit it should score. Commits, pull requests, reviews, issues, releases, stars and [many more events](https://octogriffin.com/docs/supported-github-events) are supported.
+- **Your rules**:
+  - **Difficulty**: Trivial, Easy, Medium or Hard.
+  - **Direction**: Earn XP and Gold, or lose Health for habits you want to break.
+  - **Scope**: Apply a trigger to all your repositories or only to selected ones.
+- **Fair rewards**: A trigger scores at most 10 times per event (for example a push with 50 commits). Self-hosters can change this with `MAX_REWARDS_PER_EVENT`.
+- **Security first**:
+  - **AES-256-GCM encryption**: Your Habitica API token is encrypted at rest and never sent to the browser.
+  - **Webhook verification**: Every GitHub delivery is checked against its SHA-256 signature.
+- **Open source**: Licensed under AGPLv3.
 
 ## Tech Stack
 
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
-- **Database**: PostgreSQL (via Neon or Docker)
-- **ORM**: [Prisma](https://www.prisma.io/)
-- **Encryption**: AES-256-GCM
-- **Styling**: Tailwind CSS
-- **Authentication**: NextAuth.js / GitHub OAuth
-- **Deployment**: Vercel
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router), React 19
+- **Database**: PostgreSQL (Neon in production, Docker locally)
+- **ORM**: [Prisma 7](https://www.prisma.io/)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/) with GitHub OAuth
+- **Styling**: Tailwind CSS 4, Ariakit, Hugeicons
+- **Testing**: Jest, Testing Library
+- **Tooling**: pnpm workspaces, ESLint, Prettier, Husky, commitlint
+- **Releases**: [Release Please](https://github.com/googleapis/release-please), deployed to Vercel
 
 ## Getting Started
 
@@ -64,20 +66,57 @@ Follow our **[Installation Guide](https://octogriffin.com/installation)** to get
 
 ### For Developers
 
-We have moved our technical setup instructions to our documentation portal.
+You need Node.js 22 or newer (CI uses 24), pnpm (the version is pinned in `package.json`, `corepack enable` picks it up) and Docker.
 
-To run the project locally (including Docker, Ngrok, and GitHub App configuration), please see the **[Developer Setup Guide](https://octogriffin.com/docs/dev-setup)**.
+```bash
+git clone https://github.com/drazenbebic/octogriffin.git
+cd octogriffin
+pnpm install
+
+# Start PostgreSQL (and pgAdmin on http://localhost:5050)
+cp .env.example .env
+docker compose up -d
+
+# Configure the web app, then fill in the values
+cp apps/web/.env.local.example apps/web/.env
+
+# Create the database tables and start the dev server
+pnpm --filter @octogriffin/web prisma:migrate:dev
+pnpm dev
+```
+
+The app runs on [http://localhost:3000](http://localhost:3000). To receive webhooks you also need your own GitHub App and a public tunnel to your machine. The **[Developer Setup Guide](https://octogriffin.com/docs/dev-setup)** walks you through both, and the **[Architecture overview](https://octogriffin.com/docs/architecture)** explains how the pieces fit together.
+
+| Command      | What it does                                       |
+| ------------ | -------------------------------------------------- |
+| `pnpm dev`   | Start the dev servers                              |
+| `pnpm lint`  | Run ESLint                                         |
+| `pnpm test`  | Run the Jest test suites                           |
+| `pnpm build` | Build every app (runs database migrations as well) |
+| `pnpm knip`  | Find unused files, exports and dependencies        |
+
+### Repository Layout
+
+```
+apps/
+  web/   Next.js app: website, docs, dashboard and the GitHub webhook endpoint
+  api/   Standalone API (Hono), early stage
+```
 
 ## Contributing
 
-We welcome contributions! Please read our **[Contribution Guide](https://octogriffin.com/docs/how-to-contribute)** for details on our:
+We welcome contributions! Please read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening a pull request. It covers:
 
-- Branching strategy
-- Commit conventions (Conventional Commits)
-- Pull Request process
-- Design system standards
+- Finding something to work on
+- Branch names and commit conventions (Conventional Commits)
+- Checks that must pass
+- The pull request process
 
-Please ensure you check the [Roadmap](https://octogriffin.com/roadmap) before starting large features.
+Please check the [Roadmap](https://octogriffin.com/roadmap) and open an issue before starting large features.
+
+## Security
+
+Found a vulnerability? Please **do not** open a public issue. See **[SECURITY.md](SECURITY.md)** for how to report it privately.
 
 ## Sponsors
 
@@ -95,11 +134,12 @@ Alternatively you can also support me on [Ko-fi](https://ko-fi.com/drazen).
 
 ## License
 
-Distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). See `LICENSE.md` for more information.
+Distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). See [`LICENSE`](LICENSE) for more information.
 
 ## Author
 
 Drazen Bebic
 
 - Website: [www.bebic.dev](https://www.bebic.dev)
-- GitHub: [@drazenbebic](https://github.com/drazenbebic/)
+- X: [@drazenbebic](https://x.com/drazenbebic)
+- LinkedIn: [Drazen Bebic](https://www.linkedin.com/in/drazenbebic/)
