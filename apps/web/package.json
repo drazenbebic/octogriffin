@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "next dev",
-    "build": "prisma migrate deploy && next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "analyze": "ANALYZE=true next build --webpack",
     "analyze:turbopack": "next experimental-analyze",
