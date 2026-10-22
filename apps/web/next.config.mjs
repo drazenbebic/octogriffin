@@ -16,16 +16,12 @@ const nextConfig = {
     inlineCss: true,
   },
   images: {
-    dangerouslyAllowSVG: true,
     formats: ['image/avif', 'image/webp'],
     qualities: [60, 75],
+    // GitHub profile pictures are the only images from elsewhere
     remotePatterns: [
       {
-        hostname: '*.googleusercontent.com',
-        protocol: 'https',
-      },
-      {
-        hostname: '*.githubusercontent.com',
+        hostname: 'avatars.githubusercontent.com',
         protocol: 'https',
       },
     ],
