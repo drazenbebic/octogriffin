@@ -77,6 +77,13 @@ export const TriggerModal: FC<TriggerModalProps> = ({
   const form = useFormStore<TriggerSchema>({ setValues, values });
   const [isPending, startTransition] = useTransition();
   const repositoryOptions = useRepositoryOptions(repositories);
+  // The pickers keep their own selection, so they're remounted on reset
+  const [resetCount, setResetCount] = useState(0);
+
+  const resetForm = () => {
+    form.reset();
+    setResetCount(count => count + 1);
+  };
 
   form.useSubmit(async state => {
     const validation = triggerSchema.safeParse(state.values);
@@ -106,7 +113,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
         );
 
         if (!isEdit) {
-          form.reset();
+          resetForm();
         }
 
         setOpenAction(false);
@@ -117,9 +124,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
 
   const handleDialogClose = () => {
     if (!isEdit) {
-      setTimeout(() => {
-        form.reset();
-      }, 300);
+      setTimeout(resetForm, 300);
     }
   };
 
@@ -172,6 +177,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
               <CardBody className="grid gap-4 sm:grid-cols-2" padding="sm">
                 <FormCombobox
                   items={githubEventOptions}
+                  key={`event-${resetCount}`}
                   label="Event"
                   name="event"
                   placeholder="Select a GitHub event..."
@@ -180,6 +186,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
 
                 <FormCombobox
                   items={repositoryOptions}
+                  key={`repositories-${resetCount}`}
                   label="Repositories"
                   multiple
                   name="repositories"
