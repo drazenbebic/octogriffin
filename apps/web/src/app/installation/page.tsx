@@ -138,8 +138,13 @@ export default function InstallationPage() {
                 </Heading>
                 <Content className="mt-2" size="sm">
                   You will be redirected to the dashboard. Enter your Habitica{' '}
-                  <strong>User ID</strong> and <strong>API Token</strong> (found
-                  in Dashboard &gt; Settings).
+                  <strong>User ID</strong> and <strong>API Token</strong>.{' '}
+                  <Link
+                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                    href="/docs/habitica-api-token"
+                  >
+                    Where do I find them?
+                  </Link>
                 </Content>
               </div>
             </div>

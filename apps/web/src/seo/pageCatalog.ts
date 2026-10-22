@@ -42,6 +42,13 @@ const pages = {
     title: 'Development Setup',
     updatedAt: '2026-03-25',
   },
+  '/docs/habitica-api-token': {
+    description:
+      'Where to find your Habitica User ID and API Token, and how to add them to Octogriffin so your GitHub activity earns XP and Gold.',
+    isDocs: true,
+    title: 'Find Your Habitica User ID and API Token',
+    updatedAt: '2026-10-22',
+  },
   '/docs/how-to-contribute': {
     description:
       'Guidelines for contributing to Octogriffin. Learn about our branching strategy, commit conventions, and pull request process.',

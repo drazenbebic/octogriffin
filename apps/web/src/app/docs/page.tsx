@@ -5,6 +5,7 @@ import {
   GithubIcon,
   GitPullRequestIcon,
   Globe02Icon,
+  Key01Icon,
   Settings02Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
@@ -38,6 +39,13 @@ export default function DocsPage() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
+          <DocsCard
+            color="emerald"
+            description="Where Habitica keeps your User ID and API Token, and how to connect them."
+            href="/docs/habitica-api-token"
+            icon={<HugeiconsIcon icon={Key01Icon} size={24} />}
+            title="Habitica API Token"
+          />
           <DocsCard
             color="indigo"
             description="Every GitHub event you can reward, and how pushes and other events are counted."

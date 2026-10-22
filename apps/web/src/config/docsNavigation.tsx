@@ -5,6 +5,7 @@ import {
   CodeCircleIcon,
   GitPullRequestIcon,
   Globe02Icon,
+  Key01Icon,
   Settings02Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
@@ -26,6 +27,11 @@ export type DocsNavSection = {
 export const docsNavigation: DocsNavSection[] = [
   {
     items: [
+      {
+        href: '/docs/habitica-api-token',
+        icon: <HugeiconsIcon icon={Key01Icon} size={18} />,
+        title: 'Habitica API Token',
+      },
       {
         href: '/docs/supported-github-events',
         icon: <HugeiconsIcon icon={ZapIcon} size={18} />,

@@ -1,18 +1,23 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @source "./src/**/*.{js,ts,jsx,tsx,mdx}";
 
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
 
-    @keyframes breathe {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.85; }
+  @keyframes breathe {
+    0%,
+    100% {
+      opacity: 1;
     }
+    50% {
+      opacity: 0.85;
+    }
+  }
 }
 
 .top-docs-sidebar {
-    top: 129px;
+  top: 129px;
 }
