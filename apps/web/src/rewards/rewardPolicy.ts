@@ -92,7 +92,7 @@ export const evaluateRewards = async (
 
   const plan = users
     // Only the owner of the installation is rewarded for its events.
-    .filter(user => user.installationId === event.installationId)
+    .filter(user => user.installationIds.includes(event.installationId))
     .map(user => {
       const times = Math.min(
         contributions

@@ -8,10 +8,6 @@ async function createSeededUser(index: number) {
   return prisma.$transaction(async tx => {
     const installationId = faker.number.int({ max: 2147483647, min: 1 });
 
-    const installation = await tx.githubInstallations.create({
-      data: { installationId },
-    });
-
     const githubUser = await tx.githubUsers.create({
       data: {
         avatarUrl: faker.image.avatar(),
@@ -19,12 +15,15 @@ async function createSeededUser(index: number) {
         githubId: faker.number.int({ max: 9999999 }),
         gravatarId: '',
         htmlUrl: faker.internet.url(),
-        installationId: installation.id,
         login: faker.internet.username() + index,
         name: faker.person.fullName(),
         nodeId: faker.string.alphanumeric(20),
         type: 'User',
       },
+    });
+
+    const installation = await tx.githubInstallations.create({
+      data: { githubUserId: githubUser.id, installationId },
     });
 
     await tx.habiticaUsers.create({

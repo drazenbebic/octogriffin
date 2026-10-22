@@ -11,13 +11,15 @@ export async function getUserProfileAction() {
       email: githubUser.email,
       githubUrl: githubUser.htmlUrl,
       handle: githubUser.login,
-      hasInstallation: !githubUser.installation.suspended,
+      hasInstallation: githubUser.installations.some(
+        installation => !installation.suspended,
+      ),
       isLinked: !!githubUser.habiticaUser,
       joinedAt: githubUser.id,
       location: githubUser.location,
       name: githubUser.name || githubUser.login,
       website: githubUser.blog,
     }),
-    { habiticaUser: true, installation: true },
+    { habiticaUser: true, installations: true },
   );
 }

@@ -149,7 +149,7 @@ export const RepositoryListCard: FC = () => {
             </>
           ) : (
             <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-4 text-center text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-400">
-              No repositories found in this installation.
+              No repositories found in your installations.
             </div>
           )}
 

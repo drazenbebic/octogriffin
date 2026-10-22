@@ -1,7 +1,11 @@
 import prisma from '@/lib/prisma';
 
-export const getAllRepositories = (installationId: bigint | number) => {
+/**
+ * The repositories of all installations of a user.
+ */
+export const getAllRepositories = (githubUserId: bigint | number) => {
   return prisma.githubSelectedRepositories.findMany({
-    where: { installationId },
+    orderBy: { createdAt: 'desc' },
+    where: { installation: { githubUserId } },
   });
 };

@@ -85,7 +85,7 @@ export type LinkedUser = {
   credentials: UserCredentials;
   githubId: number;
   id: bigint;
-  installationId: number;
+  installationIds: number[];
   login: string;
   triggers: TriggerRule[];
 };

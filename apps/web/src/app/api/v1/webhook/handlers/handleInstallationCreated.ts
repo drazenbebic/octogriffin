@@ -27,14 +27,15 @@ export const handleInstallationCreated = async ({
       sender,
       repositories || [],
     );
-
-    logger.info(
-      { count: repositories?.length || 0 },
-      'Initial repositories added.',
-    );
   } catch (error) {
     logger.error({ error }, 'Installation failed.');
+
+    // Fail the delivery, so it's retried
+    throw error;
   }
 
-  logger.info({ installationId: installation.id }, 'Installation created.');
+  logger.info(
+    { count: repositories?.length || 0, installationId: installation.id },
+    'Installation created.',
+  );
 };

@@ -1,3 +1,4 @@
+import { releaseGithubLogin } from '@/accessors/githubUser';
 import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
@@ -65,13 +66,27 @@ export const updateGithubInstallation = async (
   });
 };
 
+/**
+ * Deletes an installation. Removing the app from the user's last account
+ * deletes the user and everything we keep about them, too.
+ */
 export const deleteGithubInstallation = async (
   installationId: bigint | number,
 ) => {
-  return prisma.githubInstallations.delete({
-    where: {
-      installationId: Number(installationId),
-    },
+  return prisma.$transaction(async tx => {
+    const { githubUserId } = await tx.githubInstallations.delete({
+      where: {
+        installationId: Number(installationId),
+      },
+    });
+
+    const remainingInstallations = await tx.githubInstallations.count({
+      where: { githubUserId },
+    });
+
+    if (remainingInstallations === 0) {
+      await tx.githubUsers.delete({ where: { id: githubUserId } });
+    }
   });
 };
 
@@ -110,30 +125,42 @@ export const addSelectedRepositories = async (
   });
 };
 
+/**
+ * Saves a new installation for whoever installed the app. They may already
+ * have installed it on another account.
+ */
 export const initializeGithubInstallation = async (
   installation: GithubInstallation,
   sender: GithubSender,
   repositories: GithubRepository[],
 ) => {
   return prisma.$transaction(async tx => {
-    const githubInstallation = await tx.githubInstallations.create({
-      data: {
-        installationId: installation.id,
-      },
-    });
+    await releaseGithubLogin(tx, sender.login, sender.id);
 
-    await tx.githubUsers.create({
-      data: {
+    const githubUser = await tx.githubUsers.upsert({
+      create: {
         avatarUrl: sender.avatar_url,
         email: sender.email,
         githubId: sender.id,
         gravatarId: sender.gravatar_id,
         htmlUrl: sender.html_url,
-        installationId: githubInstallation.id,
         login: sender.login,
         name: sender.name,
         nodeId: sender.node_id,
         type: sender.type,
+      },
+      update: {
+        avatarUrl: sender.avatar_url,
+        htmlUrl: sender.html_url,
+        login: sender.login,
+      },
+      where: { githubId: sender.id },
+    });
+
+    const githubInstallation = await tx.githubInstallations.create({
+      data: {
+        githubUserId: githubUser.id,
+        installationId: installation.id,
       },
     });
 

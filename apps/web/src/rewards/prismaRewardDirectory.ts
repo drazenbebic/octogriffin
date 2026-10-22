@@ -16,7 +16,7 @@ export const prismaRewardDirectory: RewardDirectory = {
     const users = await prisma.githubUsers.findMany({
       include: {
         habiticaUser: true,
-        installation: { select: { installationId: true } },
+        installations: { select: { installationId: true } },
         triggers: {
           include: {
             repositories: { select: { githubRepositoryId: true } },
@@ -46,7 +46,9 @@ export const prismaRewardDirectory: RewardDirectory = {
               },
               githubId: user.githubId,
               id: user.id,
-              installationId: user.installation.installationId,
+              installationIds: user.installations.map(
+                ({ installationId }) => installationId,
+              ),
               login: user.login,
               triggers: user.triggers.map(trigger => ({
                 ...trigger,

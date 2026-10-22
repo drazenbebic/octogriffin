@@ -44,7 +44,7 @@ const makeUser = (overrides: Partial<LinkedUser> = {}): LinkedUser => ({
   credentials: { apiToken: 'habitica-token', userId: 'habitica-user' },
   githubId: 42,
   id: BigInt(1),
-  installationId: INSTALLATION_ID,
+  installationIds: [INSTALLATION_ID],
   login: 'octocat',
   triggers: [makeTrigger()],
   ...overrides,
@@ -272,7 +272,7 @@ describe('deliverRewards', () => {
   it('only rewards the owner of the installation', async () => {
     const { applied, sink } = recordingSink();
     const { log } = recordingLog();
-    const stranger = makeUser({ installationId: 999 });
+    const stranger = makeUser({ installationIds: [999] });
 
     await deliverRewards(makeEvent(), {
       directory: inMemoryDirectory([stranger]),
@@ -281,6 +281,20 @@ describe('deliverRewards', () => {
     });
 
     expect(applied).toHaveLength(0);
+  });
+
+  it('rewards the owner of any of their installations', async () => {
+    const { applied, sink } = recordingSink();
+    const { log } = recordingLog();
+    const owner = makeUser({ installationIds: [999, INSTALLATION_ID] });
+
+    await deliverRewards(makeEvent(), {
+      directory: inMemoryDirectory([owner]),
+      log,
+      sink,
+    });
+
+    expect(applied).toHaveLength(1);
   });
 
   it('skips users without matching triggers', async () => {
