@@ -4,7 +4,6 @@ import {
   Webhooks,
 } from '@octokit/webhooks';
 
-import { getGithubUserBySenderId } from '@/accessors/githubUser';
 import logger from '@/lib/logger';
 
 import { handleInstallationCreated } from './handlers/handleInstallationCreated';
@@ -13,12 +12,10 @@ import { handleInstallationRepositoriesAdded } from './handlers/handleInstallati
 import { handleInstallationRepositoriesRemoved } from './handlers/handleInstallationRepositoriesRemoved';
 import { handleInstallationSuspend } from './handlers/handleInstallationSuspend';
 import { handleInstallationUnsuspend } from './handlers/handleInstallationUnsuspend';
-import { handleLogWebhook } from './handlers/handleLogWebhook';
 import { handlePush } from './handlers/handlePush';
 import { handleUniversal } from './handlers/handleUniversal';
 import {
   DedicatedWebhookEvents,
-  supportedWebhooks,
   universalHandlerWebhooks,
   UniversalWebhookEvents,
 } from './webhookConstants';
@@ -77,50 +74,6 @@ export const initWebhookHandlers = (webhooks: Webhooks) => {
       return webhookHandler(params, event as EmitterWebhookEventName);
     });
   }
-
-  // Run webhook logger separately
-  webhooks.onAny(async event => {
-    const isSupported = supportedWebhooks.some(webhook =>
-      webhook.includes(event.name),
-    );
-
-    if (!isSupported) {
-      logger.info({ eventName: event.name }, 'Ignored: Unsupported Webhook');
-
-      return;
-    }
-
-    const senderId = event.payload.sender?.id;
-
-    if (!senderId) {
-      logger.info({ eventName: event.name }, 'Ignored: No sender ID.');
-
-      return;
-    }
-
-    const githubUser = await getGithubUserBySenderId(senderId, {
-      triggers: {
-        where: {
-          isActive: true,
-          event: event.name,
-        },
-      },
-    });
-
-    if (!githubUser) {
-      logger.info({ eventName: event.name }, 'Ignored: GitHub User not found.');
-
-      return;
-    }
-
-    if (githubUser.triggers.length === 0) {
-      logger.info({ eventName: event.name }, 'Ignored: No triggers found.');
-
-      return;
-    }
-
-    await handleLogWebhook(event, githubUser);
-  });
 
   // Error handling.
   webhooks.onError(error => {

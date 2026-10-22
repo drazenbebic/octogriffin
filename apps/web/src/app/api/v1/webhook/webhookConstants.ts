@@ -1,5 +1,3 @@
-import { EmitterWebhookEventName } from '@octokit/webhooks';
-
 // These have dedicated handler functions
 export const dedicatedHandlerWebhooks = [
   'installation_repositories.added',
@@ -141,11 +139,5 @@ export const universalHandlerWebhooks = [
   'workflow_run.requested',
 ] as const;
 
-export const supportedWebhooks: EmitterWebhookEventName[] = [
-  ...dedicatedHandlerWebhooks,
-  ...universalHandlerWebhooks,
-] as const;
-
 export type DedicatedWebhookEvents = (typeof dedicatedHandlerWebhooks)[number];
 export type UniversalWebhookEvents = (typeof universalHandlerWebhooks)[number];
-export type SupportedWebhookEvents = (typeof supportedWebhooks)[number];

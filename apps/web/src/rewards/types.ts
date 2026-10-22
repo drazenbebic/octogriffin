@@ -13,9 +13,19 @@ export type Contribution = {
 };
 
 /**
+ * The GitHub webhook delivery an event arrived with.
+ */
+export type Delivery = {
+  id: string;
+  signature: string;
+  hookId: string;
+};
+
+/**
  * A GitHub event, normalised to what the Reward Policy needs to know.
  */
 export type RewardableEvent = {
+  delivery: Delivery;
   /** Full event name as stored on triggers, e.g. `push` or `pull_request.closed`. */
   name: string;
   installationId: number;
@@ -97,4 +107,11 @@ export type RewardDirectory = {
  */
 export type RewardSink = {
   apply: (recipientRewards: RecipientRewards) => Promise<void>;
+};
+
+/**
+ * The history of rewarded events each user sees on their dashboard.
+ */
+export type RewardLog = {
+  record: (event: RewardableEvent, recipient: Recipient) => Promise<void>;
 };

@@ -1,10 +1,12 @@
 import { EmitterWebhookEvent } from '@octokit/webhooks';
 
+import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
 import { rewardDeps } from '@/rewards/rewardDeps';
 
 export const handlePush = async ({
+  id,
   payload: { commits, repository, installation },
 }: EmitterWebhookEvent<'push'>) => {
   if (!installation?.id || !repository) {
@@ -29,6 +31,7 @@ export const handlePush = async ({
 
   await deliverRewards(
     {
+      delivery: getDelivery(id),
       name: 'push',
       installationId: installation.id,
       repositoryId: repository.id,

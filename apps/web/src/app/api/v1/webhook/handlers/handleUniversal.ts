@@ -3,6 +3,7 @@ import {
   EmitterWebhookEventName,
 } from '@octokit/webhooks';
 
+import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
 import { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
@@ -13,7 +14,7 @@ export type WebhookEventName = (typeof universalHandlerWebhooks)[number];
 type WebhookEvent = EmitterWebhookEvent<WebhookEventName>;
 
 export const handleUniversal = async (
-  { payload: { installation, repository, sender } }: WebhookEvent,
+  { id, payload: { installation, repository, sender } }: WebhookEvent,
   event: EmitterWebhookEventName,
 ) => {
   if (!installation || !repository || !sender) {
@@ -24,6 +25,7 @@ export const handleUniversal = async (
 
   await deliverRewards(
     {
+      delivery: getDelivery(id),
       name: event,
       installationId: installation.id,
       repositoryId: repository.id,

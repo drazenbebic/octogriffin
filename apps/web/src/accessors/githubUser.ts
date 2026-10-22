@@ -25,14 +25,3 @@ export const getGithubUserUserByLogin = async <
 
   return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
 };
-
-export const getGithubUserBySenderId = async <
-  T extends Prisma.GithubUsersInclude,
->(
-  senderId: number,
-  include?: T,
-) => {
-  const user = await getGithubUser({ githubId: senderId }, include);
-
-  return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
-};
