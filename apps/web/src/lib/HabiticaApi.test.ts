@@ -157,4 +157,43 @@ describe('@/lib/habitica-api.ts', () => {
       );
     });
   });
+
+  describe('findOrCreateTask', () => {
+    const payload = {
+      text: 'Write code',
+      type: TaskType.HABIT,
+      alias: 'write-code',
+    };
+
+    it('should return the task found by its alias', async () => {
+      const task = { id: 'task-1', text: 'Write code' };
+
+      mockSuccessResponse(task);
+
+      await expect(api.findOrCreateTask(payload)).resolves.toEqual(task);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should create the task when its alias does not exist yet', async () => {
+      const createdTask = { id: 'task-2', text: 'Write code' };
+
+      mockErrorResponse(404, 'Not Found', 'Task not found.');
+      mockSuccessResponse([]);
+      mockSuccessResponse(createdTask);
+
+      await expect(api.findOrCreateTask(payload)).resolves.toEqual(createdTask);
+      expect(mockFetch).toHaveBeenLastCalledWith(
+        'https://habitica.com/api/v3/tasks/user',
+        expect.objectContaining({ method: 'POST' }),
+      );
+    });
+
+    it('should not hide other errors while looking up the alias', async () => {
+      mockErrorResponse(401, 'Unauthorized');
+
+      await expect(api.findOrCreateTask(payload)).rejects.toThrow(
+        'Habitica API Error [401]',
+      );
+    });
+  });
 });

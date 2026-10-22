@@ -10,6 +10,16 @@ import {
 
 const BASE_URL = 'https://habitica.com/api/v3';
 
+export class HabiticaApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+    this.name = 'HabiticaApiError';
+  }
+}
+
 class HabiticaApi {
   private readonly headers: HeadersInit;
 
@@ -46,7 +56,7 @@ class HabiticaApi {
 
       logger.error(message);
 
-      throw new Error(message);
+      throw new HabiticaApiError(message, response.status);
     }
 
     const json = (await response.json()) as APIResponse<T>;
@@ -68,9 +78,17 @@ class HabiticaApi {
   };
 
   findTaskByAlias = async (alias: string) => {
-    return await this.request<Task>(`/tasks/${alias}`, {
-      method: 'GET',
-    });
+    try {
+      return await this.request<Task>(`/tasks/${alias}`, {
+        method: 'GET',
+      });
+    } catch (error) {
+      if (error instanceof HabiticaApiError && error.status === 404) {
+        return null;
+      }
+
+      throw error;
+    }
   };
 
   findTaskByTitle = async (title: string) => {
