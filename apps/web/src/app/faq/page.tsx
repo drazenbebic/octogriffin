@@ -136,10 +136,15 @@ const dataPrivacy: FAQ[] = [
   {
     answer: (
       <Content>
-        <strong>No.</strong> We strictly request the minimum permissions
-        required to function. We do not request access to your code contents
-        (`contents: read`), so we technically cannot see or store your actual
-        source code.
+        <strong>Read-only, and we never use it.</strong> GitHub only sends push
+        events to apps that can read a repository&apos;s contents, so the
+        Octogriffin GitHub App asks for read-only <strong>Contents</strong>{' '}
+        access. It can never change your code. Octogriffin never downloads your
+        files: it only uses the event details GitHub sends, like who pushed and
+        how many commits, and stores a record of which events earned you
+        rewards, never your code or commit messages. The{' '}
+        <Link href="/installation">installation guide</Link> lists every
+        permission the app asks for.
       </Content>
     ),
     question: 'Does Octogriffin have access to my source code?',

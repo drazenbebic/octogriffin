@@ -32,7 +32,7 @@ export const faqJsonLd: WithContext<FAQPage> = {
       '@type': 'Question',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. We strictly request the minimum permissions required and do not request access to your code contents.',
+        text: 'Octogriffin has read-only access, because GitHub only sends push events to apps that can read repository contents, but it never uses it. It never downloads your files or changes your code, and it stores only a record of which events earned you rewards, never your code or commit messages.',
       },
       name: 'Does Octogriffin have access to my source code?',
     },
