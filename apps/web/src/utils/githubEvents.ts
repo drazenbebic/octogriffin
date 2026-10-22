@@ -23,15 +23,21 @@ const toTitle = (words: string) =>
  * e.g. `pull_request.opened` becomes "Pull Request Opened" in "Pull Request".
  */
 export const getGroupedGithubEvents = (): ComboboxItemType[] =>
-  [...rewardableWebhooks].sort().map(value => {
-    const [type, action] = value.split('.');
-    const group = toTitle(type);
+  [...rewardableWebhooks]
+    .map(value => {
+      const [type, action] = value.split('.');
+      const group = toTitle(type);
 
-    return {
-      group,
-      label:
-        labelOverrides[value] ??
-        (action ? `${group} ${toTitle(action)}` : group),
-      value,
-    };
-  });
+      return {
+        group,
+        label:
+          labelOverrides[value] ??
+          (action ? `${group} ${toTitle(action)}` : group),
+        value,
+      };
+    })
+    // Alphabetical by what the picker shows: group first, then label.
+    .sort(
+      (a, b) =>
+        a.group.localeCompare(b.group) || a.label.localeCompare(b.label),
+    );

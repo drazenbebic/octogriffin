@@ -14,6 +14,16 @@ describe('getGroupedGithubEvents', () => {
     ).toEqual([...rewardableWebhooks].sort());
   });
 
+  it('keeps each group together in the picker', () => {
+    const groups = getGroupedGithubEvents().map(({ group }) => group);
+    const runs = groups.filter((group, index) => group !== groups[index - 1]);
+
+    expect(runs).toEqual([...new Set(groups)]);
+    expect(runs.indexOf('Pull Request')).toBeLessThan(
+      runs.indexOf('Pull Request Review'),
+    );
+  });
+
   it('names events after their type and action', () => {
     expect(findEvent('pull_request_review.submitted')).toEqual({
       group: 'Pull Request Review',
