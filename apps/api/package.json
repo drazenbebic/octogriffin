@@ -10,11 +10,11 @@
   "license": "AGPL-3.0",
   "type": "module",
   "dependencies": {
-    "hono": "^4.12.34"
+    "hono": "^4.13.13"
   },
   "devDependencies": {
     "@types/node": "^24",
-    "tsx": "^4.23.5",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3"
   }
 }

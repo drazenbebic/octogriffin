@@ -16,14 +16,14 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.1",
-    "@commitlint/config-conventional": "^21.2.0",
-    "eslint": "^10.8.0",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "eslint": "^10.13.0",
     "husky": "^9.1.7",
-    "knip": "^6.31.0",
-    "lint-staged": "^17.3.0",
-    "prettier": "^3.9.6",
-    "turbo": "^2.10.8"
+    "knip": "^6.42.1",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.10"
   },
   "packageManager": "pnpm@11.5.0"
 }
