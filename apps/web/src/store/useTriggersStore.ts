@@ -28,57 +28,18 @@ type TriggersStoreState = {
   ) => Promise<null | TriggersModel>;
 };
 
-export const useTriggersStore = create<TriggersStoreState>((set, get) => ({
-  createTrigger: async data => {
-    set({ isLoading: true });
-
-    try {
-      const result = await createTriggerAction(data);
-
-      if (!result.success || !result.data) {
-        toast.error(result.error || 'Failed to create trigger');
-        set({ isLoading: false });
-
-        return null;
-      }
-
-      await get().fetchTriggers({ page: 1 });
-
-      return result.data;
-    } catch (error) {
-      console.error('Zustand createTrigger error:', error);
-      toast.error('An unexpected error occurred');
-      set({ isLoading: false });
-
-      return null;
+export const useTriggersStore = create<TriggersStoreState>((set, get) => {
+  /**
+   * Loads a page of triggers. The list only shows its loading skeleton when
+   * `showSkeleton` is set, so refreshing after a change keeps it on screen.
+   */
+  const loadTriggers = async (
+    params: PaginationParams,
+    { showSkeleton }: { showSkeleton: boolean },
+  ) => {
+    if (showSkeleton) {
+      set({ isLoading: true });
     }
-  },
-  deleteTrigger: async uuid => {
-    set({ isLoading: true });
-
-    try {
-      const result = await deleteTriggerAction(uuid);
-
-      if (!result.success || !result.data) {
-        toast.error(result.error || 'Failed to delete trigger');
-        set({ isLoading: false });
-
-        return null;
-      }
-
-      await get().fetchTriggers();
-
-      return result.data;
-    } catch (error) {
-      console.error('Zustand deleteTrigger error:', error);
-      toast.error('An unexpected error occurred');
-      set({ isLoading: false });
-
-      return null;
-    }
-  },
-  fetchTriggers: async (params = {}) => {
-    set({ isLoading: true });
 
     const currentMeta = get().meta;
     let targetPage = params.page || currentMeta.page;
@@ -116,81 +77,130 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => ({
     } catch (error) {
       console.error('Zustand fetchTriggers error:', error);
     } finally {
-      set({ isLoading: false });
+      if (showSkeleton) {
+        set({ isLoading: false });
+      }
     }
-  },
-  isLoading: false,
-  meta: {
-    limit: 5,
-    page: 1,
-    total: 0,
-    totalPages: 0,
-  },
-  setLimit: (limit: number) => {
-    get().fetchTriggers({ limit, page: 1 });
-  },
-  setPage: (page: number) => {
-    get().fetchTriggers({ page });
-  },
-  toggleTrigger: async data => {
-    const previousTriggers = get().triggers;
-    set(state => ({
-      triggers: state.triggers.map(t =>
-        t.uuid === data.uuid ? { ...t, isActive: data.isActive } : t,
-      ),
-    }));
+  };
 
-    try {
-      const result = await toggleTriggerAction(data);
+  return {
+    createTrigger: async data => {
+      try {
+        const result = await createTriggerAction(data);
 
-      if (!result.success || !result.data) {
-        toast.error(result.error || 'Failed to update status');
-        set({ triggers: previousTriggers });
+        if (!result.success || !result.data) {
+          toast.error(result.error || 'Failed to create trigger');
+
+          return null;
+        }
+
+        await loadTriggers({ page: 1 }, { showSkeleton: false });
+
+        return result.data;
+      } catch (error) {
+        console.error('Zustand createTrigger error:', error);
+        toast.error('An unexpected error occurred');
 
         return null;
       }
+    },
+    deleteTrigger: async uuid => {
+      try {
+        const result = await deleteTriggerAction(uuid);
 
-      return result.data;
-    } catch (error) {
-      console.error('Zustand toggleTrigger error:', error);
-      toast.error('An unexpected error occurred');
-      set({ triggers: previousTriggers });
+        if (!result.success || !result.data) {
+          toast.error(result.error || 'Failed to delete trigger');
 
-      return null;
-    }
-  },
-  trigger: null,
-  triggers: [],
-  updateTrigger: async (uuid, data) => {
-    const previousTriggers = get().triggers;
+          return null;
+        }
 
-    set(state => ({
-      triggers: state.triggers.map(t =>
-        t.uuid === uuid ? { ...t, ...data } : t,
-      ),
-    }));
+        await loadTriggers({}, { showSkeleton: false });
 
-    try {
-      const result = await updateTriggerAction(uuid, data);
-
-      if (!result.success || !result.data) {
-        toast.error(result.error || 'Failed to update trigger');
-        set({ triggers: previousTriggers });
+        return result.data;
+      } catch (error) {
+        console.error('Zustand deleteTrigger error:', error);
+        toast.error('An unexpected error occurred');
 
         return null;
       }
-
+    },
+    fetchTriggers: (params = {}) =>
+      loadTriggers(params, { showSkeleton: true }),
+    isLoading: false,
+    meta: {
+      limit: 5,
+      page: 1,
+      total: 0,
+      totalPages: 0,
+    },
+    setLimit: (limit: number) => {
+      get().fetchTriggers({ limit, page: 1 });
+    },
+    setPage: (page: number) => {
+      get().fetchTriggers({ page });
+    },
+    toggleTrigger: async data => {
+      const previousTriggers = get().triggers;
       set(state => ({
-        triggers: state.triggers.map(t => (t.uuid === uuid ? result.data! : t)),
+        triggers: state.triggers.map(t =>
+          t.uuid === data.uuid ? { ...t, isActive: data.isActive } : t,
+        ),
       }));
 
-      return result.data;
-    } catch (error) {
-      console.error('Zustand updateTrigger error:', error);
-      toast.error('An unexpected error occurred');
-      set({ triggers: previousTriggers });
+      try {
+        const result = await toggleTriggerAction(data);
 
-      return null;
-    }
-  },
-}));
+        if (!result.success || !result.data) {
+          toast.error(result.error || 'Failed to update status');
+          set({ triggers: previousTriggers });
+
+          return null;
+        }
+
+        return result.data;
+      } catch (error) {
+        console.error('Zustand toggleTrigger error:', error);
+        toast.error('An unexpected error occurred');
+        set({ triggers: previousTriggers });
+
+        return null;
+      }
+    },
+    trigger: null,
+    triggers: [],
+    updateTrigger: async (uuid, data) => {
+      const previousTriggers = get().triggers;
+
+      set(state => ({
+        triggers: state.triggers.map(t =>
+          t.uuid === uuid ? { ...t, ...data } : t,
+        ),
+      }));
+
+      try {
+        const result = await updateTriggerAction(uuid, data);
+
+        if (!result.success || !result.data) {
+          toast.error(result.error || 'Failed to update trigger');
+          set({ triggers: previousTriggers });
+
+          return null;
+        }
+
+        set(state => ({
+          triggers: state.triggers.map(t =>
+            t.uuid === uuid ? result.data! : t,
+          ),
+        }));
+
+        return result.data;
+      } catch (error) {
+        console.error('Zustand updateTrigger error:', error);
+        toast.error('An unexpected error occurred');
+        set({ triggers: previousTriggers });
+
+        return null;
+      }
+    },
+  };
+});
