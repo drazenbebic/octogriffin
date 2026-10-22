@@ -39,7 +39,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@65
+        run: npm install --global --ignore-scripts vercel@65.1.0
 
       - name: Create GitHub Deployment
         uses: chrnorm/deployment-action@500aa6a23c81ffa1acf71072aee3cfa2cc2e556a # v2.0.8
