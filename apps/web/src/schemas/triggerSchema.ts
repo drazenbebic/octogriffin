@@ -1,7 +1,12 @@
 import { z } from 'zod';
 
+import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
+
 export const triggerSchema = z.object({
-  event: z.string().min(1, 'Please select a trigger event'),
+  event: z
+    .string()
+    .min(1, 'Please select a trigger event')
+    .refine(isRewardableWebhook, 'Please select a supported trigger event'),
   isActive: z.boolean().optional(),
   repositories: z
     .array(z.string())
