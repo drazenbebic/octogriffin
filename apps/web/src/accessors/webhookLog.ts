@@ -1,5 +1,3 @@
-'use server';
-
 import { Prisma } from '@/generated/prisma/client';
 import { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
 import prisma from '@/lib/prisma';

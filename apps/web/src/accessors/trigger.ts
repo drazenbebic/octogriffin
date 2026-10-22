@@ -1,5 +1,3 @@
-'use server';
-
 import { Prisma } from '@/generated/prisma/client';
 import { TriggersModel } from '@/generated/prisma/models/Triggers';
 import prisma from '@/lib/prisma';
