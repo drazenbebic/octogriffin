@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 
 import type { z } from 'zod';
 
-import { getGithubUserUserByLogin } from '@/accessors/githubUser';
+import { getGithubUserByGithubId } from '@/accessors/githubUser';
 import type { Prisma } from '@/generated/prisma/client';
 import { authOptions } from '@/lib/auth';
 import logger from '@/lib/logger';
@@ -51,12 +51,13 @@ export const runUserAction = async <
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session?.user?.name) {
+    // Logins can change and be taken over, the GitHub ID never does
+    if (!session?.user?.githubId) {
       return { error: 'Unauthorized', success: false };
     }
 
-    const githubUser = await getGithubUserUserByLogin(
-      session.user.name,
+    const githubUser = await getGithubUserByGithubId(
+      session.user.githubId,
       include,
     );
 

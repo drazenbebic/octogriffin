@@ -2,14 +2,14 @@ import { getServerSession } from 'next-auth';
 
 import { z } from 'zod';
 
-import { getGithubUserUserByLogin } from '@/accessors/githubUser';
+import { getGithubUserByGithubId } from '@/accessors/githubUser';
 
 import { ActionError, parseInput, runUserAction } from './userAction';
 
 jest.mock('next-auth', () => ({ getServerSession: jest.fn() }));
 jest.mock('@/lib/auth', () => ({ authOptions: {} }));
 jest.mock('@/accessors/githubUser', () => ({
-  getGithubUserUserByLogin: jest.fn(),
+  getGithubUserByGithubId: jest.fn(),
 }));
 jest.mock('@/lib/logger', () => ({
   __esModule: true,
@@ -17,13 +17,15 @@ jest.mock('@/lib/logger', () => ({
 }));
 
 const mockSession = getServerSession as jest.Mock;
-const mockGetGithubUser = getGithubUserUserByLogin as jest.Mock;
+const mockGetGithubUser = getGithubUserByGithubId as jest.Mock;
 
 const githubUser = { id: BigInt(1), login: 'octocat' };
 
 describe('runUserAction', () => {
   beforeEach(() => {
-    mockSession.mockResolvedValue({ user: { name: 'octocat' } });
+    mockSession.mockResolvedValue({
+      user: { githubId: 583231, name: 'octocat' },
+    });
     mockGetGithubUser.mockResolvedValue(githubUser);
   });
 
@@ -33,9 +35,20 @@ describe('runUserAction', () => {
     });
 
     expect(result).toEqual({ data: 'octocat', success: true });
-    expect(mockGetGithubUser).toHaveBeenCalledWith('octocat', {
+    expect(mockGetGithubUser).toHaveBeenCalledWith(583231, {
       habiticaUser: true,
     });
+  });
+
+  it('fails for a session without a GitHub ID', async () => {
+    mockSession.mockResolvedValue({ user: { name: 'octocat' } });
+    const handler = jest.fn();
+
+    await expect(runUserAction('test', handler)).resolves.toEqual({
+      error: 'Unauthorized',
+      success: false,
+    });
+    expect(handler).not.toHaveBeenCalled();
   });
 
   it('fails when nobody is signed in', async () => {

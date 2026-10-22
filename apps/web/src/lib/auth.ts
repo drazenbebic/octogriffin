@@ -3,6 +3,7 @@ import type { GithubProfile } from 'next-auth/providers/github';
 import GithubProvider from 'next-auth/providers/github';
 import { cookies } from 'next/headers';
 
+import { releaseGithubLogin } from '@/accessors/githubUser';
 import prisma from '@/lib/prisma';
 
 export const authOptions: NextAuthOptions = {
@@ -19,6 +20,11 @@ export const authOptions: NextAuthOptions = {
     session({ session, token }) {
       if (session.user && token.username) {
         session.user.name = token.username as string;
+      }
+
+      // The GitHub provider uses the GitHub ID as the subject
+      if (session.user && token.sub) {
+        session.user.githubId = Number(token.sub);
       }
 
       return session;
@@ -45,24 +51,30 @@ export const authOptions: NextAuthOptions = {
         return `${callbackUrl}${separator}error=GithubAppNotInstalled`;
       }
 
-      await prisma.githubUsers.update({
-        data: {
-          accessToken: account.access_token,
-          avatarUrl: githubProfile.avatar_url,
-          blog: githubProfile.blog,
-          company: githubProfile.company,
-          email: githubProfile.email,
-          expiresIn: account.expires_at,
-          gravatarId: githubProfile.gravatar_id,
-          htmlUrl: githubProfile.html_url,
-          location: githubProfile.location,
-          name: githubProfile.name,
-          nodeId: githubProfile.node_id,
-          scope: account.scope,
-          tokenType: account.token_type,
-          type: githubProfile.type,
-        },
-        where: { githubId: githubProfile.id },
+      await prisma.$transaction(async tx => {
+        await releaseGithubLogin(tx, githubProfile.login, githubProfile.id);
+
+        await tx.githubUsers.update({
+          data: {
+            accessToken: account.access_token,
+            avatarUrl: githubProfile.avatar_url,
+            blog: githubProfile.blog,
+            company: githubProfile.company,
+            email: githubProfile.email,
+            expiresIn: account.expires_at,
+            gravatarId: githubProfile.gravatar_id,
+            htmlUrl: githubProfile.html_url,
+            location: githubProfile.location,
+            // Keep up with renamed GitHub accounts
+            login: githubProfile.login,
+            name: githubProfile.name,
+            nodeId: githubProfile.node_id,
+            scope: account.scope,
+            tokenType: account.token_type,
+            type: githubProfile.type,
+          },
+          where: { githubId: githubProfile.id },
+        });
       });
 
       return true;

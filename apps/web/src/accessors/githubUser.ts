@@ -1,6 +1,8 @@
 import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
+type GithubUsersClient = Pick<typeof prisma, 'githubUsers'>;
+
 export const getGithubUser = async <T extends Prisma.GithubUsersInclude>(
   where: Prisma.GithubUsersWhereUniqueInput,
   include?: T,
@@ -13,13 +15,38 @@ export const getGithubUser = async <T extends Prisma.GithubUsersInclude>(
   return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
 };
 
-export const getGithubUserUserByLogin = async <
+export const getGithubUserByGithubId = async <
   T extends Prisma.GithubUsersInclude,
 >(
-  login: string,
+  githubId: number,
   include?: T,
 ) => {
-  const user = await getGithubUser({ login }, include);
+  return getGithubUser({ githubId }, include);
+};
 
-  return user as null | Prisma.GithubUsersGetPayload<{ include: T }>;
+/**
+ * Logins change hands: once someone renames their GitHub account, anybody can
+ * take their old login. Moves a login away from a user who no longer has it,
+ * so it can be saved for `githubId`. The previous user gets their current
+ * login back the next time they sign in.
+ */
+export const releaseGithubLogin = async (
+  client: GithubUsersClient,
+  login: string,
+  githubId: number,
+) => {
+  const previousUser = await client.githubUsers.findUnique({
+    select: { githubId: true },
+    where: { login },
+  });
+
+  if (!previousUser || previousUser.githubId === githubId) {
+    return;
+  }
+
+  await client.githubUsers.update({
+    // GitHub logins can't contain a colon, so this never takes a real one
+    data: { login: `renamed:${previousUser.githubId}` },
+    where: { githubId: previousUser.githubId },
+  });
 };
