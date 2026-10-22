@@ -77,16 +77,16 @@ export default function HomePage() {
             </Pill>
 
             <Heading level={1} size="4xl">
-              Turn your Commits into <br />
+              Turn your GitHub Commits into <br />
               <TextAccent breathing glowing>
-                Gold and XP
+                Habitica Gold and XP
               </TextAccent>
             </Heading>
 
             <Content className="max-w-2xl text-center" size="lg">
-              Connect your GitHub Account to our Octogriffin App. Level up your
-              Habitica character, find items, and slay monsters just by writing
-              code.
+              Octogriffin is a free, open-source Habitica GitHub integration.
+              Level up your Habitica character, find items, and slay monsters
+              just by writing code.
             </Content>
 
             <div className="flex flex-col items-center gap-6 pt-4">

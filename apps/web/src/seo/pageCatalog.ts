@@ -17,9 +17,9 @@ type Page = {
 const pages = {
   '/': {
     description:
-      'Level up your RPG character automatically while you code. Connect GitHub to Habitica and turn commits, PRs, and reviews into XP, Gold, and Loot.',
-    title: 'Octogriffin - Gamify Your GitHub Workflow',
-    updatedAt: '2026-03-25',
+      'Octogriffin is a free, open-source Habitica GitHub integration. Earn XP and Gold in Habitica for your commits, pull requests, and code reviews, automatically.',
+    title: 'Habitica GitHub Integration: XP for Commits & PRs – Octogriffin',
+    updatedAt: '2026-10-22',
   },
   '/docs': {
     description:
@@ -58,8 +58,8 @@ const pages = {
   },
   '/faq': {
     description:
-      'Common questions about how Octogriffin processes your GitHub activity and rewards you.',
-    title: 'FAQs',
+      'Answers about connecting GitHub to Habitica with Octogriffin: what it costs, how rewards work, and how your API Token and code stay safe.',
+    title: 'Habitica GitHub Integration FAQ',
     updatedAt: '2026-10-22',
   },
   '/imprint': {
@@ -70,9 +70,9 @@ const pages = {
   },
   '/installation': {
     description:
-      'Get up and running in minutes. Follow our step-by-step guide to install the GitHub App, configure permissions, and link your Habitica account.',
-    title: 'Installation',
-    updatedAt: '2026-03-25',
+      'Connect GitHub to Habitica in four steps: install the Octogriffin GitHub App, pick your repositories, add your Habitica API Token, and choose which events earn rewards.',
+    title: 'How to Connect GitHub to Habitica',
+    updatedAt: '2026-10-22',
   },
   '/privacy-policy': {
     description:

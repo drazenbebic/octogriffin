@@ -7,7 +7,7 @@ export const installationJsonLd: WithContext<HowTo> = {
   '@type': 'HowTo',
   description:
     'Follow our step-by-step guide to install the GitHub App, configure permissions, and link your Habitica account.',
-  name: 'How to install Octogriffin',
+  name: 'How to connect GitHub to Habitica',
   step: [
     {
       '@type': 'HowToStep',

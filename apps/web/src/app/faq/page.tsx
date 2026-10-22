@@ -272,7 +272,7 @@ export default function FaqPage() {
             <HugeiconsIcon icon={HelpCircleIcon} size={32} />
           </div>
           <Heading className="mb-4" level={1} size="3xl">
-            Frequently Asked Questions
+            Habitica GitHub Integration FAQ
           </Heading>
           <Content className="mx-auto max-w-xl" size="lg">
             Everything you need to know about the syncing process, XP

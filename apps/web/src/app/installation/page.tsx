@@ -33,7 +33,7 @@ export default function InstallationPage() {
             Quick Start
           </div>
           <Heading className="mb-4" level={1}>
-            Let&apos;s get you equipped
+            Connect GitHub to Habitica
           </Heading>
           <Content size="lg">
             Follow these steps to connect your GitHub activity to your Habitica
