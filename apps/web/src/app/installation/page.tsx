@@ -22,6 +22,16 @@ import { githubAppUrl } from '@/utils/githubAppUrl';
 
 export const metadata: Metadata = pageMetadata('/installation');
 
+const GITHUB_APP_PERMISSIONS = [
+  'Actions',
+  'Contents',
+  'Discussions',
+  'Issues',
+  'Metadata',
+  'Packages',
+  'Pull requests',
+];
+
 export default function InstallationPage() {
   return (
     <>
@@ -173,12 +183,84 @@ export default function InstallationPage() {
                   />
                 </Heading>
                 <Content className="mt-2 mb-4" size="sm">
-                  Finally, map GitHub events to rewards to start earning.
+                  Finally, map GitHub events to rewards to start earning. Each
+                  trigger scores a Habitica habit, which Octogriffin creates for
+                  you if it doesn&apos;t exist yet. Need ideas? Start with the{' '}
+                  <Link
+                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                    href="/docs/coding-habits"
+                  >
+                    coding habit recipes
+                  </Link>
+                  .
                 </Content>
               </div>
             </div>
           </div>
         </div>
+
+        <section className="space-y-4">
+          <Heading level={2} size="xl">
+            Check that it works
+          </Heading>
+          <Content>
+            Push a commit to one of the repositories you picked for a trigger.
+            Within a few seconds the event appears in the{' '}
+            <strong>History</strong> tab of your{' '}
+            <Link
+              className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+              href="/dashboard/history"
+            >
+              dashboard
+            </Link>
+            , and the habit is scored in Habitica. History only lists events
+            that earned a reward, so if nothing shows up, check that the trigger
+            is active and covers that repository. The{' '}
+            <Link
+              className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+              href="/faq"
+            >
+              FAQ
+            </Link>{' '}
+            covers the most common problems.
+          </Content>
+        </section>
+
+        <section className="space-y-4">
+          <Heading level={2} size="xl">
+            What the GitHub App can access
+          </Heading>
+          <Content>
+            Octogriffin asks GitHub for <strong>read-only</strong> access to
+            these repository permissions, and never for write access:
+          </Content>
+          <Card className="p-5" variant="outlined">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
+              {GITHUB_APP_PERMISSIONS.map(permission => (
+                <Content
+                  as="li"
+                  className="flex items-center gap-2"
+                  key={permission}
+                  size="sm"
+                >
+                  <HugeiconsIcon
+                    className="shrink-0 text-emerald-500"
+                    icon={CheckmarkCircle02Icon}
+                    size={16}
+                  />
+                  {permission}
+                </Content>
+              ))}
+            </ul>
+          </Card>
+          <Content>
+            GitHub only sends push events to apps that can read a
+            repository&apos;s contents. Octogriffin uses the event details
+            GitHub sends, like who pushed and how many commits, and keeps only a
+            record of which events earned you rewards. It never stores your code
+            or commit messages.
+          </Content>
+        </section>
       </div>
     </>
   );
