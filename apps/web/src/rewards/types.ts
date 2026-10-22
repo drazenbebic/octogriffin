@@ -110,6 +110,7 @@ export type RewardDirectory = {
  * Where Rewards end up: a recipient's Habitica account.
  */
 export type RewardSink = {
+  /** Rejects when not a single reward could be scored. */
   apply: (recipientRewards: RecipientRewards) => Promise<void>;
 };
 
@@ -121,4 +122,6 @@ export type RewardSink = {
 export type RewardLog = {
   /** Resolves to `false` when the recipient was already rewarded for this delivery. */
   claim: (event: RewardableEvent, recipient: Recipient) => Promise<boolean>;
+  /** Gives up a claim, so the delivery can be rewarded on another try. */
+  release: (event: RewardableEvent, recipient: Recipient) => Promise<void>;
 };

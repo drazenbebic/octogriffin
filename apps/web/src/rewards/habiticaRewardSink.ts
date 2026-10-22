@@ -14,6 +14,8 @@ export const habiticaRewardSink: RewardSink = {
     );
 
     const queue = new PQueue({ concurrency: 4 });
+    const errors: unknown[] = [];
+    let scoredCount = 0;
 
     await queue.addAll(
       rewards.map(reward => async () => {
@@ -31,6 +33,7 @@ export const habiticaRewardSink: RewardSink = {
           // Score sequentially to ensure reliability
           for (let i = 0; i < reward.times; i++) {
             await habiticaApi.scoreTask(task.id, reward.direction);
+            scoredCount++;
           }
 
           logger.info(
@@ -42,6 +45,8 @@ export const habiticaRewardSink: RewardSink = {
             'Event processed successfully.',
           );
         } catch (error) {
+          errors.push(error);
+
           logger.error(
             { error, trigger: reward.triggerUuid, user: recipient.login },
             'Failed to process trigger',
@@ -49,5 +54,10 @@ export const habiticaRewardSink: RewardSink = {
         }
       }),
     );
+
+    // Partly scored rewards aren't retried, that would score some of them twice
+    if (scoredCount === 0 && errors.length > 0) {
+      throw new AggregateError(errors, 'No reward could be scored.');
+    }
   },
 };

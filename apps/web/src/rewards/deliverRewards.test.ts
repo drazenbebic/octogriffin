@@ -112,9 +112,24 @@ const recordingLog = () => {
 
       return true;
     },
+    release: async (event, recipient) => {
+      const index = recorded.findIndex(
+        entry =>
+          entry.delivery === event.delivery.id &&
+          entry.login === recipient.login,
+      );
+
+      recorded.splice(index, 1);
+    },
   };
 
   return { log, recorded };
+};
+
+const failingSink: RewardSink = {
+  apply: async () => {
+    throw new Error('Habitica is down');
+  },
 };
 
 describe('deliverRewards', () => {
@@ -354,6 +369,34 @@ describe('deliverRewards', () => {
 
     await deliverRewards(makeEvent(), deps);
     await deliverRewards(makeEvent(), deps);
+
+    expect(applied).toHaveLength(1);
+    expect(recorded).toHaveLength(1);
+  });
+
+  it('fails the delivery and forgets it when nothing could be scored', async () => {
+    const { log, recorded } = recordingLog();
+
+    await expect(
+      deliverRewards(makeEvent(), {
+        directory: inMemoryDirectory([makeUser()]),
+        log,
+        sink: failingSink,
+      }),
+    ).rejects.toThrow('Some rewards could not be delivered.');
+
+    expect(recorded).toHaveLength(0);
+  });
+
+  it('rewards a failed delivery when it is tried again', async () => {
+    const { applied, sink } = recordingSink();
+    const { log, recorded } = recordingLog();
+    const directory = inMemoryDirectory([makeUser()]);
+
+    await expect(
+      deliverRewards(makeEvent(), { directory, log, sink: failingSink }),
+    ).rejects.toThrow();
+    await deliverRewards(makeEvent(), { directory, log, sink });
 
     expect(applied).toHaveLength(1);
     expect(recorded).toHaveLength(1);

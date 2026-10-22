@@ -9,6 +9,15 @@ export const createWebhookLog = async (
   return prisma.webhookLogs.create({ data });
 };
 
+export const deleteWebhookLog = async (
+  deliveryUuid: string,
+  githubUserId: bigint | number,
+) => {
+  return prisma.webhookLogs.deleteMany({
+    where: { deliveryUuid, githubUserId },
+  });
+};
+
 export const getWebhookLogs = async (
   githubUserId: bigint | number,
   params: PaginationParams = {},

@@ -24,7 +24,7 @@ export const deliverRewards = async (
 ) => {
   const plan = await evaluateRewards(event, directory);
 
-  await Promise.all(
+  const results = await Promise.allSettled(
     plan.map(async recipientRewards => {
       const isClaimed = await log.claim(event, recipientRewards.recipient);
 
@@ -37,7 +37,23 @@ export const deliverRewards = async (
         return;
       }
 
-      await sink.apply(recipientRewards);
+      try {
+        await sink.apply(recipientRewards);
+      } catch (error) {
+        // Nothing was scored, so don't show it as rewarded and let a retry
+        // deliver it
+        await log.release(event, recipientRewards.recipient);
+
+        throw error;
+      }
     }),
   );
+
+  const errors = results.flatMap(result =>
+    result.status === 'rejected' ? [result.reason] : [],
+  );
+
+  if (errors.length > 0) {
+    throw new AggregateError(errors, 'Some rewards could not be delivered.');
+  }
 };

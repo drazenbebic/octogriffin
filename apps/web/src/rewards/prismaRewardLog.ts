@@ -1,4 +1,4 @@
-import { createWebhookLog } from '@/accessors/webhookLog';
+import { createWebhookLog, deleteWebhookLog } from '@/accessors/webhookLog';
 import { Prisma } from '@/generated/prisma/client';
 
 import type { RewardLog } from './types';
@@ -27,5 +27,8 @@ export const prismaRewardLog: RewardLog = {
 
       throw error;
     }
+  },
+  release: async ({ delivery }, recipient) => {
+    await deleteWebhookLog(delivery.id, recipient.githubUserId);
   },
 };
