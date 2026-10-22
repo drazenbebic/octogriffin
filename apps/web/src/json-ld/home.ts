@@ -1,5 +1,7 @@
 import type { WebApplication, WithContext } from 'schema-dts';
 
+import { ogImageUrl, pageUrl } from '@/seo/pageCatalog';
+
 import { AUTHOR_PERSON, OCTOGRIFFIN_ORG } from './shared';
 
 export const homeJsonLd: WithContext<WebApplication> = {
@@ -17,7 +19,7 @@ export const homeJsonLd: WithContext<WebApplication> = {
     'Automatic Habitica task scoring',
     'Repository-specific or global trigger scope',
   ],
-  image: 'https://octogriffin.com/og-image.png',
+  image: ogImageUrl,
   inLanguage: 'en-US',
   isAccessibleForFree: true,
   keywords:
@@ -30,6 +32,6 @@ export const homeJsonLd: WithContext<WebApplication> = {
   },
   operatingSystem: 'Any',
   publisher: OCTOGRIFFIN_ORG,
-  screenshot: 'https://octogriffin.com/og-image.png',
-  url: 'https://octogriffin.com',
+  screenshot: ogImageUrl,
+  url: pageUrl('/'),
 };

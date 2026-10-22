@@ -15,18 +15,10 @@ import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { docsIndexJsonLd } from '@/json-ld/docs';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
-import { generatePageMetadata } from '@/utils/seo';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'The complete guide to Octogriffin. Explore documentation for installation, configuration, architecture, and contributing to the open-source codebase.',
-    path: 'docs',
-    suffix: 'Octogriffin Docs',
-    title: 'Introduction',
-  });
-};
+export const metadata: Metadata = pageMetadata('/docs');
 
 export default function DocsPage() {
   return (

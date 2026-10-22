@@ -1,5 +1,7 @@
 import type { HowTo, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const settingUpNgrokJsonLd: WithContext<HowTo> = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -44,5 +46,5 @@ export const settingUpNgrokJsonLd: WithContext<HowTo> = {
       text: 'Configure your GitHub App to send webhooks to the ngrok URL.',
     },
   ],
-  url: 'https://octogriffin.com/docs/setting-up-ngrok',
+  url: pageUrl('/docs/setting-up-ngrok'),
 };

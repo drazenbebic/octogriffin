@@ -9,17 +9,10 @@ import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { privacyJsonLd } from '@/json-ld/privacy';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { supportEmail } from '@/utils/supportEmail';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'We protect your code and data. Learn about our GDPR compliance, zero-storage policy for source code, and secure infrastructure in Frankfurt.',
-    path: 'privacy-policy',
-    title: 'Privacy Policy',
-  });
-};
+export const metadata: Metadata = pageMetadata('/privacy-policy');
 
 const LAST_UPDATED = '12.01.2026';
 

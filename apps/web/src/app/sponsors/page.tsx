@@ -19,16 +19,9 @@ import { Heading } from '@/components/ui/Heading';
 import { Pill } from '@/components/ui/Pill';
 import { TextAccent } from '@/components/ui/TextAccent';
 import { sponsorsJsonLd } from '@/json-ld/sponsors';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'Support the development of Octogriffin and keep the servers running.',
-    path: 'sponsors',
-    title: 'Sponsors',
-  });
-};
+export const metadata: Metadata = pageMetadata('/sponsors');
 
 export default function SponsorsPage() {
   return (

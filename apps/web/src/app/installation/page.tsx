@@ -17,17 +17,10 @@ import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { installationJsonLd } from '@/json-ld/installation';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { githubAppUrl } from '@/utils/githubAppUrl';
-import { generatePageMetadata } from '@/utils/seo';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'Get up and running in minutes. Follow our step-by-step guide to install the GitHub App, configure permissions, and link your Habitica account.',
-    path: 'installation',
-    title: 'Installation',
-  });
-};
+export const metadata: Metadata = pageMetadata('/installation');
 
 export default function InstallationPage() {
   return (

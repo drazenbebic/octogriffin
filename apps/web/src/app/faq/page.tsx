@@ -12,7 +12,7 @@ import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { faqJsonLd } from '@/json-ld/faq';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { supportEmail } from '@/utils/supportEmail';
 
 type FAQ = {
@@ -20,14 +20,7 @@ type FAQ = {
   question: string;
 };
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'Common questions about how Octogriffin processes your GitHub activity and rewards you.',
-    path: 'faq',
-    title: 'FAQs',
-  });
-};
+export const metadata: Metadata = pageMetadata('/faq');
 
 const setup: FAQ[] = [
   {

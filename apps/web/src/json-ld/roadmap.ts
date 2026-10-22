@@ -1,5 +1,7 @@
 import type { WebPage, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const roadmapJsonLd: WithContext<WebPage> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -31,5 +33,5 @@ export const roadmapJsonLd: WithContext<WebPage> = {
     name: 'Octogriffin Development Roadmap',
   },
   name: 'Roadmap - Octogriffin',
-  url: 'https://octogriffin.com/roadmap',
+  url: pageUrl('/roadmap'),
 };

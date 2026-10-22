@@ -1,5 +1,7 @@
 import type { HowTo, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const devSetupJsonLd: WithContext<HowTo> = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -56,5 +58,5 @@ export const devSetupJsonLd: WithContext<HowTo> = {
       text: 'Start the development server with yarn dev.',
     },
   ],
-  url: 'https://octogriffin.com/docs/dev-setup',
+  url: pageUrl('/docs/dev-setup'),
 };

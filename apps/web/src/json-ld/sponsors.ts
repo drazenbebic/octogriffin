@@ -1,5 +1,7 @@
 import type { WebPage, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 import { OCTOGRIFFIN_ORG } from './shared';
 
 export const sponsorsJsonLd: WithContext<WebPage> = {
@@ -26,5 +28,5 @@ export const sponsorsJsonLd: WithContext<WebPage> = {
       target: 'https://ko-fi.com/drazen',
     },
   ],
-  url: 'https://octogriffin.com/sponsors',
+  url: pageUrl('/sponsors'),
 };

@@ -9,8 +9,10 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
+import type { PagePath } from '@/seo/pageCatalog';
+
 export type DocsNavItem = {
-  href: string;
+  href: PagePath;
   icon?: ReactNode;
   title: string;
 };

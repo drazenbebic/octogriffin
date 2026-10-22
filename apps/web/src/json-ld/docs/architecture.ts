@@ -1,5 +1,7 @@
 import type { TechArticle, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const architectureJsonLd: WithContext<TechArticle> = {
   '@context': 'https://schema.org',
   '@type': 'TechArticle',
@@ -18,5 +20,5 @@ export const architectureJsonLd: WithContext<TechArticle> = {
     '@type': 'Organization',
     name: 'Octogriffin',
   },
-  url: 'https://octogriffin.com/docs/architecture',
+  url: pageUrl('/docs/architecture'),
 };

@@ -17,17 +17,9 @@ import { Alert } from '@/components/ui/Alert';
 import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'High-level overview of the Octogriffin technology stack, data flow, and security model.',
-    path: 'docs/architecture',
-    suffix: 'Octogriffin Docs',
-    title: 'Architecture',
-  });
-};
+export const metadata: Metadata = pageMetadata('/docs/architecture');
 
 export default function DocsArchitecturePage() {
   return (

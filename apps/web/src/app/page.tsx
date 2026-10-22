@@ -26,37 +26,10 @@ import { Heading } from '@/components/ui/Heading';
 import { Pill } from '@/components/ui/Pill';
 import { TextAccent } from '@/components/ui/TextAccent';
 import { homeJsonLd } from '@/json-ld/home';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
-export const metadata: Metadata = {
-  description:
-    'Level up your RPG character automatically while you code. Connect GitHub to Habitica and turn commits, PRs, and reviews into XP, Gold, and Loot.',
-  openGraph: {
-    description:
-      'Turn your code commits into RPG rewards. Open source and secure.',
-    images: [
-      {
-        alt: 'Octogriffin - Gamify Your GitHub Workflow',
-        height: 630,
-        url: 'https://octogriffin.com/og-image.png',
-        width: 1200,
-      },
-    ],
-    locale: 'en_US',
-    siteName: 'Octogriffin',
-    title: 'Octogriffin - Gamify Your GitHub Workflow',
-    type: 'website',
-    url: 'https://octogriffin.com',
-  },
-  title: 'Octogriffin - Gamify Your GitHub Workflow',
-  twitter: {
-    card: 'summary_large_image',
-    description:
-      'Turn your code commits into RPG rewards. Open source and secure.',
-    images: ['https://octogriffin.com/og-image.png'],
-    title: 'Octogriffin - Gamify Your GitHub Workflow',
-  },
-};
+export const metadata: Metadata = pageMetadata('/');
 
 const version = process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0';
 

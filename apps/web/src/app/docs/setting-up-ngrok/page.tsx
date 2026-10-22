@@ -17,17 +17,9 @@ import { Code } from '@/components/ui/Code';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { settingUpNgrokJsonLd } from '@/json-ld/docs/setting-up-ngrok';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'How to expose your local development environment to GitHub webhooks using Ngrok.',
-    path: 'docs/setting-up-ngrok',
-    suffix: 'Octogriffin Docs',
-    title: 'Setting up Ngrok',
-  });
-};
+export const metadata: Metadata = pageMetadata('/docs/setting-up-ngrok');
 
 export default function DocsSettingUpNgrokPage() {
   return (

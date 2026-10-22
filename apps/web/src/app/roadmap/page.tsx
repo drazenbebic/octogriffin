@@ -17,16 +17,10 @@ import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { Pill } from '@/components/ui/Pill';
 import { roadmapJsonLd } from '@/json-ld/roadmap';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
-import { generatePageMetadata } from '@/utils/seo';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description: 'Our development plan for the future of Octogriffin.',
-    path: 'roadmap',
-    title: 'Roadmap',
-  });
-};
+export const metadata: Metadata = pageMetadata('/roadmap');
 
 export default function RoadmapPage() {
   return (

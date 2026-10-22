@@ -1,5 +1,7 @@
 import type { Organization, Person } from 'schema-dts';
 
+import { absoluteUrl, pageUrl } from '@/seo/pageCatalog';
+
 export const AUTHOR_PERSON: Person = {
   '@type': 'Person',
   knowsAbout: [
@@ -38,8 +40,8 @@ export const OCTOGRIFFIN_ORG: Organization = {
   },
   logo: {
     '@type': 'ImageObject',
-    url: 'https://octogriffin.com/octogriffin_logo_square.png',
+    url: absoluteUrl('/octogriffin_logo_square.png'),
   },
   name: 'Octogriffin',
-  url: 'https://octogriffin.com',
+  url: pageUrl('/'),
 };

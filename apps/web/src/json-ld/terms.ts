@@ -1,5 +1,7 @@
 import type { WebPage, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 import { AUTHOR_PERSON, OCTOGRIFFIN_ORG } from './shared';
 
 export const termsJsonLd: WithContext<WebPage> = {
@@ -17,5 +19,5 @@ export const termsJsonLd: WithContext<WebPage> = {
     publisher: OCTOGRIFFIN_ORG,
   },
   name: 'Terms & Conditions - Octogriffin',
-  url: 'https://octogriffin.com/terms-and-conditions',
+  url: pageUrl('/terms-and-conditions'),
 };

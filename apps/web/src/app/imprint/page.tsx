@@ -6,17 +6,10 @@ import { LegalPage } from '@/components/LegalPage';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { imprintJsonLd } from '@/json-ld/imprint';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { supportEmail } from '@/utils/supportEmail';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'Legal disclosure and provider identification for Octogriffin. Operated by Drazen Bebic in Vienna, Austria.',
-    path: 'imprint',
-    title: 'Imprint',
-  });
-};
+export const metadata: Metadata = pageMetadata('/imprint');
 
 export default function ImprintPage() {
   const email = supportEmail();

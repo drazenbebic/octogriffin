@@ -21,18 +21,10 @@ import { Code } from '@/components/ui/Code';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { howToContributeJsonLd } from '@/json-ld/docs/how-to-contribute';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
-import { generatePageMetadata } from '@/utils/seo';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'Guidelines for contributing to Octogriffin. Learn about our branching strategy, commit conventions, and pull request process.',
-    path: 'docs/how-to-contribute',
-    suffix: 'Octogriffin Docs',
-    title: 'How to Contribute',
-  });
-};
+export const metadata: Metadata = pageMetadata('/docs/how-to-contribute');
 
 export default function DocsHowToContributePage() {
   return (

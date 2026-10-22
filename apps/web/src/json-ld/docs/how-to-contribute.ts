@@ -1,5 +1,7 @@
 import type { HowTo, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const howToContributeJsonLd: WithContext<HowTo> = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -44,5 +46,5 @@ export const howToContributeJsonLd: WithContext<HowTo> = {
       text: 'Submit your changes for review and ensure all builds pass.',
     },
   ],
-  url: 'https://octogriffin.com/docs/how-to-contribute',
+  url: pageUrl('/docs/how-to-contribute'),
 };

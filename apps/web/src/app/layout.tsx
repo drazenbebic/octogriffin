@@ -12,6 +12,7 @@ import { ErrorListener } from '@/components/ErrorListener';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Providers } from '@/components/Providers';
+import { siteUrl } from '@/seo/pageCatalog';
 import { cn } from '@/utils/cn';
 
 type Props = {
@@ -36,9 +37,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || 'https://octogriffin.com',
-  ),
+  metadataBase: siteUrl,
   openGraph: {
     locale: 'en_US',
     siteName: 'Octogriffin',

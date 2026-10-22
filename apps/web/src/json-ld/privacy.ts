@@ -1,5 +1,7 @@
 import type { WebPage, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const privacyJsonLd: WithContext<WebPage> = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -21,5 +23,5 @@ export const privacyJsonLd: WithContext<WebPage> = {
     },
   },
   name: 'Privacy Policy - Octogriffin',
-  url: 'https://octogriffin.com/privacy-policy',
+  url: pageUrl('/privacy-policy'),
 };

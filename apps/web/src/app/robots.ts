@@ -1,14 +1,14 @@
 import type { MetadataRoute } from 'next';
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://octogriffin.com';
+import { absoluteUrl } from '@/seo/pageCatalog';
 
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       allow: '/',
       disallow: ['/dashboard/', '/api/', '/profile/'],
       userAgent: '*',
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: absoluteUrl('/sitemap.xml'),
   };
 }

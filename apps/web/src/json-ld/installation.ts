@@ -1,5 +1,7 @@
 import type { HowTo, WithContext } from 'schema-dts';
 
+import { pageUrl } from '@/seo/pageCatalog';
+
 export const installationJsonLd: WithContext<HowTo> = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -33,5 +35,5 @@ export const installationJsonLd: WithContext<HowTo> = {
       text: 'Map GitHub events to rewards to start earning Gold and XP.',
     },
   ],
-  url: 'https://octogriffin.com/installation',
+  url: pageUrl('/installation'),
 };

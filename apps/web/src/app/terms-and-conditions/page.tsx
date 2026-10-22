@@ -8,17 +8,10 @@ import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { termsJsonLd } from '@/json-ld/terms';
-import { generatePageMetadata } from '@/utils/seo';
+import { pageMetadata } from '@/seo/pageCatalog';
 import { supportEmail } from '@/utils/supportEmail';
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return generatePageMetadata({
-    description:
-      'User agreement, usage guidelines, and liability disclaimers for the Octogriffin GitHub integration.',
-    path: 'terms-and-conditions',
-    title: 'Terms & Conditions',
-  });
-};
+export const metadata: Metadata = pageMetadata('/terms-and-conditions');
 
 const LAST_UPDATED = '12.01.2026';
 
