@@ -51,6 +51,8 @@ export type UserCredentials = {
  * never leaves the server.
  */
 export type HabiticaAccount = {
+  /** False when the saved token can no longer be read and must be re-entered. */
+  hasApiToken: boolean;
   userId: string;
 };
 

@@ -11,7 +11,10 @@ export async function getHabiticaCredentialsAction() {
         throw new ActionError('User is not connected to Habitica.');
       }
 
-      return { userId: githubUser.habiticaUser.userId };
+      return {
+        hasApiToken: !!githubUser.habiticaUser.apiToken,
+        userId: githubUser.habiticaUser.userId,
+      };
     },
     { habiticaUser: true },
   );

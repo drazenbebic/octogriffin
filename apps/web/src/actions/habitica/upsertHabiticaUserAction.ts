@@ -35,7 +35,7 @@ export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
         { apiToken, userId: input.userId },
       );
 
-      return { userId: habiticaUser.userId };
+      return { hasApiToken: true, userId: habiticaUser.userId };
     },
     { habiticaUser: true },
   );

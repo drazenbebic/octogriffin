@@ -13,6 +13,12 @@ export async function getHabiticaStatsAction() {
         throw new ActionError('User is not connected to Habitica.');
       }
 
+      if (!githubUser.habiticaUser.apiToken) {
+        throw new ActionError(
+          'Your saved Habitica API Token could not be read. Please enter it again in Settings.',
+        );
+      }
+
       const habitica = new HabiticaApi(
         githubUser.habiticaUser.userId,
         githubUser.habiticaUser.apiToken,

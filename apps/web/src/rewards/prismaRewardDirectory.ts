@@ -1,4 +1,5 @@
 import { getInstallationStatus } from '@/accessors/githubInstallation';
+import logger from '@/lib/logger';
 import prisma from '@/lib/prisma';
 
 import type { RewardDirectory } from './types';
@@ -28,8 +29,15 @@ export const prismaRewardDirectory: RewardDirectory = {
       },
     });
 
-    return users.flatMap(user =>
-      user.habiticaUser
+    return users.flatMap(user => {
+      if (user.habiticaUser && !user.habiticaUser.apiToken) {
+        logger.error(
+          { login: user.login },
+          'Ignored: Saved Habitica API token is unreadable.',
+        );
+      }
+
+      return user.habiticaUser?.apiToken
         ? [
             {
               credentials: {
@@ -48,8 +56,8 @@ export const prismaRewardDirectory: RewardDirectory = {
               })),
             },
           ]
-        : [],
-    );
+        : [];
+    });
   },
   getInstallationStatus,
 };

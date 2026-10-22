@@ -75,7 +75,9 @@ export const HabiticaUserForm: FC = () => {
     }
   }
 
-  const hasSavedToken = !!habiticaCredentials;
+  const hasSavedToken = !!habiticaCredentials?.hasApiToken;
+  const isTokenUnreadable =
+    !!habiticaCredentials && !habiticaCredentials.hasApiToken;
 
   return (
     <Form className="flex flex-col gap-6" resetOnSubmit={false} store={form}>
@@ -89,6 +91,11 @@ export const HabiticaUserForm: FC = () => {
       />
 
       <FormInput
+        description={
+          isTokenUnreadable
+            ? "We couldn't read your saved API Token. Please enter it again."
+            : undefined
+        }
         disabled={isLoading}
         label="API Token"
         leadingIcon={<HugeiconsIcon icon={AlertCircleIcon} size={20} />}

@@ -1,7 +1,8 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 
 import { PrismaClient } from '@/generated/prisma/client';
-import { decrypt, encrypt } from '@/lib/crypto';
+import { decrypt, encrypt, isEncrypted } from '@/lib/crypto';
+import logger from '@/lib/logger';
 
 const prismaClientSingleton = () => {
   const adapter = new PrismaPg({
@@ -50,10 +51,22 @@ const prismaClientSingleton = () => {
       habiticaUsers: {
         apiToken: {
           compute(user) {
+            // Tokens saved before encryption was introduced are plain text
+            if (!isEncrypted(user.apiToken)) {
+              return user.apiToken;
+            }
+
             try {
               return decrypt(user.apiToken);
-            } catch {
-              return user.apiToken;
+            } catch (error) {
+              // Usually a changed ENCRYPTION_KEY. The user has to enter the
+              // token again.
+              logger.error(
+                { error },
+                'Could not decrypt a Habitica API token.',
+              );
+
+              return '';
             }
           },
           needs: { apiToken: true },

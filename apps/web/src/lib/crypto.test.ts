@@ -51,4 +51,13 @@ describe('@/lib/crypto.ts', () => {
     expect(() => decrypt('invalid-string')).toThrow();
     expect(() => decrypt('bad:format:string')).toThrow();
   });
+
+  it('should tell encrypted values apart from plain text', async () => {
+    process.env.ENCRYPTION_KEY = 'test-key-must-be-32-bytes-long-!!';
+
+    const { encrypt, isEncrypted } = await import('@/lib/crypto');
+
+    expect(isEncrypted(encrypt('secret'))).toBe(true);
+    expect(isEncrypted('8f6a2b1c-1d2e-4f5a-9b8c-7d6e5f4a3b2c')).toBe(false);
+  });
 });

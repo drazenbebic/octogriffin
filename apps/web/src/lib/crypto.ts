@@ -22,6 +22,14 @@ export const encrypt = (text: string): string => {
   return `${iv.toString('hex')}:${authTag}:${encrypted}`;
 };
 
+const ENCRYPTED_FORMAT = /^[0-9a-f]{32}:[0-9a-f]{32}:[0-9a-f]+$/;
+
+/**
+ * Whether a value was produced by `encrypt`. Values stored before encryption
+ * was introduced are plain text.
+ */
+export const isEncrypted = (text: string) => ENCRYPTED_FORMAT.test(text);
+
 export const decrypt = (text: string): string => {
   const [ivHex, authTagHex, encryptedHex] = text.split(':');
 
