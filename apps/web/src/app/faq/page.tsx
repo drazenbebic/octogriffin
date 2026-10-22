@@ -198,17 +198,6 @@ const gameplay: FAQ[] = [
   {
     answer: (
       <Content>
-        First, check if your trigger is set to <strong>Active</strong> in the
-        dashboard. Second, ensure the GitHub App is actually installed on that
-        specific repository. Finally, GitHub webhooks can sometimes have a delay
-        of a few seconds.
-      </Content>
-    ),
-    question: "I pushed code, but didn't get any XP. Why?",
-  },
-  {
-    answer: (
-      <Content>
         <strong>No.</strong> Deleting a trigger in Octogriffin only stops future
         events from processing. We do not delete your history or the associated
         task in Habitica. You can keep the task as a record or delete it
