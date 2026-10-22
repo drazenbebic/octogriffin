@@ -7,6 +7,7 @@ import {
   Globe02Icon,
   Key01Icon,
   Settings02Icon,
+  Target02Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -31,6 +32,11 @@ export const docsNavigation: DocsNavSection[] = [
         href: '/docs/habitica-api-token',
         icon: <HugeiconsIcon icon={Key01Icon} size={18} />,
         title: 'Habitica API Token',
+      },
+      {
+        href: '/docs/coding-habits',
+        icon: <HugeiconsIcon icon={Target02Icon} size={18} />,
+        title: 'Coding Habit Recipes',
       },
       {
         href: '/docs/supported-github-events',

@@ -35,6 +35,13 @@ const pages = {
     title: 'Architecture',
     updatedAt: '2026-03-23',
   },
+  '/docs/coding-habits': {
+    description:
+      'Ready-made Octogriffin triggers that turn commits, pull requests, code reviews and releases into Habitica habits, plus tips for rewards and streaks.',
+    isDocs: true,
+    title: 'Build Coding Habits in Habitica with GitHub',
+    updatedAt: '2026-10-22',
+  },
   '/docs/dev-setup': {
     description:
       'Complete guide to setting up Octogriffin locally. Learn how to configure Docker, create a GitHub App, and initialize the database for development.',

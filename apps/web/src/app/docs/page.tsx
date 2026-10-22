@@ -7,6 +7,7 @@ import {
   Globe02Icon,
   Key01Icon,
   Settings02Icon,
+  Target02Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -45,6 +46,13 @@ export default function DocsPage() {
             href="/docs/habitica-api-token"
             icon={<HugeiconsIcon icon={Key01Icon} size={24} />}
             title="Habitica API Token"
+          />
+          <DocsCard
+            color="amber"
+            description="Ready-made triggers for rewarding commits, pull requests, reviews and releases."
+            href="/docs/coding-habits"
+            icon={<HugeiconsIcon icon={Target02Icon} size={24} />}
+            title="Coding Habit Recipes"
           />
           <DocsCard
             color="indigo"
