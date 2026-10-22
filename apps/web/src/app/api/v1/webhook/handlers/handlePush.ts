@@ -18,7 +18,12 @@ export const handlePush = async ({
   // Count the commits of each author, skipping bots
   const commitCounts = new Map<string, number>();
 
-  for (const { author } of commits) {
+  for (const { author, distinct } of commits) {
+    // Commits pushed before, e.g. to another branch, were already rewarded
+    if (!distinct) {
+      continue;
+    }
+
     if (!author.username || author.username.includes('[bot]')) {
       continue;
     }
