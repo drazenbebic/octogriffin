@@ -145,10 +145,10 @@ export type DedicatedWebhookEvents = (typeof dedicatedHandlerWebhooks)[number];
 export type UniversalWebhookEvents = (typeof universalHandlerWebhooks)[number];
 
 // Events a trigger can reward
-export const rewardableWebhooks: readonly string[] = [
+export const rewardableWebhooks: ReadonlySet<string> = new Set([
   'push',
   ...universalHandlerWebhooks,
-];
+]);
 
 export const isRewardableWebhook = (event: string) =>
-  rewardableWebhooks.includes(event);
+  rewardableWebhooks.has(event);

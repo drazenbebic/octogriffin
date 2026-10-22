@@ -56,6 +56,9 @@ export const TriggerModal: FC<TriggerModalProps> = ({
   trigger,
 }) => {
   const isEdit = !!trigger;
+  const submitLabel = isEdit
+    ? { idle: 'Save Changes', pending: 'Saving...' }
+    : { idle: 'Create Trigger', pending: 'Creating...' };
 
   const [values, setValues] = useState<TriggerSchema>({
     event: trigger?.event || '',
@@ -298,13 +301,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
             <FormSubmit
               render={
                 <Button disabled={isPending} isLoading={isPending}>
-                  {isPending
-                    ? isEdit
-                      ? 'Saving...'
-                      : 'Creating...'
-                    : isEdit
-                      ? 'Save Changes'
-                      : 'Create Trigger'}
+                  {isPending ? submitLabel.pending : submitLabel.idle}
                 </Button>
               }
             />

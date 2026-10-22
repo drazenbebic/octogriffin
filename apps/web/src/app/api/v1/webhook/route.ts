@@ -1,6 +1,5 @@
 import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
-import { after } from 'next/server';
+import { after, NextResponse } from 'next/server';
 
 import { Webhooks } from '@octokit/webhooks';
 
