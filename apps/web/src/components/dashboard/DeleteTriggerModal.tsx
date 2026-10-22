@@ -36,14 +36,11 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
     startTransition(async () => {
       const deletedTrigger = await deleteTrigger(trigger.uuid);
 
+      // The store already reports failures
       if (deletedTrigger) {
         toast.success('Trigger deleted successfully');
         setOpenAction(false);
         onSuccessAction?.();
-      } else {
-        toast.error('Failed to delete trigger', {
-          description: 'Please try again later.',
-        });
       }
     });
   };
