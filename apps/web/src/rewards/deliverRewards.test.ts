@@ -158,6 +158,25 @@ describe('deliverRewards', () => {
     ]);
   });
 
+  it('only uses triggers set up for the repository', async () => {
+    const { sink, applied } = recordingSink();
+    const user = makeUser({
+      triggers: [
+        makeTrigger({ uuid: 'this-repo' }),
+        makeTrigger({ uuid: 'other-repo', repositoryIds: [999] }),
+      ],
+    });
+
+    await deliverRewards(makeEvent(), {
+      directory: inMemoryDirectory([user]),
+      sink,
+    });
+
+    expect(applied[0].rewards.map(reward => reward.triggerUuid)).toEqual([
+      'this-repo',
+    ]);
+  });
+
   it.each([
     ['the installation is unknown', null],
     [

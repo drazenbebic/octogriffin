@@ -86,7 +86,12 @@ export const evaluateRewards = async (
         .reduce((sum, { count }) => sum + count, 0);
 
       const rewards = user.triggers
-        .filter(trigger => trigger.isActive && trigger.event === event.name)
+        .filter(
+          trigger =>
+            trigger.isActive &&
+            trigger.event === event.name &&
+            trigger.repositoryIds.includes(event.repositoryId),
+        )
         .map(trigger => toReward(trigger, times));
 
       return {
