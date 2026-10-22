@@ -3,6 +3,11 @@ import type {
   EmitterWebhookEventName,
 } from '@octokit/webhooks';
 
+import {
+  addSelectedRepositories,
+  getGithubInstallation,
+  removeSelectedRepositories,
+} from '@/accessors/githubInstallation';
 import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
 import type { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import logger from '@/lib/logger';
@@ -23,6 +28,14 @@ export const handleUniversal = async (
     return;
   }
 
+  // An installation with access to all repositories may not get
+  // installation_repositories events for repositories created or deleted later
+  if (event === 'repository.created') {
+    await updateSelectedRepositories(installation.id, githubInstallation =>
+      addSelectedRepositories(githubInstallation, [repository]),
+    );
+  }
+
   await deliverRewards(
     {
       contributions: [{ actor: { githubId: sender.id }, count: 1 }],
@@ -33,4 +46,22 @@ export const handleUniversal = async (
     },
     rewardDeps,
   );
+
+  // Only after rewarding, which needs the repository to still be selected
+  if (event === 'repository.deleted') {
+    await updateSelectedRepositories(installation.id, githubInstallation =>
+      removeSelectedRepositories(githubInstallation, [repository.id]),
+    );
+  }
+};
+
+const updateSelectedRepositories = async (
+  installationId: number,
+  update: (githubInstallationId: bigint) => Promise<unknown>,
+) => {
+  const githubInstallation = await getGithubInstallation(installationId);
+
+  if (githubInstallation) {
+    await update(githubInstallation.id);
+  }
 };
