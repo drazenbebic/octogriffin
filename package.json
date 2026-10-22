@@ -8,10 +8,10 @@
     "url": "https://www.bebic.dev"
   },
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "test": "turbo test",
+    "build": "pnpm --recursive build",
+    "dev": "pnpm --recursive --parallel dev",
+    "lint": "pnpm --recursive lint",
+    "test": "pnpm --recursive test",
     "knip": "knip",
     "prepare": "husky"
   },
@@ -22,8 +22,7 @@
     "husky": "^9.1.7",
     "knip": "^6.42.1",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.9.10",
-    "turbo": "^2.11.10"
+    "prettier": "^3.9.10"
   },
   "packageManager": "pnpm@11.5.0"
 }

@@ -9,7 +9,7 @@ importers:
     devDependencies:
       '@commitlint/cli':
         specifier: ^21.2.4
-        version: 21.2.4(conventional-commits-parser@7.1.3)(typescript@6.0.3)
+        version: 21.2.4(conventional-commits-parser@7.1.3)
       '@commitlint/config-conventional':
         specifier: ^21.2.4
         version: 21.2.4
@@ -28,9 +28,6 @@ importers:
       prettier:
         specifier: ^3.9.10
         version: 3.9.10
-      turbo:
-        specifier: ^2.11.10
-        version: 2.11.10
 
   apps/api:
     dependencies:
@@ -2807,54 +2804,6 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
-
-  '@turbo/darwin-64@2.11.10':
-    resolution:
-      {
-        integrity: sha512-By4idRap5+nLnMuRzLB4qkOPRlvNdyY1ne4VJYDyUoUB11H94k7uif9mbe3JT8JSNXs1D68uMcBj6hJ/jMQRvA==,
-      }
-    cpu: [x64]
-    os: [darwin]
-
-  '@turbo/darwin-arm64@2.11.10':
-    resolution:
-      {
-        integrity: sha512-pyEYlVcuexOPa92p0Wlwl9YT1Is5D60lxN3ItWm3g30YLvFaUq86TF4BBWg5ZAc0uMTnrOzCvuCsOBTdzUWnRQ==,
-      }
-    cpu: [arm64]
-    os: [darwin]
-
-  '@turbo/linux-64@2.11.10':
-    resolution:
-      {
-        integrity: sha512-1tYeR/IDZ5HEdsb0jNq2L2xam5nMQ+g80tlV2BZmv4OFw+pMcUM0mMmUcfc5wXPPNHVNPuDMjh9Y8G8HgXPLZA==,
-      }
-    cpu: [x64]
-    os: [android, linux]
-
-  '@turbo/linux-arm64@2.11.10':
-    resolution:
-      {
-        integrity: sha512-HuekQxvVGhUd46g1Im/DKdOtglHr4/gguZAvzEpPUgtxNkztSa8lWhQEGQ+EmPQ0n7w19qjThFU+OfEEd0uvlw==,
-      }
-    cpu: [arm64]
-    os: [android, linux]
-
-  '@turbo/windows-64@2.11.10':
-    resolution:
-      {
-        integrity: sha512-UJOP3BkbreY3/JlMgJR6ZiimxYIBn+c+B4tnBIxD0E9c3Estmk+XoVNVBNBottZLNRXe3/ScgOU4+/k8tIWysg==,
-      }
-    cpu: [x64]
-    os: [win32]
-
-  '@turbo/windows-arm64@2.11.10':
-    resolution:
-      {
-        integrity: sha512-xOkEjF3ws/b/YNlc+bvJHMYBn+vL+QbEISZFVi0qS+ImmhA1X3/gmNmBrjjIG3dg6aeN+n6gQitzSkXQ286qJQ==,
-      }
-    cpu: [arm64]
-    os: [win32]
 
   '@tybys/wasm-util@0.10.4':
     resolution:
@@ -7990,13 +7939,6 @@ packages:
     engines: { node: '>=18.0.0' }
     hasBin: true
 
-  turbo@2.11.10:
-    resolution:
-      {
-        integrity: sha512-3GJYwig8ygEI89oaOZdduJX8/aw6O9eRPYHoIt6T3FZl9hkKjiyIspufJoVgqXihPoJu8M5CSV0DlZvzfohBCw==,
-      }
-    hasBin: true
-
   type-check@0.4.0:
     resolution:
       {
@@ -8731,12 +8673,12 @@ snapshots:
       hashery: 1.5.1
       keyv: 5.6.0
 
-  '@commitlint/cli@21.2.4(conventional-commits-parser@7.1.3)(typescript@6.0.3)':
+  '@commitlint/cli@21.2.4(conventional-commits-parser@7.1.3)':
     dependencies:
       '@commitlint/config-conventional': 21.2.4
       '@commitlint/format': 21.2.3
       '@commitlint/lint': 21.2.4
-      '@commitlint/load': 21.2.4(typescript@6.0.3)
+      '@commitlint/load': 21.2.4
       '@commitlint/read': 21.2.3(conventional-commits-parser@7.1.3)
       '@commitlint/types': 21.2.3
       tinyexec: 1.3.1
@@ -8780,13 +8722,13 @@ snapshots:
       '@commitlint/rules': 21.2.4
       '@commitlint/types': 21.2.3
 
-  '@commitlint/load@21.2.4(typescript@6.0.3)':
+  '@commitlint/load@21.2.4':
     dependencies:
       '@commitlint/config-validator': 21.2.3
       '@commitlint/execute-rule': 21.0.1
       '@commitlint/resolve-extends': 21.2.3
       '@commitlint/types': 21.2.3
-      cosmiconfig: 9.0.2(typescript@6.0.3)
+      cosmiconfig: 9.0.2
       es-toolkit: 1.52.0
       is-plain-obj: 4.1.0
       jiti: 2.7.0
@@ -10021,24 +9963,6 @@ snapshots:
       '@types/react': 19.3.0
       '@types/react-dom': 19.3.0(@types/react@19.3.0)
 
-  '@turbo/darwin-64@2.11.10':
-    optional: true
-
-  '@turbo/darwin-arm64@2.11.10':
-    optional: true
-
-  '@turbo/linux-64@2.11.10':
-    optional: true
-
-  '@turbo/linux-arm64@2.11.10':
-    optional: true
-
-  '@turbo/windows-64@2.11.10':
-    optional: true
-
-  '@turbo/windows-arm64@2.11.10':
-    optional: true
-
   '@tybys/wasm-util@0.10.4':
     dependencies:
       tslib: 2.8.1
@@ -10777,14 +10701,12 @@ snapshots:
 
   cookie@0.7.2: {}
 
-  cosmiconfig@9.0.2(typescript@6.0.3):
+  cosmiconfig@9.0.2:
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.1
       js-yaml: 4.3.2
       parse-json: 5.2.0
-    optionalDependencies:
-      typescript: 6.0.3
 
   cross-spawn@7.0.6:
     dependencies:
@@ -13479,15 +13401,6 @@ snapshots:
       esbuild: 0.28.2
     optionalDependencies:
       fsevents: 2.3.3
-
-  turbo@2.11.10:
-    optionalDependencies:
-      '@turbo/darwin-64': 2.11.10
-      '@turbo/darwin-arm64': 2.11.10
-      '@turbo/linux-64': 2.11.10
-      '@turbo/linux-arm64': 2.11.10
-      '@turbo/windows-64': 2.11.10
-      '@turbo/windows-arm64': 2.11.10
 
   type-check@0.4.0:
     dependencies:
