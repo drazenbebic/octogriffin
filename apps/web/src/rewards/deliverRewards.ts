@@ -1,3 +1,5 @@
+import logger from '@/lib/logger';
+
 import { evaluateRewards } from './rewardPolicy';
 import {
   RewardableEvent,
@@ -24,8 +26,18 @@ export const deliverRewards = async (
 
   await Promise.all(
     plan.map(async recipientRewards => {
+      const isClaimed = await log.claim(event, recipientRewards.recipient);
+
+      if (!isClaimed) {
+        logger.info(
+          { user: recipientRewards.recipient.login },
+          'Ignored: Delivery was already rewarded.',
+        );
+
+        return;
+      }
+
       await sink.apply(recipientRewards);
-      await log.record(event, recipientRewards.recipient);
     }),
   );
 };

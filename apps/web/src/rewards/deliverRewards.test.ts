@@ -91,10 +91,26 @@ const recordingSink = () => {
 };
 
 const recordingLog = () => {
-  const recorded: { event: string; login: string }[] = [];
+  const recorded: { delivery: string; event: string; login: string }[] = [];
   const log: RewardLog = {
-    record: async (event, recipient) => {
-      recorded.push({ event: event.name, login: recipient.login });
+    claim: async (event, recipient) => {
+      const isClaimed = recorded.some(
+        entry =>
+          entry.delivery === event.delivery.id &&
+          entry.login === recipient.login,
+      );
+
+      if (isClaimed) {
+        return false;
+      }
+
+      recorded.push({
+        delivery: event.delivery.id,
+        event: event.name,
+        login: recipient.login,
+      });
+
+      return true;
     },
   };
 
@@ -262,7 +278,11 @@ describe('deliverRewards', () => {
     );
 
     expect(recorded).toEqual([
-      { event: 'pull_request.closed', login: 'octocat' },
+      {
+        delivery: 'delivery-1',
+        event: 'pull_request.closed',
+        login: 'octocat',
+      },
     ]);
   });
 
@@ -277,5 +297,17 @@ describe('deliverRewards', () => {
     });
 
     expect(recorded).toHaveLength(0);
+  });
+
+  it('rewards a delivery only once, even when it arrives again', async () => {
+    const { sink, applied } = recordingSink();
+    const { log, recorded } = recordingLog();
+    const deps = { directory: inMemoryDirectory([makeUser()]), sink, log };
+
+    await deliverRewards(makeEvent(), deps);
+    await deliverRewards(makeEvent(), deps);
+
+    expect(applied).toHaveLength(1);
+    expect(recorded).toHaveLength(1);
   });
 });

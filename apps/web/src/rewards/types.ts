@@ -110,8 +110,11 @@ export type RewardSink = {
 };
 
 /**
- * The history of rewarded events each user sees on their dashboard.
+ * The history of rewarded events each user sees on their dashboard. Each
+ * delivery can be claimed once per recipient, so a redelivered or retried
+ * event is never rewarded twice.
  */
 export type RewardLog = {
-  record: (event: RewardableEvent, recipient: Recipient) => Promise<void>;
+  /** Resolves to `false` when the recipient was already rewarded for this delivery. */
+  claim: (event: RewardableEvent, recipient: Recipient) => Promise<boolean>;
 };

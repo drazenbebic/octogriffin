@@ -124,6 +124,7 @@ model WebhookLogs {
   createdAt    DateTime    @default(now()) @map("created_at")
   updatedAt    DateTime    @updatedAt @map("updated_at")
 
+  @@unique([deliveryUuid, githubUserId])
   @@map("webhook_logs")
 }
 

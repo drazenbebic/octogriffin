@@ -1,10 +1,12 @@
 import { createWebhookLog } from '@/accessors/webhookLog';
-import logger from '@/lib/logger';
+import { Prisma } from '@/generated/prisma/client';
 
 import { RewardLog } from './types';
 
+const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
+
 export const prismaRewardLog: RewardLog = {
-  record: async ({ delivery, name }, recipient) => {
+  claim: async ({ delivery, name }, recipient) => {
     try {
       await createWebhookLog({
         deliveryUuid: delivery.id,
@@ -13,8 +15,17 @@ export const prismaRewardLog: RewardLog = {
         hookId: delivery.hookId,
         githubUserId: recipient.githubUserId,
       });
+
+      return true;
     } catch (error) {
-      logger.error({ error }, 'Webhook logging failed.');
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === UNIQUE_CONSTRAINT_VIOLATION
+      ) {
+        return false;
+      }
+
+      throw error;
     }
   },
 };
