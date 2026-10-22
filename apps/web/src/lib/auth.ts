@@ -56,12 +56,10 @@ export const authOptions: NextAuthOptions = {
 
         await tx.githubUsers.update({
           data: {
-            accessToken: account.access_token,
             avatarUrl: githubProfile.avatar_url,
             blog: githubProfile.blog,
             company: githubProfile.company,
             email: githubProfile.email,
-            expiresIn: account.expires_at,
             gravatarId: githubProfile.gravatar_id,
             htmlUrl: githubProfile.html_url,
             location: githubProfile.location,
@@ -69,8 +67,6 @@ export const authOptions: NextAuthOptions = {
             login: githubProfile.login,
             name: githubProfile.name,
             nodeId: githubProfile.node_id,
-            scope: account.scope,
-            tokenType: account.token_type,
             type: githubProfile.type,
           },
           where: { githubId: githubProfile.id },

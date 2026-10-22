@@ -49,32 +49,26 @@ model GithubSelectedRepositories {
 }
 
 model GithubUsers {
-  id                    BigInt                @id @default(autoincrement()) @map("id") @db.BigInt
-  uuid                  String                @unique @default(uuid()) @map("uuid") @db.VarChar(36)
-  githubId              Int                   @unique @map("github_id") @db.Integer
-  login                 String                @unique @map("login") @db.VarChar(255)
-  nodeId                String                @map("node_id") @db.VarChar(20)
-  avatarUrl             String?               @map("avatar_url") @db.VarChar(255)
-  gravatarId            String?               @map("gravatar_id") @db.VarChar(255)
-  htmlUrl               String?               @map("html_url") @db.VarChar(255)
-  type                  String                @map("type") @db.VarChar(255)
-  name                  String?               @map("name") @db.VarChar(255)
-  company               String?               @map("company") @db.VarChar(255)
-  blog                  String?               @map("blog") @db.VarChar(255)
-  location              String?               @map("location") @db.VarChar(255)
-  email                 String?               @map("email") @db.VarChar(255)
-  accessToken           String?               @map("access_token") @db.VarChar(255)
-  expiresIn             Int?                  @map("expires_in") @db.Integer
-  refreshToken          String?               @map("refresh_token") @db.VarChar(255)
-  refreshTokenExpiresIn Int?                  @map("refresh_token_expires_in") @db.Integer
-  scope                 String?               @map("scope") @db.VarChar(255)
-  tokenType             String?               @map("token_type") @db.VarChar(20)
-  habiticaUser          HabiticaUsers?        @relation("HabiticaUsersGithubUsers")
-  installations         GithubInstallations[] @relation("GithubUsersInstallations")
-  triggers              Triggers[]            @relation("GithubUsersTriggers")
-  webhookLogs           WebhookLogs[]         @relation("GithubUsersWebhookLogs")
-  createdAt             DateTime              @default(now()) @map("created_at")
-  updatedAt             DateTime              @updatedAt @map("updated_at")
+  id            BigInt                @id @default(autoincrement()) @map("id") @db.BigInt
+  uuid          String                @unique @default(uuid()) @map("uuid") @db.VarChar(36)
+  githubId      Int                   @unique @map("github_id") @db.Integer
+  login         String                @unique @map("login") @db.VarChar(255)
+  nodeId        String                @map("node_id") @db.VarChar(20)
+  avatarUrl     String?               @map("avatar_url") @db.VarChar(255)
+  gravatarId    String?               @map("gravatar_id") @db.VarChar(255)
+  htmlUrl       String?               @map("html_url") @db.VarChar(255)
+  type          String                @map("type") @db.VarChar(255)
+  name          String?               @map("name") @db.VarChar(255)
+  company       String?               @map("company") @db.VarChar(255)
+  blog          String?               @map("blog") @db.VarChar(255)
+  location      String?               @map("location") @db.VarChar(255)
+  email         String?               @map("email") @db.VarChar(255)
+  habiticaUser  HabiticaUsers?        @relation("HabiticaUsersGithubUsers")
+  installations GithubInstallations[] @relation("GithubUsersInstallations")
+  triggers      Triggers[]            @relation("GithubUsersTriggers")
+  webhookLogs   WebhookLogs[]         @relation("GithubUsersWebhookLogs")
+  createdAt     DateTime              @default(now()) @map("created_at")
+  updatedAt     DateTime              @updatedAt @map("updated_at")
 
   @@map(name: "github_users")
 }
