@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 
 import { releaseGithubLogin } from '@/accessors/githubUser';
 import prisma from '@/lib/prisma';
+import { sameSitePath } from '@/utils/sameSitePath';
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
@@ -41,10 +42,12 @@ export const authOptions: NextAuthOptions = {
 
       if (!githubUser) {
         const cookieStore = await cookies();
-        const callbackUrl =
+        // The cookie isn't signed, so never send anyone off this site
+        const callbackUrl = sameSitePath(
           cookieStore.get('next-auth.callback-url')?.value ||
-          cookieStore.get('__Secure-next-auth.callback-url')?.value ||
-          '/';
+            cookieStore.get('__Secure-next-auth.callback-url')?.value ||
+            '/',
+        );
 
         const separator = callbackUrl.includes('?') ? '&' : '?';
 
