@@ -12,7 +12,10 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { getConnectedReposAction } from '@/actions/getConnectedReposAction';
+import {
+  ConnectedRepository,
+  getConnectedReposAction,
+} from '@/actions/getConnectedReposAction';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
@@ -22,18 +25,16 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { cn } from '@/utils/cn';
 import { githubAppUrl } from '@/utils/githubAppUrl';
 
-type RepoItem = Awaited<ReturnType<typeof getConnectedReposAction>>[number];
-
 export const RepositoryListCard: FC = () => {
-  const [repos, setRepos] = useState<RepoItem[]>([]);
+  const [repos, setRepos] = useState<ConnectedRepository[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const fetchConnectedRepos = async () => {
       try {
-        const data = await getConnectedReposAction();
-        setRepos(data);
+        const { data } = await getConnectedReposAction();
+        setRepos(data ?? []);
       } catch (error) {
         console.error('Failed to fetch connected repositories:', error);
       } finally {

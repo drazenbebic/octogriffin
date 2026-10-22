@@ -1,43 +1,21 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
-
-import { getGithubUserUserByLogin } from '@/accessors/githubUser';
-import { authOptions } from '@/lib/auth';
+import { ActionError, runUserAction } from '@/lib/userAction';
 import { UserCredentials } from '@/types/habitica';
-import { ServerActionResult } from '@/types/serverAction';
 
-export async function getHabiticaCredentialsAction(): Promise<
-  ServerActionResult<UserCredentials>
-> {
-  try {
-    const session = await getServerSession(authOptions);
+export async function getHabiticaCredentialsAction() {
+  return runUserAction(
+    'getHabiticaCredentialsAction',
+    async (githubUser): Promise<UserCredentials> => {
+      if (!githubUser.habiticaUser) {
+        throw new ActionError('User is not connected to Habitica.');
+      }
 
-    if (!session?.user?.name) {
-      return { success: false, error: 'Unauthorized' };
-    }
-
-    const user = await getGithubUserUserByLogin(session.user.name, {
-      habiticaUser: true,
-    });
-
-    if (!user?.habiticaUser) {
-      return { success: false, error: 'User is not connected to Habitica.' };
-    }
-
-    return {
-      success: true,
-      data: {
-        userId: user.habiticaUser.userId,
-        apiToken: user.habiticaUser.apiToken,
-      },
-    };
-  } catch (error) {
-    console.error('getHabiticaCredentialsAction Error:', error);
-
-    return {
-      success: false,
-      error: 'An unexpected error occurred. Please try again later.',
-    };
-  }
+      return {
+        userId: githubUser.habiticaUser.userId,
+        apiToken: githubUser.habiticaUser.apiToken,
+      };
+    },
+    { habiticaUser: true },
+  );
 }

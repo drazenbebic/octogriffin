@@ -68,10 +68,11 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
   },
   fetchHabiticaConnection: async () => {
     try {
-      const isHabiticaConnected = await isHabiticaConnectedAction();
+      const result = await isHabiticaConnectedAction();
+      const isHabiticaConnected = result.success && !!result.data;
       set({ isHabiticaConnected });
 
-      return true;
+      return isHabiticaConnected;
     } catch (error) {
       console.error('Zustand connection check error:', error);
       set({ isHabiticaConnected: false });

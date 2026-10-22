@@ -1,63 +1,39 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
-
-import { getGithubUserUserByLogin } from '@/accessors/githubUser';
-import { authOptions } from '@/lib/auth';
 import HabiticaApi from '@/lib/HabiticaApi';
+import logger from '@/lib/logger';
+import { ActionError, runUserAction } from '@/lib/userAction';
 import { UserStats } from '@/types/habitica';
-import { ServerActionResult } from '@/types/serverAction';
 
-export async function getHabiticaStatsAction(): Promise<
-  ServerActionResult<UserStats>
-> {
-  try {
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user?.name) {
-      return { success: false, error: 'Unauthorized' };
-    }
-
-    const user = await getGithubUserUserByLogin(session.user.name, {
-      habiticaUser: true,
-    });
-
-    if (!user?.habiticaUser?.userId || !user?.habiticaUser?.apiToken) {
-      return { success: false, error: 'User is not connected to Habitica.' };
-    }
-
-    const habitica = new HabiticaApi(
-      user.habiticaUser.userId,
-      user.habiticaUser.apiToken,
-    );
-
-    let response;
-
-    try {
-      response = await habitica.getUserStats();
-
-      if (!response || !response.stats) {
-        return {
-          success: false,
-          error: 'Habitica API returned invalid data.',
-        };
+export async function getHabiticaStatsAction() {
+  return runUserAction(
+    'getHabiticaStatsAction',
+    async (githubUser): Promise<UserStats> => {
+      if (!githubUser.habiticaUser) {
+        throw new ActionError('User is not connected to Habitica.');
       }
 
-      return { success: true, data: response.stats };
-    } catch (error) {
-      console.error('Habitica API Error:', error);
+      const habitica = new HabiticaApi(
+        githubUser.habiticaUser.userId,
+        githubUser.habiticaUser.apiToken,
+      );
 
-      return {
-        success: false,
-        error: 'Failed to retrieve stats from Habitica.',
-      };
-    }
-  } catch (error) {
-    console.error('getHabiticaStatsAction Error:', error);
+      let response;
 
-    return {
-      success: false,
-      error: 'An unexpected error occurred. Please try again later.',
-    };
-  }
+      try {
+        response = await habitica.getUserStats();
+      } catch (error) {
+        logger.error({ error }, 'Habitica API Error');
+
+        throw new ActionError('Failed to retrieve stats from Habitica.');
+      }
+
+      if (!response?.stats) {
+        throw new ActionError('Habitica API returned invalid data.');
+      }
+
+      return response.stats;
+    },
+    { habiticaUser: true },
+  );
 }

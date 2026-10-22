@@ -28,7 +28,7 @@ export default async function ProfilePage() {
     return <AuthGate />;
   }
 
-  const profile = await getUserProfileAction();
+  const { data: profile } = await getUserProfileAction();
 
   if (!profile) {
     return null;
