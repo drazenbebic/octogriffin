@@ -22,10 +22,11 @@ export const HabiticaUserForm: FC = () => {
     fetchHabiticaCredentials,
     fetchHabiticaStats,
     habiticaCredentials,
-    isLoading,
-    setIsLoading,
     upsertHabiticaUser,
   } = useHabiticaStore();
+
+  // The form's own state, independent of the stats card and badge
+  const [isLoading, setIsLoading] = useState(true);
 
   const [values, setValues] = useState({
     apiToken: '',
@@ -55,12 +56,11 @@ export const HabiticaUserForm: FC = () => {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(true);
       await fetchHabiticaCredentials();
       await fetchHabiticaConnection();
       setIsLoading(false);
     })();
-  }, [fetchHabiticaCredentials, fetchHabiticaConnection, setIsLoading]);
+  }, [fetchHabiticaCredentials, fetchHabiticaConnection]);
 
   const [previousCredentials, setPreviousCredentials] =
     useState(habiticaCredentials);

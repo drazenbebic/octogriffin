@@ -14,9 +14,9 @@ type HabiticaStoreState = {
   fetchHabiticaStats: () => Promise<null | UserStats>;
   habiticaCredentials: HabiticaAccount | null;
   habiticaStats: null | UserStats;
+  isConnectionLoading: boolean;
   isHabiticaConnected: boolean;
-  isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
+  isStatsLoading: boolean;
   upsertHabiticaUser: (
     data: HabiticaUserSchema,
   ) => Promise<HabiticaAccount | null>;
@@ -24,6 +24,8 @@ type HabiticaStoreState = {
 
 export const useHabiticaStore = create<HabiticaStoreState>(set => ({
   fetchHabiticaConnection: async () => {
+    set({ isConnectionLoading: true });
+
     try {
       const result = await isHabiticaConnectedAction();
       const isHabiticaConnected = result.success && !!result.data;
@@ -35,6 +37,8 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
       set({ isHabiticaConnected: false });
 
       return false;
+    } finally {
+      set({ isConnectionLoading: false });
     }
   },
   fetchHabiticaCredentials: async () => {
@@ -55,7 +59,7 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
     }
   },
   fetchHabiticaStats: async () => {
-    set({ isLoading: true });
+    set({ isStatsLoading: true });
 
     try {
       const result = await getHabiticaStatsAction();
@@ -72,14 +76,14 @@ export const useHabiticaStore = create<HabiticaStoreState>(set => ({
 
       return null;
     } finally {
-      set({ isLoading: false });
+      set({ isStatsLoading: false });
     }
   },
   habiticaCredentials: null,
   habiticaStats: null,
+  isConnectionLoading: true,
   isHabiticaConnected: false,
-  isLoading: false,
-  setIsLoading: isLoading => set({ isLoading }),
+  isStatsLoading: true,
   upsertHabiticaUser: async data => {
     try {
       const result = await upsertHabiticaUserAction(data);

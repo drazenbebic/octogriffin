@@ -7,14 +7,14 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
 
 export const IsConnected = () => {
-  const { fetchHabiticaConnection, isHabiticaConnected, isLoading } =
+  const { fetchHabiticaConnection, isConnectionLoading, isHabiticaConnected } =
     useHabiticaStore();
 
   useEffect(() => {
     fetchHabiticaConnection();
   }, [fetchHabiticaConnection]);
 
-  if (isLoading) {
+  if (isConnectionLoading) {
     return <Skeleton className="h-9 w-32" variant="circular" />;
   }
 

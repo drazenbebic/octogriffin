@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
 
 export const HabiticaStatsCard: FC = () => {
-  const isLoading = useHabiticaStore(state => state.isLoading);
+  const isLoading = useHabiticaStore(state => state.isStatsLoading);
   const habiticaStats = useHabiticaStore(state => state.habiticaStats);
   const fetchHabiticaStats = useHabiticaStore(
     state => state.fetchHabiticaStats,
