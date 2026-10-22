@@ -9,3 +9,19 @@ export const getAllRepositories = (githubUserId: bigint | number) => {
     where: { installation: { githubUserId } },
   });
 };
+
+/**
+ * Whether all the repositories belong to installations of the user.
+ */
+export const ownsRepositories = async (
+  githubUserId: bigint | number,
+  uuids: string[],
+) => {
+  const uniqueUuids = [...new Set(uuids)];
+
+  const ownedCount = await prisma.githubSelectedRepositories.count({
+    where: { installation: { githubUserId }, uuid: { in: uniqueUuids } },
+  });
+
+  return ownedCount === uniqueUuids.length;
+};

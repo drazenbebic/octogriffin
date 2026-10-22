@@ -2,6 +2,9 @@ import { z } from 'zod';
 
 import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
 
+export const UNKNOWN_REPOSITORY_ERROR =
+  'Please only select repositories you added Octogriffin to.';
+
 export const triggerSchema = z.object({
   event: z
     .string()

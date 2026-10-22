@@ -1,9 +1,13 @@
 'use server';
 
+import { ownsRepositories } from '@/accessors/repository';
 import { getTrigger, updateTrigger } from '@/accessors/trigger';
 import { ActionError, parseInput, runUserAction } from '@/lib/userAction';
 import type { TriggerSchema } from '@/schemas/triggerSchema';
-import { triggerSchema } from '@/schemas/triggerSchema';
+import {
+  triggerSchema,
+  UNKNOWN_REPOSITORY_ERROR,
+} from '@/schemas/triggerSchema';
 
 export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
   return runUserAction('updateTriggerAction', async githubUser => {
@@ -14,6 +18,10 @@ export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
       throw new ActionError(
         'Trigger not found or you do not have permission to edit it.',
       );
+    }
+
+    if (!(await ownsRepositories(githubUser.id, trigger.repositories))) {
+      throw new ActionError(UNKNOWN_REPOSITORY_ERROR);
     }
 
     return updateTrigger(

@@ -1,13 +1,21 @@
 'use server';
 
+import { ownsRepositories } from '@/accessors/repository';
 import { createTrigger } from '@/accessors/trigger';
-import { parseInput, runUserAction } from '@/lib/userAction';
+import { ActionError, parseInput, runUserAction } from '@/lib/userAction';
 import type { TriggerSchema } from '@/schemas/triggerSchema';
-import { triggerSchema } from '@/schemas/triggerSchema';
+import {
+  triggerSchema,
+  UNKNOWN_REPOSITORY_ERROR,
+} from '@/schemas/triggerSchema';
 
 export async function createTriggerAction(data: TriggerSchema) {
   return runUserAction('createTriggerAction', async githubUser => {
     const trigger = parseInput(triggerSchema, data);
+
+    if (!(await ownsRepositories(githubUser.id, trigger.repositories))) {
+      throw new ActionError(UNKNOWN_REPOSITORY_ERROR);
+    }
 
     return createTrigger({
       event: trigger.event,
