@@ -1,0 +1,49 @@
+name: 'CI'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: 'Lint, type check, test and build'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Uses the pnpm version from package.json#packageManager
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm --filter @octogriffin/web exec tsc --noEmit
+
+      - name: Test
+        run: pnpm test
+
+      # Skips `prisma migrate deploy`; the build never connects to a database
+      - name: Build
+        run: pnpm --filter @octogriffin/web exec next build
+        env:
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          ENCRYPTION_KEY: ci-only-placeholder-encryption-key-0000
+          GITHUB_WEBHOOK_SECRET: ci-only-placeholder
