@@ -85,7 +85,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
     setResetCount(count => count + 1);
   };
 
-  form.useSubmit(async state => {
+  form.useSubmit(state => {
     const validation = triggerSchema.safeParse(state.values);
 
     if (!validation.success) {

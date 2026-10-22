@@ -45,7 +45,7 @@ export const runUserAction = async <
   name: string,
   handler: (
     githubUser: Prisma.GithubUsersGetPayload<{ include: TInclude }>,
-  ) => Promise<TData>,
+  ) => Promise<TData> | TData,
   include?: TInclude,
 ): Promise<ServerActionResult<TData>> => {
   try {

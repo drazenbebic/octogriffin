@@ -6,7 +6,7 @@ import type { HabiticaAccount } from '@/types/habitica';
 export async function getHabiticaCredentialsAction() {
   return runUserAction(
     'getHabiticaCredentialsAction',
-    async (githubUser): Promise<HabiticaAccount> => {
+    (githubUser): HabiticaAccount => {
       if (!githubUser.habiticaUser) {
         throw new ActionError('User is not connected to Habitica.');
       }

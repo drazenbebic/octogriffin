@@ -6,7 +6,7 @@ import { runUserAction } from '@/lib/userAction';
 export async function getRepositoriesAction() {
   return runUserAction(
     'getRepositoriesAction',
-    async githubUser => getAllRepositories(githubUser.installation.id),
+    githubUser => getAllRepositories(githubUser.installation.id),
     { installation: true },
   );
 }

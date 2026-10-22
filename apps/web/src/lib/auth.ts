@@ -7,7 +7,7 @@ import prisma from '@/lib/prisma';
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    async jwt({ profile, token }) {
+    jwt({ profile, token }) {
       const githubProfile = profile as GithubProfile;
 
       if (githubProfile) {
@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-    async session({ session, token }) {
+    session({ session, token }) {
       if (session.user && token.username) {
         session.user.name = token.username as string;
       }

@@ -5,7 +5,7 @@ import { runUserAction } from '@/lib/userAction';
 export async function getUserProfileAction() {
   return runUserAction(
     'getUserProfileAction',
-    async githubUser => ({
+    githubUser => ({
       avatar: githubUser.avatarUrl,
       company: githubUser.company,
       email: githubUser.email,
