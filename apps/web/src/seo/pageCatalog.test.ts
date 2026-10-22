@@ -39,14 +39,18 @@ describe('pageCatalog', () => {
     );
   });
 
-  it.each(pagePaths)('gives %s a description and link preview', page => {
-    const metadata = pageMetadata(page);
+  it.each(pagePaths)(
+    'gives %s a description, canonical address and link preview',
+    page => {
+      const metadata = pageMetadata(page);
 
-    expect(metadata.description).toBeTruthy();
-    expect(metadata.openGraph?.url).toBe(
-      new URL(page, 'https://octogriffin.com').toString(),
-    );
-  });
+      const url = new URL(page, 'https://octogriffin.com').toString();
+
+      expect(metadata.description).toBeTruthy();
+      expect(metadata.alternates?.canonical).toBe(url);
+      expect(metadata.openGraph?.url).toBe(url);
+    },
+  );
 
   it.each(pagePaths)(
     'shows %s with the same title in search results and link previews',

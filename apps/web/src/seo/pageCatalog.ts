@@ -132,6 +132,9 @@ export const pageMetadata = (path: PagePath): Metadata => {
   const title = fullTitle(path);
 
   return {
+    alternates: {
+      canonical: pageUrl(path),
+    },
     description,
     openGraph: {
       description,
