@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.10.1](https://github.com/drazenbebic/octogriffin/compare/web-v0.10.0...web-v0.10.1) (2026-10-23)
+
+
+### Bug Fixes
+
+* **web:** accept the health check secret in a header and stop sharing database errors ([da7b649](https://github.com/drazenbebic/octogriffin/commit/da7b6492766ab112e5e8845ee3a50de49f49eea9))
+* **web:** check a trigger's alias and difficulty before saving it, so Habitica accepts the task ([80b017a](https://github.com/drazenbebic/octogriffin/commit/80b017a9724e4277c6ba72cb5b9636fdc5370762))
+* **web:** explain when a Habitica account is already linked to another GitHub account ([fd65481](https://github.com/drazenbebic/octogriffin/commit/fd65481a21c01973ccda920cfe5b6e87b3bd89c5))
+* **web:** keep your account safe and working when you rename your GitHub account ([18ce29a](https://github.com/drazenbebic/octogriffin/commit/18ce29a7b2772c1a39441e34f84e34e268334e90))
+* **web:** let you add Octogriffin to more than one GitHub account or organization ([f5a6b9b](https://github.com/drazenbebic/octogriffin/commit/f5a6b9bb2b040a7569b17ce8653012fc46704499))
+* **web:** never send you to another website after signing in ([dac2a87](https://github.com/drazenbebic/octogriffin/commit/dac2a87de0b78172887496e068f72debd2e64fb4))
+* **web:** only let triggers use repositories you added Octogriffin to ([1a62e1b](https://github.com/drazenbebic/octogriffin/commit/1a62e1b6d3b62cbf6bb535c8983b68d51a4dc02e))
+* **web:** only load profile pictures from GitHub's avatar server ([69e08ae](https://github.com/drazenbebic/octogriffin/commit/69e08aec72a95ee681b1337e262a6595e45ed3e9))
+* **web:** pick up repositories you create after giving Octogriffin access to all of them ([e29f971](https://github.com/drazenbebic/octogriffin/commit/e29f971425001f672fb9ad6337aedc82ce9ce7aa))
+* **web:** retry installation changes that fail, so removing the app always deletes your data ([664695c](https://github.com/drazenbebic/octogriffin/commit/664695cf681c21c8047d67ee5eba2fd544d5213b))
+* **web:** score your habit, not a To-Do or Daily that has the same name ([ac6af7a](https://github.com/drazenbebic/octogriffin/commit/ac6af7a984abc9e40fe16253595b211c834ce612))
+* **web:** stop other websites from showing Octogriffin inside their pages ([00a637b](https://github.com/drazenbebic/octogriffin/commit/00a637b497678814199acee72bff0d47b5c8134b))
+* **web:** stop retrying rewards Habitica refuses, like when your API token is wrong ([9f96b43](https://github.com/drazenbebic/octogriffin/commit/9f96b43139a0e192c1f6f08a915a856eb81dccd2))
+* **web:** stop rewarding the same commits again when they are pushed to another branch ([f7869c0](https://github.com/drazenbebic/octogriffin/commit/f7869c05d95e8f9707c716d1ffbc1bd03ee4bf4d))
+* **web:** stop storing the GitHub sign-in token we never used ([2da1434](https://github.com/drazenbebic/octogriffin/commit/2da143476f7e5213b7a167c482d383b6eb5cf548))
+* **web:** stop unusual page numbers from breaking your triggers and history lists ([f8276e6](https://github.com/drazenbebic/octogriffin/commit/f8276e6c8b2ab88b91ea1ba67f488bc5d40d7699))
+* **web:** try again when Habitica can't be reached instead of losing your reward ([cc3c608](https://github.com/drazenbebic/octogriffin/commit/cc3c60810c9a01e5be6d995ae21acfe30314302d))
+
 ## [0.10.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.9.0...web-v0.10.0) (2026-10-22)
 
 
