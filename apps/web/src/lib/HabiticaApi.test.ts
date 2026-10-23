@@ -199,6 +199,26 @@ describe('@/lib/habitica-api.ts', () => {
       );
     });
 
+    it('should only reuse a task of the same type with the same title', async () => {
+      const createdTask = { id: 'task-3', text: 'Write code', type: 'habit' };
+
+      mockErrorResponse(404, 'Not Found', 'Task not found.');
+      mockSuccessResponse([{ id: 'todo-1', text: 'Write code', type: 'todo' }]);
+      mockSuccessResponse(createdTask);
+
+      await expect(api.findOrCreateTask(payload)).resolves.toEqual(createdTask);
+    });
+
+    it('should reuse a habit with the same title', async () => {
+      const habit = { id: 'habit-1', text: 'Write code', type: 'habit' };
+
+      mockErrorResponse(404, 'Not Found', 'Task not found.');
+      mockSuccessResponse([habit]);
+
+      await expect(api.findOrCreateTask(payload)).resolves.toEqual(habit);
+      expect(mockFetch).toHaveBeenCalledTimes(2);
+    });
+
     it('should not hide other errors while looking up the alias', async () => {
       mockErrorResponse(401, 'Unauthorized');
 

@@ -1,4 +1,4 @@
-import type { TaskDirection } from '@/enums/habitica';
+import type { TaskDirection, TaskType } from '@/enums/habitica';
 import logger from '@/lib/logger';
 import type {
   APIResponse,
@@ -147,10 +147,11 @@ class HabiticaApi {
     }
   };
 
-  findTaskByTitle = async (title: string) => {
+  findTaskByTitle = async (title: string, type: TaskType) => {
     const tasks = await this.getTasks();
 
-    return tasks.find(t => t.text === title);
+    // A To-Do or Daily with the same title isn't the task we're looking for
+    return tasks.find(t => t.type === type && t.text === title);
   };
 
   findOrCreateTask = async (payload: CreateTaskParameters) => {
@@ -162,7 +163,7 @@ class HabiticaApi {
       }
     }
 
-    const taskByTitle = await this.findTaskByTitle(payload.text);
+    const taskByTitle = await this.findTaskByTitle(payload.text, payload.type);
 
     if (taskByTitle) {
       return taskByTitle;
