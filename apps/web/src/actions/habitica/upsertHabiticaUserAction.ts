@@ -1,12 +1,15 @@
 'use server';
 
 import { upsertHabiticaUser } from '@/accessors/habiticaUser';
+import { Prisma } from '@/generated/prisma/client';
 import HabiticaApi from '@/lib/HabiticaApi';
 import logger from '@/lib/logger';
 import { ActionError, parseInput, runUserAction } from '@/lib/userAction';
 import type { HabiticaUserSchema } from '@/schemas/habiticaUserSchema';
 import { habiticaUserSchema } from '@/schemas/habiticaUserSchema';
 import type { HabiticaAccount } from '@/types/habitica';
+
+const UNIQUE_CONSTRAINT_VIOLATION = 'P2002';
 
 export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
   return runUserAction(
@@ -29,11 +32,27 @@ export async function upsertHabiticaUserAction(data: HabiticaUserSchema) {
         );
       }
 
-      const habiticaUser = await upsertHabiticaUser(
-        githubUser.id,
-        { apiToken, userId: input.userId },
-        { apiToken, userId: input.userId },
-      );
+      let habiticaUser;
+
+      try {
+        habiticaUser = await upsertHabiticaUser(
+          githubUser.id,
+          { apiToken, userId: input.userId },
+          { apiToken, userId: input.userId },
+        );
+      } catch (error) {
+        // Each Habitica account can only be linked once
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === UNIQUE_CONSTRAINT_VIOLATION
+        ) {
+          throw new ActionError(
+            'This Habitica account is already linked to another GitHub account.',
+          );
+        }
+
+        throw error;
+      }
 
       return { hasApiToken: true, userId: habiticaUser.userId };
     },
