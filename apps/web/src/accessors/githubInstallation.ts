@@ -1,5 +1,4 @@
 import { releaseGithubLogin } from '@/accessors/githubUser';
-import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
 type GithubInstallation = { id: number };
@@ -56,28 +55,43 @@ export const getInstallationStatus = async (
   };
 };
 
-export const updateGithubInstallation = async (
-  where: Prisma.GithubInstallationsWhereUniqueInput,
-  data: Prisma.GithubInstallationsUncheckedUpdateInput,
+/**
+ * Resolves to `false` for an installation we don't know.
+ */
+export const setGithubInstallationSuspended = async (
+  installationId: number,
+  suspended: boolean,
 ) => {
-  return prisma.githubInstallations.update({
-    data,
-    where,
+  const { count } = await prisma.githubInstallations.updateMany({
+    data: { suspended },
+    where: { installationId },
   });
+
+  return count > 0;
 };
 
 /**
  * Deletes an installation. Removing the app from the user's last account
- * deletes the user and everything we keep about them, too.
+ * deletes the user and everything we keep about them, too. Resolves to
+ * `false` for an installation we don't know.
  */
 export const deleteGithubInstallation = async (
   installationId: bigint | number,
 ) => {
   return prisma.$transaction(async tx => {
-    const { githubUserId } = await tx.githubInstallations.delete({
-      where: {
-        installationId: Number(installationId),
-      },
+    const githubInstallation = await tx.githubInstallations.findUnique({
+      select: { githubUserId: true },
+      where: { installationId: Number(installationId) },
+    });
+
+    if (!githubInstallation) {
+      return false;
+    }
+
+    const { githubUserId } = githubInstallation;
+
+    await tx.githubInstallations.delete({
+      where: { installationId: Number(installationId) },
     });
 
     const remainingInstallations = await tx.githubInstallations.count({
@@ -87,6 +101,8 @@ export const deleteGithubInstallation = async (
     if (remainingInstallations === 0) {
       await tx.githubUsers.delete({ where: { id: githubUserId } });
     }
+
+    return true;
   });
 };
 

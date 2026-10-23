@@ -23,11 +23,8 @@ export const handleInstallationRepositoriesAdded = async ({
     return;
   }
 
-  try {
-    await addSelectedRepositories(existingInstallation.id, repositoriesAdded);
-  } catch (error) {
-    logger.error({ error }, 'Repositories could not be added.');
-  }
+  // Errors fail the delivery, so it's retried
+  await addSelectedRepositories(existingInstallation.id, repositoriesAdded);
 
   logger.info({ count: repositoriesAdded.length }, 'Repositories added.');
 };

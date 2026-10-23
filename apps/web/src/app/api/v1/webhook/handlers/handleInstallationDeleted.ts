@@ -8,13 +8,15 @@ export const handleInstallationDeleted = async ({
 }: EmitterWebhookEvent<'installation.deleted'>) => {
   logger.info('Event triggered.');
 
-  try {
-    await deleteGithubInstallation(installation.id);
+  // Errors fail the delivery, so it's retried. Otherwise data we promised to
+  // delete would stay behind.
+  const isDeleted = await deleteGithubInstallation(installation.id);
 
-    logger.info('Installation and all related data deleted successfully.');
-  } catch (error) {
-    logger.error({ error }, 'Failed to delete installation.');
+  if (!isDeleted) {
+    logger.warn({ installationId: installation.id }, 'Installation not found.');
+
+    return;
   }
 
-  logger.info('Event processed.');
+  logger.info('Installation and all related data deleted successfully.');
 };

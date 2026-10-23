@@ -1,6 +1,6 @@
 import type { EmitterWebhookEvent } from '@octokit/webhooks';
 
-import { updateGithubInstallation } from '@/accessors/githubInstallation';
+import { setGithubInstallationSuspended } from '@/accessors/githubInstallation';
 import logger from '@/lib/logger';
 
 export const handleInstallationSuspend = async ({
@@ -8,14 +8,14 @@ export const handleInstallationSuspend = async ({
 }: EmitterWebhookEvent<'installation.suspend'>) => {
   logger.info('Event triggered.');
 
-  try {
-    await updateGithubInstallation(
-      { installationId: installation.id },
-      { suspended: true },
-    );
-  } catch (error) {
-    logger.error({ error }, 'The installation could not be suspended.');
+  // Errors fail the delivery, so it's retried
+  const isUpdated = await setGithubInstallationSuspended(installation.id, true);
+
+  if (!isUpdated) {
+    logger.warn({ installationId: installation.id }, 'Installation not found.');
+
+    return;
   }
 
-  logger.info('Event processed.');
+  logger.info('Installation suspended.');
 };
