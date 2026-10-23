@@ -2,6 +2,8 @@ import crypto from 'crypto';
 import { env } from 'process';
 
 const ALGORITHM = 'aes-256-gcm';
+// Node accepts shorter tags unless told otherwise, which are easier to forge
+const AUTH_TAG_LENGTH = 16;
 const SECRET_KEY = env.ENCRYPTION_KEY || '';
 
 if (SECRET_KEY.length < 32) {
@@ -12,7 +14,9 @@ const KEY = crypto.createHash('sha256').update(SECRET_KEY).digest();
 
 export const encrypt = (text: string): string => {
   const iv = crypto.randomBytes(16);
-  const cipher = crypto.createCipheriv(ALGORITHM, KEY, iv);
+  const cipher = crypto.createCipheriv(ALGORITHM, KEY, iv, {
+    authTagLength: AUTH_TAG_LENGTH,
+  });
 
   let encrypted = cipher.update(text, 'utf8', 'hex');
   encrypted += cipher.final('hex');
@@ -41,6 +45,7 @@ export const decrypt = (text: string): string => {
     ALGORITHM,
     KEY,
     Buffer.from(ivHex, 'hex'),
+    { authTagLength: AUTH_TAG_LENGTH },
   );
 
   decipher.setAuthTag(Buffer.from(authTagHex, 'hex'));

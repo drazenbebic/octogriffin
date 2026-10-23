@@ -60,4 +60,16 @@ describe('@/lib/crypto.ts', () => {
     expect(isEncrypted(encrypt('secret'))).toBe(true);
     expect(isEncrypted('8f6a2b1c-1d2e-4f5a-9b8c-7d6e5f4a3b2c')).toBe(false);
   });
+
+  it('should reject a shortened authentication tag', async () => {
+    process.env.ENCRYPTION_KEY = 'test-key-must-be-32-bytes-long-!!';
+
+    const { decrypt, encrypt } = await import('@/lib/crypto');
+
+    const [iv, authTag, encrypted] = encrypt('secret').split(':');
+
+    expect(() =>
+      decrypt(`${iv}:${authTag.slice(0, 8)}:${encrypted}`),
+    ).toThrow();
+  });
 });
