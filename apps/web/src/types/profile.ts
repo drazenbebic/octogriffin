@@ -6,7 +6,7 @@ export type UserProfile = {
   handle: string;
   hasInstallation: boolean;
   isLinked: boolean;
-  joinedAt: bigint;
+  joinedAt: Date;
   location: null | string;
   name: string;
   website: null | string;

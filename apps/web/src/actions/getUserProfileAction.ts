@@ -15,7 +15,7 @@ export async function getUserProfileAction() {
         installation => !installation.suspended,
       ),
       isLinked: !!githubUser.habiticaUser,
-      joinedAt: githubUser.id,
+      joinedAt: githubUser.createdAt,
       location: githubUser.location,
       name: githubUser.name || githubUser.login,
       website: githubUser.blog,
