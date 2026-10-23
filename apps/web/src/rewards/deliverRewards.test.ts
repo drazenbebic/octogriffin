@@ -1,6 +1,7 @@
 import { TaskDirection } from '@/enums/habitica';
 
 import { deliverRewards } from './deliverRewards';
+import { RewardDeliveryError } from './RewardDeliveryError';
 import type {
   InstallationStatus,
   LinkedUser,
@@ -126,11 +127,11 @@ const recordingLog = () => {
   return { log, recorded };
 };
 
-const failingSink: RewardSink = {
+const failingSink = (isRetryable = true): RewardSink => ({
   apply: async () => {
-    throw new Error('Habitica is down');
+    throw new RewardDeliveryError([new Error('Habitica said no')], isRetryable);
   },
-};
+});
 
 describe('deliverRewards', () => {
   it('rewards a commit author once per commit', async () => {
@@ -381,9 +382,23 @@ describe('deliverRewards', () => {
       deliverRewards(makeEvent(), {
         directory: inMemoryDirectory([makeUser()]),
         log,
-        sink: failingSink,
+        sink: failingSink(),
       }),
     ).rejects.toThrow('Some rewards could not be delivered.');
+
+    expect(recorded).toHaveLength(0);
+  });
+
+  it('does not retry when trying again would not help', async () => {
+    const { log, recorded } = recordingLog();
+
+    await expect(
+      deliverRewards(makeEvent(), {
+        directory: inMemoryDirectory([makeUser()]),
+        log,
+        sink: failingSink(false),
+      }),
+    ).resolves.toBeUndefined();
 
     expect(recorded).toHaveLength(0);
   });
@@ -394,7 +409,7 @@ describe('deliverRewards', () => {
     const directory = inMemoryDirectory([makeUser()]);
 
     await expect(
-      deliverRewards(makeEvent(), { directory, log, sink: failingSink }),
+      deliverRewards(makeEvent(), { directory, log, sink: failingSink() }),
     ).rejects.toThrow();
     await deliverRewards(makeEvent(), { directory, log, sink });
 

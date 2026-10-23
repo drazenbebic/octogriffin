@@ -1,5 +1,6 @@
 import logger from '@/lib/logger';
 
+import { RewardDeliveryError } from './RewardDeliveryError';
 import { evaluateRewards } from './rewardPolicy';
 import type {
   RewardableEvent,
@@ -40,10 +41,19 @@ export const deliverRewards = async (
       try {
         await sink.apply(recipientRewards);
       } catch (error) {
-        // Nothing was scored, so don't show it as rewarded and let a retry
-        // deliver it
+        // Nothing was scored, so don't show it as rewarded
         await log.release(event, recipientRewards.recipient);
 
+        if (error instanceof RewardDeliveryError && !error.isRetryable) {
+          logger.warn(
+            { user: recipientRewards.recipient.login },
+            'Ignored: Habitica refused every reward, trying again would not help.',
+          );
+
+          return;
+        }
+
+        // Let a retry deliver it
         throw error;
       }
     }),

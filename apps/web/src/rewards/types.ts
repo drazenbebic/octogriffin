@@ -110,7 +110,7 @@ export type RewardDirectory = {
  * Where Rewards end up: a recipient's Habitica account.
  */
 export type RewardSink = {
-  /** Rejects when not a single reward could be scored. */
+  /** Rejects with a `RewardDeliveryError` when not a single reward could be scored. */
   apply: (recipientRewards: RecipientRewards) => Promise<void>;
 };
 

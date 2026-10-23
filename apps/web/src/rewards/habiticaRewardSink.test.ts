@@ -1,10 +1,14 @@
 import { TaskAttribute, TaskDirection, TaskFrequency } from '@/enums/habitica';
-import HabiticaApi from '@/lib/HabiticaApi';
+import HabiticaApi, { HabiticaApiError } from '@/lib/HabiticaApi';
 
 import { habiticaRewardSink } from './habiticaRewardSink';
 import type { RecipientRewards, Reward } from './types';
 
-jest.mock('@/lib/HabiticaApi');
+jest.mock('@/lib/HabiticaApi', () => ({
+  ...jest.requireActual('@/lib/HabiticaApi'),
+  __esModule: true,
+  default: jest.fn(),
+}));
 // p-queue is ESM only, which Jest can't load
 jest.mock('p-queue', () => ({
   __esModule: true,
@@ -42,7 +46,10 @@ const recipientRewards = (rewards: Reward[]): RecipientRewards => ({
   rewards,
 });
 
-const mockHabitica = (failingTitles: string[]) => {
+const mockHabitica = (
+  failingTitles: string[],
+  error: Error = new Error('Habitica is down'),
+) => {
   const scoreTask = jest.fn().mockResolvedValue({});
 
   MockHabiticaApi.mockImplementation(
@@ -50,7 +57,7 @@ const mockHabitica = (failingTitles: string[]) => {
       ({
         findOrCreateTask: jest.fn(async ({ text }) => {
           if (failingTitles.includes(text)) {
-            throw new Error('Habitica is down');
+            throw error;
           }
 
           return { id: text };
@@ -71,13 +78,29 @@ describe('habiticaRewardSink', () => {
     expect(scoreTask).toHaveBeenCalledTimes(2);
   });
 
-  it('fails when not a single reward could be scored', async () => {
-    mockHabitica(['Code']);
+  it.each([
+    ['Habitica is unreachable', new Error('fetch failed'), true],
+    ['Habitica is down', new HabiticaApiError('Unavailable', 503), true],
+    ['Habitica is busy', new HabiticaApiError('Too Many Requests', 429), true],
+    [
+      'the API token is wrong',
+      new HabiticaApiError('Unauthorized', 401),
+      false,
+    ],
+    ['the task is invalid', new HabiticaApiError('Bad Request', 400), false],
+  ])(
+    'fails when nothing could be scored because %s',
+    async (_, error, isRetryable) => {
+      mockHabitica(['Code'], error);
 
-    await expect(
-      habiticaRewardSink.apply(recipientRewards([reward('Code')])),
-    ).rejects.toThrow('No reward could be scored.');
-  });
+      await expect(
+        habiticaRewardSink.apply(recipientRewards([reward('Code')])),
+      ).rejects.toMatchObject({
+        isRetryable,
+        message: 'No reward could be scored.',
+      });
+    },
+  );
 
   it('keeps the rewards that were scored when others fail', async () => {
     const { scoreTask } = mockHabitica(['Review']);

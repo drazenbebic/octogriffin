@@ -1,10 +1,23 @@
 import PQueue from 'p-queue';
 
 import { TaskType } from '@/enums/habitica';
-import HabiticaApi from '@/lib/HabiticaApi';
+import HabiticaApi, { HabiticaApiError } from '@/lib/HabiticaApi';
 import logger from '@/lib/logger';
 
+import { RewardDeliveryError } from './RewardDeliveryError';
 import type { RewardSink } from './types';
+
+const TOO_MANY_REQUESTS = 429;
+const SERVER_ERROR = 500;
+
+/**
+ * Habitica refusing a request, e.g. for a wrong API token, won't change by
+ * trying again. Everything else, like Habitica being down, might.
+ */
+const isRetryable = (error: unknown) =>
+  !(error instanceof HabiticaApiError) ||
+  error.status === TOO_MANY_REQUESTS ||
+  error.status >= SERVER_ERROR;
 
 export const habiticaRewardSink: RewardSink = {
   apply: async ({ recipient, rewards }) => {
@@ -57,7 +70,7 @@ export const habiticaRewardSink: RewardSink = {
 
     // Partly scored rewards aren't retried, that would score some of them twice
     if (scoredCount === 0 && errors.length > 0) {
-      throw new AggregateError(errors, 'No reward could be scored.');
+      throw new RewardDeliveryError(errors, errors.some(isRetryable));
     }
   },
 };
