@@ -15,6 +15,21 @@ const nextConfig = {
     esmExternals: true,
     inlineCss: true,
   },
+  async headers() {
+    return [
+      {
+        headers: [
+          // Other sites can't show Octogriffin in a frame and trick people
+          // into clicking something
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'none'" },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+        ],
+        source: '/:path*',
+      },
+    ];
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     qualities: [60, 75],
