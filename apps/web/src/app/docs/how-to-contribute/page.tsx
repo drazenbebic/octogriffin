@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 
 import {
+  CheckListIcon,
   GitForkIcon,
   GitPullRequestIcon,
-  Message01Icon,
-  PaintBoardIcon,
   Search01Icon,
   Settings02Icon,
   Tick02Icon,
@@ -190,47 +189,22 @@ export default function DocsHowToContributePage() {
 
         {/* Step 5: Development */}
         <DocsStep heading="Development Standards" step={5}>
-          <div className="space-y-6">
-            <div>
-              <div className="mb-2 flex items-center gap-2">
-                <HugeiconsIcon
-                  className="text-accent-text "
-                  icon={PaintBoardIcon}
-                  size={20}
-                />
-                <Heading level={4} size="h4">
-                  UI Components
-                </Heading>
-              </div>
-              <Content size="sm">
-                Use the existing UI components in{' '}
-                <code className="bg-fill px-1 rounded ">src/components/ui</code>{' '}
-                whenever possible. Do not hardcode colors; use Tailwind classes
-                like <code className="text-accent-text ">text-text-2</code> or{' '}
-                <code className="text-accent-text ">bg-accent-soft</code> to
-                ensure the theme remains consistent.
-              </Content>
-            </div>
-
-            <div>
-              <div className="mb-2 flex items-center gap-2">
-                <HugeiconsIcon
-                  className="text-accent-text "
-                  icon={Message01Icon}
-                  size={20}
-                />
-                <Heading level={4} size="h4">
-                  Icons
-                </Heading>
-              </div>
-              <Content size="sm">
-                We use <strong>Hugeicons React</strong> (Free). Always use the
-                standard stroke variant. Do not use premium styles like{' '}
-                <code className="bg-fill px-1 rounded text-xs ">bulk</code>,{' '}
-                <code className="bg-fill px-1 rounded text-xs ">solid</code>, or{' '}
-                <code className="bg-fill px-1 rounded text-xs ">twotone</code>.
-              </Content>
-            </div>
+          <Content>
+            Follow the project&apos;s conventions for code style, project
+            structure, server actions, the design system and testing. Most of
+            them are checked automatically by{' '}
+            <code className="rounded-sm bg-fill px-1.5 py-0.5 font-mono text-[0.85em]">
+              pnpm lint
+            </code>{' '}
+            and the tests.
+          </Content>
+          <div className="mt-4">
+            <DocsResourceLink
+              description="Checks, code style, project structure, the design system and testing."
+              href="/docs/development-standards"
+              icon={<HugeiconsIcon icon={CheckListIcon} size={18} />}
+              title="Read the Development Standards"
+            />
           </div>
         </DocsStep>
 

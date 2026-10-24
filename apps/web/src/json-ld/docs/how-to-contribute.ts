@@ -29,7 +29,7 @@ export const howToContributeJsonLd: WithContext<HowTo> = {
     },
     {
       name: 'Development Standards',
-      text: 'Follow UI component standards and icon usage guidelines.',
+      text: 'Follow the Development Standards: checks, code style, project structure, the design system and testing.',
     },
     {
       name: 'Open a Pull Request',

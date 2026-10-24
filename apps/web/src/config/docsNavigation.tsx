@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import {
   BookOpen01Icon,
+  CheckListIcon,
   CodeCircleIcon,
   GitPullRequestIcon,
   Globe02Icon,
@@ -72,6 +73,11 @@ export const docsNavigation: DocsNavSection[] = [
         href: '/docs/how-to-contribute',
         icon: <HugeiconsIcon icon={GitPullRequestIcon} size={18} />,
         title: 'How to Contribute',
+      },
+      {
+        href: '/docs/development-standards',
+        icon: <HugeiconsIcon icon={CheckListIcon} size={18} />,
+        title: 'Development Standards',
       },
       {
         href: '/docs/architecture',

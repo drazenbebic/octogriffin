@@ -48,6 +48,13 @@ const pages = {
     title: 'Development Setup',
     updatedAt: '2026-03-25',
   },
+  '/docs/development-standards': {
+    description:
+      'The conventions behind Octogriffin: checks and tooling, code style, project structure, server actions, the design system, testing and commits.',
+    isDocs: true,
+    title: 'Development Standards',
+    updatedAt: '2026-10-24',
+  },
   '/docs/habitica-api-token': {
     description:
       'Where to find your Habitica User ID and API Token, and how to add them to Octogriffin so your GitHub activity earns XP and Gold.',
