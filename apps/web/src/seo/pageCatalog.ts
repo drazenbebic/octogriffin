@@ -1,6 +1,6 @@
 import type { Metadata, MetadataRoute } from 'next';
 
-type Page = {
+export type Page = {
   description: string;
   /** Docs pages carry the "Octogriffin Docs" suffix in their titles. */
   isDocs?: boolean;
@@ -129,6 +129,8 @@ const pages = {
 export type PagePath = keyof typeof pages;
 
 export const pagePaths = Object.keys(pages) as PagePath[];
+
+export const pageInfo = (path: PagePath): Page => pages[path];
 
 export const siteUrl = new URL(
   process.env.NEXT_PUBLIC_APP_URL || 'https://octogriffin.com',
