@@ -99,12 +99,12 @@ export const TriggerRow: FC<TriggerRowProps> = ({
           content={repoNames.join(', ') || 'No repositories'}
           title="Repositories"
         >
-          <span
+          <button
             className="cursor-help text-[13px] text-text-2 underline decoration-faint decoration-dotted underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            tabIndex={0}
+            type="button"
           >
             {summariseRepositories(repoNames, totalRepos)}
-          </span>
+          </button>
         </Tooltip>
       </div>
 

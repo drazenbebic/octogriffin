@@ -62,16 +62,16 @@ export const AttributeChip: FC<AttributeChipProps> = ({
 
   return (
     <Tooltip content={description} title={title}>
-      <span
+      <button
         className={cn(
           'inline-flex cursor-help rounded-sm px-1.5 py-0.5 font-mono text-xs font-medium outline-none focus-visible:ring-2 focus-visible:ring-accent',
           chipTones[tone],
           className,
         )}
-        tabIndex={0}
+        type="button"
       >
         {attribute.toUpperCase()}
-      </span>
+      </button>
     </Tooltip>
   );
 };

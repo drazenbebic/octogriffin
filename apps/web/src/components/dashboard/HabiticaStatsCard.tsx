@@ -23,13 +23,17 @@ const StatBar: FC<{
         {Math.floor(value)} / {Math.floor(max)}
       </span>
     </div>
-    <div
+    {/* A native meter is hard to style, so it's only for screen readers */}
+    <meter
       aria-label={label}
-      aria-valuemax={Math.floor(max)}
-      aria-valuemin={0}
-      aria-valuenow={Math.floor(value)}
+      className="sr-only"
+      max={Math.floor(max)}
+      min={0}
+      value={Math.floor(value)}
+    />
+    <div
+      aria-hidden="true"
       className="h-2 overflow-hidden rounded-full bg-black/40 shadow-[inset_0_1px_2px_rgb(0_0_0/0.4)]"
-      role="meter"
     >
       <div
         className="h-full rounded-full transition-[width] duration-700 ease-out"
