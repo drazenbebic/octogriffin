@@ -279,8 +279,8 @@ export default async function DocsDevelopmentStandardsPage() {
             <strong>Use the semantic colour tokens</strong> (<C>bg-surface</C>,{' '}
             <C>text-text-2</C>, <C>border-border</C>, <C>bg-accent</C>,{' '}
             <C>text-hp</C>…). They switch between light and dark mode on their
-            own. Tailwind palette colours such as <C>slate-500</C> and{' '}
-            <C>dark:</C> colour overrides fail <C>pnpm lint:tokens</C>.
+            own. Tailwind&apos;s built-in palettes (slate, violet, red and so
+            on) and <C>dark:</C> colour overrides fail <C>pnpm lint:tokens</C>.
           </li>
           <li>
             <strong>Wrap pages in Shell</strong> so every page shares the
