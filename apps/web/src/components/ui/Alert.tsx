@@ -67,15 +67,15 @@ export const Alert: FC<AlertProps> = ({
   const styles = variantStyles[variant];
 
   const renderedIcon =
-    icon === false ? null : icon ? (
-      icon
-    ) : (
-      <HugeiconsIcon
-        className={styles.icon}
-        icon={styles.defaultIcon}
-        size={20}
-      />
-    );
+    icon === false
+      ? null
+      : icon || (
+          <HugeiconsIcon
+            className={styles.icon}
+            icon={styles.defaultIcon}
+            size={20}
+          />
+        );
 
   return (
     <div

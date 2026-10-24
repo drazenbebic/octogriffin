@@ -4,12 +4,12 @@ import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
 import { TaskPriority } from '@/enums/habitica';
 import { cooldownUnits, isWithinMaxCooldown } from '@/utils/cooldown';
 
-const TASK_PRIORITIES: number[] = [
+const TASK_PRIORITIES = new Set<number>([
   TaskPriority.LOW,
   TaskPriority.NORMAL,
   TaskPriority.HIGH,
   TaskPriority.CRITICAL,
-];
+]);
 
 export const UNKNOWN_REPOSITORY_ERROR =
   'Please only select repositories you added Octogriffin to.';
@@ -55,7 +55,7 @@ export const triggerSchema = z
     taskPriority: z.coerce
       .number()
       .refine(
-        priority => TASK_PRIORITIES.includes(priority),
+        priority => TASK_PRIORITIES.has(priority),
         'Please select a difficulty',
       ),
     taskTags: z.string().optional(),

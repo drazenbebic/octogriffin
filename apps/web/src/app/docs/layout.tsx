@@ -6,7 +6,9 @@ import { DocsOverviewHeader } from '@/components/docs/DocsOverviewHeader';
 import { DocsSidebar } from '@/components/docs/DocsSidebar';
 import { Shell } from '@/components/ui/Shell';
 
-export default function DocsLayout({ children }: { children: ReactNode }) {
+export default function DocsLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   return (
     <>
       <DocsOverviewHeader />

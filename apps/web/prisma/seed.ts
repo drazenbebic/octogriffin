@@ -34,7 +34,7 @@ async function createSeededUser(index: number) {
       },
     });
 
-    const webhookLogsCreateData = Array.from(Array(100)).map(() => {
+    const webhookLogsCreateData = Array.from({ length: 100 }, () => {
       return {
         deliveryUuid: faker.string.uuid(),
         event: faker.helpers.arrayElement([

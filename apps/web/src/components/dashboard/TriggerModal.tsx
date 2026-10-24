@@ -137,12 +137,18 @@ const Legend: FC<{ children: string }> = ({ children }) => (
   </legend>
 );
 
+const cooldownToValues = (cooldownSeconds: null | number) => {
+  if (!cooldownSeconds) {
+    return { cooldownUnit: 'minutes' as const };
+  }
+
+  const { amount, unit } = fromCooldownSeconds(cooldownSeconds);
+
+  return { cooldownAmount: amount, cooldownUnit: unit };
+};
+
 const triggerToValues = (trigger: TriggerWithRepos): TriggerSchema => ({
-  ...(trigger.cooldownSeconds
-    ? (({ amount, unit }) => ({ cooldownAmount: amount, cooldownUnit: unit }))(
-        fromCooldownSeconds(trigger.cooldownSeconds),
-      )
-    : { cooldownUnit: 'minutes' as const }),
+  ...cooldownToValues(trigger.cooldownSeconds),
   event: trigger.event,
   repositories: trigger.repositories.map(({ uuid }) => uuid),
   scoreDirection: trigger.scoreDirection as TriggerSchema['scoreDirection'],

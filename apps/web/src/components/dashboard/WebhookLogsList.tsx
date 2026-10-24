@@ -31,7 +31,7 @@ export const WebhookLogsList: FC = () => {
   if (isLoading || !hasLoaded) {
     return (
       <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-e1">
-        {[...Array(meta.limit || 5)].map((_, i) => (
+        {Array.from({ length: meta.limit || 5 }, (_, i) => (
           <div
             className="flex items-center gap-3 border-b border-line px-[18px] py-3 last:border-b-0"
             key={i}

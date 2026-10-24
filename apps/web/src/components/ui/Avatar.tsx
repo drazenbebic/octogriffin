@@ -51,7 +51,7 @@ export const Avatar: FC<AvatarProps> = ({
           shapeStyles[shape],
         )}
       >
-        {!!src ? (
+        {src ? (
           <Image
             alt={alt}
             className="h-full w-full object-cover"

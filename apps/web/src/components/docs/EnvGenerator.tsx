@@ -12,21 +12,19 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Button } from '@/components/ui/Button';
 
+function generateRandomString() {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  const array = new Uint8Array(32);
+  window.crypto.getRandomValues(array);
+
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 export const EnvGenerator: FC = () => {
   const [copied, setCopied] = useState(false);
-
-  function generateRandomString() {
-    if (typeof window === 'undefined') {
-      return '';
-    }
-
-    const array = new Uint8Array(32);
-    window.crypto.getRandomValues(array);
-
-    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join(
-      '',
-    );
-  }
 
   function generateValues() {
     return {

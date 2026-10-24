@@ -112,7 +112,7 @@ export const TriggersList: FC<TriggersListProps> = ({
       <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-e1">
         {isPending ? (
           <div className="flex flex-col">
-            {[...Array(meta.limit || 5)].map((_, i) => (
+            {Array.from({ length: meta.limit || 5 }, (_, i) => (
               <div
                 className="flex items-center gap-3 border-b border-line px-[18px] py-3.5 last:border-b-0"
                 key={i}

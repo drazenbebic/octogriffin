@@ -1,5 +1,5 @@
-import crypto from 'crypto';
-import { env } from 'process';
+import crypto from 'node:crypto';
+import { env } from 'node:process';
 
 const ALGORITHM = 'aes-256-gcm';
 // Node accepts shorter tags unless told otherwise, which are easier to forge

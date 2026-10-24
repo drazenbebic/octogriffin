@@ -33,8 +33,7 @@ export const useWebhookLogsStore = create<WebhookLogsStoreState>(
 
         if (
           result.success &&
-          result.data &&
-          result.data.data.length === 0 &&
+          result.data?.data.length === 0 &&
           targetPage > 1
         ) {
           targetPage = targetPage - 1;

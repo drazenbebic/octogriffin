@@ -39,7 +39,7 @@ describe('TriggerRow', () => {
   it('shows the cooldown of a trigger', () => {
     render(<TriggerRow totalRepos={1} trigger={savedTrigger(600)} />);
 
-    screen.getByText('10 min cooldown');
+    expect(screen.getByText('10 min cooldown')).toBeTruthy();
   });
 
   it('shows no cooldown chip without a cooldown', () => {

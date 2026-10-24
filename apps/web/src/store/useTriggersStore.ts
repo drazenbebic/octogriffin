@@ -56,12 +56,7 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => {
         ...params,
       });
 
-      if (
-        result.success &&
-        result.data &&
-        result.data.data.length === 0 &&
-        targetPage > 1
-      ) {
+      if (result.success && result.data?.data.length === 0 && targetPage > 1) {
         targetPage = targetPage - 1;
         result = await getTriggersAction({
           limit: targetLimit,
