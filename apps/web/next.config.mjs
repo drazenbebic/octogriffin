@@ -1,6 +1,25 @@
+import { execSync } from 'node:child_process';
+
 import bundleAnalyzer from '@next/bundle-analyzer';
 
 import packageJson from './package.json' with { type: 'json' };
+
+// Vercel provides the deployed commit; local builds ask git
+const commitSha = (() => {
+  if (process.env.VERCEL_GIT_COMMIT_SHA) {
+    return process.env.VERCEL_GIT_COMMIT_SHA;
+  }
+
+  try {
+    return execSync('git rev-parse HEAD', {
+      stdio: ['ignore', 'pipe', 'ignore'],
+    })
+      .toString()
+      .trim();
+  } catch {
+    return '';
+  }
+})();
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -10,6 +29,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig = {
   env: {
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
+    NEXT_PUBLIC_COMMIT_SHA: commitSha,
   },
   experimental: {
     esmExternals: true,

@@ -14,6 +14,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { FooterLink } from '@/components/FooterLink';
 import { Shell } from '@/components/ui/Shell';
 import { Tooltip } from '@/components/ui/Tooltip';
+import { shortCommit } from '@/utils/buildInfo';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 const socials: { href: string; icon: IconSvgElement; label: string }[] = [
@@ -29,6 +30,8 @@ const FooterHeading: FC<{ children: string }> = ({ children }) => (
 export const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
   const version = process.env.NEXT_PUBLIC_APP_VERSION;
+  const commitSha = process.env.NEXT_PUBLIC_COMMIT_SHA;
+  const commit = shortCommit(commitSha);
 
   return (
     <footer className="border-t border-border bg-sunken">
@@ -103,20 +106,46 @@ export const Footer: FC = () => {
               &copy; {currentYear} Octogriffin. Not affiliated with Habitica.
             </span>
             {!!version && (
-              <Link
-                className="rounded-sm border border-border px-2 font-mono text-xs text-text-2 transition-colors duration-[var(--dur-fast)] hover:text-text"
-                href={githubRepositoryUrl(`/releases/tag/web-v${version}`)}
-                rel="noreferrer"
-                target="_blank"
-              >
-                v{version}
-              </Link>
+              <span className="inline-flex items-center gap-1.5 rounded-sm border border-border px-2 font-mono text-xs text-text-2">
+                <Link
+                  className="transition-colors duration-[var(--dur-fast)] hover:text-text"
+                  href={githubRepositoryUrl(`/releases/tag/web-v${version}`)}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  v{version}
+                </Link>
+                {!!commit && (
+                  <>
+                    <span aria-hidden="true" className="text-faint">
+                      ·
+                    </span>
+                    <Link
+                      aria-label={`Commit ${commit}`}
+                      className="text-muted transition-colors duration-[var(--dur-fast)] hover:text-text"
+                      href={githubRepositoryUrl(`/commit/${commitSha}`)}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {commit}
+                    </Link>
+                  </>
+                )}
+              </span>
             )}
           </div>
 
           <div className="flex items-center gap-4">
-            <span>
-              Made in Vienna by{' '}
+            <span className="flex items-center gap-1.5">
+              Made with
+              <HugeiconsIcon
+                aria-label="love"
+                className="fill-hp text-hp"
+                icon={FavouriteIcon}
+                role="img"
+                size={14}
+              />
+              by
               <Link
                 className="font-medium text-text transition-colors duration-[var(--dur-fast)] hover:text-accent-text"
                 href="https://www.bebic.dev"
@@ -125,6 +154,7 @@ export const Footer: FC = () => {
               >
                 Drazen Bebic
               </Link>
+              in Vienna
             </span>
             <div className="flex gap-0.5">
               {socials.map(({ href, icon, label }) => (
