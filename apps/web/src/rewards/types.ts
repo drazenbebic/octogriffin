@@ -14,6 +14,8 @@ export type Actor = { githubId: number } | { login: string };
 export type Contribution = {
   actor: Actor;
   count: number;
+  /** How many of `count` are spam, e.g. empty commits. Triggers with Skip spam on leave them out. */
+  spamCount: number;
 };
 
 /**
@@ -76,6 +78,7 @@ export type TriggerRule = {
   lastScoredAt: Date | null;
   repositoryIds: number[];
   scoreDirection: string;
+  skipSpam: boolean;
   taskAlias: null | string;
   taskAttribute: string;
   taskFrequency: string;

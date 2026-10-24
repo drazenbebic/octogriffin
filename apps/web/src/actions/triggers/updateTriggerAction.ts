@@ -40,6 +40,7 @@ export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
           })),
         },
         scoreDirection: trigger.scoreDirection,
+        skipSpam: trigger.skipSpam ?? true,
         taskAlias: trigger.taskAlias,
         taskAttribute: trigger.taskAttribute,
         taskFrequency: trigger.taskFrequency,

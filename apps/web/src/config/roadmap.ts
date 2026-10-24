@@ -128,8 +128,8 @@ export const roadmap: RoadmapPhase[] = [
       },
       {
         description:
-          'Skip empty commits and pull requests you merge yourself within a minute of opening.',
-        status: 'planned',
+          'Skip empty commits, and pull requests you close yourself within a minute of opening.',
+        status: 'in-progress',
         title: 'Spam detection',
       },
     ],

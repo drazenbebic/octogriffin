@@ -73,4 +73,58 @@ describe('handleUniversal', () => {
 
     expect(calls).toEqual(['reward']);
   });
+
+  describe('spam', () => {
+    const opened = '2026-10-24T10:00:00Z';
+    const closed = (closedAfterSeconds: number, authorId = 1) =>
+      ({
+        id: 'delivery-1',
+        payload: {
+          installation: { id: 100 },
+          pull_request: {
+            closed_at: new Date(
+              Date.parse(opened) + closedAfterSeconds * 1000,
+            ).toISOString(),
+            created_at: opened,
+            user: { id: authorId },
+          },
+          repository,
+          sender: { id: 1 },
+        },
+      }) as unknown as EmitterWebhookEvent<WebhookEventName>;
+    const contributions = () =>
+      (deliverRewards as jest.Mock).mock.calls.at(-1)[0].contributions;
+
+    it('marks a pull request its author closed straight away as spam', async () => {
+      await handleUniversal(closed(5), 'pull_request.closed');
+
+      expect(contributions()).toEqual([
+        { actor: { githubId: 1 }, count: 1, spamCount: 1 },
+      ]);
+    });
+
+    it('counts a pull request closed later', async () => {
+      await handleUniversal(closed(120), 'pull_request.closed');
+
+      expect(contributions()).toEqual([
+        { actor: { githubId: 1 }, count: 1, spamCount: 0 },
+      ]);
+    });
+
+    it('counts a pull request someone else closed', async () => {
+      await handleUniversal(closed(5, 2), 'pull_request.closed');
+
+      expect(contributions()).toEqual([
+        { actor: { githubId: 1 }, count: 1, spamCount: 0 },
+      ]);
+    });
+
+    it('never marks other events as spam', async () => {
+      await handleUniversal(event, 'issues.opened');
+
+      expect(contributions()).toEqual([
+        { actor: { githubId: 1 }, count: 1, spamCount: 0 },
+      ]);
+    });
+  });
 });

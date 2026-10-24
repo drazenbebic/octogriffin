@@ -108,4 +108,24 @@ describe('createTriggerAction', () => {
       expect.objectContaining({ dailyCap: null }),
     );
   });
+
+  it('saves the spam switch', async () => {
+    mockOwnsRepositories.mockResolvedValue(true);
+
+    await createTriggerAction({ ...trigger, skipSpam: false });
+
+    expect(mockCreateTrigger).toHaveBeenCalledWith(
+      expect.objectContaining({ skipSpam: false }),
+    );
+  });
+
+  it('skips spam when the switch is missing', async () => {
+    mockOwnsRepositories.mockResolvedValue(true);
+
+    await createTriggerAction(trigger);
+
+    expect(mockCreateTrigger).toHaveBeenCalledWith(
+      expect.objectContaining({ skipSpam: true }),
+    );
+  });
 });

@@ -13,12 +13,24 @@ jest.mock('@/lib/logger', () => ({
 
 const mockDeliverRewards = deliverRewards as jest.Mock;
 
-const commit = (username: string, distinct = true) => ({
+const changesAFile = { added: [], modified: ['a.ts'], removed: [] };
+const changesNothing = { added: [], modified: [], removed: [] };
+
+const commit = (
+  username: string,
+  distinct = true,
+  files: {
+    added: string[];
+    modified: string[];
+    removed: string[];
+  } = changesAFile,
+) => ({
   author: { username },
   distinct,
+  ...files,
 });
 
-const push = (commits: ReturnType<typeof commit>[]) =>
+const push = (commits: ({ message?: string } & ReturnType<typeof commit>)[]) =>
   ({
     id: 'delivery-1',
     name: 'push',
@@ -36,8 +48,8 @@ describe('handlePush', () => {
     );
 
     expect(mockDeliverRewards.mock.calls[0][0].contributions).toEqual([
-      { actor: { login: 'octocat' }, count: 2 },
-      { actor: { login: 'hubot' }, count: 1 },
+      { actor: { login: 'octocat' }, count: 2, spamCount: 0 },
+      { actor: { login: 'hubot' }, count: 1, spamCount: 0 },
     ]);
   });
 
@@ -45,7 +57,7 @@ describe('handlePush', () => {
     await handlePush(push([commit('octocat'), commit('octocat', false)]));
 
     expect(mockDeliverRewards.mock.calls[0][0].contributions).toEqual([
-      { actor: { login: 'octocat' }, count: 1 },
+      { actor: { login: 'octocat' }, count: 1, spamCount: 0 },
     ]);
   });
 
@@ -53,5 +65,42 @@ describe('handlePush', () => {
     await handlePush(push([commit('dependabot[bot]')]));
 
     expect(mockDeliverRewards.mock.calls[0][0].contributions).toEqual([]);
+  });
+
+  it('counts the empty commits of each author as spam', async () => {
+    await handlePush(
+      push([
+        commit('octocat'),
+        commit('octocat'),
+        commit('octocat', true, changesNothing),
+        commit('hubot', true, changesNothing),
+      ]),
+    );
+
+    expect(mockDeliverRewards.mock.calls[0][0].contributions).toEqual([
+      { actor: { login: 'octocat' }, count: 3, spamCount: 1 },
+      { actor: { login: 'hubot' }, count: 1, spamCount: 1 },
+    ]);
+  });
+
+  it('never counts bot commits, empty or not', async () => {
+    await handlePush(push([commit('dependabot[bot]', true, changesNothing)]));
+
+    expect(mockDeliverRewards.mock.calls[0][0].contributions).toEqual([]);
+  });
+
+  it('counts a merge commit, which GitHub sends without files', async () => {
+    await handlePush(
+      push([
+        {
+          ...commit('octocat', true, changesNothing),
+          message: 'Merge pull request #12 from octocat/feature',
+        },
+      ]),
+    );
+
+    expect(mockDeliverRewards.mock.calls[0][0].contributions).toEqual([
+      { actor: { login: 'octocat' }, count: 1, spamCount: 0 },
+    ]);
   });
 });

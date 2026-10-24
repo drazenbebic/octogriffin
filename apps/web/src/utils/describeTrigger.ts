@@ -7,6 +7,7 @@ import {
   toCooldownSeconds,
 } from '@/utils/cooldown';
 import { getDifficulty } from '@/utils/difficulty';
+import { spamRules } from '@/utils/spam';
 
 export type TriggerSentencePart =
   | { attribute: HabiticaAttribute; kind: 'attribute' }
@@ -106,6 +107,7 @@ export const describeTrigger = (
       ? toCooldownSeconds(cooldownAmount, values.cooldownUnit)
       : null;
   const dailyCap = toWholeNumber(values.dailyCap);
+  const spamRule = spamRules[values.event ?? ''];
   const difficulty =
     values.taskPriority !== undefined
       ? getDifficulty(values.taskPriority)
@@ -161,6 +163,9 @@ export const describeTrigger = (
           } as const,
           text(' a day.'),
         ]
+      : []),
+    ...(spamRule && values.skipSpam !== false
+      ? [text(' '), text(spamRule)]
       : []),
   ];
 };

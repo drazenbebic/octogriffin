@@ -36,6 +36,7 @@ import { DialogFooter, DialogHeader } from '@/components/ui/DialogParts';
 import { FormCombobox } from '@/components/ui/FormCombobox';
 import { FormInput } from '@/components/ui/FormInput';
 import { FormSegmentedControl } from '@/components/ui/FormSegmentedControl';
+import { FormSwitch } from '@/components/ui/FormSwitch';
 import { FormTextarea } from '@/components/ui/FormTextarea';
 import { Menu, MenuItem } from '@/components/ui/Menu';
 import type { Recipe } from '@/config/recipes';
@@ -52,6 +53,7 @@ import { describeTrigger } from '@/utils/describeTrigger';
 import { githubAppUrl } from '@/utils/githubAppUrl';
 import { getGroupedGithubEvents } from '@/utils/githubEvents';
 import { recipeToTriggerValues } from '@/utils/recipes';
+import { spamRules } from '@/utils/spam';
 
 export type TriggerModalProps = {
   onSuccessAction?: () => void;
@@ -67,6 +69,7 @@ const defaultValues: TriggerSchema = {
   event: '',
   repositories: [],
   scoreDirection: 'up',
+  skipSpam: true,
   taskAlias: '',
   taskAttribute: 'str',
   taskFrequency: 'daily',
@@ -153,6 +156,7 @@ const triggerToValues = (trigger: TriggerWithRepos): TriggerSchema => ({
   event: trigger.event,
   repositories: trigger.repositories.map(({ uuid }) => uuid),
   scoreDirection: trigger.scoreDirection as TriggerSchema['scoreDirection'],
+  skipSpam: trigger.skipSpam,
   taskAlias: trigger.taskAlias || '',
   taskAttribute: trigger.taskAttribute as TriggerSchema['taskAttribute'],
   taskFrequency: trigger.taskFrequency as TriggerSchema['taskFrequency'],
@@ -313,6 +317,8 @@ export const TriggerModal: FC<TriggerModalProps> = ({
 
   const { submitLabel, title } = getModalCopy(isEdit, recipe);
 
+  const spamRule = spamRules[formValues.event ?? ''];
+
   const habitFields = (
     <>
       <fieldset className="m-0 flex flex-col gap-3.5 border-0 p-0">
@@ -393,6 +399,14 @@ export const TriggerModal: FC<TriggerModalProps> = ({
           placeholder="No cap"
           type="number"
         />
+        {/* Only where a rule exists; the value stays in the form either way */}
+        {spamRule && (
+          <FormSwitch
+            description={spamRule}
+            label="Skip spam"
+            name="skipSpam"
+          />
+        )}
       </fieldset>
 
       <DisclosureProvider>

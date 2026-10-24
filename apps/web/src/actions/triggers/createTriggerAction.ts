@@ -31,6 +31,7 @@ export async function createTriggerAction(data: TriggerSchema) {
         connect: trigger.repositories.map(uuid => ({ uuid })),
       },
       scoreDirection: trigger.scoreDirection,
+      skipSpam: trigger.skipSpam ?? true,
       taskAlias: trigger.taskAlias,
       taskAttribute: trigger.taskAttribute,
       taskFrequency: trigger.taskFrequency,

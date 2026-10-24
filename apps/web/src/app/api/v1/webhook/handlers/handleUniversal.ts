@@ -13,15 +13,18 @@ import type { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConst
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
 import { rewardDeps } from '@/rewards/rewardDeps';
+import { isQuickSelfClose } from '@/utils/spam';
 
 export type WebhookEventName = (typeof universalHandlerWebhooks)[number];
 
 type WebhookEvent = EmitterWebhookEvent<WebhookEventName>;
 
 export const handleUniversal = async (
-  { id, payload: { installation, repository, sender } }: WebhookEvent,
+  { id, payload }: WebhookEvent,
   event: EmitterWebhookEventName,
 ) => {
+  const { installation, repository, sender } = payload;
+
   if (!installation || !repository || !sender) {
     logger.info('Ignored: Missing installation, repository, or sender.');
 
@@ -38,7 +41,18 @@ export const handleUniversal = async (
 
   await deliverRewards(
     {
-      contributions: [{ actor: { githubId: sender.id }, count: 1 }],
+      contributions: [
+        {
+          actor: { githubId: sender.id },
+          count: 1,
+          spamCount:
+            event === 'pull_request.closed' &&
+            'pull_request' in payload &&
+            isQuickSelfClose(payload.pull_request, sender.id)
+              ? 1
+              : 0,
+        },
+      ],
       delivery: getDelivery(id),
       installationId: installation.id,
       name: event,

@@ -30,6 +30,7 @@ export const recipeToTriggerValues = (
   event: recipe.preset.event,
   repositories: repositoryUuids.length === 1 ? [...repositoryUuids] : [],
   scoreDirection: recipe.preset.scoreDirection,
+  skipSpam: true,
   taskAlias: '',
   taskAttribute: recipe.preset.taskAttribute,
   taskFrequency: recipe.preset.taskFrequency,

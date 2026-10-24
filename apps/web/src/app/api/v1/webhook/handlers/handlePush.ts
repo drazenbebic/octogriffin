@@ -4,6 +4,7 @@ import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
 import { rewardDeps } from '@/rewards/rewardDeps';
+import { isEmptyCommit } from '@/utils/spam';
 
 export const handlePush = async ({
   id,
@@ -15,10 +16,12 @@ export const handlePush = async ({
     return;
   }
 
-  // Count the commits of each author, skipping bots
-  const commitCounts = new Map<string, number>();
+  // Count the commits of each author, and how many are empty, skipping bots
+  const commitCounts = new Map<string, { count: number; spamCount: number }>();
 
-  for (const { author, distinct } of commits) {
+  for (const commit of commits) {
+    const { author, distinct } = commit;
+
     // Commits pushed before, e.g. to another branch, were already rewarded
     if (!distinct) {
       continue;
@@ -28,17 +31,22 @@ export const handlePush = async ({
       continue;
     }
 
-    commitCounts.set(
-      author.username,
-      (commitCounts.get(author.username) ?? 0) + 1,
-    );
+    const counts = commitCounts.get(author.username) ?? {
+      count: 0,
+      spamCount: 0,
+    };
+
+    commitCounts.set(author.username, {
+      count: counts.count + 1,
+      spamCount: counts.spamCount + (isEmptyCommit(commit) ? 1 : 0),
+    });
   }
 
   await deliverRewards(
     {
-      contributions: [...commitCounts].map(([login, count]) => ({
+      contributions: [...commitCounts].map(([login, counts]) => ({
         actor: { login },
-        count,
+        ...counts,
       })),
       delivery: getDelivery(id),
       installationId: installation.id,

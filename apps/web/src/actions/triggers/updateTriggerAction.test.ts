@@ -96,4 +96,22 @@ describe('updateTriggerAction', () => {
       expect.objectContaining({ dailyCap: null }),
     );
   });
+
+  it('saves the spam switch', async () => {
+    await updateTriggerAction('trigger-uuid', { ...trigger, skipSpam: false });
+
+    expect(mockUpdateTrigger).toHaveBeenCalledWith(
+      { id: BigInt(3) },
+      expect.objectContaining({ skipSpam: false }),
+    );
+  });
+
+  it('skips spam when the switch is missing', async () => {
+    await updateTriggerAction('trigger-uuid', trigger);
+
+    expect(mockUpdateTrigger).toHaveBeenCalledWith(
+      { id: BigInt(3) },
+      expect.objectContaining({ skipSpam: true }),
+    );
+  });
 });

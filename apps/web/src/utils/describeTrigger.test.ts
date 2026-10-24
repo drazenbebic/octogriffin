@@ -57,9 +57,11 @@ describe('describeTrigger', () => {
     );
   });
 
+  // Spam has its own tests, so the push here counts everything
   const pushTrigger = {
     event: 'push',
     scoreDirection: 'up',
+    skipSpam: false,
     taskAttribute: 'str',
     taskFrequency: 'daily',
     taskPriority: 1,
@@ -126,6 +128,42 @@ describe('describeTrigger', () => {
     ).not.toMatch(/at most/);
   });
 
+  it("says empty commits don't count", () => {
+    expect(
+      toText(describeTrigger({ ...pushTrigger, skipSpam: true }, oneRepo)),
+    ).toMatch(/Empty commits don't count\.$/);
+  });
+
+  it("says quickly closed pull requests don't count", () => {
+    expect(
+      toText(
+        describeTrigger(
+          { ...pushTrigger, event: 'pull_request.closed', skipSpam: true },
+          oneRepo,
+        ),
+      ),
+    ).toMatch(
+      /Pull requests you close within a minute of opening don't count\.$/,
+    );
+  });
+
+  it('says nothing about spam with the switch off', () => {
+    expect(
+      toText(describeTrigger({ ...pushTrigger, skipSpam: false }, oneRepo)),
+    ).not.toMatch(/don't count/);
+  });
+
+  it('says nothing about spam for events without a rule', () => {
+    expect(
+      toText(
+        describeTrigger(
+          { ...pushTrigger, event: 'issues.opened', skipSpam: true },
+          oneRepo,
+        ),
+      ),
+    ).not.toMatch(/don't count/);
+  });
+
   it('says how long the trigger rests', () => {
     const parts = describeTrigger(
       {
@@ -133,6 +171,7 @@ describe('describeTrigger', () => {
         cooldownUnit: 'minutes',
         event: 'push',
         scoreDirection: 'up',
+        skipSpam: false,
         taskAttribute: 'str',
         taskFrequency: 'daily',
         taskPriority: 1,

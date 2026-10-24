@@ -186,9 +186,9 @@ const gameplay: FAQ[] = [
         commits it contains. You can also give a trigger a cooldown, so it rests
         for a while after it scores. A daily cap sets the most a trigger can
         score in a Habitica day. Beyond that, we operate on the &quot;honor
-        system.&quot; Spam detection comes next in the{' '}
-        <Link href="/roadmap">Anti-Cheese</Link> update, to help keep you
-        honest.
+        system.&quot; Spam detection leaves out empty commits and pull requests
+        you close straight away. Ignoring bot accounts comes next in the{' '}
+        <Link href="/roadmap">Anti-Cheese</Link> update.
       </Content>
     ),
     question: 'What prevents me from spamming commits for infinite Gold?',

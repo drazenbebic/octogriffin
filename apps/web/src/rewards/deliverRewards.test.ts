@@ -3,6 +3,7 @@ import { TaskDirection } from '@/enums/habitica';
 import { deliverRewards } from './deliverRewards';
 import { RewardDeliveryError } from './RewardDeliveryError';
 import type {
+  Contribution,
   HabiticaDays,
   InstallationStatus,
   LinkedUser,
@@ -37,6 +38,7 @@ const makeTrigger = (overrides: Partial<TriggerRule> = {}): TriggerRule => ({
   lastScoredAt: null,
   repositoryIds: [REPOSITORY_ID],
   scoreDirection: 'up',
+  skipSpam: true,
   taskAlias: null,
   taskAttribute: 'str',
   taskFrequency: 'daily',
@@ -60,7 +62,7 @@ const makeUser = (overrides: Partial<LinkedUser> = {}): LinkedUser => ({
 const makeEvent = (
   overrides: Partial<RewardableEvent> = {},
 ): RewardableEvent => ({
-  contributions: [{ actor: { login: 'octocat' }, count: 1 }],
+  contributions: [{ actor: { login: 'octocat' }, count: 1, spamCount: 0 }],
   delivery: { hookId: 'hook-1', id: 'delivery-1', signature: 'sha256=abc' },
   installationId: INSTALLATION_ID,
   name: 'push',
@@ -263,7 +265,11 @@ describe('deliverRewards', () => {
     const { log } = recordingLog();
 
     await deliverRewards(
-      makeEvent({ contributions: [{ actor: { login: 'octocat' }, count: 3 }] }),
+      makeEvent({
+        contributions: [
+          { actor: { login: 'octocat' }, count: 3, spamCount: 0 },
+        ],
+      }),
       {
         caps: noCaps,
         cooldowns: noCooldowns,
@@ -299,7 +305,9 @@ describe('deliverRewards', () => {
 
     await deliverRewards(
       makeEvent({
-        contributions: [{ actor: { login: 'octocat' }, count: 250 }],
+        contributions: [
+          { actor: { login: 'octocat' }, count: 250, spamCount: 0 },
+        ],
       }),
       {
         caps: noCaps,
@@ -323,7 +331,9 @@ describe('deliverRewards', () => {
     try {
       await deliverRewards(
         makeEvent({
-          contributions: [{ actor: { login: 'octocat' }, count: 5 }],
+          contributions: [
+            { actor: { login: 'octocat' }, count: 5, spamCount: 0 },
+          ],
         }),
         {
           caps: noCaps,
@@ -352,7 +362,7 @@ describe('deliverRewards', () => {
 
     await deliverRewards(
       makeEvent({
-        contributions: [{ actor: { githubId: 42 }, count: 1 }],
+        contributions: [{ actor: { githubId: 42 }, count: 1, spamCount: 0 }],
         name: 'pull_request.closed',
       }),
       {
@@ -505,7 +515,7 @@ describe('deliverRewards', () => {
 
     await deliverRewards(
       makeEvent({
-        contributions: [{ actor: { githubId: 42 }, count: 1 }],
+        contributions: [{ actor: { githubId: 42 }, count: 1, spamCount: 0 }],
         name: 'pull_request.closed',
       }),
       {
@@ -629,7 +639,7 @@ describe('deliverRewards with cooldowns', () => {
   const at = (minutes: number) => new Date(Date.UTC(2026, 9, 24, 10, minutes));
   const push = (id: string, count: number) =>
     makeEvent({
-      contributions: [{ actor: { login: 'octocat' }, count }],
+      contributions: [{ actor: { login: 'octocat' }, count, spamCount: 0 }],
       delivery: { hookId: 'hook-1', id, signature: 'sha256=abc' },
     });
 
@@ -899,7 +909,7 @@ describe('deliverRewards with daily caps', () => {
   const at = (minutes: number) => new Date(Date.UTC(2026, 9, 24, 10, minutes));
   const push = (id: string, count: number) =>
     makeEvent({
-      contributions: [{ actor: { login: 'octocat' }, count }],
+      contributions: [{ actor: { login: 'octocat' }, count, spamCount: 0 }],
       delivery: { hookId: 'hook-1', id, signature: 'sha256=abc' },
     });
 
@@ -1086,5 +1096,95 @@ describe('deliverRewards with daily caps', () => {
 
     expect(trigger.lastScoredAt).toBeNull();
     expect(recorded).toHaveLength(0);
+  });
+});
+
+describe('deliverRewards with spam', () => {
+  const pushBy = (...contributions: Contribution[]) =>
+    makeEvent({ contributions });
+  const deliver = (event: RewardableEvent, users: LinkedUser[]) => {
+    const { applied, sink } = recordingSink();
+    const { log, recorded } = recordingLog();
+
+    return deliverRewards(event, {
+      caps: noCaps,
+      cooldowns: noCooldowns,
+      days: noDays,
+      directory: inMemoryDirectory(users),
+      log,
+      sink,
+    }).then(() => ({ applied, recorded }));
+  };
+  const octocat = (count: number, spamCount: number): Contribution => ({
+    actor: { login: 'octocat' },
+    count,
+    spamCount,
+  });
+
+  it('leaves empty commits out', async () => {
+    const { applied } = await deliver(pushBy(octocat(5, 2)), [makeUser()]);
+
+    expect(applied[0].rewards[0].times).toBe(3);
+  });
+
+  it('counts empty commits with the switch off', async () => {
+    const { applied } = await deliver(pushBy(octocat(5, 2)), [
+      makeUser({ triggers: [makeTrigger({ skipSpam: false })] }),
+    ]);
+
+    expect(applied[0].rewards[0].times).toBe(5);
+  });
+
+  it('leaves spam out before the per-event limit', async () => {
+    const { applied } = await deliver(pushBy(octocat(12, 4)), [makeUser()]);
+
+    expect(applied[0].rewards[0].times).toBe(8);
+  });
+
+  it('scores nothing for a push of only empty commits', async () => {
+    const { applied, recorded } = await deliver(pushBy(octocat(2, 2)), [
+      makeUser({
+        triggers: [makeTrigger({ cooldownSeconds: 600, dailyCap: 5 })],
+      }),
+    ]);
+
+    expect(applied).toHaveLength(0);
+    expect(recorded).toHaveLength(0);
+  });
+
+  it('counts each trigger with its own switch', async () => {
+    const { applied } = await deliver(pushBy(octocat(4, 1)), [
+      makeUser({
+        triggers: [
+          makeTrigger(),
+          makeTrigger({ skipSpam: false, uuid: 'trigger-2' }),
+        ],
+      }),
+    ]);
+
+    expect(
+      applied[0].rewards.map(({ times, triggerUuid }) => [triggerUuid, times]),
+    ).toEqual([
+      ['trigger-1', 3],
+      ['trigger-2', 4],
+    ]);
+  });
+
+  it('rewards a user with real commits next to one with only empty ones', async () => {
+    const { applied } = await deliver(
+      pushBy(octocat(2, 2), {
+        actor: { login: 'hubot' },
+        count: 2,
+        spamCount: 0,
+      }),
+      [makeUser(), makeUser({ githubId: 43, id: BigInt(2), login: 'hubot' })],
+    );
+
+    expect(
+      applied.map(({ recipient, rewards }) => [
+        recipient.login,
+        rewards[0].times,
+      ]),
+    ).toEqual([['hubot', 2]]);
   });
 });

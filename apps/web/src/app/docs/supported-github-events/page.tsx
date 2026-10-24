@@ -37,7 +37,8 @@ export default function DocsSupportedGithubEventsPage() {
             that push. Commits by bots are skipped, and a single push scores at
             most 10 times. A trigger with a cooldown skips every push until its
             cooldown has passed. A daily cap stops a trigger once it has scored
-            that many times in your Habitica day.
+            that many times in your Habitica day. Empty commits don&apos;t
+            count, unless you switch Skip spam off.
           </Content>
           <Content as="li">
             <strong>Every other event</strong> scores once, when you are the
@@ -52,7 +53,9 @@ export default function DocsSupportedGithubEventsPage() {
           Some events fire in more than one situation. &quot;Pull Request
           Closed&quot; fires for merged and unmerged pull requests alike, and
           &quot;Workflow Run Completed&quot; fires whether the run passed or
-          failed. Keep that in mind before using them to take away health.
+          failed. Keep that in mind before using them to take away health. A
+          pull request you close within a minute of opening doesn&apos;t count,
+          unless you switch Skip spam off.
         </Alert>
       </section>
 

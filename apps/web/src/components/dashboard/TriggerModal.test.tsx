@@ -46,6 +46,7 @@ const isDisabled = (button: HTMLElement) =>
 const savedTrigger = (
   cooldownSeconds: null | number,
   dailyCap: null | number = null,
+  overrides: { event?: string; skipSpam?: boolean } = {},
 ) =>
   ({
     cooldownSeconds,
@@ -54,6 +55,7 @@ const savedTrigger = (
     isActive: true,
     repositories: [{ uuid: 'uuid-octogriffin' }],
     scoreDirection: 'up',
+    skipSpam: true,
     taskAlias: null,
     taskAttribute: 'str',
     taskFrequency: 'daily',
@@ -62,6 +64,7 @@ const savedTrigger = (
     taskTags: null,
     taskTitle: 'Write code',
     uuid: 'trigger-uuid',
+    ...overrides,
   }) as unknown as TriggerWithRepos;
 
 const renderModal = (props: Partial<Parameters<typeof TriggerModal>[0]> = {}) =>
@@ -265,6 +268,51 @@ describe('TriggerModal', () => {
         expect(mockUpdateTrigger).toHaveBeenCalledWith(
           'trigger-uuid',
           expect.objectContaining({ dailyCap: 5 }),
+        ),
+      );
+    });
+  });
+
+  describe('skip spam', () => {
+    const spamSwitch = () =>
+      screen.queryByRole('checkbox', {
+        name: /Skip spam/,
+      }) as HTMLInputElement | null;
+
+    beforeEach(() => {
+      mockRepositories = [repo('octogriffin')];
+      mockUpdateTrigger.mockReset();
+    });
+
+    it('offers Skip spam for pushes', () => {
+      renderModal({ trigger: savedTrigger(null) });
+
+      expect(spamSwitch()?.checked).toBe(true);
+    });
+
+    it('hides Skip spam for events without a rule', () => {
+      renderModal({
+        trigger: savedTrigger(null, null, { event: 'issues.opened' }),
+      });
+
+      expect(spamSwitch()).toBeNull();
+    });
+
+    it('shows Skip spam switched off when it was saved off', () => {
+      renderModal({ trigger: savedTrigger(null, null, { skipSpam: false }) });
+
+      expect(spamSwitch()?.checked).toBe(false);
+    });
+
+    it('keeps Skip spam off when saving', async () => {
+      renderModal({ trigger: savedTrigger(null, null, { skipSpam: false }) });
+
+      fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+
+      await waitFor(() =>
+        expect(mockUpdateTrigger).toHaveBeenCalledWith(
+          'trigger-uuid',
+          expect.objectContaining({ skipSpam: false }),
         ),
       );
     });

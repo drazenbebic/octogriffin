@@ -52,6 +52,7 @@ export const triggerSchema = z
       .array(z.string())
       .min(1, 'Please select at least one repository'),
     scoreDirection: z.enum(['up', 'down']),
+    skipSpam: z.boolean().optional(),
     taskAlias: z
       .string()
       .max(255, 'Please keep your alias under 255 characters.')

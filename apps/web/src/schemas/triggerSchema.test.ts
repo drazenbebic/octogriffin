@@ -193,3 +193,18 @@ describe('triggerSchema daily cap', () => {
     ]);
   });
 });
+
+describe('triggerSchema spam switch', () => {
+  it('accepts the spam switch', () => {
+    expect(
+      triggerSchema.safeParse({ ...validTrigger, skipSpam: false }).data
+        ?.skipSpam,
+    ).toBe(false);
+  });
+
+  it('rejects a spam switch that is not true or false', () => {
+    expect(
+      triggerSchema.safeParse({ ...validTrigger, skipSpam: 'yes' }).success,
+    ).toBe(false);
+  });
+});

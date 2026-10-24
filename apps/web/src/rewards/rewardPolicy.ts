@@ -107,12 +107,20 @@ export const evaluateRewards = async (
     // Only the owner of the installation is rewarded for its events.
     .filter(user => user.installationIds.includes(event.installationId))
     .map(user => {
-      const times = Math.min(
-        contributions
-          .filter(({ actor }) => isSameActor(actor, user))
-          .reduce((sum, { count }) => sum + count, 0),
-        getMaxTimesPerEvent(),
+      const ownContributions = contributions.filter(({ actor }) =>
+        isSameActor(actor, user),
       );
+
+      // Each trigger decides for itself whether spam counts
+      const timesFor = ({ skipSpam }: TriggerRule) =>
+        Math.min(
+          ownContributions.reduce(
+            (sum, { count, spamCount }) =>
+              sum + count - (skipSpam ? spamCount : 0),
+            0,
+          ),
+          getMaxTimesPerEvent(),
+        );
 
       const rewards = user.triggers
         .filter(
@@ -121,6 +129,16 @@ export const evaluateRewards = async (
             trigger.event === event.name &&
             trigger.repositoryIds.includes(event.repositoryId),
         )
+        // Before the cooldown, so spam alone never claims anything
+        .filter(trigger => {
+          if (timesFor(trigger) > 0) {
+            return true;
+          }
+
+          logger.info({ trigger: trigger.uuid }, 'Ignored: Only spam.');
+
+          return false;
+        })
         .filter(trigger => {
           if (!isCoolingDown(trigger, now)) {
             return true;
@@ -133,7 +151,7 @@ export const evaluateRewards = async (
 
           return false;
         })
-        .map(trigger => toReward(trigger, times));
+        .map(trigger => toReward(trigger, timesFor(trigger)));
 
       return {
         recipient: {

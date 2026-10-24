@@ -59,6 +59,7 @@ describe('recipeToTriggerValues', () => {
       event: 'pull_request.opened',
       repositories: [],
       scoreDirection: 'up',
+      skipSpam: true,
       taskAlias: '',
       taskAttribute: 'str',
       taskFrequency: 'weekly',
