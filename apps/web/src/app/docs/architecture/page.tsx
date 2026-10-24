@@ -109,7 +109,7 @@ export default function DocsArchitecturePage() {
         <div className="relative space-y-8 pl-4 before:absolute before:left-10.75 before:top-2 before:h-[calc(100%-16px)] before:w-0.5 before:bg-fill ">
           {/* Step 1 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-text text-white shadow-md ring-4 ring-white ">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-text text-bg shadow-md ring-4 ring-bg ">
               <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
             </div>
             <div className="pt-2">
@@ -128,7 +128,7 @@ export default function DocsArchitecturePage() {
 
           {/* Step 2 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-white ">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-bg ">
               <HugeiconsIcon icon={Shield01Icon} size={24} />
             </div>
             <div className="pt-2">
@@ -146,7 +146,7 @@ export default function DocsArchitecturePage() {
 
           {/* Step 3 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-white ">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-bg ">
               <HugeiconsIcon icon={ZapIcon} size={24} />
             </div>
             <div className="pt-2">
@@ -163,7 +163,7 @@ export default function DocsArchitecturePage() {
 
           {/* Step 4 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-mp text-white shadow-md ring-4 ring-white ">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-mp text-white shadow-md ring-4 ring-bg ">
               <HugeiconsIcon icon={Globe02Icon} size={24} />
             </div>
             <div className="pt-2">
