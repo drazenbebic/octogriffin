@@ -1,348 +1,351 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import {
-  ArrowRight01Icon,
-  Calendar03Icon,
-  CheckmarkCircle01Icon,
-  GitBranchIcon,
-  GitCommitIcon,
+  ArrowDown02Icon,
+  ArrowUpRight01Icon,
+  CheckmarkCircle02Icon,
   GithubIcon,
-  GitMergeIcon,
-  Rocket01Icon,
-  Settings01Icon,
-  StarIcon,
-  Target02Icon,
+  GitPullRequestIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { JsonLd } from '@/components/JsonLd';
-import { RewardRow } from '@/components/RewardRow';
+import { RecipeCard } from '@/components/recipes/RecipeCard';
+import { TriggerSentence } from '@/components/TriggerSentence';
 import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { CardBody } from '@/components/ui/CardBody';
-import { Content } from '@/components/ui/Content';
+import { Chip } from '@/components/ui/Chip';
 import { Heading } from '@/components/ui/Heading';
-import { Pill } from '@/components/ui/Pill';
-import { TextAccent } from '@/components/ui/TextAccent';
+import { Shell } from '@/components/ui/Shell';
+import { recipes } from '@/config/recipes';
+import { getCurrentPhase } from '@/config/roadmap';
 import { homeJsonLd } from '@/json-ld/home';
 import { pageMetadata } from '@/seo/pageCatalog';
+import { describeTrigger } from '@/utils/describeTrigger';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const metadata: Metadata = pageMetadata('/');
 
 const version = process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0';
 
+const steps = [
+  {
+    body: (
+      <>
+        Pick the repositories you want to earn rewards from. The app only
+        receives webhooks; it can&apos;t change your code.
+      </>
+    ),
+    title: 'Install the GitHub App',
+  },
+  {
+    body: (
+      <>
+        Sign in and paste your{' '}
+        <Link
+          className="text-accent-text hover:underline"
+          href="/docs/habitica-api-token"
+        >
+          Habitica API token
+        </Link>
+        . It&apos;s encrypted before it reaches the database.
+      </>
+    ),
+    title: 'Link your Habitica account',
+  },
+  {
+    body: (
+      <>
+        Any of over{' '}
+        <Link
+          className="text-accent-text hover:underline"
+          href="/docs/supported-github-events"
+        >
+          100 GitHub events
+        </Link>{' '}
+        can score a habit. Start from a recipe or build your own trigger.
+      </>
+    ),
+    title: 'Push, merge, review',
+  },
+];
+
+const rules = [
+  [
+    'Over 100 events:',
+    'commits, pull requests, reviews, releases, issues, discussions',
+  ],
+  ['Trivial to Hard:', 'difficulty sets how much XP and Gold you get'],
+  [
+    'Reward or punish:',
+    'earn XP and Gold, or lose health for habits you want to break',
+  ],
+  ['Per repository:', 'separate habits for work and side projects'],
+];
+
+const exampleRule = recipes[2].preset;
+
 export default function HomePage() {
+  const currentPhase = getCurrentPhase();
+
   return (
     <>
       <JsonLd data={homeJsonLd} />
-      <div className="flex flex-col gap-20 pb-20">
-        <section className="relative px-4 pt-20 sm:pt-32 text-center">
-          <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] dark:bg-slate-950 dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)]" />
+      <div className="flex flex-col gap-20 pt-4 pb-24 sm:gap-28">
+        <Shell as="section">
+          <div className="arcane grid items-center gap-12 rounded-2xl px-6 py-14 sm:px-14 sm:py-[72px] lg:grid-cols-2">
+            <Image
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-28 -bottom-36 h-[620px] w-[620px] opacity-[0.07]"
+              height={620}
+              priority
+              src="/octogriffin_white.png"
+              width={620}
+            />
 
-          <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
-            <Pill
-              href={githubRepositoryUrl(`/releases/tag/web-v${version}`)}
-              target="_blank"
-              variant="shiny"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-500" />
-              </span>
-
-              <Content
-                as="span"
-                className="font-medium group-hover:text-violet-700 transition-colors dark:group-hover:text-violet-300"
-                color="note"
+            <div className="flex flex-col items-start gap-6">
+              <Link
+                className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 py-1 pr-3 pl-1 text-[13px] text-white transition-colors duration-[var(--dur-fast)] hover:bg-white/15"
+                href={githubRepositoryUrl(`/releases/tag/web-v${version}`)}
+                rel="noreferrer"
+                target="_blank"
               >
-                v{version} is now live
-              </Content>
-
-              <span className="h-3 w-px bg-slate-200 group-hover:bg-violet-200 transition-colors dark:bg-slate-800 dark:group-hover:bg-violet-900" />
-
-              <Content
-                as="span"
-                className="flex items-center gap-1 group-hover:text-violet-600 transition-colors"
-                color="note"
-              >
-                <span className="text-xs font-medium">Changelog</span>
-                <HugeiconsIcon
-                  className="-ml-1 translate-x-0 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
-                  icon={ArrowRight01Icon}
-                  size={14}
-                />
-              </Content>
-            </Pill>
-
-            <Heading level={1} size="4xl">
-              Turn your GitHub Commits into <br />
-              <TextAccent breathing glowing>
-                Habitica Gold and XP
-              </TextAccent>
-            </Heading>
-
-            <Content className="max-w-2xl text-center" size="lg">
-              Octogriffin is a free, open-source Habitica GitHub integration.
-              Level up your Habitica character, find items, and slay monsters
-              just by writing code.
-            </Content>
-
-            <div className="flex flex-col items-center gap-6 pt-4">
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Link href="/installation">
-                  <Button size="lg">
-                    <HugeiconsIcon icon={Rocket01Icon} size={20} />
-                    Get Started
-                  </Button>
-                </Link>
-                <Link href={githubRepositoryUrl()} target="_blank">
-                  <Button size="lg" variant="secondary">
-                    <HugeiconsIcon icon={GithubIcon} size={20} />
-                    Open Source
-                  </Button>
-                </Link>
-              </div>
-
-              <Content color="note" size="sm">
-                Want to see how it works first?{' '}
-                <Link
-                  className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
-                  href="/docs"
-                >
-                  Read the Docs &rarr;
-                </Link>
-              </Content>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 py-12">
-          <div className="mb-16 text-center">
-            <Heading className="tracking-tight" level={2} size="3xl">
-              How it works
-            </Heading>
-            <Content className="mt-4" size="lg">
-              Simple, secure, and set-and-forget.
-            </Content>
-          </div>
-
-          <div className="relative grid gap-8 md:grid-cols-3">
-            <div className="absolute top-[50%] left-0 hidden w-full px-16 md:block">
-              <div className="h-0.5 w-full border-t-2 border-dashed border-slate-200 dark:border-slate-800" />
-            </div>
-
-            <Card
-              className="shadow-blue-900/5! hover:shadow-blue-900/20!"
-              variant="elevated"
-            >
-              <CardBody className="items-center text-center">
-                <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-blue-50 to-blue-100 text-blue-600 shadow-inner ring-4 ring-white dark:from-blue-950 dark:to-blue-900/40 dark:text-blue-400 dark:ring-slate-900">
-                  <HugeiconsIcon icon={GithubIcon} size={32} />
-                  <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white ring-2 ring-white dark:ring-slate-900">
-                    1
-                  </div>
-                </div>
-                <Heading level={3} size="lg">
-                  Install App
-                </Heading>
-                <Content size="sm">
-                  Install our GitHub App on your repositories. We only listen to
-                  webhooks.
-                </Content>
-              </CardBody>
-            </Card>
-
-            <Card variant="elevated">
-              <CardBody className="items-center text-center">
-                <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-violet-50 to-violet-100 text-violet-600 shadow-inner ring-4 ring-white dark:from-violet-950 dark:to-violet-900/40 dark:text-violet-400 dark:ring-slate-900">
-                  <HugeiconsIcon icon={CheckmarkCircle01Icon} size={32} />
-                  <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white ring-2 ring-white dark:ring-slate-900">
-                    2
-                  </div>
-                </div>
-                <Heading level={3} size="lg">
-                  Link Account
-                </Heading>
-                <Content size="sm">
-                  Sign in and add your{' '}
-                  <Link
-                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
-                    href="/docs/habitica-api-token"
-                  >
-                    Habitica API Token
-                  </Link>
-                  . Your data is encrypted at rest.
-                </Content>
-              </CardBody>
-            </Card>
-
-            <Card
-              className="shadow-emerald-900/5! hover:shadow-emerald-900/20!"
-              variant="elevated"
-            >
-              <CardBody className="items-center text-center">
-                <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-50 to-emerald-100 text-emerald-600 shadow-inner ring-4 ring-white dark:from-emerald-950 dark:to-emerald-900/40 dark:text-emerald-400 dark:ring-slate-900">
-                  <HugeiconsIcon icon={GitMergeIcon} size={32} />
-                  <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white ring-2 ring-white dark:ring-slate-900">
-                    3
-                  </div>
-                </div>
-                <Heading level={3} size="lg">
-                  Get Rewards
-                </Heading>
-                <Content size="sm">
-                  Push code, merge PRs, or review code. Any of over{' '}
-                  <Link
-                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
-                    href="/docs/supported-github-events"
-                  >
-                    100 GitHub events
-                  </Link>{' '}
-                  can earn your character XP automatically.
-                </Content>
-              </CardBody>
-            </Card>
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-3xl px-4 text-center">
-          <Card
-            className="relative overflow-hidden border-violet-200 bg-linear-to-b from-white via-violet-50/30 to-violet-100/30 shadow-xs dark:border-violet-900/50 dark:from-slate-900 dark:via-violet-950/10 dark:to-violet-950/20"
-            variant="outlined"
-          >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] bg-size-[20px_20px] opacity-[0.04] dark:bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] dark:opacity-[0.1]" />
-
-            <div className="pointer-events-none absolute -left-8 -top-8 text-violet-200/60 opacity-50 dark:text-violet-900/40">
-              <HugeiconsIcon className="-rotate-12" icon={StarIcon} size={80} />
-            </div>
-            <div className="pointer-events-none absolute -bottom-8 -right-8 text-violet-200/60 opacity-50 dark:text-violet-900/40">
-              <HugeiconsIcon
-                className="rotate-12"
-                icon={Target02Icon}
-                size={80}
-              />
-            </div>
-
-            <CardBody className="relative z-10 flex flex-col items-center px-6 py-12 sm:px-12">
-              <Pill
-                className="mb-4 inline-flex items-center gap-1.5 border-violet-200 bg-white/80 shadow-xs backdrop-blur-sm dark:border-violet-900/50 dark:bg-slate-900/80"
-                variant="neutral"
-              >
-                <HugeiconsIcon
-                  className="shrink-0"
-                  icon={Rocket01Icon}
-                  size={14}
-                />
-                <Content
-                  as="span"
-                  className="font-semibold"
-                  color="violet"
-                  size="sm"
-                >
-                  Upcoming Features
-                </Content>
-              </Pill>
-
-              <Heading className="mb-4" level={2} size="3xl">
-                We are just{' '}
-                <span className="text-violet-600 dark:text-violet-400">
-                  getting started.
+                <span className="rounded-full bg-[#f5b544] px-2 py-0.5 font-mono text-xs font-medium text-griffin-900">
+                  v{version}
                 </span>
+                See what&apos;s new
+              </Link>
+
+              <Heading
+                className="text-white"
+                color="inherit"
+                level={1}
+                size="display-xl"
+              >
+                Turn your GitHub commits into Habitica gold and XP
               </Heading>
 
-              <Content className="mx-auto mb-8 max-w-lg" size="lg">
-                We have ambitious plans to make your workflow even more
-                immersive. See what features are currently in the forge.
-              </Content>
+              <p className="max-w-[46ch] text-lg text-white/80">
+                Octogriffin is a free, open-source Habitica GitHub integration.
+                Level up your character, find items and slay monsters just by
+                writing code.
+              </p>
 
-              <Link href="/roadmap">
+              <div className="flex flex-wrap gap-3">
                 <Button
-                  className="shadow-lg shadow-violet-200/50 dark:shadow-none"
+                  render={<Link href="/installation" />}
                   size="lg"
+                  variant="onGrain"
                 >
-                  <HugeiconsIcon icon={Calendar03Icon} size={20} />
-                  View Roadmap
+                  <HugeiconsIcon icon={GithubIcon} size={18} />
+                  Install the GitHub App
                 </Button>
+                <Button
+                  className="border border-white/35 bg-transparent text-white shadow-none hover:bg-white/10"
+                  render={<Link href="/docs" />}
+                  size="lg"
+                  variant="secondary"
+                >
+                  Read the docs
+                </Button>
+              </div>
+            </div>
+
+            <figure
+              aria-label="Example: opening a pull request scores a habit"
+              className="flex w-full max-w-[440px] flex-col gap-3.5 justify-self-center lg:justify-self-end"
+            >
+              <div className="flex items-center gap-3.5 rounded-lg border border-white/10 bg-black/50 px-[18px] py-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white/10">
+                  <HugeiconsIcon icon={GitPullRequestIcon} size={20} />
+                </span>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-sm font-semibold">
+                    You opened a pull request
+                  </span>
+                  <span className="truncate font-mono text-xs text-white/65">
+                    pull_request.opened
+                  </span>
+                </div>
+              </div>
+              <HugeiconsIcon
+                aria-hidden="true"
+                className="self-center text-white/50"
+                icon={ArrowDown02Icon}
+                size={20}
+              />
+              <div className="overflow-hidden rounded-lg bg-white text-[#19161f] shadow-[0_30px_60px_-20px_rgb(0_0_0/0.55)]">
+                <div className="h-1 bg-[linear-gradient(90deg,#7853be,#432879_60%,#f5b544)]" />
+                <div className="flex items-center gap-3.5 px-[18px] py-4">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-[#e3f3ea] text-[#187a50]">
+                    <HugeiconsIcon icon={ArrowUpRight01Icon} size={20} />
+                  </span>
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-sm font-semibold">
+                      Habit scored: Opened a pull request
+                    </span>
+                    <div className="flex flex-wrap gap-1.5 text-xs font-semibold">
+                      <span className="rounded-sm bg-[#fbf1de] px-2 py-0.5 text-[#a86700]">
+                        + XP
+                      </span>
+                      <span className="rounded-sm bg-[#fbf4d9] px-2 py-0.5 text-[#8a6a00]">
+                        + Gold
+                      </span>
+                      <span className="rounded-sm border border-[#e3dfeb] px-2 py-0.5 text-[#4a4459]">
+                        Easy <span className="text-[#a86700]">★</span>
+                      </span>
+                      <span className="rounded-sm bg-[#fbe9ec] px-1.5 py-0.5 font-mono font-medium text-[#d6364a]">
+                        STR
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+        </Shell>
+
+        <Shell as="section" className="flex flex-col gap-12">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <Heading level={2} size="h1">
+              Set up once, then just code
+            </Heading>
+            <p className="max-w-[44ch] text-text-2">
+              Three steps, about five minutes. After that, Octogriffin listens
+              to GitHub and you never have to open it again.
+            </p>
+          </div>
+          <ol className="grid gap-6 border-t border-border md:grid-cols-3">
+            {steps.map((step, index) => (
+              <li
+                className="relative flex flex-col gap-3 pt-7"
+                key={step.title}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-px left-0 h-0.5 w-14 bg-accent"
+                />
+                <span className="font-mono text-[13px] font-medium text-accent-text">
+                  Step {index + 1}
+                </span>
+                <Heading level={3} size="h3">
+                  {step.title}
+                </Heading>
+                <p className="text-[15px] text-text-2">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </Shell>
+
+        <Shell as="section" className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="flex flex-col gap-5">
+            <Heading level={2} size="h1">
+              You write the rules
+            </Heading>
+            <p className="max-w-[46ch] text-text-2">
+              Every trigger reads like a sentence. Choose the event, the
+              repositories, how hard it counts and whether it rewards or
+              punishes you.
+            </p>
+            <ul className="flex flex-col gap-3 text-[15px]">
+              {rules.map(([title, body]) => (
+                <li className="flex gap-3" key={title}>
+                  <HugeiconsIcon
+                    className="mt-0.5 shrink-0 text-accent-text"
+                    icon={CheckmarkCircle02Icon}
+                    size={20}
+                  />
+                  <span className="text-text-2">
+                    <strong className="font-semibold text-text">{title}</strong>{' '}
+                    {body}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <figure className="flex flex-col gap-5 rounded-xl border border-border bg-surface p-8 shadow-e2">
+            <figcaption className="text-[13px] font-semibold text-muted">
+              A trigger
+            </figcaption>
+            <TriggerSentence
+              parts={describeTrigger(exampleRule, {
+                repoNames: ['octogriffin', 'bebic.dev', 'side-quest'],
+                totalRepos: 3,
+              })}
+              size="lg"
+            />
+            <span className="text-[13px] text-muted">
+              The same sentence sits at the top of the trigger dialog and
+              updates as you edit.
+            </span>
+          </figure>
+        </Shell>
+
+        <Shell as="section" className="flex flex-col gap-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-col gap-2.5">
+              <Heading level={2} size="h1">
+                Start from a recipe
+              </Heading>
+              <p className="max-w-[52ch] text-text-2">
+                Ready-made triggers for the habits worth keeping. One click adds
+                one to your dashboard.
+              </p>
+            </div>
+            <Link
+              className="text-[15px] font-semibold text-accent-text hover:underline"
+              href="/docs/coding-habits"
+            >
+              All recipes
+            </Link>
+          </div>
+          <div className="grid gap-5 md:grid-cols-3">
+            {recipes.slice(0, 3).map(recipe => (
+              <RecipeCard key={recipe.slug} recipe={recipe} />
+            ))}
+          </div>
+        </Shell>
+
+        <Shell as="section">
+          <div className="mist grid items-center gap-8 rounded-xl border border-border p-8 sm:p-10 md:grid-cols-2">
+            <div className="flex flex-col gap-3">
+              <span className="flex items-center gap-2 text-[13px] font-semibold text-accent-text">
+                <span
+                  aria-hidden="true"
+                  className="h-2 w-2 rounded-full bg-accent shadow-[0_0_0_4px_var(--accent-soft)]"
+                />
+                Now in the forge
+              </span>
+              <Heading level={2}>{currentPhase.codename}</Heading>
+              <p className="max-w-[44ch] text-text-2">{currentPhase.summary}</p>
+              <Link
+                className="mt-1 w-fit text-[15px] font-semibold text-accent-text hover:underline"
+                href="/roadmap"
+              >
+                See the full roadmap
               </Link>
-            </CardBody>
-          </Card>
-        </section>
-
-        <section className="mx-auto w-full max-w-3xl px-4">
-          <Card variant="elevated">
-            <CardBody>
-              <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-6 dark:border-slate-800">
-                <div>
-                  <Heading level={2} size="xl">
-                    You are the Game Master
-                  </Heading>
-                  <Content size="sm">
-                    Forget hardcoded values. With the new{' '}
-                    <span className="font-semibold text-violet-600 dark:text-violet-400">
-                      Control Freak
-                    </span>{' '}
-                    update, you define the rules.
-                  </Content>
-                </div>
-                <div className="hidden h-10 w-10 items-center justify-center rounded-full bg-violet-50 text-violet-600 sm:flex dark:bg-violet-900/30 dark:text-violet-400">
-                  <HugeiconsIcon icon={Settings01Icon} size={20} />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-4">
-                <RewardRow
-                  action="Triggers"
-                  badgeVariant="success"
-                  icon={
-                    <HugeiconsIcon
-                      className="text-emerald-500"
-                      icon={GitCommitIcon}
-                      size={20}
-                    />
-                  }
-                  reward="Commits, PRs, Merges & Reviews, and muuuuuch more!"
-                />
-                <RewardRow
-                  action="Difficulty"
-                  badgeVariant="info"
-                  icon={
-                    <HugeiconsIcon
-                      className="text-blue-500"
-                      icon={Target02Icon}
-                      size={20}
-                    />
-                  }
-                  reward="Trivial, Easy, Medium or Hard"
-                />
-                <RewardRow
-                  action="Rewards"
-                  badgeVariant="warning"
-                  icon={
-                    <HugeiconsIcon
-                      className="text-amber-500"
-                      icon={StarIcon}
-                      size={20}
-                    />
-                  }
-                  reward="Reward with XP/Gold, or lose Health!"
-                />
-                <RewardRow
-                  action="Scope"
-                  icon={
-                    <HugeiconsIcon
-                      className="text-violet-500"
-                      icon={GitBranchIcon}
-                      size={20}
-                    />
-                  }
-                  reward="Global or Repository specific"
-                />
-              </div>
-            </CardBody>
-          </Card>
-        </section>
+            </div>
+            <ul className="flex flex-col gap-2.5">
+              {currentPhase.items.slice(0, 3).map(item => (
+                <li
+                  className="flex items-center justify-between gap-3 rounded-md border border-border bg-surface px-4 py-3.5"
+                  key={item.title}
+                >
+                  <span className="text-[15px] font-semibold text-text">
+                    {item.title}
+                  </span>
+                  <Chip
+                    tone={item.status === 'in-progress' ? 'accent' : 'neutral'}
+                  >
+                    {item.status === 'in-progress' ? 'In progress' : 'Planned'}
+                  </Chip>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Shell>
       </div>
     </>
   );

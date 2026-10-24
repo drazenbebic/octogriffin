@@ -1,133 +1,124 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import {
-  Calendar03Icon,
-  CheckmarkCircle02Icon,
-  Shield02Icon,
-  StarIcon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
-
 import { JsonLd } from '@/components/JsonLd';
-import { RoadmapFeatureItem } from '@/components/roadmap/RoadmapFeatureItem';
-import { RoadmapPhase } from '@/components/roadmap/RoadmapPhase';
+import { NowPhase } from '@/components/roadmap/NowPhase';
+import { PhaseCard } from '@/components/roadmap/PhaseCard';
+import { QuestLine } from '@/components/roadmap/QuestLine';
+import { ShippedList } from '@/components/roadmap/ShippedList';
 import { Button } from '@/components/ui/Button';
-import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
-import { Pill } from '@/components/ui/Pill';
+import { Shell } from '@/components/ui/Shell';
+import { getCurrentPhase, roadmap } from '@/config/roadmap';
 import { roadmapJsonLd } from '@/json-ld/roadmap';
 import { pageMetadata } from '@/seo/pageCatalog';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const metadata: Metadata = pageMetadata('/roadmap');
 
+const legend = [
+  { className: 'bg-ok', label: 'Shipped' },
+  {
+    className: 'bg-accent shadow-[0_0_0_3px_var(--accent-soft)]',
+    label: 'In progress',
+  },
+  { className: 'border-2 border-accent', label: 'Next' },
+  {
+    className: 'border-2 border-dashed border-faint',
+    label: 'Later or exploring',
+  },
+];
+
 export default function RoadmapPage() {
+  const next = roadmap.filter(({ status }) => status === 'next');
+  const later = roadmap.filter(
+    ({ status }) => status === 'later' || status === 'exploring',
+  );
+  const shipped = roadmap.filter(({ status }) => status === 'shipped');
+
   return (
     <>
       <JsonLd data={roadmapJsonLd} />
-      <div className="mx-auto max-w-4xl px-4 py-20">
-        <div className="mb-16 flex flex-col items-center text-center">
-          <Heading className="mb-4 tracking-tight" level={1} size="4xl">
-            The{' '}
-            <span className="bg-linear-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-              Master Plan
-            </span>
-          </Heading>
-
-          <Content className="max-w-xl" size="lg">
-            We are building the ultimate RPG workflow tool. Here is a look at
-            the features currently in the forge.
-          </Content>
-
-          <Pill className="mt-6" variant="accent">
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300">
-              <HugeiconsIcon icon={Calendar03Icon} size={14} />
-              Public Roadmap
-            </span>
-          </Pill>
-        </div>
-
-        <div className="relative mx-auto max-w-3xl">
-          <div className="hidden absolute left-8 top-4 bottom-4 w-px bg-linear-to-b from-emerald-500 via-violet-200 to-transparent md:block dark:via-violet-900/50" />
-
-          <div className="space-y-12">
-            <RoadmapPhase
-              colorClass="text-emerald-600 bg-emerald-100 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-400 dark:border-emerald-900/50"
-              dotClass="bg-emerald-500 ring-emerald-200 dark:ring-emerald-900/50"
-              icon={<HugeiconsIcon icon={CheckmarkCircle02Icon} size={24} />}
-              phase="Phase 1: Control Freak"
-              status="Completed"
-            >
-              <RoadmapFeatureItem
-                description="Full control over the cause-and-effect pipeline. Map specific GitHub Webhooks to specific Habitica Habits with Directions, and Priorities."
-                tags={['Live', 'Customization']}
-                title="Advanced Event Triggers"
-              />
-              <RoadmapFeatureItem
-                description="Define triggers that apply globally to your whole account, or restrict them to specific repositories only."
-                tags={['Live', 'Architecture']}
-                title="Granular Scoping"
-              />
-            </RoadmapPhase>
-
-            <RoadmapPhase
-              colorClass="text-blue-600 bg-blue-100 border-blue-200 dark:bg-blue-950/30 dark:text-blue-400 dark:border-blue-900/50"
-              dotClass="bg-blue-500 ring-blue-200 dark:ring-blue-900/50"
-              icon={<HugeiconsIcon icon={Shield02Icon} size={24} />}
-              isActive
-              phase="Phase 2: Anti-Cheese"
-              status="Next Up"
-            >
-              <RoadmapFeatureItem
-                description="Optional limits to prevent burnout and discourage spamming commits just for gold."
-                tags={['Planned']}
-                title="Daily XP Caps"
-              />
-              <RoadmapFeatureItem
-                description="Automatically filter out low-effort commits (e.g. empty commits, self-approved PRs within 1 minute)."
-                title="Smart Spam Detection"
-              />
-            </RoadmapPhase>
-
-            <RoadmapPhase
-              colorClass="text-violet-600 bg-violet-100 border-violet-200 dark:bg-violet-950/30 dark:text-violet-400 dark:border-violet-900/50"
-              dotClass="bg-violet-500 ring-violet-200 dark:ring-violet-900/50"
-              icon={<HugeiconsIcon icon={StarIcon} size={24} />}
-              phase="Phase 3: Gamification"
-              status="Future Concepts"
-            >
-              <RoadmapFeatureItem
-                description="Bonus rewards for consistent contributions over consecutive days."
-                title="Coding Streaks"
-              />
-              <RoadmapFeatureItem
-                description="Small chance for 2x XP on significant tasks (e.g. closing >3 issues at once)."
-                title="'Critical Hit' Bonuses"
-              />
-              <RoadmapFeatureItem
-                description="A transparent history log showing exactly why and when you received XP."
-                title="The Activity Ledger"
-              />
-            </RoadmapPhase>
-          </div>
-        </div>
-
-        <div className="mt-24 flex flex-col items-center justify-center gap-4 border-t border-slate-100 pt-12 text-center dark:border-slate-800">
-          <div>
-            <Heading className="mb-2" level={3} size="xl">
-              Have a better idea?
+      <div className="flex flex-col gap-16 pt-16 pb-24 sm:gap-[72px]">
+        <Shell className="grid items-end gap-8 md:grid-cols-2">
+          <div className="flex flex-col gap-4">
+            <Heading level={1} size="display">
+              Roadmap
             </Heading>
-            <Content size="sm">
-              Our roadmap is driven by developers like you.
-            </Content>
+            <p className="max-w-[50ch] text-lg text-text-2">
+              What&apos;s shipped, what&apos;s in the forge and what we&apos;re
+              still thinking about. Have an opinion? Vote on the GitHub issues.
+            </p>
           </div>
-          <Link href={githubRepositoryUrl('/issues')} target="_blank">
-            <Button size="lg" variant="primary">
-              Submit Feature Request
+          <ul className="flex flex-wrap gap-4 text-[13px] text-text-2 md:justify-end">
+            {legend.map(({ className, label }) => (
+              <li className="flex items-center gap-1.5" key={label}>
+                <span
+                  aria-hidden="true"
+                  className={`h-2.5 w-2.5 rounded-full ${className}`}
+                />
+                {label}
+              </li>
+            ))}
+          </ul>
+        </Shell>
+
+        <Shell>
+          <QuestLine phases={roadmap} />
+        </Shell>
+
+        <Shell>
+          <NowPhase phase={getCurrentPhase()} />
+        </Shell>
+
+        <Shell as="section" className="flex flex-col gap-6">
+          <Heading level={2}>Next</Heading>
+          <div className="grid gap-5 lg:grid-cols-2">
+            {next.map(phase => (
+              <PhaseCard key={phase.codename} phase={phase} />
+            ))}
+          </div>
+        </Shell>
+
+        <Shell as="section" className="flex flex-col gap-6">
+          <Heading level={2}>Later</Heading>
+          <div className="grid gap-5 lg:grid-cols-2">
+            {later.map(phase => (
+              <PhaseCard key={phase.codename} phase={phase} />
+            ))}
+          </div>
+        </Shell>
+
+        <Shell as="section" className="flex flex-col gap-5">
+          <Heading level={2}>Shipped</Heading>
+          <ShippedList phases={shipped} />
+        </Shell>
+
+        <Shell>
+          <div className="flex flex-wrap items-center justify-between gap-6 rounded-xl border border-border bg-surface p-8 shadow-e1">
+            <div className="flex flex-col gap-1">
+              <Heading level={2} size="h3">
+                Missing something?
+              </Heading>
+              <p className="text-[15px] text-text-2">
+                The roadmap follows what people ask for. Open an issue and
+                describe the habit you want to build.
+              </p>
+            </div>
+            <Button
+              render={
+                <Link
+                  href={githubRepositoryUrl('/issues/new')}
+                  rel="noreferrer"
+                  target="_blank"
+                />
+              }
+              size="lg"
+            >
+              Request a feature
             </Button>
-          </Link>
-        </div>
+          </div>
+        </Shell>
       </div>
     </>
   );

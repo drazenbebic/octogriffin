@@ -29,7 +29,15 @@ export const TriggerSentence: FC<TriggerSentenceProps> = ({
     {parts.map((part, index) => {
       switch (part.kind) {
         case 'attribute':
-          return <AttributeChip attribute={part.attribute} key={index} />;
+          return (
+            <AttributeChip
+              attribute={part.attribute}
+              className={
+                size === 'lg' ? 'align-middle text-[0.62em]' : undefined
+              }
+              key={index}
+            />
+          );
         case 'difficulty':
           return (
             <strong className="font-semibold text-text" key={index}>
