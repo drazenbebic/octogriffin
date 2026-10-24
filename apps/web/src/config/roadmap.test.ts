@@ -25,3 +25,18 @@ describe('roadmap', () => {
     expect([...ranks].sort((a, b) => a - b)).toEqual(ranks);
   });
 });
+
+describe('roadmap releases', () => {
+  it('links every shipped phase to the release it shipped in', () => {
+    expect(
+      roadmap
+        .filter(({ status }) => status === 'shipped')
+        .map(({ codename, release }) => [codename, release]),
+    ).toEqual([
+      ['Foundations', 'web-v0.4.0'],
+      ['Control Freak', 'web-v0.7.0'],
+      ['Dark mode', 'web-v0.8.0'],
+      ['Field Guide', 'web-v0.10.0'],
+    ]);
+  });
+});

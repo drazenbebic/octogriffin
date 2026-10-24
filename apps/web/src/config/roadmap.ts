@@ -45,6 +45,7 @@ export const roadmap: RoadmapPhase[] = [
         title: 'Webhook history',
       },
     ],
+    release: 'web-v0.4.0',
     shippedAt: '2026-01',
     status: 'shipped',
     summary:
@@ -63,6 +64,7 @@ export const roadmap: RoadmapPhase[] = [
         title: 'Repository scope',
       },
     ],
+    release: 'web-v0.7.0',
     shippedAt: '2026-01',
     status: 'shipped',
     summary:
@@ -76,6 +78,7 @@ export const roadmap: RoadmapPhase[] = [
         title: 'A full dark theme',
       },
     ],
+    release: 'web-v0.8.0',
     shippedAt: '2026-03',
     status: 'shipped',
     summary: 'A full dark theme across the site and dashboard.',
