@@ -170,31 +170,6 @@
   --container-measure: 68ch;
 
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  /* BRIDGE: removed in Task 24. Maps the old palettes onto the new one. */
-  --color-violet-50: #f5f2fb;
-  --color-violet-100: #ebe4f7;
-  --color-violet-200: #d6c9ef;
-  --color-violet-300: #b9a3e3;
-  --color-violet-400: #9677d2;
-  --color-violet-500: #7853be;
-  --color-violet-600: #6040a6;
-  --color-violet-700: #4f3290;
-  --color-violet-800: #432879;
-  --color-violet-900: #2e1b55;
-  --color-violet-950: #1c1036;
-  --color-slate-50: #faf9fc;
-  --color-slate-100: #f4f2f8;
-  --color-slate-200: #ece9f2;
-  --color-slate-300: #e3dfeb;
-  --color-slate-400: #9a93ab;
-  --color-slate-500: #6f6882;
-  --color-slate-600: #4a4459;
-  --color-slate-700: #3b3449;
-  --color-slate-800: #241f30;
-  --color-slate-900: #19161f;
-  --color-slate-950: #0d0b12;
-  /* /BRIDGE */
 }
 
 /* Grain: only on the surfaces the design spec allows (§4.10). */

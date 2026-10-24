@@ -21,13 +21,13 @@ export default function ImprintPage() {
         <div className="flex flex-col gap-10">
           {/* 1. Information according to § 5 ECG */}
           <section>
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               Information according to § 5 ECG
             </Heading>
 
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
-                <Heading className="mb-1" level={3} size="base">
+                <Heading className="mb-1" level={3} size="h4">
                   Media Owner & Publisher
                 </Heading>
                 <Content className="font-medium">
@@ -40,7 +40,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading className="mb-1" level={3} size="base">
+                <Heading className="mb-1" level={3} size="h4">
                   Contact
                 </Heading>
                 <Content>
@@ -62,12 +62,12 @@ export default function ImprintPage() {
 
           {/* 2. Business Details */}
           <section>
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               Business Details
             </Heading>
             <div className="space-y-4">
               <div>
-                <Heading className="mb-1" level={3} size="base">
+                <Heading className="mb-1" level={3} size="h4">
                   Business Purpose
                 </Heading>
                 <Content>
@@ -77,7 +77,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading className="mb-1" level={3} size="base">
+                <Heading className="mb-1" level={3} size="h4">
                   Applicable Legislation
                 </Heading>
                 <Content>
@@ -91,7 +91,7 @@ export default function ImprintPage() {
 
           {/* 3. Dispute Resolution */}
           <section>
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               EU Dispute Resolution
             </Heading>
             <Content>
@@ -117,7 +117,7 @@ export default function ImprintPage() {
           <section className="rounded-2xl bg-sunken p-6 sm:p-8 ">
             <div className="space-y-6">
               <div>
-                <Heading className="mb-2" level={3} size="lg">
+                <Heading className="mb-2" level={3} size="h3">
                   Liability for Content
                 </Heading>
                 <Content size="sm">
@@ -133,7 +133,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading className="mb-2" level={3} size="lg">
+                <Heading className="mb-2" level={3} size="h3">
                   Liability for Links
                 </Heading>
                 <Content size="sm">
@@ -146,7 +146,7 @@ export default function ImprintPage() {
               </div>
 
               <div>
-                <Heading className="mb-2" level={3} size="lg">
+                <Heading className="mb-2" level={3} size="h3">
                   Copyright
                 </Heading>
                 <Content size="sm">

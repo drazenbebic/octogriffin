@@ -33,7 +33,7 @@ export const Header: FC = () => {
           <Link className="flex items-center gap-2.5" href="/">
             <Image
               alt=""
-              className="h-8 w-8 rounded-[8px] dark:ring-1 dark:ring-white/10"
+              className="h-8 w-8 rounded-[8px] ring-1 ring-border"
               height={32}
               priority
               src="/octogriffin_logo_square.png"

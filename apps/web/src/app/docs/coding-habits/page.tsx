@@ -35,7 +35,7 @@ export default function DocsCodingHabitsPage() {
       </section>
 
       <section className="space-y-4">
-        <Heading level={2} size="xl">
+        <Heading level={2} size="h3">
           Tips
         </Heading>
         <ul className="list-disc space-y-3 pl-5">

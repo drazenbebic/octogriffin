@@ -24,7 +24,7 @@ export const DocsStep: FC<DocsStepProps> = ({
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-fill text-text-2 font-bold text-sm ">
           {step}
         </div>
-        <Heading level={3} size="lg">
+        <Heading level={3} size="h3">
           {heading}
         </Heading>
       </div>

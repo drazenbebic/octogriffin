@@ -36,7 +36,7 @@ export const DocsCard: FC<DocsCardProps> = ({
       {icon}
     </div>
 
-    <Heading className="font-bold text-text " level={3} size="lg">
+    <Heading className="font-bold text-text " level={3} size="h3">
       {title}
     </Heading>
 

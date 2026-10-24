@@ -64,7 +64,7 @@ export const Accordion: FC<AccordionProps> = ({
               className="flex items-center justify-between px-5 py-4 text-left text-[15px]"
               color="inherit"
               level={4}
-              size="base"
+              size="h4"
             >
               <span className={cn('font-semibold text-text')}>{title}</span>
               <div

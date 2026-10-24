@@ -57,7 +57,7 @@ export default function PrivacyPolicyPage() {
         <div className="flex flex-col gap-10">
           {/* 1. Introduction */}
           <section className="scroll-mt-24" id="introduction">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               1. Introduction
             </Heading>
             <Content>
@@ -70,13 +70,13 @@ export default function PrivacyPolicyPage() {
 
           {/* 2. Controller */}
           <section className="scroll-mt-24" id="controller">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               2. Controller
             </Heading>
             <Content className="mb-2">
               The data controller responsible for this website is:
             </Content>
-            <Card className="px-6 py-4 " variant="flat">
+            <Card className="px-6 py-4 " variant="sunken">
               <Content className="font-semibold">Drazen Bebic</Content>
               <Content>Postfach 0029 1190 Vienna, Austria</Content>
               <Content>Email: {email}</Content>
@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 3. Data We Collect */}
           <section className="scroll-mt-24" id="the-data-we-collect">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               3. The Data We Collect
             </Heading>
             <Content className="mb-4">
@@ -121,7 +121,7 @@ export default function PrivacyPolicyPage() {
             </ul>
 
             <blockquote className="px-6 py-4 rounded-2xl bg-accent-soft ">
-              <Content className="font-medium " color="violet">
+              <Content className="font-medium " color="accent">
                 Important: We do not access, read, or store your source code
                 files.
               </Content>
@@ -130,7 +130,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 4. Cookies and local storage */}
           <section className="scroll-mt-24" id="cookies-and-local-storage">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               4. Cookies & Local Storage
             </Heading>
             <Content className="mb-4">
@@ -157,7 +157,7 @@ export default function PrivacyPolicyPage() {
             className="scroll-mt-24"
             id="infrastructure-and-data-processors"
           >
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               5. Infrastructure & Data Processors
             </Heading>
             <Content className="mb-4">
@@ -171,7 +171,7 @@ export default function PrivacyPolicyPage() {
                   className="mb-2"
                   id="hosting-vercel"
                   level={3}
-                  size="lg"
+                  size="h3"
                 >
                   5.1. Hosting (Vercel)
                 </Heading>
@@ -189,7 +189,7 @@ export default function PrivacyPolicyPage() {
                   className="mb-2"
                   id="database-neon"
                   level={3}
-                  size="lg"
+                  size="h3"
                 >
                   5.2. Database (Neon)
                 </Heading>
@@ -202,7 +202,7 @@ export default function PrivacyPolicyPage() {
               </div>
 
               <div>
-                <Heading className="mb-2" id="habitica-api" level={3} size="lg">
+                <Heading className="mb-2" id="habitica-api" level={3} size="h3">
                   5.3. Habitica API
                 </Heading>
                 <Content>
@@ -218,7 +218,7 @@ export default function PrivacyPolicyPage() {
                   className="mb-2"
                   id="analytics-and-performance"
                   level={3}
-                  size="lg"
+                  size="h3"
                 >
                   5.4. Analytics & Performance
                 </Heading>
@@ -237,7 +237,7 @@ export default function PrivacyPolicyPage() {
 
           {/* 6. User Rights */}
           <section className="scroll-mt-24" id="your-rights-gdpr">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               6. Your Rights (GDPR)
             </Heading>
             <Content className="mb-4">

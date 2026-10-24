@@ -21,8 +21,7 @@ export const copyCodeButtonTransformer: ShikiTransformer = {
           'absolute top-3 right-3 z-20',
           'flex items-center justify-center p-1.5',
           'rounded-md border',
-          'border-gray-200 bg-white/50 text-gray-500 backdrop-blur-sm hover:bg-white hover:text-black',
-          'dark:border-white/10 dark:bg-zinc-800/50 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white',
+          'border-border bg-surface/70 text-muted backdrop-blur-sm hover:bg-surface hover:text-text',
           'transition-all duration-200 ease-in-out',
           'cursor-pointer opacity-0 group-hover:opacity-100 focus:opacity-100',
         ),
@@ -72,7 +71,7 @@ export const copyCodeButtonTransformer: ShikiTransformer = {
           'svg',
           {
             'aria-hidden': 'true',
-            class: cn('w-4 h-4 text-emerald-500', 'hidden [.copied_&]:block'),
+            class: cn('w-4 h-4 text-ok', 'hidden [.copied_&]:block'),
             fill: 'none',
             viewBox: '0 0 24 24',
             xmlns: 'http://www.w3.org/2000/svg',

@@ -49,7 +49,7 @@ export const Callout: FC<CalloutProps> = ({
         className,
       )}
     >
-      <Heading className="mb-2" level={headingLevel} size="lg">
+      <Heading className="mb-2" level={headingLevel} size="h3">
         {title}
       </Heading>
       <Content className="mb-6">{description}</Content>

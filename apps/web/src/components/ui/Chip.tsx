@@ -67,7 +67,7 @@ export const Chip: FC<ChipProps> = ({
     {!!onDismiss && (
       <button
         aria-label={dismissLabel}
-        className="grid h-5 w-5 cursor-pointer place-items-center rounded-[4px] opacity-70 hover:bg-black/5 hover:opacity-100 dark:hover:bg-white/10"
+        className="grid h-5 w-5 cursor-pointer place-items-center rounded-[4px] opacity-70 hover:bg-fill hover:opacity-100"
         onClick={onDismiss}
         type="button"
       >

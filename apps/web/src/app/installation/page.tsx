@@ -63,7 +63,7 @@ export default function InstallationPage() {
               </div>
 
               <div className="pt-1.5 pb-8">
-                <Heading className="text-text " level={3} size="lg">
+                <Heading className="text-text " level={3} size="h3">
                   Install the App
                 </Heading>
                 <Content className="mt-2 mb-4" size="sm">
@@ -93,7 +93,7 @@ export default function InstallationPage() {
             <div className="relative z-10 flex gap-6">
               <Card
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border text-text-2 shadow-sm "
-                variant="flat"
+                variant="sunken"
               >
                 <span className="font-bold">2</span>
               </Card>
@@ -101,7 +101,7 @@ export default function InstallationPage() {
                 <Heading
                   className="flex items-center gap-2 text-text "
                   level={3}
-                  size="base"
+                  size="h4"
                 >
                   Select Repositories
                   <HugeiconsIcon
@@ -123,7 +123,7 @@ export default function InstallationPage() {
             <div className="relative z-10 flex gap-6">
               <Card
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border text-text-2 shadow-sm "
-                variant="flat"
+                variant="sunken"
               >
                 <span className="font-bold">3</span>
               </Card>
@@ -131,7 +131,7 @@ export default function InstallationPage() {
                 <Heading
                   className="flex items-center gap-2 text-text "
                   level={3}
-                  size="base"
+                  size="h4"
                 >
                   Enter Credentials
                   <HugeiconsIcon
@@ -159,7 +159,7 @@ export default function InstallationPage() {
             <div className="relative z-10 flex gap-6">
               <Card
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border text-text-2 shadow-sm "
-                variant="flat"
+                variant="sunken"
               >
                 <span className="font-bold">4</span>
               </Card>
@@ -167,7 +167,7 @@ export default function InstallationPage() {
                 <Heading
                   className="flex items-center gap-2 text-text "
                   level={3}
-                  size="base"
+                  size="h4"
                 >
                   Set Triggers
                   <HugeiconsIcon
@@ -194,7 +194,7 @@ export default function InstallationPage() {
         </div>
 
         <section className="space-y-4">
-          <Heading level={2} size="xl">
+          <Heading level={2} size="h3">
             Check that it works
           </Heading>
           <Content>
@@ -221,7 +221,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <Heading level={2} size="xl">
+          <Heading level={2} size="h3">
             What the GitHub App can access
           </Heading>
           <Content>

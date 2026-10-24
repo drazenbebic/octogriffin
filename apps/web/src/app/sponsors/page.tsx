@@ -50,7 +50,7 @@ export default function SponsorsPage() {
         </div>
 
         <div className="mx-auto mb-20 max-w-2xl">
-          <Card className="mist relative overflow-hidden" variant="elevated">
+          <Card className="mist relative overflow-hidden" variant="surface">
             <div className="pointer-events-none absolute -right-12 -top-12 opacity-5">
               <HugeiconsIcon icon={ChampionIcon} size={200} />
             </div>
@@ -60,7 +60,7 @@ export default function SponsorsPage() {
                 <HugeiconsIcon icon={Rocket01Icon} size={32} />
               </div>
 
-              <Heading className="mb-2" level={2} size="2xl">
+              <Heading className="mb-2" level={2} size="h2">
                 Be the First!
               </Heading>
 
@@ -76,7 +76,7 @@ export default function SponsorsPage() {
                   target="_blank"
                 >
                   <Button
-                    className="border-[#D63E9A] bg-[#EA4AAA] shadow-lg shadow-rose-200/50 hover:bg-[#D63E9A]! "
+                    className="border-[#D63E9A] bg-[#EA4AAA] shadow-e2 hover:bg-[#D63E9A]!"
                     size="lg"
                   >
                     <HugeiconsIcon
@@ -110,7 +110,7 @@ export default function SponsorsPage() {
                 </div>
                 <span className="text-xl font-bold text-text ">$2 / mo</span>
               </div>
-              <Heading className="mb-2" level={3} size="lg">
+              <Heading className="mb-2" level={3} size="h3">
                 Coffee Fund
               </Heading>
               <Content className="mb-6 min-h-20" size="sm">
@@ -138,15 +138,11 @@ export default function SponsorsPage() {
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
                 <div className="rounded-lg bg-xp-soft p-2 text-xp ">
-                  <HugeiconsIcon
-                    className="fill-amber-600 "
-                    icon={ZapIcon}
-                    size={24}
-                  />
+                  <HugeiconsIcon className="fill-xp" icon={ZapIcon} size={24} />
                 </div>
                 <span className="text-xl font-bold text-text ">$5 / mo</span>
               </div>
-              <Heading className="mb-2" level={3} size="lg">
+              <Heading className="mb-2" level={3} size="h3">
                 Server Fuel
               </Heading>
               <Content className="mb-6 min-h-20" size="sm">
@@ -183,7 +179,7 @@ export default function SponsorsPage() {
                   $15 / mo
                 </span>
               </div>
-              <Heading className="mb-2" level={3} size="lg">
+              <Heading className="mb-2" level={3} size="h3">
                 Feature Backer
               </Heading>
               <Content className="mb-6 min-h-20" size="sm">

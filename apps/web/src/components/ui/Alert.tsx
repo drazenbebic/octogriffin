@@ -92,7 +92,7 @@ export const Alert: FC<AlertProps> = ({
             as="h5"
             className="font-bold leading-none text-inherit!"
             level={5}
-            size="base"
+            size="h4"
           >
             {title}
           </Heading>

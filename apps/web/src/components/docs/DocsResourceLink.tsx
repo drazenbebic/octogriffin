@@ -39,7 +39,7 @@ export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
           </div>
           <span>{title}</span>
         </div>
-        <Content color="note" size="sm">
+        <Content color="muted" size="sm">
           {description}
         </Content>
       </div>

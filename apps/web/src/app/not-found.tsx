@@ -21,7 +21,7 @@ export default function NotFound() {
         <HugeiconsIcon icon={Search01Icon} size={48} />
       </div>
 
-      <Heading className="mb-4" level={1} size="3xl">
+      <Heading className="mb-4" level={1} size="h1">
         Quest Not Found
       </Heading>
 

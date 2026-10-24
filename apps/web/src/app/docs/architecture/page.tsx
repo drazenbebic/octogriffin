@@ -38,7 +38,7 @@ export default function DocsArchitecturePage() {
 
       {/* Tech Stack Grid */}
       <section className="space-y-4">
-        <Heading level={2} size="xl">
+        <Heading level={2} size="h3">
           Technology Stack
         </Heading>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -46,7 +46,7 @@ export default function DocsArchitecturePage() {
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent-text ">
               <HugeiconsIcon icon={Layout01Icon} size={20} />
             </div>
-            <Heading level={3} size="base">
+            <Heading level={3} size="h4">
               App Router (Frontend)
             </Heading>
             <Content className="mt-1" size="sm">
@@ -59,7 +59,7 @@ export default function DocsArchitecturePage() {
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-ok-soft text-ok ">
               <HugeiconsIcon icon={CloudServerIcon} size={20} />
             </div>
-            <Heading level={3} size="base">
+            <Heading level={3} size="h4">
               Serverless Backend
             </Heading>
             <Content className="mt-1" size="sm">
@@ -72,7 +72,7 @@ export default function DocsArchitecturePage() {
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-mp-soft text-mp ">
               <HugeiconsIcon icon={Database01Icon} size={20} />
             </div>
-            <Heading level={3} size="base">
+            <Heading level={3} size="h4">
               Data Layer
             </Heading>
             <Content className="mt-1" size="sm">
@@ -85,7 +85,7 @@ export default function DocsArchitecturePage() {
             <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-xp-soft text-xp ">
               <HugeiconsIcon icon={LockKeyIcon} size={20} />
             </div>
-            <Heading level={3} size="base">
+            <Heading level={3} size="h4">
               Authentication
             </Heading>
             <Content className="mt-1" size="sm">
@@ -98,7 +98,7 @@ export default function DocsArchitecturePage() {
 
       {/* The Data Flow */}
       <section className="space-y-6">
-        <Heading level={2} size="xl">
+        <Heading level={2} size="h3">
           Event Data Flow
         </Heading>
         <Content>
@@ -113,7 +113,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading className="font-bold" level={4} size="base">
+              <Heading className="font-bold" level={4} size="h4">
                 GitHub Event
               </Heading>
               <Content size="sm">
@@ -132,7 +132,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={Shield01Icon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading className="font-bold" level={4} size="base">
+              <Heading className="font-bold" level={4} size="h4">
                 Security Check
               </Heading>
               <Content size="sm">
@@ -150,7 +150,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={ZapIcon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading className="font-bold" level={4} size="base">
+              <Heading className="font-bold" level={4} size="h4">
                 Trigger Matching
               </Heading>
               <Content size="sm">
@@ -167,7 +167,7 @@ export default function DocsArchitecturePage() {
               <HugeiconsIcon icon={Globe02Icon} size={24} />
             </div>
             <div className="pt-2">
-              <Heading className="font-bold" level={4} size="base">
+              <Heading className="font-bold" level={4} size="h4">
                 Habitica Sync
               </Heading>
               <Content size="sm">
@@ -181,12 +181,12 @@ export default function DocsArchitecturePage() {
 
       {/* Integration Details */}
       <section className="space-y-4">
-        <Heading level={2} size="xl">
+        <Heading level={2} size="h3">
           Integration Model
         </Heading>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <Heading className="mb-2" level={3} size="base">
+            <Heading className="mb-2" level={3} size="h4">
               GitHub Actor
             </Heading>
             <Content size="sm">
@@ -198,7 +198,7 @@ export default function DocsArchitecturePage() {
             </Content>
           </div>
           <div>
-            <Heading className="mb-2" level={3} size="base">
+            <Heading className="mb-2" level={3} size="h4">
               Habitica Agent
             </Heading>
             <Content size="sm">

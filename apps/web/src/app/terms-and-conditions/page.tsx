@@ -48,7 +48,7 @@ export default function TermsAndConditionsPage() {
         <div className="flex flex-col gap-10">
           {/* 1. Introduction */}
           <section className="scroll-mt-24" id="introduction">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               1. Introduction
             </Heading>
             <Content className="mb-4">
@@ -66,7 +66,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 2. Description of Service */}
           <section className="scroll-mt-24" id="description-of-service">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               2. Description of Service
             </Heading>
             <Content className="mb-4">
@@ -89,7 +89,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 3. User Responsibilities */}
           <section className="scroll-mt-24" id="user-responsibilities">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               3. User Responsibilities
             </Heading>
             <Content className="mb-4">
@@ -119,7 +119,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 4. Limitation of Liability */}
           <section className="scroll-mt-24" id="limitation-of-liability">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               4. Limitation of Liability
             </Heading>
             <div className="rounded-2xl border border-xp/30 bg-xp-soft p-6 ">
@@ -138,7 +138,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 5. Intellectual Property */}
           <section className="scroll-mt-24" id="intellectual-property">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               5. Intellectual Property
             </Heading>
             <Content className="mb-4">
@@ -160,7 +160,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 6. Termination */}
           <section className="scroll-mt-24" id="termination">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               6. Termination
             </Heading>
             <Content>
@@ -173,7 +173,7 @@ export default function TermsAndConditionsPage() {
 
           {/* 7. Governing Law */}
           <section className="scroll-mt-24" id="governing-law">
-            <Heading className="mb-4" level={2} size="xl">
+            <Heading className="mb-4" level={2} size="h3">
               7. Governing Law
             </Heading>
             <Content>

@@ -53,7 +53,7 @@ export const DeleteTriggerModal: FC<DeleteWebhookTriggerModalProps> = ({
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-hp-soft text-hp ">
               <HugeiconsIcon icon={Delete02Icon} size={20} />
             </div>
-            <Heading as="h2" size="lg">
+            <Heading as="h2" size="h3">
               Delete Trigger?
             </Heading>
           </div>

@@ -5,7 +5,6 @@ import type { IconSvgElement } from '@hugeicons/react';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { DialogDismiss } from '@/components/ui/DialogDismiss';
-import { cn } from '@/utils/cn';
 
 export type DialogHeaderProps = {
   /** Extra controls between the title and the close button. */
@@ -40,15 +39,6 @@ export const DialogHeader: FC<DialogHeaderProps> = ({
       <DialogDismiss label={onCloseLabel} />
     </div>
   </div>
-);
-
-export type DialogBodyProps = {
-  children: ReactNode;
-  className?: string;
-};
-
-export const DialogBody: FC<DialogBodyProps> = ({ children, className }) => (
-  <div className={cn('-mx-6 px-6 py-6', className)}>{children}</div>
 );
 
 export type DialogFooterProps = {

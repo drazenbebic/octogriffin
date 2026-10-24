@@ -59,7 +59,7 @@ export default function DocsHowToContributePage() {
           </Content>
           <Card
             className="mt-4 flex flex-row items-start gap-3 p-4 "
-            variant="flat"
+            variant="sunken"
           >
             <HugeiconsIcon
               className="shrink-0 text-muted mt-0.5 "
@@ -117,7 +117,7 @@ export default function DocsHowToContributePage() {
             <code className="bg-fill px-1 rounded text-sm ">main</code> branch.
           </Content>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <Card className="p-4 " variant="flat">
+            <Card className="p-4 " variant="sunken">
               <div className="mb-2 flex items-center gap-2 font-bold text-text ">
                 <HugeiconsIcon
                   className="text-accent-text "
@@ -130,7 +130,7 @@ export default function DocsHowToContributePage() {
                 feature/add-new-trigger
               </code>
             </Card>
-            <Card className="p-4 " variant="flat">
+            <Card className="p-4 " variant="sunken">
               <div className="mb-2 flex items-center gap-2 font-bold text-text ">
                 <HugeiconsIcon
                   className="text-ok "
@@ -198,7 +198,7 @@ export default function DocsHowToContributePage() {
                   icon={PaintBoardIcon}
                   size={20}
                 />
-                <Heading level={4} size="base">
+                <Heading level={4} size="h4">
                   UI Components
                 </Heading>
               </div>
@@ -219,7 +219,7 @@ export default function DocsHowToContributePage() {
                   icon={Message01Icon}
                   size={20}
                 />
-                <Heading level={4} size="base">
+                <Heading level={4} size="h4">
                   Icons
                 </Heading>
               </div>

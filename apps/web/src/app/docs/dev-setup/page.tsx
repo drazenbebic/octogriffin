@@ -84,13 +84,13 @@ export default function DocsDevSetupPage() {
 
         {/* Prerequisites */}
         <section className="space-y-4">
-          <Heading level={2} size="xl">
+          <Heading level={2} size="h3">
             Prerequisites
           </Heading>
           <div className="grid gap-3 sm:grid-cols-2">
             <Card
               className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-border "
-              variant="flat"
+              variant="sunken"
             >
               <HugeiconsIcon
                 className="text-ok shrink-0"
@@ -101,7 +101,7 @@ export default function DocsDevSetupPage() {
             </Card>
             <Card
               className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-border "
-              variant="flat"
+              variant="sunken"
             >
               <HugeiconsIcon
                 className="text-ok shrink-0"
@@ -145,12 +145,12 @@ export default function DocsDevSetupPage() {
 
           <div className="space-y-6">
             <div className="space-y-3">
-              <Heading level={4} size="base">
+              <Heading level={4} size="h4">
                 1. General
               </Heading>
-              <Card className="grid gap-2 p-4 text-sm " variant="flat">
+              <Card className="grid gap-2 p-4 text-sm " variant="sunken">
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     GitHub App Name
                   </Content>
                   <span className="font-mono font-bold text-text ">
@@ -158,7 +158,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     Homepage URL
                   </Content>
                   <span className="font-mono text-text ">
@@ -166,7 +166,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     Callback URL
                   </Content>
                   <div className="flex flex-col gap-1 font-mono text-text ">
@@ -174,7 +174,7 @@ export default function DocsDevSetupPage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     Callback URL (2)
                   </Content>
                   <div className="flex flex-col gap-1 font-mono text-text ">
@@ -188,7 +188,7 @@ export default function DocsDevSetupPage() {
                 </div>
 
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     Setup URL
                   </Content>
                   <span className="font-mono text-text ">
@@ -196,7 +196,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     Webhook URL
                   </Content>
                   <span className="font-mono text-text ">
@@ -207,7 +207,7 @@ export default function DocsDevSetupPage() {
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">
-                  <Content as="span" className="font-medium" color="note">
+                  <Content as="span" className="font-medium" color="muted">
                     Webhook Secret
                   </Content>
                   <span className="text-muted italic ">
@@ -218,7 +218,7 @@ export default function DocsDevSetupPage() {
             </div>
 
             <div className="space-y-3">
-              <Heading level={4} size="base">
+              <Heading level={4} size="h4">
                 2. Permissions
               </Heading>
               <Content>
@@ -258,7 +258,7 @@ export default function DocsDevSetupPage() {
               </div>
             </div>
             <div className="space-y-3">
-              <Heading level={4} size="base">
+              <Heading level={4} size="h4">
                 3. Subscribe to events
               </Heading>
 
@@ -269,11 +269,11 @@ export default function DocsDevSetupPage() {
 
               <Card
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 p-4 "
-                variant="flat"
+                variant="sunken"
               >
                 {GITHUB_EVENTS.map(event => (
                   <div
-                    className="flex items-center gap-2.5 rounded-lg bg-surface px-3 py-2 text-sm text-text-2 shadow-sm ring-1 ring-slate-900/5 "
+                    className="flex items-center gap-2.5 rounded-lg bg-surface px-3 py-2 text-sm text-text-2 shadow-e1 ring-1 ring-border"
                     key={event}
                   >
                     <HugeiconsIcon
@@ -330,7 +330,7 @@ export default function DocsDevSetupPage() {
         {/* Step 5: Environment Config */}
         <DocsStep heading="Configure Environment" step={5}>
           <div className="space-y-2">
-            <Heading className="flex items-center gap-2" level={4} size="base">
+            <Heading className="flex items-center gap-2" level={4} size="h4">
               <HugeiconsIcon
                 className="text-muted"
                 icon={Folder01Icon}
@@ -353,7 +353,7 @@ export default function DocsDevSetupPage() {
           </div>
 
           <div className="space-y-2 pt-2">
-            <Heading className="flex items-center gap-2" level={4} size="base">
+            <Heading className="flex items-center gap-2" level={4} size="h4">
               <HugeiconsIcon
                 className="text-muted"
                 icon={Settings01Icon}
