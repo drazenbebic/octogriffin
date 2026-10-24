@@ -6,6 +6,8 @@ import type { PaginationMeta, PaginationParams } from '@/types/pagination';
 
 type WebhookLogsStoreState = {
   fetchWebhookLogs: (params?: PaginationParams) => Promise<void>;
+  /** True once the first load has finished, even if it found nothing. */
+  hasLoaded: boolean;
   isLoading: boolean;
   meta: PaginationMeta;
   setLimit: (limit: number) => void;
@@ -54,9 +56,10 @@ export const useWebhookLogsStore = create<WebhookLogsStoreState>(
       } catch (error) {
         console.error('Zustand fetchWebhookLogs error:', error);
       } finally {
-        set({ isLoading: false });
+        set({ hasLoaded: true, isLoading: false });
       }
     },
+    hasLoaded: false,
     isLoading: false,
     meta: {
       limit: 5,

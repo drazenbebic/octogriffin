@@ -13,10 +13,20 @@ jest.mock('next-auth/react', () => ({
   useSession: () => mockSession,
 }));
 
-jest.mock('@/store/useTriggersStore', () => ({
-  useTriggersStore: (selector: (state: unknown) => unknown) =>
-    selector({ fetchTriggers: jest.fn(), triggers: mockTriggers }),
-}));
+jest.mock('@/store/useTriggersStore', () => {
+  const state = () => ({
+    fetchTriggers: jest.fn(),
+    hasLoaded: true,
+    isLoading: false,
+    triggers: mockTriggers,
+  });
+  const useTriggersStore = (selector: (value: unknown) => unknown) =>
+    selector(state());
+
+  useTriggersStore.getState = state;
+
+  return { useTriggersStore };
+});
 
 const recipe = recipes[1];
 

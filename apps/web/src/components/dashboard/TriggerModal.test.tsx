@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 
 import { recipes } from '@/config/recipes';
 import { githubAppUrl } from '@/utils/githubAppUrl';
@@ -6,9 +12,14 @@ import { githubAppUrl } from '@/utils/githubAppUrl';
 import { TriggerModal } from './TriggerModal';
 
 let mockRepositories: { fullName: string; name: string; uuid: string }[] = [];
+let mockHasLoaded = true;
 
 jest.mock('@/hooks/useRepositories', () => ({
   useRepositories: () => mockRepositories,
+  useRepositoriesState: () => ({
+    hasLoaded: mockHasLoaded,
+    repositories: mockRepositories,
+  }),
 }));
 
 jest.mock('@/store/useTriggersStore', () => ({
@@ -35,6 +46,7 @@ const renderModal = (props: Partial<Parameters<typeof TriggerModal>[0]> = {}) =>
 describe('TriggerModal', () => {
   beforeEach(() => {
     mockRepositories = [];
+    mockHasLoaded = true;
     process.env.NEXT_PUBLIC_GITHUB_APP_URL =
       'https://github.com/apps/octogriffin';
   });
@@ -79,6 +91,43 @@ describe('TriggerModal', () => {
 
     expect(screen.getByTestId('trigger-sentence').textContent).toContain(
       'Medium',
+    );
+  });
+
+  it('does not ask you to install the app while repositories are still loading', () => {
+    mockHasLoaded = false;
+
+    renderModal({ recipe: recipes[1] });
+
+    expect(
+      screen.queryByRole('link', {
+        name: 'Install the GitHub App on a repository first',
+      }),
+    ).toBeNull();
+  });
+
+  it('moves focus to the repository picker once several repositories arrive', async () => {
+    mockHasLoaded = false;
+
+    const { rerender } = renderModal({ recipe: recipes[1] });
+
+    // Repositories arrive over the network, after the dialog has settled
+    await waitFor(() =>
+      expect(screen.getByRole('dialog').contains(document.activeElement)).toBe(
+        true,
+      ),
+    );
+
+    mockHasLoaded = true;
+    mockRepositories = [repo('octogriffin'), repo('bebic.dev'), repo('vadb')];
+    rerender(
+      <TriggerModal open recipe={recipes[1]} setOpenAction={jest.fn()} />,
+    );
+
+    await waitFor(() =>
+      expect(document.activeElement).toBe(
+        screen.getByRole('combobox', { name: /Repositories/ }),
+      ),
     );
   });
 });

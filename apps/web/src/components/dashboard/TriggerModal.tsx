@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useRef, useState, useTransition } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 
 import {
   DialogProvider,
@@ -40,7 +40,7 @@ import { FormTextarea } from '@/components/ui/FormTextarea';
 import { Menu, MenuItem } from '@/components/ui/Menu';
 import type { Recipe } from '@/config/recipes';
 import { recipes } from '@/config/recipes';
-import { useRepositories } from '@/hooks/useRepositories';
+import { useRepositoriesState } from '@/hooks/useRepositories';
 import { useRepositoryOptions } from '@/hooks/useRepositoryOptions';
 import type { TriggerSchema } from '@/schemas/triggerSchema';
 import { triggerSchema } from '@/schemas/triggerSchema';
@@ -148,7 +148,8 @@ export const TriggerModal: FC<TriggerModalProps> = ({
   trigger,
 }) => {
   const isEdit = !!trigger;
-  const repositories = useRepositories();
+  const { hasLoaded: hasLoadedRepositories, repositories } =
+    useRepositoriesState();
   const repositoryOptions = useRepositoryOptions(repositories);
   const githubEventOptions = getGroupedGithubEvents();
   const createTrigger = useTriggersStore(state => state.createTrigger);
@@ -216,7 +217,18 @@ export const TriggerModal: FC<TriggerModalProps> = ({
     { repoNames: selectedRepoNames, totalRepos: repositories.length },
   );
 
-  const hasNoRepositories = repositories.length === 0;
+  const hasNoRepositories = hasLoadedRepositories && repositories.length === 0;
+
+  // Repositories often arrive after the dialog opens. A recipe only needs
+  // them picked, so focus the picker as soon as there's a choice to make.
+  const shouldFocusRepositories =
+    !!recipe && hasLoadedRepositories && repositories.length > 1;
+
+  useEffect(() => {
+    if (shouldFocusRepositories) {
+      repositoriesRef.current?.focus();
+    }
+  }, [shouldFocusRepositories]);
 
   form.useSubmit(state => {
     const validation = triggerSchema.safeParse(state.values);
@@ -352,9 +364,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
       <Dialog
         className="max-h-[calc(100vh-2rem)] overflow-y-auto"
         // A recipe only needs repositories picked, so start there
-        initialFocus={
-          recipe && repositories.length > 1 ? repositoriesRef : undefined
-        }
+        initialFocus={shouldFocusRepositories ? repositoriesRef : undefined}
         onClose={() => {
           if (!isEdit) {
             setTimeout(resetForm, 300);
@@ -495,7 +505,9 @@ export const TriggerModal: FC<TriggerModalProps> = ({
             <FormSubmit
               render={
                 <Button
-                  disabled={isPending || hasNoRepositories}
+                  disabled={
+                    isPending || hasNoRepositories || !hasLoadedRepositories
+                  }
                   isLoading={isPending}
                 >
                   {isPending ? submitLabel.pending : submitLabel.idle}

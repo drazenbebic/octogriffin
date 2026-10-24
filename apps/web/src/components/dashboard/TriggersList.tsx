@@ -38,6 +38,7 @@ export const TriggersList: FC<TriggersListProps> = ({
   const triggers = useTriggersStore(state => state.triggers);
   const meta = useTriggersStore(state => state.meta);
   const isLoading = useTriggersStore(state => state.isLoading);
+  const hasLoaded = useTriggersStore(state => state.hasLoaded);
   const recentlyCreated = useTriggersStore(state => state.recentlyCreated);
   const fetchTriggers = useTriggersStore(state => state.fetchTriggers);
   const setPage = useTriggersStore(state => state.setPage);
@@ -54,7 +55,10 @@ export const TriggersList: FC<TriggersListProps> = ({
     [triggers, query],
   );
 
-  if (!isLoading && triggers.length === 0) {
+  // Until the first load finishes there's nothing to say about emptiness
+  const isPending = isLoading || !hasLoaded;
+
+  if (!isPending && triggers.length === 0) {
     return (
       <div className="mist flex flex-col items-center gap-2 rounded-lg border border-border px-6 py-14 text-center">
         <span className="mb-2 grid h-12 w-12 place-items-center rounded-full border border-border bg-surface text-muted">
@@ -106,7 +110,7 @@ export const TriggersList: FC<TriggersListProps> = ({
       </div>
 
       <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-e1">
-        {isLoading ? (
+        {isPending ? (
           <div className="flex flex-col">
             {[...Array(meta.limit || 5)].map((_, i) => (
               <div

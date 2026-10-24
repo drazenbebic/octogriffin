@@ -2,12 +2,14 @@
 // overrides instead of the design tokens in globals.css.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = new URL('../src', import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL('../src', import.meta.url));
 const ALLOW = '/* token: dialog edge */';
 const PATTERNS = [
   /\b(?:slate|violet|rose|indigo|sky|emerald|amber|red|blue)-\d{2,3}\b/,
-  /\bdark:(?:[\w-]+:)*(?:bg|text|border|ring|shadow|from|via|to)-/,
+  // Stacked variants can contain brackets, e.g. dark:has-[input[...]]:bg-*
+  /\bdark:\S*?(?:bg|text|border|ring|shadow|from|via|to)-/,
 ];
 
 const files = dir =>

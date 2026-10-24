@@ -18,6 +18,7 @@ export const WebhookLogsList: FC = () => {
   const webhookLogs = useWebhookLogsStore(state => state.webhookLogs);
   const meta = useWebhookLogsStore(state => state.meta);
   const isLoading = useWebhookLogsStore(state => state.isLoading);
+  const hasLoaded = useWebhookLogsStore(state => state.hasLoaded);
   const fetchWebhookLogs = useWebhookLogsStore(state => state.fetchWebhookLogs);
   const setPage = useWebhookLogsStore(state => state.setPage);
   const setLimit = useWebhookLogsStore(state => state.setLimit);
@@ -26,7 +27,8 @@ export const WebhookLogsList: FC = () => {
     fetchWebhookLogs({ page: 1 });
   }, [fetchWebhookLogs]);
 
-  if (isLoading) {
+  // Until the first load finishes there's nothing to say about emptiness
+  if (isLoading || !hasLoaded) {
     return (
       <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-e1">
         {[...Array(meta.limit || 5)].map((_, i) => (

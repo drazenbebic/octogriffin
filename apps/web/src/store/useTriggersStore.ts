@@ -15,6 +15,8 @@ type TriggersStoreState = {
   createTrigger: (data: TriggerSchema) => Promise<null | TriggersModel>;
   deleteTrigger: (uuid: string) => Promise<null | TriggersModel>;
   fetchTriggers: (params?: PaginationParams) => Promise<void>;
+  /** True once the first load has finished, even if it found nothing. */
+  hasLoaded: boolean;
   isLoading: boolean;
   meta: PaginationMeta;
   /** Triggers created during this visit, marked as new in the list. */
@@ -79,9 +81,11 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => {
     } catch (error) {
       console.error('Zustand fetchTriggers error:', error);
     } finally {
-      if (showSkeleton) {
-        set({ isLoading: false });
-      }
+      set(
+        showSkeleton
+          ? { hasLoaded: true, isLoading: false }
+          : { hasLoaded: true },
+      );
     }
   };
 
@@ -131,6 +135,7 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => {
     },
     fetchTriggers: (params = {}) =>
       loadTriggers(params, { showSkeleton: true }),
+    hasLoaded: false,
     isLoading: false,
     meta: {
       limit: 5,

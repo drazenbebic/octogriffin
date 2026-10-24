@@ -61,7 +61,7 @@ const singleInputStyles =
   'relative flex w-full items-center justify-between rounded-lg border border-border-strong bg-surface px-5 py-2.5 text-left text-text transition-all duration-200 ease-in-out placeholder:text-faint focus:border-accent focus:outline-none focus:ring-4 focus:ring-ring hover:bg-fill disabled:opacity-50 disabled:pointer-events-none aria-invalid:border-hp aria-invalid:focus:border-hp aria-invalid:focus:ring-hp/20 aria-invalid:bg-hp-soft ';
 
 const multiWrapperStyles =
-  'group relative flex w-full flex-wrap items-center gap-1.5 cursor-text rounded-lg border border-border-strong bg-surface pl-3 pr-10 py-1.5 min-h-11 text-left text-text transition-all duration-200 ease-in-out hover:bg-fill focus-within:border-accent focus-within:hover:bg-surface focus-within:ring-4 focus-within:ring-ring has-[input:disabled]:opacity-50 has-[input:disabled]:pointer-events-none has-[input[aria-invalid="true"]]:border-hp has-[input[aria-invalid="true"]]:bg-hp-soft has-[input[aria-invalid="true"]]:focus-within:ring-hp/20 dark:has-[input[aria-invalid="true"]]:border-hp dark:has-[input[aria-invalid="true"]]:bg-hp';
+  'group relative flex w-full flex-wrap items-center gap-1.5 cursor-text rounded-lg border border-border-strong bg-surface pl-3 pr-10 py-1.5 min-h-11 text-left text-text transition-all duration-200 ease-in-out hover:bg-fill focus-within:border-accent focus-within:hover:bg-surface focus-within:ring-4 focus-within:ring-ring has-[input:disabled]:opacity-50 has-[input:disabled]:pointer-events-none has-[input[aria-invalid="true"]]:border-hp has-[input[aria-invalid="true"]]:bg-hp-soft has-[input[aria-invalid="true"]]:focus-within:ring-hp/20';
 
 const multiInputStyles =
   'flex-1 min-w-24 bg-transparent py-1 outline-none placeholder:text-faint';

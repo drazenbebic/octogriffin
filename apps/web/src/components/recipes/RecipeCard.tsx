@@ -36,13 +36,15 @@ const RecipeAction: FC<{ recipe: Recipe; size: 'md' | 'sm' }> = ({
   const fetchTriggers = useTriggersStore(state => state.fetchTriggers);
   const isAuthenticated = status === 'authenticated';
 
+  // Load the user's triggers once, however many cards are on the page.
+  // Live store state, so cards mounting together don't each fetch.
   useEffect(() => {
-    if (isAuthenticated && triggers.length === 0) {
+    const { hasLoaded, isLoading } = useTriggersStore.getState();
+
+    if (isAuthenticated && !hasLoaded && !isLoading) {
       fetchTriggers();
     }
-    // Only load once per sign-in, not every time the list changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAuthenticated, fetchTriggers]);
 
   if (isAuthenticated && isRecipeInDashboard(recipe, triggers)) {
     return (
