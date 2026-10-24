@@ -1,138 +1,108 @@
 'use client';
 
+import { signIn, useSession } from 'next-auth/react';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-import { Dialog, DialogDisclosure, useDialogStore } from '@ariakit/react';
-import {
-  ArrowRight01Icon,
-  Cancel01Icon,
-  GithubIcon,
-  Globe02Icon,
-  Menu01Icon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { Dialog, useDialogStore } from '@ariakit/react';
+import { Cancel01Icon, Menu01Icon } from '@hugeicons/core-free-icons';
 
-import { Content } from '@/components/ui/Content';
+import { activeNavigationHref, navigationLinks } from '@/components/Navigation';
+import { Button } from '@/components/ui/Button';
+import { ButtonIcon } from '@/components/ui/ButtonIcon';
 import { cn } from '@/utils/cn';
-import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
-
-const links = [
-  {
-    description: 'Installation Guide',
-    href: '/installation',
-    label: 'Get Started',
-  },
-  { description: 'Guides & API', href: '/docs', label: 'Documentation' },
-  { description: 'Future plans', href: '/roadmap', label: 'Roadmap' },
-  { description: 'Our supporters', href: '/sponsors', label: 'Sponsors' },
-  { description: 'Questions', href: '/faq', label: 'FAQ' },
-];
 
 export const MobileMenu: FC = () => {
   const [open, setOpen] = useState(false);
   const dialog = useDialogStore({ open, setOpen });
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '';
+  const activeHref = activeNavigationHref(pathname);
+  const { status } = useSession();
 
   return (
     <>
-      <DialogDisclosure
-        aria-label={open ? 'Close Menu' : 'Open Menu'}
-        className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-lg text-slate-600 transition-colors hover:bg-slate-100 active:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 dark:active:bg-slate-700 md:hidden"
-        store={dialog}
-      >
-        {open ? (
-          <HugeiconsIcon icon={Cancel01Icon} size={20} />
-        ) : (
-          <HugeiconsIcon icon={Menu01Icon} size={20} />
-        )}
-      </DialogDisclosure>
+      <ButtonIcon
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        className="md:hidden"
+        icon={open ? Cancel01Icon : Menu01Icon}
+        label={open ? 'Close menu' : 'Open menu'}
+        onClick={() => dialog.toggle()}
+        size="md"
+      />
 
       <Dialog
-        className={cn(
-          'fixed inset-0 top-16 z-40 flex flex-col overflow-hidden',
-          'bg-white/95 backdrop-blur-xl dark:bg-slate-950/95',
-          'animate-in fade-in slide-in-from-top-2 duration-300 ease-out',
-        )}
+        className="fixed inset-0 top-16 z-40 flex flex-col overflow-y-auto bg-bg"
         modal
         store={dialog}
       >
-        <div className="pointer-events-none absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] bg-size-[16px_16px] opacity-50" />
+        <nav aria-label="Mobile" className="flex flex-col px-4 pt-3">
+          {navigationLinks.map(({ description, href, label }) => {
+            const isActive = href === activeHref;
 
-        <div className="pointer-events-none absolute -right-20 -top-20 -z-10 h-80 w-80 rounded-full bg-violet-100 blur-3xl opacity-60 dark:bg-violet-900/20" />
-
-        <div className="flex flex-1 flex-col p-6 sm:p-8">
-          <nav className="flex flex-col gap-6 pt-4">
-            {links.map(({ description, href, label }) => {
-              const isActive =
-                href === '/' ? pathname === href : pathname.startsWith(href);
-
-              return (
-                <NextLink
-                  className="group flex items-center justify-between"
-                  href={href}
-                  key={href}
-                  onClick={() => dialog.hide()}
+            return (
+              <NextLink
+                aria-current={isActive ? 'page' : undefined}
+                className={cn(
+                  'flex min-h-14 items-center justify-between gap-4 border-b border-border px-1 py-3.5 last:border-b-0',
+                  isActive ? 'text-accent-text' : 'text-text',
+                )}
+                href={href}
+                key={href}
+                onClick={() => dialog.hide()}
+              >
+                <span className="font-display text-[22px] font-bold tracking-[-0.02em]">
+                  {label}
+                </span>
+                <span
+                  className={cn(
+                    'text-[13px]',
+                    isActive ? 'text-accent-text' : 'text-muted',
+                  )}
                 >
-                  <div className="flex flex-col">
-                    <span
-                      className={cn(
-                        'text-3xl font-bold tracking-tight transition-all duration-200 group-hover:translate-x-2',
-                        isActive
-                          ? 'text-violet-600 dark:text-violet-400'
-                          : 'text-slate-900 group-hover:text-violet-600 dark:text-slate-100 dark:group-hover:text-violet-400',
-                      )}
-                    >
-                      {label}
-                    </span>
-                    <span className="text-sm font-medium text-slate-400 transition-all duration-200 group-hover:translate-x-2 group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400">
-                      {description}
-                    </span>
-                  </div>
+                  {isActive ? 'You are here' : description}
+                </span>
+              </NextLink>
+            );
+          })}
+        </nav>
 
-                  <HugeiconsIcon
-                    className={cn(
-                      'transition-all duration-300',
-                      isActive
-                        ? 'opacity-100 translate-x-0 text-violet-600 dark:text-violet-400'
-                        : 'opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-violet-400',
-                    )}
-                    icon={ArrowRight01Icon}
-                    size={24}
+        <div className="mt-auto flex flex-col gap-2 border-t border-border p-4">
+          {status === 'authenticated' ? (
+            <Button
+              render={
+                <NextLink href="/dashboard" onClick={() => dialog.hide()} />
+              }
+              size="lg"
+            >
+              Dashboard
+            </Button>
+          ) : (
+            <>
+              <Button
+                render={
+                  <NextLink
+                    href="/installation"
+                    onClick={() => dialog.hide()}
                   />
-                </NextLink>
-              );
-            })}
-          </nav>
-
-          <div className="mt-auto border-t border-slate-100 pt-8 dark:border-slate-800">
-            <div className="mb-6 flex gap-4">
-              <NextLink
-                aria-label="GitHub Repository"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-slate-900 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-100 dark:hover:text-slate-900"
-                href={githubRepositoryUrl()}
-                rel="noreferrer"
-                target="_blank"
+                }
+                size="lg"
               >
-                <HugeiconsIcon icon={GithubIcon} size={20} />
-              </NextLink>
-              <NextLink
-                aria-label="Drazen Bebic Homepage"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition-colors hover:bg-violet-600 hover:text-white dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-violet-600 dark:hover:text-white"
-                href="https://www.bebic.dev"
-                rel="noreferrer"
-                target="_blank"
+                Install app
+              </Button>
+              <Button
+                onClick={() =>
+                  signIn('github', { callbackUrl: window.location.href })
+                }
+                size="lg"
+                variant="secondary"
               >
-                <HugeiconsIcon icon={Globe02Icon} size={20} />
-              </NextLink>
-            </div>
-            <Content color="note" size="sm">
-              &copy; {new Date().getFullYear()} Octogriffin. All rights
-              reserved.
-            </Content>
-          </div>
+                Sign in with GitHub
+              </Button>
+            </>
+          )}
         </div>
       </Dialog>
     </>

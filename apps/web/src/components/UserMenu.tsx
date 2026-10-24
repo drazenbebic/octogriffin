@@ -2,76 +2,113 @@
 
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
 import {
-  DashboardSquare02Icon,
+  Activity01Icon,
+  ArrowDown01Icon,
   GithubIcon,
   Logout04Icon,
+  Settings01Icon,
+  UserIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
-import { ButtonIcon } from '@/components/ui/ButtonIcon';
+import { Menu, MenuItem, MenuSeparator } from '@/components/ui/Menu';
+import { cn } from '@/utils/cn';
 
 export const UserMenu: FC = () => {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
 
   if (status === 'loading') {
     return (
-      <div className="flex items-center gap-1.5 animate-pulse">
-        <div className="h-9 w-28 rounded-lg bg-slate-200 dark:bg-slate-800" />
-        <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
-        <div className="h-8 w-8 rounded-lg bg-slate-200 dark:bg-slate-800" />
-        <div className="h-8 w-8 rounded-lg bg-slate-200 dark:bg-slate-800" />
+      <div className="flex animate-pulse items-center gap-2">
+        <div className="h-9 w-28 rounded-md bg-fill" />
+        <div className="h-9 w-12 rounded-md bg-fill" />
       </div>
     );
   }
 
   if (status === 'unauthenticated') {
     return (
-      <Button
-        onClick={() => signIn('github', { callbackUrl: window.location.href })}
-        size="sm"
-      >
-        <HugeiconsIcon className="mr-2" icon={GithubIcon} size={18} />
-        Sign In
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button
+          className="hidden sm:inline-flex"
+          onClick={() =>
+            signIn('github', { callbackUrl: window.location.href })
+          }
+          size="sm"
+          variant="secondary"
+        >
+          <HugeiconsIcon icon={GithubIcon} size={16} />
+          Sign in
+        </Button>
+        <Button render={<Link href="/installation" />} size="sm">
+          Install app
+        </Button>
+      </div>
     );
   }
 
+  const name = session?.user?.name;
+  const isDashboard = pathname.startsWith('/dashboard');
+
   return (
-    <div className="flex items-center gap-1.5">
-      <Link href="/dashboard" title="Go to Dashboard">
-        <div className="group flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50 hover:text-violet-700 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-violet-400">
-          <HugeiconsIcon
-            className="text-slate-400 transition-colors group-hover:text-violet-600 dark:text-slate-500 dark:group-hover:text-violet-400"
-            icon={DashboardSquare02Icon}
-            size={18}
-          />
-          <span className="hidden sm:inline">Dashboard</span>
-        </div>
+    <div className="flex items-center gap-2">
+      <Link
+        aria-current={isDashboard ? 'page' : undefined}
+        className={cn(
+          'hidden h-9 items-center rounded-md px-3 text-[13px] font-semibold text-text transition-colors duration-[var(--dur-fast)] hover:bg-fill sm:flex',
+          isDashboard && 'bg-fill',
+        )}
+        href="/dashboard"
+      >
+        Dashboard
       </Link>
 
-      <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
-
-      <ButtonIcon
-        icon={Logout04Icon}
-        label="Sign out"
-        onClick={() => signOut()}
-        size="sm"
-        variant="danger"
-      />
-
-      <Link className="flex" href="/profile">
-        <Avatar
-          className="ring-2 ring-transparent transition-all hover:ring-violet-500 hover:ring-offset-1 rounded-lg"
-          shape="rounded"
-          size="sm"
-          src={session?.user?.image}
-        />
-      </Link>
+      <Menu
+        header={
+          <div className="flex items-center gap-2.5">
+            <Avatar shape="rounded" size="sm" src={session?.user?.image} />
+            <div className="flex flex-col">
+              <span className="text-[13px] font-semibold">{name}</span>
+              {!!name && (
+                <span className="font-mono text-[11px] text-muted">
+                  @{name}
+                </span>
+              )}
+            </div>
+          </div>
+        }
+        label="Account menu"
+        trigger={
+          <button
+            className="flex h-9 cursor-pointer items-center gap-1.5 rounded-md border border-border-strong bg-raised py-0.5 pr-2 pl-0.5 text-text-2 transition-colors duration-[var(--dur-fast)] hover:bg-sunken focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+            type="button"
+          >
+            <Avatar shape="rounded" size="sm" src={session?.user?.image} />
+            <HugeiconsIcon icon={ArrowDown01Icon} size={14} />
+          </button>
+        }
+      >
+        <MenuItem href="/profile" icon={UserIcon}>
+          Profile
+        </MenuItem>
+        <MenuItem href="/dashboard/settings" icon={Settings01Icon}>
+          Habitica settings
+        </MenuItem>
+        <MenuItem href="/dashboard/history" icon={Activity01Icon}>
+          History
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem icon={Logout04Icon} onClick={() => signOut()} tone="danger">
+          Sign out
+        </MenuItem>
+      </Menu>
     </div>
   );
 };

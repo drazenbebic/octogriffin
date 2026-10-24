@@ -24,7 +24,7 @@ export const ThemeSwitcher: FC = () => {
         disabled
         icon={Sun01Icon}
         label="Switch theme"
-        size="md"
+        size="sm"
         variant="ghost"
       />
     );
@@ -37,7 +37,7 @@ export const ThemeSwitcher: FC = () => {
       icon={isDark ? Sun01Icon : Moon01Icon}
       label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      size="md"
+      size="sm"
       variant="ghost"
     />
   );

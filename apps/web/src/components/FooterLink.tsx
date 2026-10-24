@@ -9,8 +9,9 @@ export type FooterLinkProps = {
 
 export const FooterLink: FC<FooterLinkProps> = ({ children, href, target }) => (
   <Link
-    className="text-sm text-slate-600 transition-colors hover:text-violet-600 hover:underline dark:text-slate-400 dark:hover:text-violet-400"
+    className="w-fit text-sm text-text-2 transition-colors duration-[var(--dur-fast)] hover:text-accent-text"
     href={href}
+    rel={target === '_blank' ? 'noreferrer' : undefined}
     target={target}
   >
     {children}
