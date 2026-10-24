@@ -7,6 +7,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import { JsonLd } from '@/components/JsonLd';
 import { Link } from '@/components/Link';
+import { PageHeader } from '@/components/PageHeader';
 import { Accordion } from '@/components/ui/Accordion';
 import { AccordionGroup } from '@/components/ui/AccordionGroup';
 import { Button } from '@/components/ui/Button';
@@ -275,17 +276,11 @@ export default function FaqPage() {
   return (
     <>
       <JsonLd data={faqJsonLd} />
-      <Shell className="flex flex-col gap-12 pt-16 pb-24">
-        <div className="flex max-w-[640px] flex-col gap-3.5">
-          <Heading level={1} size="display">
-            Habitica GitHub integration FAQ
-          </Heading>
-          <p className="text-lg text-text-2">
-            Everything about setup, how rewards are calculated, and what happens
-            to your data.
-          </p>
-        </div>
-
+      <PageHeader
+        description="Everything about setup, how rewards are calculated, and what happens to your data."
+        title="Habitica GitHub integration FAQ"
+      />
+      <Shell className="flex flex-col gap-12 pt-12 pb-24">
         <div className="flex flex-wrap items-start gap-12">
           <nav
             aria-label="Topics"

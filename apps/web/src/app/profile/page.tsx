@@ -9,6 +9,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import { getUserProfileAction } from '@/actions/getUserProfileAction';
 import { AuthGate } from '@/components/AuthGate';
+import { PageHeader } from '@/components/PageHeader';
 import { ContactDetailsCard } from '@/components/profile/ContactDetailsCard';
 import { Chip } from '@/components/ui/Chip';
 import { Heading } from '@/components/ui/Heading';
@@ -45,71 +46,70 @@ export default async function ProfilePage() {
   });
 
   return (
-    <Shell className="flex flex-col gap-8 pt-14 pb-24">
-      <div className="flex flex-col gap-1.5">
-        <Heading level={1}>Profile</Heading>
-        <p className="text-text-2">
-          Your GitHub details and how Octogriffin is connected.
-        </p>
-      </div>
+    <>
+      <PageHeader
+        description="Your GitHub details and how Octogriffin is connected."
+        title="Profile"
+      />
+      <Shell className="flex flex-col gap-8 pt-12 pb-24">
+        <div className="grid gap-6 lg:grid-cols-12">
+          <div className="flex flex-col gap-6 lg:col-span-4">
+            <section className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface px-6 py-8 text-center shadow-e1">
+              <Image
+                alt=""
+                className="h-24 w-24 rounded-full bg-fill object-cover ring-4 ring-accent-soft"
+                height={96}
+                priority
+                src={profile.avatar || '/octogriffin_logo_square.png'}
+                width={96}
+              />
+              <div className="flex flex-col gap-0.5">
+                <Heading level={2} size="h3">
+                  {profile.name}
+                </Heading>
+                <span className="font-mono text-sm text-muted">
+                  @{profile.handle}
+                </span>
+              </div>
+              <p className="text-[13px] text-muted">
+                Octogriffin member since {joined}
+              </p>
+            </section>
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <div className="flex flex-col gap-6 lg:col-span-4">
-          <section className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface px-6 py-8 text-center shadow-e1">
-            <Image
-              alt=""
-              className="h-24 w-24 rounded-full bg-fill object-cover ring-4 ring-accent-soft"
-              height={96}
-              priority
-              src={profile.avatar || '/octogriffin_logo_square.png'}
-              width={96}
-            />
-            <div className="flex flex-col gap-0.5">
-              <Heading level={2} size="h3">
-                {profile.name}
-              </Heading>
-              <span className="font-mono text-sm text-muted">
-                @{profile.handle}
-              </span>
-            </div>
-            <p className="text-[13px] text-muted">
-              Octogriffin member since {joined}
-            </p>
-          </section>
+            <section className="flex flex-col rounded-xl border border-border bg-surface shadow-e1">
+              <h2 className="border-b border-border px-5 py-4 text-[15px] font-semibold text-text">
+                Connections
+              </h2>
+              <ConnectionRow
+                action={
+                  profile.hasInstallation
+                    ? { external: true, href: githubAppUrl(), label: 'Manage' }
+                    : { href: '/installation', label: 'Install' }
+                }
+                connected={profile.hasInstallation}
+                icon={GithubIcon}
+                label="GitHub App"
+                status={profile.hasInstallation ? 'Installed' : 'Not installed'}
+              />
+              <ConnectionRow
+                action={{
+                  href: '/dashboard/settings',
+                  label: profile.isLinked ? 'Settings' : 'Link account',
+                }}
+                connected={profile.isLinked}
+                icon={Link01Icon}
+                label="Habitica"
+                status={profile.isLinked ? 'Linked' : 'Not linked'}
+              />
+            </section>
+          </div>
 
-          <section className="flex flex-col rounded-xl border border-border bg-surface shadow-e1">
-            <h2 className="border-b border-border px-5 py-4 text-[15px] font-semibold text-text">
-              Connections
-            </h2>
-            <ConnectionRow
-              action={
-                profile.hasInstallation
-                  ? { external: true, href: githubAppUrl(), label: 'Manage' }
-                  : { href: '/installation', label: 'Install' }
-              }
-              connected={profile.hasInstallation}
-              icon={GithubIcon}
-              label="GitHub App"
-              status={profile.hasInstallation ? 'Installed' : 'Not installed'}
-            />
-            <ConnectionRow
-              action={{
-                href: '/dashboard/settings',
-                label: profile.isLinked ? 'Settings' : 'Link account',
-              }}
-              connected={profile.isLinked}
-              icon={Link01Icon}
-              label="Habitica"
-              status={profile.isLinked ? 'Linked' : 'Not linked'}
-            />
-          </section>
+          <div className="lg:col-span-8">
+            <ContactDetailsCard profile={profile} />
+          </div>
         </div>
-
-        <div className="lg:col-span-8">
-          <ContactDetailsCard profile={profile} />
-        </div>
-      </div>
-    </Shell>
+      </Shell>
+    </>
   );
 }
 

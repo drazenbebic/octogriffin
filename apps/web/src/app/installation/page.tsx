@@ -6,15 +6,14 @@ import {
   CheckmarkCircle02Icon,
   GithubIcon,
   Key01Icon,
-  Rocket01Icon,
   Settings02Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { JsonLd } from '@/components/JsonLd';
+import { PageHeader } from '@/components/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { Chip } from '@/components/ui/Chip';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { installationJsonLd } from '@/json-ld/installation';
@@ -37,21 +36,11 @@ export default function InstallationPage() {
   return (
     <>
       <JsonLd data={installationJsonLd} />
-      <div className="mx-auto max-w-2xl space-y-12 pb-20 pt-10 sm:pt-20 px-4">
-        <div className="text-center">
-          <Chip className="mb-4" shape="pill" tone="accent">
-            <HugeiconsIcon icon={Rocket01Icon} size={14} />
-            Quick start
-          </Chip>
-          <Heading className="mb-4" level={1}>
-            Connect GitHub to Habitica
-          </Heading>
-          <Content size="lg">
-            Follow these steps to connect your GitHub activity to your Habitica
-            character.
-          </Content>
-        </div>
-
+      <PageHeader
+        description="Follow these steps to connect your GitHub activity to your Habitica character."
+        title="Connect GitHub to Habitica"
+      />
+      <div className="mx-auto max-w-2xl space-y-12 px-4 pt-14 pb-20">
         <div className="relative space-y-8">
           <div className="absolute left-6.75 top-4 bottom-4 w-0.5 bg-border" />
 

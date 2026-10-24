@@ -15,8 +15,6 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { DocsCard } from '@/components/docs/DocsCard';
 import { JsonLd } from '@/components/JsonLd';
 import { Callout } from '@/components/ui/Callout';
-import { Content } from '@/components/ui/Content';
-import { Heading } from '@/components/ui/Heading';
 import { docsIndexJsonLd } from '@/json-ld/docs';
 import { pageMetadata } from '@/seo/pageCatalog';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
@@ -28,17 +26,6 @@ export default function DocsPage() {
     <>
       <JsonLd data={docsIndexJsonLd} />
       <div className="space-y-12">
-        {/* Hero Section */}
-        <div>
-          <Heading level={1}>Octogriffin Documentation</Heading>
-          <Content className="max-w-2xl" size="lg">
-            Welcome to the knowledge base. Whether you want to get more out of
-            Octogriffin, set up your local environment, understand the
-            architecture, or contribute to the codebase, you are in the right
-            place.
-          </Content>
-        </div>
-
         <div className="grid gap-6 sm:grid-cols-2">
           <DocsCard
             description="Where Habitica keeps your User ID and API Token, and how to connect them."

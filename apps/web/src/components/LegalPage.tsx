@@ -1,7 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import { LegalNav } from '@/components/LegalNav';
-import { Heading } from '@/components/ui/Heading';
+import { PageHeader } from '@/components/PageHeader';
 import { Shell } from '@/components/ui/Shell';
 import { cn } from '@/utils/cn';
 
@@ -37,29 +36,20 @@ export const LegalPage: FC<LegalPageProps> = ({
   updated,
 }) => (
   <div className="flex flex-col pb-24">
-    <div className="border-b border-border">
-      <Shell className="flex flex-col gap-6 pt-16 pb-10">
-        <LegalNav />
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="flex flex-col gap-2">
-            <Heading level={1} size="display">
-              {title}
-            </Heading>
-            {!!description && (
-              <p className="text-lg text-text-2">{description}</p>
-            )}
-          </div>
-          {!!updated && (
-            <p className="text-sm text-muted">
-              Last updated{' '}
-              <time className="text-text-2" dateTime={updated}>
-                {formatDate(updated)}
-              </time>
-            </p>
-          )}
-        </div>
-      </Shell>
-    </div>
+    <PageHeader
+      aside={
+        updated ? (
+          <>
+            Last updated{' '}
+            <time className="text-white" dateTime={updated}>
+              {formatDate(updated)}
+            </time>
+          </>
+        ) : undefined
+      }
+      description={description}
+      title={title}
+    />
 
     <Shell className="flex flex-wrap items-start gap-16 pt-10">
       {sections.length > 0 && (

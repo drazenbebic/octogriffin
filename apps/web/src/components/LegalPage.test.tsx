@@ -2,10 +2,8 @@ import { render, screen, within } from '@testing-library/react';
 
 import { LegalPage } from './LegalPage';
 
-jest.mock('next/navigation', () => ({ usePathname: () => '/privacy-policy' }));
-
 describe('LegalPage', () => {
-  it('links to each section and marks the current legal page', () => {
+  it('links to each section, without a legal page switcher', () => {
     render(
       <LegalPage
         sections={[
@@ -27,13 +25,7 @@ describe('LegalPage', () => {
         .map(link => link.getAttribute('href')),
     ).toEqual(['#intro', '#controller']);
 
-    const legal = screen.getByRole('navigation', { name: 'Legal' });
-
-    expect(
-      within(legal)
-        .getByRole('link', { name: 'Privacy policy' })
-        .getAttribute('aria-current'),
-    ).toBe('page');
+    expect(screen.queryByRole('navigation', { name: 'Legal' })).toBeNull();
   });
 
   it('shows when the page was last updated', () => {

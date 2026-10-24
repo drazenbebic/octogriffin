@@ -11,10 +11,10 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { JsonLd } from '@/components/JsonLd';
+import { PageHeader } from '@/components/PageHeader';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
-import { Chip } from '@/components/ui/Chip';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { Shell } from '@/components/ui/Shell';
@@ -27,28 +27,11 @@ export default function SponsorsPage() {
   return (
     <>
       <JsonLd data={sponsorsJsonLd} />
-      <Shell className="py-20">
-        <div className="mb-16 flex flex-col items-center text-center">
-          <Chip className="mb-6" shape="pill" tone="accent">
-            <HugeiconsIcon
-              className="fill-hp text-hp"
-              icon={FavouriteIcon}
-              size={14}
-            />
-            Community supported
-          </Chip>
-
-          <Heading className="mb-4" level={1} size="display">
-            Fuel the Octogriffin
-          </Heading>
-
-          <Content className="max-w-xl" size="lg">
-            Octogriffin is 100% open source and free to use. Your sponsorship
-            helps cover server costs (Vercel & Neon) and ensures dedicated
-            development time for new features.
-          </Content>
-        </div>
-
+      <PageHeader
+        description="Octogriffin is 100% open source and free to use. Your sponsorship helps cover server costs (Vercel & Neon) and ensures dedicated development time for new features."
+        title="Fuel the Octogriffin"
+      />
+      <Shell className="py-16">
         <div className="mx-auto mb-20 max-w-2xl">
           <Card className="mist relative overflow-hidden" variant="surface">
             <div className="pointer-events-none absolute -right-12 -top-12 opacity-5">
