@@ -4,12 +4,12 @@ import type { FC, ReactNode } from 'react';
 import React from 'react';
 
 import { AuthGate } from '@/components/AuthGate';
+import { DashboardSummary } from '@/components/dashboard/DashboardSummary';
 import { HabiticaStatsCard } from '@/components/dashboard/HabiticaStatsCard';
-import { IsConnected } from '@/components/dashboard/IsConnected';
 import { MainPanel } from '@/components/dashboard/MainPanel';
 import { RepositoryListCard } from '@/components/dashboard/RepositoryListCard';
-import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
+import { Shell } from '@/components/ui/Shell';
 import { authOptions } from '@/lib/auth';
 
 export const metadata: Metadata = {
@@ -37,29 +37,23 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ tabs }) => {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12">
-      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <Heading className="mb-2" level={1} size="3xl">
-            Dashboard
-          </Heading>
-          <Content>Manage your Habitica connection and repositories.</Content>
-        </div>
-
-        <IsConnected />
+    <Shell className="flex flex-col gap-7 pt-10 pb-16">
+      <div className="flex flex-col gap-1">
+        <Heading level={1}>Dashboard</Heading>
+        <DashboardSummary />
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-4">
-        <div className="lg:col-span-3">
+      <div className="flex flex-wrap items-start gap-6">
+        <div className="min-w-0 flex-[999_1_640px]">
           <MainPanel>{tabs}</MainPanel>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <aside className="flex flex-[1_1_320px] flex-col gap-4">
           <HabiticaStatsCard />
           <RepositoryListCard />
-        </div>
+        </aside>
       </div>
-    </div>
+    </Shell>
   );
 };
 

@@ -17,6 +17,8 @@ type TriggersStoreState = {
   fetchTriggers: (params?: PaginationParams) => Promise<void>;
   isLoading: boolean;
   meta: PaginationMeta;
+  /** Triggers created during this visit, marked as new in the list. */
+  recentlyCreated: string[];
   setLimit: (limit: number) => void;
   setPage: (page: number) => void;
   toggleTrigger: (data: ToggleTriggerSchema) => Promise<null | TriggersModel>;
@@ -94,6 +96,9 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => {
           return null;
         }
 
+        set(state => ({
+          recentlyCreated: [...state.recentlyCreated, result.data!.uuid],
+        }));
         await loadTriggers({ page: 1 }, { showSkeleton: false });
 
         return result.data;
@@ -133,6 +138,7 @@ export const useTriggersStore = create<TriggersStoreState>((set, get) => {
       total: 0,
       totalPages: 0,
     },
+    recentlyCreated: [],
     setLimit: (limit: number) => {
       get().fetchTriggers({ limit, page: 1 });
     },

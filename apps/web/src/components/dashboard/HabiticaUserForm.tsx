@@ -1,19 +1,16 @@
 'use client';
 
+import Link from 'next/link';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 
 import { Form, useFormStore } from '@ariakit/react';
-import {
-  AlertCircleIcon,
-  FloppyDiskIcon,
-  Link01Icon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/Button';
+import { Chip } from '@/components/ui/Chip';
 import { FormInput } from '@/components/ui/FormInput';
+import { Heading } from '@/components/ui/Heading';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
 
 export const HabiticaUserForm: FC = () => {
@@ -22,6 +19,7 @@ export const HabiticaUserForm: FC = () => {
     fetchHabiticaCredentials,
     fetchHabiticaStats,
     habiticaCredentials,
+    isHabiticaConnected,
     upsertHabiticaUser,
   } = useHabiticaStore();
 
@@ -51,7 +49,7 @@ export const HabiticaUserForm: FC = () => {
     await Promise.all([fetchHabiticaConnection(), fetchHabiticaStats()]);
 
     setIsLoading(false);
-    toast.success('Configuration saved successfully');
+    toast.success('Habitica connection saved');
   });
 
   useEffect(() => {
@@ -80,39 +78,65 @@ export const HabiticaUserForm: FC = () => {
     !!habiticaCredentials && !habiticaCredentials.hasApiToken;
 
   return (
-    <Form className="flex flex-col gap-6" resetOnSubmit={false} store={form}>
-      <FormInput
-        disabled={isLoading}
-        label="User ID"
-        leadingIcon={<HugeiconsIcon icon={Link01Icon} size={20} />}
-        name="userId"
-        placeholder="e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-        required
-      />
+    <Form
+      className="flex flex-col rounded-lg border border-border bg-surface shadow-e1"
+      resetOnSubmit={false}
+      store={form}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-5">
+        <div className="flex flex-col gap-0.5">
+          <Heading level={2} size="h3">
+            Habitica connection
+          </Heading>
+          <p className="text-[13px] text-text-2">
+            Octogriffin scores habits with these credentials.
+          </p>
+        </div>
+        <Chip dot shape="pill" tone={isHabiticaConnected ? 'ok' : 'neutral'}>
+          {isHabiticaConnected ? 'Connected' : 'Not connected'}
+        </Chip>
+      </div>
 
-      <FormInput
-        description={
-          isTokenUnreadable
-            ? "We couldn't read your saved API Token. Please enter it again."
-            : undefined
-        }
-        disabled={isLoading}
-        label="API Token"
-        leadingIcon={<HugeiconsIcon icon={AlertCircleIcon} size={20} />}
-        name="apiToken"
-        placeholder={
-          hasSavedToken
-            ? 'Saved. Leave empty to keep your current token.'
-            : '••••••••••••••••••••••••••••••'
-        }
-        required={!hasSavedToken}
-        type="password"
-      />
+      <div className="grid gap-5 px-6 py-6 sm:grid-cols-2">
+        <FormInput
+          description="In Habitica: Settings › Site Data."
+          disabled={isLoading}
+          inputClassName="font-mono text-[13px]"
+          label="User ID"
+          name="userId"
+          placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+          required
+        />
 
-      <div className="pt-2">
+        <FormInput
+          description={
+            isTokenUnreadable
+              ? "We couldn't read your saved API token. Please enter it again."
+              : "Encrypted before it's stored. It never comes back to your browser."
+          }
+          disabled={isLoading}
+          label="API token"
+          name="apiToken"
+          placeholder={
+            hasSavedToken
+              ? 'Saved. Leave empty to keep it.'
+              : 'Paste your API token'
+          }
+          required={!hasSavedToken}
+          revealLabel="token"
+          type="password"
+        />
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-b-lg border-t border-border bg-sunken px-6 py-4">
+        <Link
+          className="text-[13px] font-semibold text-accent-text"
+          href="/docs/habitica-api-token"
+        >
+          Where do I find these?
+        </Link>
         <Button disabled={isLoading} isLoading={isLoading} type="submit">
-          <HugeiconsIcon className="mr-2" icon={FloppyDiskIcon} size={20} />
-          Save Configuration
+          Save connection
         </Button>
       </div>
     </Form>

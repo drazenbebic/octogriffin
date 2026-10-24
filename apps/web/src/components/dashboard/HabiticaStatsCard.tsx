@@ -1,124 +1,175 @@
 'use client';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import type { FC } from 'react';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
-import { Card } from '@/components/ui/Card';
-import { CardBody } from '@/components/ui/CardBody';
-import { Content } from '@/components/ui/Content';
-import { Heading } from '@/components/ui/Heading';
+import { Chip } from '@/components/ui/Chip';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
+import { barPercent } from '@/utils/stats';
+
+const StatBar: FC<{
+  color: string;
+  label: string;
+  max: number;
+  value: number;
+}> = ({ color, label, max, value }) => (
+  <div className="flex flex-col gap-1.5">
+    <div className="flex justify-between text-xs">
+      <span className="font-semibold">{label}</span>
+      <span className="font-mono text-white/80">
+        {Math.floor(value)} / {Math.floor(max)}
+      </span>
+    </div>
+    <div
+      aria-label={label}
+      aria-valuemax={Math.floor(max)}
+      aria-valuemin={0}
+      aria-valuenow={Math.floor(value)}
+      className="h-2 overflow-hidden rounded-full bg-black/40 shadow-[inset_0_1px_2px_rgb(0_0_0/0.4)]"
+      role="meter"
+    >
+      <div
+        className="h-full rounded-full transition-[width] duration-700 ease-out"
+        style={{ backgroundColor: color, width: `${barPercent(value, max)}%` }}
+      />
+    </div>
+  </div>
+);
+
+const capitalise = (value: string) =>
+  value.charAt(0).toUpperCase() + value.slice(1);
 
 export const HabiticaStatsCard: FC = () => {
   const isLoading = useHabiticaStore(state => state.isStatsLoading);
   const habiticaStats = useHabiticaStore(state => state.habiticaStats);
+  const isConnected = useHabiticaStore(state => state.isHabiticaConnected);
   const fetchHabiticaStats = useHabiticaStore(
     state => state.fetchHabiticaStats,
+  );
+  const fetchHabiticaConnection = useHabiticaStore(
+    state => state.fetchHabiticaConnection,
   );
 
   useEffect(() => {
     fetchHabiticaStats();
-  }, [fetchHabiticaStats]);
-
-  const progress = useMemo(() => {
-    if (!habiticaStats) {
-      return 0;
-    }
-
-    return Math.min((habiticaStats.exp / habiticaStats.toNextLevel) * 100, 100);
-  }, [habiticaStats]);
+    fetchHabiticaConnection();
+  }, [fetchHabiticaStats, fetchHabiticaConnection]);
 
   if (isLoading) {
     return (
-      <Card
-        className="bg-violet-600 text-white shadow-lg shadow-violet-900/20 dark:shadow-none"
-        variant="flat"
+      <section
+        aria-label="Your Habitica character"
+        className="arcane flex flex-col gap-4 rounded-xl p-5"
       >
-        <CardBody>
-          <div className="flex items-start justify-between">
-            <Skeleton className="h-5 w-24 bg-white/20 dark:bg-white/10" />
-            <Skeleton className="h-6 w-20 rounded-full bg-white/20 dark:bg-white/10" />
-          </div>
-
-          <div className="mt-4 flex items-end gap-2">
-            <Skeleton className="h-10 w-16 bg-white/20 dark:bg-white/10" />
-            <Skeleton className="mb-1.5 h-4 w-6 bg-white/20 dark:bg-white/10" />
-          </div>
-
-          <Skeleton className="mt-4 h-2.5 w-full rounded-full bg-white/20 dark:bg-white/10" />
-
-          <div className="mt-2 flex justify-between">
-            <Skeleton className="h-4 w-12 bg-white/20 dark:bg-white/10" />
-            <Skeleton className="h-4 w-20 bg-white/20 dark:bg-white/10" />
-          </div>
-        </CardBody>
-      </Card>
+        <Skeleton className="h-4 w-20 bg-white/15" />
+        <Skeleton className="h-10 w-32 bg-white/15" />
+        {[0, 1, 2].map(i => (
+          <Skeleton className="h-2 w-full rounded-full bg-white/15" key={i} />
+        ))}
+      </section>
     );
   }
 
   if (!habiticaStats) {
     return (
-      <Card
-        className="bg-slate-100 text-slate-500 dark:text-slate-400"
-        variant="flat"
-      >
-        <CardBody className="flex flex-col items-center justify-center py-8 text-center">
-          <Heading
-            className="mb-2 text-slate-700 dark:text-slate-300"
-            level={3}
-            size="base"
-          >
-            No Data Available
-          </Heading>
-          <Content color="note" size="xs">
-            Connect your Habitica account to view your level and progress.
-          </Content>
-        </CardBody>
-      </Card>
+      <section className="mist flex flex-col gap-2 rounded-xl border border-border p-5">
+        <h2 className="text-[15px] font-semibold text-text">
+          Link your Habitica account
+        </h2>
+        <p className="text-sm text-text-2">
+          Add your Habitica User ID and API token to see your level and stats
+          here.
+        </p>
+        <Link
+          className="mt-1 text-sm font-semibold text-accent-text"
+          href="/dashboard/settings"
+        >
+          Go to settings
+        </Link>
+      </section>
     );
   }
 
-  const xp = Math.floor(habiticaStats.exp);
-  const toNextLevel = habiticaStats.toNextLevel;
-  const hp = Math.ceil(habiticaStats.hp);
-  const maxHealth = habiticaStats.maxHealth;
-  const lvl = habiticaStats.lvl;
+  const stats = [
+    { label: 'STR', value: habiticaStats.str },
+    { label: 'INT', value: habiticaStats.int },
+    { label: 'CON', value: habiticaStats.con },
+    { label: 'PER', value: habiticaStats.per },
+  ];
 
   return (
-    <Card
-      className="bg-violet-600 text-white shadow-violet-900/20 shadow-lg dark:shadow-none"
-      variant="flat"
+    <section
+      aria-label="Your Habitica character"
+      className="arcane flex flex-col gap-[18px] rounded-xl p-[22px]"
     >
-      <CardBody>
-        <div className="flex items-start justify-between">
-          <Heading className="text-white/90" level={3} size="base">
-            Current Level
-          </Heading>
+      <Image
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-10 -right-12 h-56 w-56 opacity-[0.08]"
+        height={224}
+        src="/octogriffin_white.png"
+        width={224}
+      />
 
-          <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-1 text-[10px] font-medium backdrop-blur-sm dark:bg-black/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-red-400" />
-            {hp} / {maxHealth} HP
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-[13px] text-white/75">
+            {capitalise(habiticaStats.class)}
+          </span>
+          <span className="font-display text-[40px] leading-none font-extrabold tracking-[-0.02em]">
+            Level {habiticaStats.lvl}
+          </span>
+        </div>
+        {isConnected && (
+          <Chip
+            className="border border-white/15 bg-black/40 text-white"
+            dot
+            shape="pill"
+            tone="ok"
+          >
+            Linked
+          </Chip>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <StatBar
+          color="#ff6b7a"
+          label="Health"
+          max={habiticaStats.maxHealth}
+          value={habiticaStats.hp}
+        />
+        <StatBar
+          color="#f5b544"
+          label="Experience"
+          max={habiticaStats.toNextLevel}
+          value={habiticaStats.exp}
+        />
+        <StatBar
+          color="#6aa6ff"
+          label="Mana"
+          max={habiticaStats.maxMP}
+          value={habiticaStats.mp}
+        />
+      </div>
+
+      <dl className="grid grid-cols-5 gap-1.5 border-t border-white/15 pt-3.5">
+        {stats.map(({ label, value }) => (
+          <div className="flex flex-col items-center" key={label}>
+            <dt className="font-mono text-[11px] text-white/65">{label}</dt>
+            <dd className="text-[15px] font-bold">{Math.floor(value)}</dd>
           </div>
+        ))}
+        <div className="flex flex-col items-center">
+          <dt className="font-mono text-[11px] text-white/65">GOLD</dt>
+          <dd className="text-[15px] font-bold text-[#f5d27a]">
+            {Math.floor(habiticaStats.gp).toLocaleString()}
+          </dd>
         </div>
-
-        <div className="mt-4 flex items-end gap-2">
-          <span className="text-4xl font-bold tracking-tight">{lvl}</span>
-          <span className="mb-1.5 font-medium text-violet-200">Lvl</span>
-        </div>
-
-        <div className="relative mt-4 h-2.5 w-full overflow-hidden rounded-full bg-violet-900/50 dark:bg-violet-600/50">
-          <div
-            className="h-full rounded-full bg-linear-to-r from-white/90 to-white transition-all duration-1000 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        <div className="mt-2 flex justify-between text-xs font-medium text-violet-200">
-          <span>{xp} XP</span>
-          <span>{toNextLevel} XP to next</span>
-        </div>
-      </CardBody>
-    </Card>
+      </dl>
+    </section>
   );
 };

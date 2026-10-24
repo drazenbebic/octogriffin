@@ -2,62 +2,19 @@
 
 import type { FC } from 'react';
 
-import {
-  GitCommitIcon,
-  GitPullRequestIcon,
-  PackageIcon,
-  SourceCodeIcon,
-  ZapIcon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
+import { toast } from 'sonner';
 
-import { Content } from '@/components/ui/Content';
+import { EventId } from '@/components/ui/EventId';
 import { Timestamp } from '@/components/ui/Timestamp';
+import { Tooltip } from '@/components/ui/Tooltip';
 import type { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
-import { cn } from '@/utils/cn';
+import { useEventIcon } from '@/hooks/useEventIcon';
+import { getEventLabel } from '@/utils/githubEvents';
 
-const TIMESTAMP_OPTIONS: Intl.DateTimeFormatOptions = {
-  day: 'numeric',
+const TIME_OPTIONS: Intl.DateTimeFormatOptions = {
   hour: '2-digit',
   hour12: false,
   minute: '2-digit',
-  month: 'short',
-  second: '2-digit',
-  year: 'numeric',
-};
-
-const getEventConfig = (event: string) => {
-  if (event.includes('push')) {
-    return {
-      color:
-        'text-violet-600 bg-violet-50 dark:bg-violet-950/50 dark:text-violet-400',
-      icon: <HugeiconsIcon icon={GitCommitIcon} size={18} />,
-      label: 'Push Event',
-    };
-  }
-
-  if (event.includes('pull_request')) {
-    return {
-      color: 'text-blue-600 bg-blue-50 dark:bg-blue-950/50 dark:text-blue-400',
-      icon: <HugeiconsIcon icon={GitPullRequestIcon} size={18} />,
-      label: 'Pull Request',
-    };
-  }
-
-  if (event.includes('issue')) {
-    return {
-      color:
-        'text-amber-600 bg-amber-50 dark:bg-amber-950/50 dark:text-amber-400',
-      icon: <HugeiconsIcon icon={SourceCodeIcon} size={18} />,
-      label: 'Issue Event',
-    };
-  }
-
-  return {
-    color: 'text-slate-600 bg-slate-100 dark:bg-slate-800 dark:text-slate-400',
-    icon: <HugeiconsIcon icon={ZapIcon} size={18} />,
-    label: event,
-  };
 };
 
 type WebhookLogsListItemProps = {
@@ -65,41 +22,44 @@ type WebhookLogsListItemProps = {
 };
 
 export const WebhookLogsListItem: FC<WebhookLogsListItemProps> = ({ log }) => {
-  const config = getEventConfig(log.event);
+  const icon = useEventIcon(log.event, { size: 18 });
+
+  const copyDeliveryId = async () => {
+    await navigator.clipboard.writeText(log.deliveryUuid);
+    toast.success('Delivery ID copied');
+  };
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-row sm:items-center sm:justify-between transition-all hover:shadow-md dark:bg-slate-900 dark:ring-slate-800">
-      <div className="flex items-start gap-4 overflow-hidden">
-        <div
-          className={cn(
-            'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-            config.color,
-          )}
-        >
-          {config.icon}
-        </div>
-
-        <div className="space-y-1 overflow-hidden">
-          <div className="flex items-center gap-2">
-            <Content className="font-semibold">{config.label}</Content>
-            <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-500 uppercase tracking-wider dark:bg-slate-800 dark:text-slate-400">
-              {log.event}
-            </span>
-          </div>
-
-          <div
-            className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400"
-            title="Delivery UUID"
-          >
-            <HugeiconsIcon className="shrink-0" icon={PackageIcon} size={14} />
-            <span className="truncate font-mono">{log.deliveryUuid}</span>
-          </div>
+    <li className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-line px-[18px] py-3 last:border-b-0">
+      <div className="flex min-w-0 items-center gap-3">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-fill text-text-2">
+          {icon}
+        </span>
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <span className="truncate text-sm font-semibold text-text">
+            {getEventLabel(log.event)}
+          </span>
+          <span className="flex min-w-0 items-center gap-2 text-xs text-muted">
+            <EventId className="bg-transparent px-0" event={log.event} />
+            <Tooltip content="Copy delivery ID">
+              <button
+                aria-label={`Copy delivery ID ${log.deliveryUuid}`}
+                className="min-w-0 cursor-pointer truncate rounded-sm font-mono text-faint transition-colors duration-[var(--dur-fast)] hover:text-text-2 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                onClick={copyDeliveryId}
+                type="button"
+              >
+                {log.deliveryUuid}
+              </button>
+            </Tooltip>
+          </span>
         </div>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2 text-xs font-medium text-slate-400 sm:text-right dark:text-slate-500">
-        <Timestamp date={new Date(log.createdAt)} options={TIMESTAMP_OPTIONS} />
-      </div>
-    </div>
+      <Timestamp
+        className="font-mono text-xs text-muted"
+        date={new Date(log.createdAt)}
+        options={TIME_OPTIONS}
+      />
+    </li>
   );
 };

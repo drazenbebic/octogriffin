@@ -1,6 +1,6 @@
 import { rewardableWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 
-import { getGroupedGithubEvents } from './githubEvents';
+import { getEventLabel, getGroupedGithubEvents } from './githubEvents';
 
 const findEvent = (value: string) =>
   getGroupedGithubEvents().find(event => event.value === value);
@@ -48,5 +48,16 @@ describe('getGroupedGithubEvents', () => {
 
   it('gives pushes a friendlier name', () => {
     expect(findEvent('push')?.label).toBe('Push to Repository');
+  });
+});
+
+describe('getEventLabel', () => {
+  it('returns the readable label the event picker uses', () => {
+    expect(getEventLabel('pull_request.opened')).toBe('Pull Request Opened');
+    expect(getEventLabel('push')).toBe('Push to Repository');
+  });
+
+  it('falls back to the raw event for events it does not know', () => {
+    expect(getEventLabel('made_up.event')).toBe('made_up.event');
   });
 });

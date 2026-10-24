@@ -13,12 +13,16 @@ export type FormInputProps = {
   className?: string;
   description?: string;
   disabled?: boolean;
+  /** Classes for the input itself; `className` styles the wrapper. */
+  inputClassName?: string;
   label?: ReactNode | string;
   leadingIcon?: ReactNode;
   name: string;
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
+  /** What the show/hide button reveals, e.g. "token". */
+  revealLabel?: string;
   type?: 'email' | 'number' | 'password' | 'phone' | 'text' | 'url';
 };
 
@@ -34,12 +38,14 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       className,
       description,
       disabled = false,
+      inputClassName,
       label,
       leadingIcon,
       name,
       placeholder,
       readOnly = false,
       required = false,
+      revealLabel = 'password',
       type = 'text',
       ...props
     },
@@ -69,10 +75,15 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           )}
 
           <BaseFormInput
-            className={cn(baseStyles, errorStyles, {
-              'pl-10': !!leadingIcon,
-              'pr-10': isPasswordType,
-            })}
+            className={cn(
+              baseStyles,
+              errorStyles,
+              {
+                'pl-10': !!leadingIcon,
+                'pr-11': isPasswordType,
+              },
+              inputClassName,
+            )}
             disabled={disabled}
             name={name}
             placeholder={placeholder}
@@ -84,10 +95,11 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           />
 
           {isPasswordType && (
-            <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <div className="absolute top-1/2 right-1 -translate-y-1/2">
               <ButtonIcon
+                className="h-8 w-8"
                 icon={isPasswordVisible ? ViewOffIcon : ViewIcon}
-                label={isPasswordVisible ? 'Hide password' : 'Show password'}
+                label={`${isPasswordVisible ? 'Hide' : 'Show'} ${revealLabel}`}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                 size="sm"
               />

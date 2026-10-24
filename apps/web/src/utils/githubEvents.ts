@@ -41,3 +41,17 @@ export const getGroupedGithubEvents = (): ComboboxItemType[] =>
       (a, b) =>
         a.group.localeCompare(b.group) || a.label.localeCompare(b.label),
     );
+
+let eventLabels: Map<string, string> | undefined;
+
+/**
+ * The readable label for an event, e.g. "Pull Request Opened", or the raw
+ * event when Octogriffin doesn't reward it.
+ */
+export const getEventLabel = (event: string): string => {
+  eventLabels ??= new Map(
+    getGroupedGithubEvents().map(({ label, value }) => [value, label]),
+  );
+
+  return eventLabels.get(event) ?? event;
+};

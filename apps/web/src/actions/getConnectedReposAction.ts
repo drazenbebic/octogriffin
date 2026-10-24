@@ -9,6 +9,7 @@ export type ConnectedRepository = {
   id: number;
   name: string;
   private: boolean;
+  uuid: string;
 };
 
 export async function getConnectedReposAction() {
@@ -23,6 +24,7 @@ export async function getConnectedReposAction() {
         id: repository.githubRepositoryId,
         name: repository.name,
         private: repository.private,
+        uuid: repository.uuid,
       }));
     },
   );

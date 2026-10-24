@@ -2,40 +2,28 @@ import React, { forwardRef } from 'react';
 
 import type { TabProps } from '@ariakit/react';
 import { Tab as BaseTab } from '@ariakit/react';
-import type { IconSvgElement } from '@hugeicons/react';
-import { HugeiconsIcon } from '@hugeicons/react';
 
 import { cn } from '@/utils/cn';
 
 type TabItemProps = {
   href: string;
-  icon: IconSvgElement;
 } & TabProps;
 
 export const TabItem = forwardRef<HTMLButtonElement, TabItemProps>(
-  ({ children, href, icon, ...props }, ref) => {
+  ({ children, href, ...props }, ref) => {
     const id = href.toString();
 
     return (
       <BaseTab
         className={cn(
-          'group cursor-pointer inline-flex items-center gap-2 border-b-2 border-transparent py-4 text-sm font-medium text-slate-500 transition-colors outline-none',
-          'hover:border-slate-300 hover:text-slate-700 dark:text-slate-400 dark:hover:border-slate-700 dark:hover:text-slate-200',
-          'focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2',
-          'data-active-item:border-violet-600 data-active-item:text-violet-600 dark:data-active-item:border-violet-400 dark:data-active-item:text-violet-400',
+          'inline-flex h-[34px] cursor-pointer items-center gap-2 rounded-[8px] border border-transparent px-3.5 text-[13px] font-medium text-text-2 outline-none transition-colors duration-[var(--dur-fast)]',
+          'hover:text-text focus-visible:ring-2 focus-visible:ring-accent',
+          'aria-selected:border-border-strong aria-selected:bg-raised aria-selected:font-semibold aria-selected:text-text aria-selected:shadow-lift',
         )}
         id={id}
         ref={ref}
         {...props}
       >
-        <HugeiconsIcon
-          className={cn(
-            'text-slate-400 transition-colors group-hover:text-slate-500 dark:text-slate-500 dark:group-hover:text-slate-400',
-            'group-data-active-item:text-violet-600 dark:group-data-active-item:text-violet-400',
-          )}
-          icon={icon}
-          size={18}
-        />
         {children}
       </BaseTab>
     );
