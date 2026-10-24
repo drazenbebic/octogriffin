@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.11.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.10.1...web-v0.11.0) (2026-10-24)
+
+
+### Features
+
+* **web:** add coding habit recipes to your dashboard in one click ([974a5f4](https://github.com/drazenbebic/octogriffin/commit/974a5f44b7b9daf20f2331da99bc793774c7a94c))
+* **web:** give Octogriffin a fresh look built around the purple from its logo ([cadcd65](https://github.com/drazenbebic/octogriffin/commit/cadcd65176dcd65d1334d1e925b31b8d262eeb1f))
+* **web:** let triggers rest for a while after they score ([eee342e](https://github.com/drazenbebic/octogriffin/commit/eee342e542f3c2543ee63a12cad1b9db96438810))
+* **web:** limit how often a trigger can score each day ([a9ec3a1](https://github.com/drazenbebic/octogriffin/commit/a9ec3a14843d71fada28cda1861bb3891f16fdfa))
+* **web:** line up the dashboard's character card with your triggers ([c585c07](https://github.com/drazenbebic/octogriffin/commit/c585c070be8ab89fc2413a69e7577016c0db4770))
+* **web:** open content pages with a purple gradient header ([89bb57d](https://github.com/drazenbebic/octogriffin/commit/89bb57d2ac74fb3aba41245acc629e52a9f040c3))
+* **web:** publish an llms.txt that points AI assistants to the docs and guides ([d3228f6](https://github.com/drazenbebic/octogriffin/commit/d3228f65d159b0016ec0d237fa51830e4f0d2ab7))
+* **web:** redesign the dashboard around your Habitica character ([127f4de](https://github.com/drazenbebic/octogriffin/commit/127f4def49eb283d64d928bd0e3895c645073efb))
+* **web:** redesign the FAQ, legal pages, docs and profile ([4a46fe3](https://github.com/drazenbebic/octogriffin/commit/4a46fe3107584eaf773da4d7e4ca61e947fc9d93))
+* **web:** redesign the header, footer and mobile menu ([11faaf9](https://github.com/drazenbebic/octogriffin/commit/11faaf90c82c036376961f9ca80c9fecb87f55b0))
+* **web:** redesign the homepage and the roadmap ([fa47af2](https://github.com/drazenbebic/octogriffin/commit/fa47af2c2b2cb3e150c12145278b48a133c1fb26))
+* **web:** show which build you're on and bring back the heart in the footer ([7d6178e](https://github.com/drazenbebic/octogriffin/commit/7d6178e88b183d6c6a706cd5e65ecf4a80a5b729))
+* **web:** skip empty commits and pull requests closed straight away ([7edeca4](https://github.com/drazenbebic/octogriffin/commit/7edeca4bd483d25fdafab3d7fa848c117a075518))
+
+
+### Bug Fixes
+
+* **web:** add missing spaces to the privacy policy and clear SonarQube findings ([920ea92](https://github.com/drazenbebic/octogriffin/commit/920ea92646220386ff02093167893bb0dda8d17e))
+* **web:** link every shipped roadmap phase to its release ([5bb1e64](https://github.com/drazenbebic/octogriffin/commit/5bb1e648795ae5a7881cb74bc7cd6cb463048c52))
+* **web:** make code examples in the docs readable in light and dark mode ([0ce8d99](https://github.com/drazenbebic/octogriffin/commit/0ce8d994c17f6881ec670c71da53a6f24adca944))
+* **web:** make dashboard tooltips and stat bars work with screen readers ([243a41f](https://github.com/drazenbebic/octogriffin/commit/243a41f7220054a78a0800fca6309cff63c36a92))
+* **web:** make the character card's loading state match the card ([3ef077b](https://github.com/drazenbebic/octogriffin/commit/3ef077b6580b654e3313e44ae029b367a7cf5107))
+* **web:** smoother first visit to the dashboard and trigger dialog ([88a7fa8](https://github.com/drazenbebic/octogriffin/commit/88a7fa8898ddcc4b10c38c1f3f0fc8e4b7e6f31c))
+* **web:** stop failed repository loads from crashing silently ([3e21b9a](https://github.com/drazenbebic/octogriffin/commit/3e21b9a7d3aeb35c333ec96ebcaae8dd4b3a34ec))
+* **web:** stop the architecture timeline icons showing white rings in dark mode ([ebdbc17](https://github.com/drazenbebic/octogriffin/commit/ebdbc17203b076389df7c35b118b87a271a14fae))
+
 ## [0.10.1](https://github.com/drazenbebic/octogriffin/compare/web-v0.10.0...web-v0.10.1) (2026-10-23)
 
 
