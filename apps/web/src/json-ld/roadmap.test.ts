@@ -13,7 +13,7 @@ describe('roadmapJsonLd', () => {
       roadmap.map((_, index) => index + 1),
     );
     expect(list.itemListElement.map(item => item.name)).toContain(
-      'Anti-Cheese (in progress)',
+      'Ledger (in progress)',
     );
   });
 });

@@ -335,7 +335,7 @@ export default function FaqPage() {
                   {currentPhase.codename} is in progress
                 </span>
                 <span className="text-xs text-muted">
-                  Cooldowns, daily caps and bot filtering, on the roadmap
+                  {currentPhase.summary}
                 </span>
               </span>
             </NextLink>

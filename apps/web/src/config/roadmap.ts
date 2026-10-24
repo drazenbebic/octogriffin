@@ -111,38 +111,36 @@ export const roadmap: RoadmapPhase[] = [
       {
         description:
           'Let a trigger rest for a while after it scores, so a burst of pushes counts once.',
-        status: 'in-progress',
         title: 'Per-trigger cooldowns',
       },
       {
         description:
           'Set the most a trigger can score in a Habitica day, to prevent burnout.',
-        status: 'in-progress',
         title: 'Daily caps',
       },
       {
         description:
           'Bots like Dependabot and Renovate never earn rewards: their commits are skipped, and their events reward nobody.',
-        status: 'in-progress',
         title: 'Ignore bot accounts',
       },
       {
         description:
           'Skip empty commits, and pull requests you close yourself within a minute of opening.',
-        status: 'in-progress',
         title: 'Spam detection',
       },
     ],
-    status: 'now',
+    release: 'web-v0.11.0',
+    shippedAt: '2026-10',
+    status: 'shipped',
     summary:
-      "Rewards should feel earned. This phase makes sure a burst of tiny commits, a bot or a self-merge can't farm Gold.",
+      'Per-trigger cooldowns and daily caps, Skip spam for empty commits and pull requests closed straight away, and bots that never earn rewards.',
   },
   {
     codename: 'Ledger',
     items: [
       {
         description:
-          'Every score in the History tab: which trigger fired, what Habitica returned, and any retries.',
+          'Each History entry shows which triggers fired, how often they scored and what Habitica returned, plus events that were skipped and why.',
         title: 'Reward ledger',
       },
       {
@@ -161,7 +159,7 @@ export const roadmap: RoadmapPhase[] = [
         title: 'Trigger stats',
       },
     ],
-    status: 'next',
+    status: 'now',
     summary: "See exactly why you got rewarded, or why you didn't.",
   },
   {

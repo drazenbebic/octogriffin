@@ -3,7 +3,7 @@ import { getCurrentPhase, roadmap } from './roadmap';
 describe('roadmap', () => {
   it('has exactly one phase in progress', () => {
     expect(roadmap.filter(phase => phase.status === 'now')).toHaveLength(1);
-    expect(getCurrentPhase().codename).toBe('Anti-Cheese');
+    expect(getCurrentPhase().codename).toBe('Ledger');
   });
 
   it('dates every shipped phase', () => {
@@ -37,6 +37,7 @@ describe('roadmap releases', () => {
       ['Control Freak', 'web-v0.7.0'],
       ['Dark mode', 'web-v0.8.0'],
       ['Field Guide', 'web-v0.10.0'],
+      ['Anti-Cheese', 'web-v0.11.0'],
     ]);
   });
 });
