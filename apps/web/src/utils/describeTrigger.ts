@@ -63,7 +63,12 @@ const placeholder = (value: string): TriggerSentencePart => ({
  */
 export const describeTrigger = (
   values: Partial<TriggerSchema>,
-  ctx: { repoNames: string[]; totalRepos: number },
+  ctx: {
+    /** Recipes have no repositories yet, so they skip "happens in …". */
+    omitRepositories?: boolean;
+    repoNames: string[];
+    totalRepos: number;
+  },
 ): TriggerSentencePart[] => {
   const repositories = describeRepositories(ctx.repoNames, ctx.totalRepos);
   const difficulty =
@@ -76,11 +81,15 @@ export const describeTrigger = (
     values.event
       ? { kind: 'event', text: values.event }
       : placeholder('an event'),
-    text(' happens in '),
-    repositories
-      ? { kind: 'value', text: repositories }
-      : placeholder('your repositories'),
-    text(', score '),
+    ...(ctx.omitRepositories
+      ? [text(' happens, score ')]
+      : [
+          text(' happens in '),
+          repositories
+            ? ({ kind: 'value', text: repositories } as const)
+            : placeholder('your repositories'),
+          text(', score '),
+        ]),
     values.taskTitle
       ? { kind: 'value', text: `“${values.taskTitle}”` }
       : placeholder('a habit'),

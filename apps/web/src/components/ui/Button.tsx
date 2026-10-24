@@ -21,7 +21,7 @@ export type ButtonProps = {
 } & BaseButtonProps;
 
 const baseStyles =
-  'relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-semibold transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:translate-y-px disabled:pointer-events-none disabled:opacity-50';
+  'relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-semibold transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50';
 
 const variants: Record<ButtonVariant, string> = {
   danger: 'bg-hp text-white hover:brightness-110',

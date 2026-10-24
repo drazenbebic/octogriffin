@@ -117,3 +117,14 @@ describe('summariseRepositories', () => {
     expect(summariseRepositories([], 3)).toBe('None');
   });
 });
+
+describe('describeTrigger without repositories', () => {
+  it('leaves out "happens in …" for recipes, which have no repositories yet', () => {
+    const parts = describeTrigger(
+      { event: 'push', taskTitle: 'Pushed code' },
+      { omitRepositories: true, repoNames: [], totalRepos: 0 },
+    );
+
+    expect(toText(parts)).toContain('When push happens, score “Pushed code”');
+  });
+});

@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import { AttributeChip } from './AttributeChip';
+import { AttributeChip, attributeOrder } from './AttributeChip';
 
 const hover = (element: HTMLElement) => {
   fireEvent.mouseOver(element);
@@ -60,4 +60,10 @@ describe('AttributeChip', () => {
       expect(tooltip.textContent).toContain(description);
     },
   );
+});
+
+describe('attributeOrder', () => {
+  it('lists attributes in the order Habitica does', () => {
+    expect(attributeOrder).toEqual(['str', 'int', 'con', 'per']);
+  });
 });

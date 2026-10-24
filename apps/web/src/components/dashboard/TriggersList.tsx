@@ -12,10 +12,12 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { TriggersTable } from '@/components/dashboard/TriggersTable';
+import { RecipeCard } from '@/components/recipes/RecipeCard';
 import { Button } from '@/components/ui/Button';
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
 import { Pagination } from '@/components/ui/Pagination';
 import { Skeleton } from '@/components/ui/Skeleton';
+import { recipes } from '@/config/recipes';
 import type { TriggersModel } from '@/generated/prisma/models/Triggers';
 import { useRepositories } from '@/hooks/useRepositories';
 import { useTriggersStore } from '@/store/useTriggersStore';
@@ -61,11 +63,16 @@ export const TriggersList: FC<TriggersListProps> = ({
         <h3 className="text-base font-semibold text-text">No triggers yet</h3>
         <p className="max-w-sm text-sm text-text-2">
           A trigger scores a Habitica habit whenever something happens on
-          GitHub, like opening a pull request.
+          GitHub. Start with a recipe:
         </p>
-        <Button className="mt-3" onClick={onOpenCreateAction}>
+        <div className="mt-4 flex w-full max-w-md flex-col gap-2">
+          {recipes.slice(0, 3).map(recipe => (
+            <RecipeCard key={recipe.slug} layout="row" recipe={recipe} />
+          ))}
+        </div>
+        <Button className="mt-3" onClick={onOpenCreateAction} variant="ghost">
           <HugeiconsIcon icon={Add01Icon} size={16} />
-          Create trigger
+          Or build your own trigger
         </Button>
       </div>
     );

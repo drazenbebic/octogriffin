@@ -2,73 +2,13 @@ import type { Metadata } from 'next';
 
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
 import { Link } from '@/components/Link';
-import { Card } from '@/components/ui/Card';
+import { RecipeCard } from '@/components/recipes/RecipeCard';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
+import { recipes } from '@/config/recipes';
 import { pageMetadata } from '@/seo/pageCatalog';
 
 export const metadata: Metadata = pageMetadata('/docs/coding-habits');
-
-type Recipe = {
-  attribute: string;
-  difficulty: string;
-  event: string;
-  resetCounter: string;
-  summary: string;
-  taskTitle: string;
-  title: string;
-};
-
-const recipes: Recipe[] = [
-  {
-    attribute: 'STR',
-    difficulty: 'Trivial',
-    event: 'Push to Repository',
-    resetCounter: 'Daily',
-    summary:
-      'Scores once per commit you push, so a small reward keeps big pushes from flooding your character with Gold.',
-    taskTitle: 'Pushed code',
-    title: 'Code a little every day',
-  },
-  {
-    attribute: 'STR',
-    difficulty: 'Easy',
-    event: 'Pull Request Opened',
-    resetCounter: 'Weekly',
-    summary:
-      'Rewards finishing work and putting it up for review, not just typing.',
-    taskTitle: 'Opened a pull request',
-    title: 'Ship pull requests',
-  },
-  {
-    attribute: 'INT',
-    difficulty: 'Medium',
-    event: 'Pull Request Review Submitted',
-    resetCounter: 'Weekly',
-    summary:
-      'Code reviews are easy to put off. A bigger reward makes them worth picking up.',
-    taskTitle: 'Reviewed a pull request',
-    title: "Review your teammates' code",
-  },
-  {
-    attribute: 'CON',
-    difficulty: 'Easy',
-    event: 'Issues Closed',
-    resetCounter: 'Weekly',
-    summary: 'Keeps your backlog shrinking instead of only growing.',
-    taskTitle: 'Closed an issue',
-    title: 'Close out issues',
-  },
-  {
-    attribute: 'PER',
-    difficulty: 'Hard',
-    event: 'Release Published',
-    resetCounter: 'Monthly',
-    summary: 'Releases are rare and hard-won, so they get the biggest reward.',
-    taskTitle: 'Published a release',
-    title: 'Ship a release',
-  },
-];
 
 export default function DocsCodingHabitsPage() {
   return (
@@ -80,44 +20,16 @@ export default function DocsCodingHabitsPage() {
         <Content size="lg">
           Every Octogriffin trigger is a Habitica habit that gets scored when
           something happens on GitHub. These recipes are ready-made triggers you
-          can copy into your <Link href="/dashboard">dashboard</Link> to reward
-          the coding habits you want to keep.
+          can add to your <Link href="/dashboard">dashboard</Link> in one click
+          to reward the coding habits you want to keep.
         </Content>
       </div>
 
-      <section className="space-y-6">
-        <Heading level={2} size="xl">
-          Recipes
-        </Heading>
-        <div className="grid gap-4">
+      <section className="flex flex-col gap-5">
+        <Heading level={2}>Recipes</Heading>
+        <div className="grid gap-4 sm:grid-cols-2">
           {recipes.map(recipe => (
-            <Card className="p-5" key={recipe.title} variant="outlined">
-              <Heading className="mb-1" level={3} size="base">
-                {recipe.title}
-              </Heading>
-              <Content className="mb-4" size="sm">
-                {recipe.summary}
-              </Content>
-              <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
-                {[
-                  ['Event', recipe.event],
-                  ['Task Title', recipe.taskTitle],
-                  ['Difficulty', recipe.difficulty],
-                  ['Attribute', recipe.attribute],
-                  ['Action', 'Reward (XP/Gold)'],
-                  ['Reset Counter', recipe.resetCounter],
-                ].map(([label, value]) => (
-                  <div key={label}>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      {label}
-                    </dt>
-                    <dd className="text-slate-900 dark:text-slate-100">
-                      {value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Card>
+            <RecipeCard key={recipe.slug} recipe={recipe} />
           ))}
         </div>
       </section>

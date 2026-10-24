@@ -1,7 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import type { FC } from 'react';
-import { useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 
 import {
   DialogProvider,
@@ -11,28 +12,34 @@ import {
   Form,
   FormSubmit,
   useFormStore,
+  useStoreState,
 } from '@ariakit/react';
 import {
   ArrowDown01Icon,
-  GithubIcon,
+  ArrowDownRight01Icon,
+  ArrowRight01Icon,
+  ArrowUpRight01Icon,
+  BookOpen01Icon,
   PencilEdit02Icon,
-  Task01Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { toast } from 'sonner';
 
+import { HabitPreview } from '@/components/dashboard/HabitPreview';
+import { TriggerSentence } from '@/components/TriggerSentence';
+import { attributeOrder, attributes } from '@/components/ui/AttributeChip';
 import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { CardBody } from '@/components/ui/CardBody';
+import { ChoiceCard, ChoiceCardGroup } from '@/components/ui/ChoiceCard';
 import { Dialog } from '@/components/ui/Dialog';
-import { DialogDismiss } from '@/components/ui/DialogDismiss';
+import { DialogFooter, DialogHeader } from '@/components/ui/DialogParts';
 import { FormCombobox } from '@/components/ui/FormCombobox';
 import { FormInput } from '@/components/ui/FormInput';
-import { FormSelect } from '@/components/ui/FormSelect';
+import { FormSegmentedControl } from '@/components/ui/FormSegmentedControl';
 import { FormTextarea } from '@/components/ui/FormTextarea';
-import { Heading } from '@/components/ui/Heading';
-import { SelectItem } from '@/components/ui/SelectItem';
+import { Menu, MenuItem } from '@/components/ui/Menu';
+import type { Recipe } from '@/config/recipes';
+import { recipes } from '@/config/recipes';
 import { useRepositories } from '@/hooks/useRepositories';
 import { useRepositoryOptions } from '@/hooks/useRepositoryOptions';
 import type { TriggerSchema } from '@/schemas/triggerSchema';
@@ -40,53 +47,176 @@ import { triggerSchema } from '@/schemas/triggerSchema';
 import { useTriggersStore } from '@/store/useTriggersStore';
 import type { TriggerWithRepos } from '@/types/triggers';
 import { cn } from '@/utils/cn';
+import { describeTrigger } from '@/utils/describeTrigger';
+import { githubAppUrl } from '@/utils/githubAppUrl';
 import { getGroupedGithubEvents } from '@/utils/githubEvents';
+import { recipeToTriggerValues } from '@/utils/recipes';
 
 export type TriggerModalProps = {
   onSuccessAction?: () => void;
   open: boolean;
+  /** Opens the dialog pre-filled from a recipe. */
+  recipe?: Recipe;
   setOpenAction: (open: boolean) => void;
   trigger?: TriggerWithRepos;
 };
 
+const defaultValues: TriggerSchema = {
+  event: '',
+  repositories: [],
+  scoreDirection: 'up',
+  taskAlias: '',
+  taskAttribute: 'str',
+  taskFrequency: 'daily',
+  taskNote: '',
+  taskPriority: 1,
+  taskTags: '',
+  taskTitle: '',
+};
+
+const difficultyOptions = [
+  { label: 'Trivial', value: '0.1' },
+  {
+    label: (
+      <>
+        Easy <span className="text-xp">★</span>
+      </>
+    ),
+    name: 'Easy',
+    value: '1',
+  },
+  {
+    label: (
+      <>
+        Medium <span className="text-xp">★★</span>
+      </>
+    ),
+    name: 'Medium',
+    value: '1.5',
+  },
+  {
+    label: (
+      <>
+        Hard <span className="text-xp">★★★</span>
+      </>
+    ),
+    name: 'Hard',
+    value: '2',
+  },
+];
+
+const attributeOptions = attributeOrder.map(value => ({
+  label: <span className="font-mono">{value.toUpperCase()}</span>,
+  name: attributes[value].title,
+  tooltip: {
+    description: attributes[value].description,
+    title: attributes[value].title,
+  },
+  value,
+}));
+
+const frequencyOptions = [
+  { label: 'Daily', value: 'daily' },
+  { label: 'Weekly', value: 'weekly' },
+  { label: 'Monthly', value: 'monthly' },
+];
+
+const Legend: FC<{ children: string }> = ({ children }) => (
+  <legend className="mb-3.5 p-0 font-display text-[17px] font-bold tracking-[-0.02em] text-text">
+    {children}
+  </legend>
+);
+
+const triggerToValues = (trigger: TriggerWithRepos): TriggerSchema => ({
+  event: trigger.event,
+  repositories: trigger.repositories.map(({ uuid }) => uuid),
+  scoreDirection: trigger.scoreDirection as TriggerSchema['scoreDirection'],
+  taskAlias: trigger.taskAlias || '',
+  taskAttribute: trigger.taskAttribute as TriggerSchema['taskAttribute'],
+  taskFrequency: trigger.taskFrequency as TriggerSchema['taskFrequency'],
+  taskNote: trigger.taskNote || '',
+  taskPriority: trigger.taskPriority,
+  taskTags: (trigger.taskTags || '') as string,
+  taskTitle: trigger.taskTitle,
+});
+
 export const TriggerModal: FC<TriggerModalProps> = ({
   onSuccessAction,
   open,
+  recipe,
   setOpenAction,
   trigger,
 }) => {
   const isEdit = !!trigger;
-  const submitLabel = isEdit
-    ? { idle: 'Save Changes', pending: 'Saving...' }
-    : { idle: 'Create Trigger', pending: 'Creating...' };
-
-  const [values, setValues] = useState<TriggerSchema>({
-    event: trigger?.event || '',
-    repositories: trigger?.repositories.map(({ uuid }) => uuid) || [],
-    scoreDirection: trigger?.scoreDirection || 'up',
-    taskAlias: trigger?.taskAlias || '',
-    taskAttribute: trigger?.taskAttribute || 'str',
-    taskFrequency: trigger?.taskFrequency || 'daily',
-    taskNote: trigger?.taskNote || '',
-    taskPriority: trigger?.taskPriority || 1,
-    taskTags: (trigger?.taskTags || '') as string,
-    taskTitle: trigger?.taskTitle || '',
-  });
-
+  const repositories = useRepositories();
+  const repositoryOptions = useRepositoryOptions(repositories);
+  const githubEventOptions = getGroupedGithubEvents();
   const createTrigger = useTriggersStore(state => state.createTrigger);
   const updateTrigger = useTriggersStore(state => state.updateTrigger);
-  const repositories = useRepositories();
-  const githubEventOptions = getGroupedGithubEvents();
-  const form = useFormStore<TriggerSchema>({ setValues, values });
   const [isPending, startTransition] = useTransition();
-  const repositoryOptions = useRepositoryOptions(repositories);
   // The pickers keep their own selection, so they're remounted on reset
   const [resetCount, setResetCount] = useState(0);
+  const repositoriesRef = useRef<HTMLInputElement>(null);
+
+  const [values, setValues] = useState<TriggerSchema>(() => {
+    if (trigger) {
+      return triggerToValues(trigger);
+    }
+
+    return recipe
+      ? recipeToTriggerValues(
+          recipe,
+          repositories.map(({ uuid }) => uuid),
+        )
+      : defaultValues;
+  });
+  const form = useFormStore<TriggerSchema>({ setValues, values });
+  const formValues = useStoreState(form, state => state.values);
+
+  // Repositories arrive after the dialog opens; pre-select the only one
+  const [hasPreselected, setHasPreselected] = useState(false);
+
+  if (
+    recipe &&
+    !hasPreselected &&
+    repositories.length === 1 &&
+    values.repositories.length === 0
+  ) {
+    setHasPreselected(true);
+    setValues(current => ({
+      ...current,
+      repositories: [repositories[0].uuid],
+    }));
+    setResetCount(count => count + 1);
+  }
+
+  const applyRecipe = (picked: Recipe) => {
+    form.setValues({
+      ...form.getState().values,
+      ...recipeToTriggerValues(
+        picked,
+        repositories.map(({ uuid }) => uuid),
+      ),
+      repositories: form.getValue('repositories'),
+    });
+    setResetCount(count => count + 1);
+  };
 
   const resetForm = () => {
     form.reset();
     setResetCount(count => count + 1);
   };
+
+  const selectedRepoNames = repositories
+    .filter(({ uuid }) => formValues.repositories?.includes(uuid))
+    .map(({ name }) => name);
+
+  const sentence = describeTrigger(
+    { ...formValues, taskPriority: Number(formValues.taskPriority) },
+    { repoNames: selectedRepoNames, totalRepos: repositories.length },
+  );
+
+  const hasNoRepositories = repositories.length === 0;
 
   form.useSubmit(state => {
     const validation = triggerSchema.safeParse(state.values);
@@ -100,197 +230,261 @@ export const TriggerModal: FC<TriggerModalProps> = ({
     }
 
     startTransition(async () => {
-      let result;
+      const result =
+        isEdit && trigger
+          ? await updateTrigger(trigger.uuid, validation.data)
+          : await createTrigger(validation.data);
 
-      if (isEdit && trigger) {
-        result = await updateTrigger(trigger.uuid, validation.data);
+      if (!result) {
+        return;
+      }
+
+      if (recipe) {
+        toast.success('Trigger added', {
+          description: `${recipe.successHint} in ${selectedRepoNames[0] ?? 'your repository'} to score it.`,
+        });
       } else {
-        result = await createTrigger(validation.data);
+        toast.success(isEdit ? 'Trigger updated' : 'Trigger created');
       }
 
-      if (result) {
-        toast.success(
-          isEdit
-            ? 'Trigger updated successfully'
-            : 'Trigger created successfully',
-        );
-
-        if (!isEdit) {
-          resetForm();
-        }
-
-        setOpenAction(false);
-        onSuccessAction?.();
+      if (!isEdit) {
+        resetForm();
       }
+
+      setOpenAction(false);
+      onSuccessAction?.();
     });
   });
 
-  const handleDialogClose = () => {
-    if (!isEdit) {
-      setTimeout(resetForm, 300);
-    }
-  };
+  const title = isEdit
+    ? 'Edit trigger'
+    : recipe
+      ? `Add “${recipe.title}”`
+      : 'New trigger';
+
+  const submitLabel = isEdit
+    ? { idle: 'Save changes', pending: 'Saving…' }
+    : recipe
+      ? { idle: 'Add trigger', pending: 'Adding…' }
+      : { idle: 'Create trigger', pending: 'Creating…' };
+
+  const habitFields = (
+    <>
+      <fieldset className="m-0 flex flex-col gap-3.5 border-0 p-0">
+        <Legend>Score this habit in Habitica</Legend>
+        <FormInput
+          description="If you already have a habit with this exact title, Octogriffin uses it."
+          label="Task title"
+          name="taskTitle"
+          placeholder="e.g. Opened a pull request"
+          required
+        />
+        <FormTextarea
+          label="Notes"
+          maxLength={255}
+          name="taskNote"
+          placeholder="Add extra details"
+          rows={2}
+        />
+      </fieldset>
+
+      <fieldset className="m-0 flex flex-col gap-[18px] border-0 p-0">
+        <Legend>How it counts</Legend>
+        <ChoiceCardGroup label="Effect" name="scoreDirection">
+          <ChoiceCard
+            description="Earn XP and Gold"
+            icon={ArrowUpRight01Icon}
+            title="Reward"
+            tone="ok"
+            value="up"
+          />
+          <ChoiceCard
+            description="Lose health"
+            icon={ArrowDownRight01Icon}
+            title="Punish"
+            tone="hp"
+            value="down"
+          />
+        </ChoiceCardGroup>
+        <FormSegmentedControl
+          label="Difficulty"
+          name="taskPriority"
+          options={difficultyOptions}
+        />
+        <div className="grid gap-3.5 sm:grid-cols-2">
+          <FormSegmentedControl
+            label="Attribute"
+            name="taskAttribute"
+            options={attributeOptions}
+          />
+          <FormSegmentedControl
+            label="Counter resets"
+            name="taskFrequency"
+            options={frequencyOptions}
+          />
+        </div>
+      </fieldset>
+
+      <DisclosureProvider>
+        <Disclosure className="group flex w-fit cursor-pointer items-center gap-2 rounded-sm p-0 text-[13px] font-semibold text-text-2 hover:text-text focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none">
+          <HugeiconsIcon
+            className="transition-transform group-aria-expanded:rotate-90"
+            icon={ArrowRight01Icon}
+            size={16}
+          />
+          Advanced: task alias
+        </Disclosure>
+        <DisclosureContent className="pt-3">
+          <FormInput
+            description="A unique ID for this habit in Habitica, for a perfect match."
+            inputClassName="font-mono text-[13px]"
+            label="Task alias"
+            name="taskAlias"
+            placeholder="my-habit-alias"
+          />
+        </DisclosureContent>
+      </DisclosureProvider>
+    </>
+  );
 
   return (
     <DialogProvider open={open} setOpen={setOpenAction}>
       <Dialog
         className="max-h-[calc(100vh-2rem)] overflow-y-auto"
-        onClose={handleDialogClose}
-        size="lg"
+        // A recipe only needs repositories picked, so start there
+        initialFocus={
+          recipe && repositories.length > 1 ? repositoriesRef : undefined
+        }
+        onClose={() => {
+          if (!isEdit) {
+            setTimeout(resetForm, 300);
+          }
+        }}
+        size="xl"
       >
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-              <HugeiconsIcon
-                icon={isEdit ? PencilEdit02Icon : ZapIcon}
-                size={20}
-              />
-            </div>
-            <Heading as="h2" size="lg">
-              {isEdit ? 'Edit Trigger' : 'New Trigger'}
-            </Heading>
-          </div>
-          <DialogDismiss
-            label={`Close the ${isEdit ? 'edit' : 'add'} trigger modal`}
-          />
+        <DialogHeader
+          actions={
+            !isEdit && !recipe ? (
+              <Menu
+                label="Start from a recipe"
+                trigger={
+                  <Button size="sm" type="button" variant="secondary">
+                    <HugeiconsIcon icon={BookOpen01Icon} size={16} />
+                    <span className="hidden sm:inline">
+                      Start from a recipe
+                    </span>
+                    <HugeiconsIcon icon={ArrowDown01Icon} size={14} />
+                  </Button>
+                }
+              >
+                {recipes.map(item => (
+                  <MenuItem
+                    icon={item.icon}
+                    key={item.slug}
+                    onClick={() => applyRecipe(item)}
+                  >
+                    {item.title}
+                  </MenuItem>
+                ))}
+              </Menu>
+            ) : undefined
+          }
+          icon={isEdit ? PencilEdit02Icon : ZapIcon}
+          onCloseLabel="Close"
+          title={title}
+        />
+
+        <div
+          aria-live="polite"
+          className="-mx-6 border-b border-border bg-sunken px-6 py-4"
+        >
+          <TriggerSentence parts={sentence} />
         </div>
 
-        <Form className="space-y-8" resetOnSubmit={false} store={form}>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Fields marked with <span className="text-red-500">*</span> are
-            required.
-          </p>
+        <Form resetOnSubmit={false} store={form}>
+          <div className="-mx-6 grid md:grid-cols-[minmax(0,1fr)_280px]">
+            <div className="flex flex-col gap-7 p-6 md:border-r md:border-border">
+              <fieldset className="m-0 flex flex-col gap-3.5 border-0 p-0">
+                <Legend>When this happens on GitHub</Legend>
+                <div className="grid gap-3.5 sm:grid-cols-2">
+                  <div className="flex flex-col gap-1">
+                    <FormCombobox
+                      items={githubEventOptions}
+                      key={`event-${resetCount}`}
+                      label="Event"
+                      name="event"
+                      placeholder="Search events"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <FormCombobox
+                      items={repositoryOptions}
+                      key={`repositories-${resetCount}`}
+                      label="Repositories"
+                      multiple
+                      name="repositories"
+                      placeholder="Search repositories"
+                      ref={repositoriesRef}
+                      required
+                    />
+                    {hasNoRepositories && (
+                      <Link
+                        className="text-xs font-semibold text-accent-text"
+                        href={githubAppUrl()}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        Install the GitHub App on a repository first
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </fieldset>
 
-          {/* GitHub Trigger Section */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800">
-                <HugeiconsIcon icon={GithubIcon} size={18} />
-              </div>
-              <Heading
-                as="h3"
-                className="font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400"
-                size="sm"
-              >
-                1. GitHub Trigger
-              </Heading>
+              {recipe ? (
+                <DisclosureProvider>
+                  <Disclosure className="group flex w-fit cursor-pointer items-center gap-2 rounded-sm p-0 text-[13px] font-semibold text-accent-text focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none">
+                    <HugeiconsIcon
+                      className="transition-transform group-aria-expanded:rotate-90"
+                      icon={ArrowRight01Icon}
+                      size={16}
+                    />
+                    Change title, difficulty or attribute
+                  </Disclosure>
+                  <DisclosureContent className="flex flex-col gap-7">
+                    {habitFields}
+                  </DisclosureContent>
+                </DisclosureProvider>
+              ) : (
+                habitFields
+              )}
             </div>
 
-            <Card variant="flat">
-              <CardBody className="grid gap-4 sm:grid-cols-2" padding="sm">
-                <FormCombobox
-                  items={githubEventOptions}
-                  key={`event-${resetCount}`}
-                  label="Event"
-                  name="event"
-                  placeholder="Select a GitHub event..."
-                  required
-                />
-
-                <FormCombobox
-                  items={repositoryOptions}
-                  key={`repositories-${resetCount}`}
-                  label="Repositories"
-                  multiple
-                  name="repositories"
-                  placeholder="Select repositories..."
-                />
-              </CardBody>
-            </Card>
+            <aside
+              aria-label="Preview"
+              className={cn(
+                'flex flex-col gap-3.5 border-t border-border bg-sunken/60 px-5 py-6 md:border-t-0',
+              )}
+            >
+              <span className="text-xs font-semibold text-muted">
+                How it looks in Habitica
+              </span>
+              <HabitPreview
+                direction={formValues.scoreDirection}
+                priority={Number(formValues.taskPriority)}
+                title={formValues.taskTitle}
+              />
+            </aside>
           </div>
 
-          {/* Habitica Task Section */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 text-slate-900 dark:text-slate-100">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-                <HugeiconsIcon icon={Task01Icon} size={18} />
-              </div>
-              <Heading
-                as="h3"
-                className="font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400"
-                size="sm"
-              >
-                2. Habitica Task
-              </Heading>
-            </div>
-
-            <Card variant="flat">
-              <CardBody className="grid gap-4 sm:grid-cols-2" padding="sm">
-                <div className="sm:col-span-2">
-                  <FormInput
-                    description="A new task will be created if it doesn't exist."
-                    label="Task Title"
-                    name="taskTitle"
-                    placeholder="e.g. Pushed Code"
-                    required
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <FormTextarea
-                    label="Notes"
-                    maxLength={255}
-                    name="taskNote"
-                    placeholder="Add extra details..."
-                  />
-                </div>
-
-                <FormSelect label="Difficulty" name="taskPriority">
-                  <SelectItem value="0.1">Trivial</SelectItem>
-                  <SelectItem value="1">Easy</SelectItem>
-                  <SelectItem value="1.5">Medium</SelectItem>
-                  <SelectItem value="2">Hard</SelectItem>
-                </FormSelect>
-
-                <FormSelect label="Attribute" name="taskAttribute">
-                  <SelectItem value="str">STR</SelectItem>
-                  <SelectItem value="int">INT</SelectItem>
-                  <SelectItem value="con">CON</SelectItem>
-                  <SelectItem value="per">PER</SelectItem>
-                </FormSelect>
-
-                <FormSelect label="Action" name="scoreDirection">
-                  <SelectItem value="up">Reward (XP/Gold)</SelectItem>
-                  <SelectItem value="down">Punish (Lose Health)</SelectItem>
-                </FormSelect>
-
-                <FormSelect label="Reset Counter" name="taskFrequency">
-                  <SelectItem value="daily">Daily</SelectItem>
-                  <SelectItem value="weekly">Weekly</SelectItem>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                </FormSelect>
-              </CardBody>
-            </Card>
-          </div>
-
-          <DisclosureProvider>
-            <Card variant="flat">
-              <Disclosure
-                className={cn(
-                  'cursor-pointer group flex w-full items-center justify-between px-5 py-3.5 font-bold uppercase tracking-widest text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100',
-                  'transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 focus-visible:ring-offset-2',
-                )}
-              >
-                <span className="text-xs">Advanced Settings</span>
-                <HugeiconsIcon
-                  className="text-slate-400 transition-transform group-aria-expanded:rotate-180 dark:text-slate-500"
-                  icon={ArrowDown01Icon}
-                  size={16}
-                />
-              </Disclosure>
-
-              <DisclosureContent className="border-t border-slate-100 px-5 py-5 dark:border-slate-800">
-                <FormInput
-                  description="Unique identifier for API operations."
-                  label="Task Alias"
-                  name="taskAlias"
-                  placeholder="e.g. my-habit-alias"
-                />
-              </DisclosureContent>
-            </Card>
-          </DisclosureProvider>
-
-          <div className="flex justify-end gap-3 pt-2">
+          <DialogFooter
+            start={
+              <>
+                <span className="text-hp">*</span> Required
+              </>
+            }
+          >
             <Button
               onClick={() => setOpenAction(false)}
               type="button"
@@ -300,12 +494,15 @@ export const TriggerModal: FC<TriggerModalProps> = ({
             </Button>
             <FormSubmit
               render={
-                <Button disabled={isPending} isLoading={isPending}>
+                <Button
+                  disabled={isPending || hasNoRepositories}
+                  isLoading={isPending}
+                >
                   {isPending ? submitLabel.pending : submitLabel.idle}
                 </Button>
               }
             />
-          </div>
+          </DialogFooter>
         </Form>
       </Dialog>
     </DialogProvider>

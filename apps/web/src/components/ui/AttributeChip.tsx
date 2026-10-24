@@ -36,6 +36,19 @@ export const attributes: Record<
   },
 };
 
+// Habitica's own order. Ranks rather than an array, which lint would sort.
+const attributeRank: Record<HabiticaAttribute, number> = {
+  con: 2,
+  int: 1,
+  per: 3,
+  str: 0,
+};
+
+/** STR, INT, CON, PER: the order Habitica lists attributes in. */
+export const attributeOrder = (
+  Object.keys(attributeRank) as HabiticaAttribute[]
+).sort((a, b) => attributeRank[a] - attributeRank[b]);
+
 export type AttributeChipProps = {
   attribute: HabiticaAttribute;
   className?: string;
