@@ -77,7 +77,7 @@ export const WebhookLogsList: FC = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex justify-end">
+      <div className="flex justify-end xl:absolute xl:top-1 xl:right-0">
         <ButtonIcon
           icon={RefreshIcon}
           label="Refresh history"

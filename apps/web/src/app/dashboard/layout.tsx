@@ -43,12 +43,14 @@ const DashboardLayout: FC<DashboardLayoutProps> = async ({ tabs }) => {
         <DashboardSummary />
       </div>
 
-      <div className="flex flex-wrap items-start gap-6">
-        <div className="min-w-0 flex-[999_1_640px]">
+      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
+        {/* Relative so each tab can place its toolbar on the tab row */}
+        <div className="relative min-w-0">
           <MainPanel>{tabs}</MainPanel>
         </div>
 
-        <aside className="flex flex-[1_1_320px] flex-col gap-4">
+        {/* Pushed down by the tab row, so it lines up with the tab's content */}
+        <aside className="flex flex-col gap-4 xl:pt-[60px]">
           <HabiticaStatsCard />
           <RepositoryListCard />
         </aside>

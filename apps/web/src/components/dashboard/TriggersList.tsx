@@ -84,7 +84,7 @@ export const TriggersList: FC<TriggersListProps> = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-end gap-2">
+      <div className="flex flex-wrap items-center justify-end gap-2 xl:absolute xl:top-1 xl:right-0">
         <label className="flex h-9 w-full items-center gap-2 rounded-md border border-border-strong bg-sunken px-2.5 text-muted focus-within:border-accent focus-within:ring-[3px] focus-within:ring-ring sm:w-56">
           <HugeiconsIcon icon={Search01Icon} size={16} />
           <input
