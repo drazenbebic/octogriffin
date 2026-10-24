@@ -23,18 +23,17 @@ function generateRandomString() {
   return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
+function generateValues() {
+  return {
+    encryption: generateRandomString(),
+    health: generateRandomString(),
+    nextAuth: generateRandomString(),
+    webhook: generateRandomString(),
+  };
+}
+
 export const EnvGenerator: FC = () => {
   const [copied, setCopied] = useState(false);
-
-  function generateValues() {
-    return {
-      encryption: generateRandomString(),
-      health: generateRandomString(),
-      nextAuth: generateRandomString(),
-      webhook: generateRandomString(),
-    };
-  }
-
   const [secrets, setSecrets] = useState(() => generateValues());
 
   const handleRegenerate = () => {
@@ -106,16 +105,20 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
           <code>
             <span className="text-muted"># Generated Security Keys</span>
             {'\n'}
-            <span className="text-accent-text">GITHUB_WEBHOOK_SECRET</span>=
+            <span className="text-accent-text">GITHUB_WEBHOOK_SECRET</span>
+            {'='}
             <span className="text-ok">&#34;{secrets.webhook}&#34;</span>
             {'\n'}
-            <span className="text-accent-text">NEXTAUTH_SECRET</span>=
+            <span className="text-accent-text">NEXTAUTH_SECRET</span>
+            {'='}
             <span className="text-ok">&#34;{secrets.nextAuth}&#34;</span>
             {'\n'}
-            <span className="text-accent-text">ENCRYPTION_KEY</span>=
+            <span className="text-accent-text">ENCRYPTION_KEY</span>
+            {'='}
             <span className="text-ok">&#34;{secrets.encryption}&#34;</span>
             {'\n'}
-            <span className="text-accent-text">HEALTH_CHECK_SECRET</span>=
+            <span className="text-accent-text">HEALTH_CHECK_SECRET</span>
+            {'='}
             <span className="text-ok">&#34;{secrets.health}&#34;</span>
             {'\n\n'}
             <span className="text-muted">
@@ -123,15 +126,15 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
             </span>
             {'\n'}
             <span className="text-accent-text">GITHUB_CLIENT_ID</span>
-            =&#34;&#34;
+            {'=""'}
             {'\n'}
             <span className="text-accent-text">GITHUB_CLIENT_SECRET</span>
-            =&#34;&#34;
+            {'=""'}
             {'\n\n'}
             <span className="text-muted"># Paste your GitHub App URL here</span>
             {'\n'}
             <span className="text-accent-text">NEXT_PUBLIC_GITHUB_APP_URL</span>
-            =&#34;https://github.com/apps/my-github-app&#34;
+            {'="https://github.com/apps/my-github-app"'}
           </code>
         </pre>
       </div>

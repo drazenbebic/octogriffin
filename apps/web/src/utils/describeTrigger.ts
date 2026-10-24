@@ -58,6 +58,20 @@ const placeholder = (value: string): TriggerSentencePart => ({
   text: value,
 });
 
+const describeScoreDirection = (
+  direction: TriggerSchema['scoreDirection'] | undefined,
+): TriggerSentencePart => {
+  if (direction === 'down') {
+    return { kind: 'value', text: 'take health', tone: 'hp' };
+  }
+
+  if (direction === 'up') {
+    return { kind: 'value', text: 'reward you', tone: 'ok' };
+  }
+
+  return placeholder('reward you');
+};
+
 /**
  * A trigger as a plain sentence, split into parts so each value can be
  * highlighted, e.g. "When push happens in octogriffin, score …".
@@ -110,11 +124,7 @@ export const describeTrigger = (
         ]
       : []),
     text(' habit and '),
-    values.scoreDirection === 'down'
-      ? { kind: 'value', text: 'take health', tone: 'hp' }
-      : values.scoreDirection === 'up'
-        ? { kind: 'value', text: 'reward you', tone: 'ok' }
-        : placeholder('reward you'),
+    describeScoreDirection(values.scoreDirection),
     text('. The counter resets '),
     values.taskFrequency
       ? { kind: 'value', text: values.taskFrequency }

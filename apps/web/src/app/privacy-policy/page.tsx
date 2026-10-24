@@ -100,10 +100,10 @@ export default function PrivacyPolicyPage() {
               <Content as="li">
                 <strong>Habitica Credentials:</strong> Your Habitica User ID and
                 API Token. These are stored using{' '}
-                <strong>AES-256 encryption</strong>
-                (Advanced Encryption Standard) in our database. We cannot see
-                your raw token, and it is only decrypted momentarily to send
-                requests to Habitica on your behalf.
+                <strong>AES-256 encryption</strong> (Advanced Encryption
+                Standard) in our database. We cannot see your raw token, and it
+                is only decrypted momentarily to send requests to Habitica on
+                your behalf.
               </Content>
               <Content as="li">
                 <strong>Webhook Data:</strong> Metadata about your GitHub
@@ -224,12 +224,11 @@ export default function PrivacyPolicyPage() {
                 </Heading>
                 <Content>
                   We use <strong>Vercel Analytics</strong> and{' '}
-                  <strong>Speed Insights</strong>
-                  to monitor the performance and reliability of our website.
-                  These tools collect anonymous usage data (e.g., page load
-                  speeds, device type, and country). This data is aggregated and
-                  does not identify individual visitors. We do not use tracking
-                  cookies for analytics.
+                  <strong>Speed Insights</strong> to monitor the performance and
+                  reliability of our website. These tools collect anonymous
+                  usage data (e.g., page load speeds, device type, and country).
+                  This data is aggregated and does not identify individual
+                  visitors. We do not use tracking cookies for analytics.
                 </Content>
               </div>
             </div>

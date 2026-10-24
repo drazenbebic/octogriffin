@@ -1,6 +1,6 @@
 'use client';
 
-import type { MouseEvent, Ref } from 'react';
+import type { FC, MouseEvent, Ref } from 'react';
 import {
   forwardRef,
   useDeferredValue,
@@ -78,6 +78,41 @@ const setRef = (
   } else if (ref) {
     (ref as { current: HTMLInputElement | null }).current = node;
   }
+};
+
+const ComboboxMatches: FC<{
+  hasGroups: boolean;
+  matches: [string, ComboboxItemType[]][] | ComboboxItemType[];
+}> = ({ hasGroups, matches }) => {
+  if (hasGroups) {
+    return (
+      <>
+        {(matches as [string, ComboboxItemType[]][]).map(
+          ([group, groupItems]) => (
+            <ComboboxGroup
+              className="flex flex-col gap-1 first:mt-0 mt-2"
+              key={group}
+            >
+              <ComboboxGroupLabel className="sticky -top-1.5 z-10 bg-surface px-3 pb-2 pt-3.5 text-xs font-bold uppercase tracking-wider text-muted select-none ">
+                {group}
+              </ComboboxGroupLabel>
+              {groupItems.map(item => (
+                <ComboboxItem item={item} key={item.value} />
+              ))}
+            </ComboboxGroup>
+          ),
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-1">
+      {(matches as ComboboxItemType[]).map(item => (
+        <ComboboxItem item={item} key={item.value} />
+      ))}
+    </div>
+  );
 };
 
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
@@ -230,29 +265,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
             sameWidth
           >
             {matches?.length > 0 ? (
-              hasGroups ? (
-                (matches as [string, ComboboxItemType[]][]).map(
-                  ([group, groupItems]) => (
-                    <ComboboxGroup
-                      className="flex flex-col gap-1 first:mt-0 mt-2"
-                      key={group}
-                    >
-                      <ComboboxGroupLabel className="sticky -top-1.5 z-10 bg-surface px-3 pb-2 pt-3.5 text-xs font-bold uppercase tracking-wider text-muted select-none ">
-                        {group}
-                      </ComboboxGroupLabel>
-                      {groupItems.map(item => (
-                        <ComboboxItem item={item} key={item.value} />
-                      ))}
-                    </ComboboxGroup>
-                  ),
-                )
-              ) : (
-                <div className="flex flex-col gap-1">
-                  {(matches as ComboboxItemType[]).map(item => (
-                    <ComboboxItem item={item} key={item.value} />
-                  ))}
-                </div>
-              )
+              <ComboboxMatches hasGroups={hasGroups} matches={matches} />
             ) : (
               <div className="px-4 py-3 text-center text-sm text-muted select-none ">
                 No results found

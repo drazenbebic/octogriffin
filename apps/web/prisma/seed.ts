@@ -4,7 +4,7 @@ import prisma from '../src/lib/prisma';
 
 const AMOUNT_TO_CREATE = 100;
 
-async function createSeededUser(index: number) {
+function createSeededUser(index: number) {
   return prisma.$transaction(async tx => {
     const installationId = faker.number.int({ max: 2147483647, min: 1 });
 

@@ -23,7 +23,7 @@ type GithubRepository = {
   private: boolean;
 };
 
-export const getGithubInstallation = async (installationId: number) => {
+export const getGithubInstallation = (installationId: number) => {
   return prisma.githubInstallations.findUnique({
     where: { installationId: Number(installationId) },
   });
@@ -75,9 +75,7 @@ export const setGithubInstallationSuspended = async (
  * deletes the user and everything we keep about them, too. Resolves to
  * `false` for an installation we don't know.
  */
-export const deleteGithubInstallation = async (
-  installationId: bigint | number,
-) => {
+export const deleteGithubInstallation = (installationId: bigint | number) => {
   return prisma.$transaction(async tx => {
     const githubInstallation = await tx.githubInstallations.findUnique({
       select: { githubUserId: true },
@@ -106,7 +104,7 @@ export const deleteGithubInstallation = async (
   });
 };
 
-export const removeSelectedRepositories = async (
+export const removeSelectedRepositories = (
   installationId: bigint | number,
   repositoryIds: number[],
 ) => {
@@ -120,12 +118,12 @@ export const removeSelectedRepositories = async (
   });
 };
 
-export const addSelectedRepositories = async (
+export const addSelectedRepositories = (
   installationId: bigint | number,
   repositories: GithubRepository[],
 ) => {
   if (repositories.length === 0) {
-    return;
+    return Promise.resolve({ count: 0 });
   }
 
   return prisma.githubSelectedRepositories.createMany({
@@ -145,7 +143,7 @@ export const addSelectedRepositories = async (
  * Saves a new installation for whoever installed the app. They may already
  * have installed it on another account.
  */
-export const initializeGithubInstallation = async (
+export const initializeGithubInstallation = (
   installation: GithubInstallation,
   sender: GithubSender,
   repositories: GithubRepository[],

@@ -74,7 +74,7 @@ const List: FC<{ children: ReactNode }> = ({ children }) => (
   </ul>
 );
 
-export default async function DocsDevelopmentStandardsPage() {
+export default function DocsDevelopmentStandardsPage() {
   return (
     <div className="flex max-w-3xl flex-col gap-12 pb-20">
       <div className="flex flex-col gap-4">

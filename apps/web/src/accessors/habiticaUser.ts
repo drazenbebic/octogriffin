@@ -1,7 +1,7 @@
 import type { Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/prisma';
 
-export const upsertHabiticaUser = async (
+export const upsertHabiticaUser = (
   githubUserId: bigint | number,
   createData: Omit<Prisma.HabiticaUsersUncheckedCreateInput, 'githubUserId'>,
   updateData: Prisma.HabiticaUsersUncheckedUpdateInput,

@@ -182,7 +182,7 @@ export default function DocsDevSetupPage() {
                       <span className="text-accent-text font-semibold ">
                         &lt;YOUR-NGROK-URL&gt;
                       </span>
-                      /api/auth/callback/github
+                      {'/api/auth/callback/github'}
                     </span>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export default function DocsDevSetupPage() {
                     <span className="text-accent-text font-semibold ">
                       &lt;YOUR-NGROK-URL&gt;
                     </span>
-                    /api/v1/webhook
+                    {'/api/v1/webhook'}
                   </span>
                 </div>
                 <div className="grid grid-cols-[140px_1fr] gap-4">

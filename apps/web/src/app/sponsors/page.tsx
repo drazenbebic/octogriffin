@@ -104,11 +104,11 @@ export default function SponsorsPage() {
               <ul className="space-y-3">
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-stone-400 " />
-                  Sponsor badge on profile
+                  <span>Sponsor badge on profile</span>
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-stone-400 " />
-                  My gratitude! 🫶
+                  <span>My gratitude! 🫶</span>
                 </Content>
               </ul>
             </CardBody>
@@ -139,11 +139,11 @@ export default function SponsorsPage() {
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-xp" />
-                  Sponsor badge on profile
+                  <span>Sponsor badge on profile</span>
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-xp" />
-                  My gratitude! 🫶
+                  <span>My gratitude! 🫶</span>
                 </Content>
               </ul>
             </CardBody>
@@ -176,15 +176,15 @@ export default function SponsorsPage() {
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  Priority feature requests
+                  <span>Priority feature requests</span>
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  Listed in README
+                  <span>Listed in README</span>
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  Sponsor badge + Gratitude 🫶
+                  <span>Sponsor badge + Gratitude 🫶</span>
                 </Content>
               </ul>
             </CardBody>

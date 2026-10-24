@@ -110,7 +110,7 @@ export const TriggersList: FC<TriggersListProps> = ({
       </div>
 
       <div className="overflow-hidden rounded-lg border border-border bg-surface shadow-e1">
-        {isPending ? (
+        {isPending && (
           <div className="flex flex-col">
             {Array.from({ length: meta.limit || 5 }, (_, i) => (
               <div
@@ -126,7 +126,8 @@ export const TriggersList: FC<TriggersListProps> = ({
               </div>
             ))}
           </div>
-        ) : visibleTriggers.length > 0 ? (
+        )}
+        {!isPending && visibleTriggers.length > 0 && (
           <TriggersTable
             onDelete={onOpenDeleteAction}
             onEdit={onOpenEditAction}
@@ -134,7 +135,8 @@ export const TriggersList: FC<TriggersListProps> = ({
             totalRepos={repositories.length}
             triggers={visibleTriggers}
           />
-        ) : (
+        )}
+        {!isPending && visibleTriggers.length === 0 && (
           <p className="px-[18px] py-10 text-center text-sm text-text-2">
             No triggers on this page match “{query.trim()}”.
           </p>

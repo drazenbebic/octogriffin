@@ -115,7 +115,7 @@ export default function HomePage() {
                 <span className="rounded-full bg-[#f5b544] px-2 py-0.5 font-mono text-xs font-medium text-griffin-900">
                   v{version}
                 </span>
-                See what&apos;s new
+                <span>See what&apos;s new</span>
               </Link>
 
               <Heading
@@ -316,7 +316,7 @@ export default function HomePage() {
                   aria-hidden="true"
                   className="h-2 w-2 rounded-full bg-accent shadow-[0_0_0_4px_var(--accent-soft)]"
                 />
-                Now in the forge
+                <span>Now in the forge</span>
               </span>
               <Heading level={2}>{currentPhase.codename}</Heading>
               <p className="max-w-[44ch] text-text-2">{currentPhase.summary}</p>

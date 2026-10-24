@@ -3,13 +3,13 @@ import type { WebhookLogsModel } from '@/generated/prisma/models/WebhookLogs';
 import prisma from '@/lib/prisma';
 import type { PaginatedResult, PaginationParams } from '@/types/pagination';
 
-export const createWebhookLog = async (
+export const createWebhookLog = (
   data: Prisma.WebhookLogsUncheckedCreateInput,
 ) => {
   return prisma.webhookLogs.create({ data });
 };
 
-export const deleteWebhookLog = async (
+export const deleteWebhookLog = (
   deliveryUuid: string,
   githubUserId: bigint | number,
 ) => {

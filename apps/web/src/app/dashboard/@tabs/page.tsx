@@ -27,6 +27,18 @@ const RecipeParamOpener: FC<{ onRecipe: (recipe: Recipe) => void }> = ({
   return null;
 };
 
+// A new key remounts the dialog with fresh values for each way it opens
+const triggerModalKey = (
+  editingTrigger: null | TriggerWithRepos,
+  recipe?: Recipe,
+) => {
+  if (editingTrigger) {
+    return `edit-${editingTrigger.uuid}`;
+  }
+
+  return recipe ? `recipe-${recipe.slug}` : 'create';
+};
+
 export default function DashboardPage() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [editingTrigger, setEditingTrigger] = useState<null | TriggerWithRepos>(
@@ -68,13 +80,7 @@ export default function DashboardPage() {
       />
 
       <TriggerModal
-        key={
-          editingTrigger
-            ? `edit-${editingTrigger.uuid}`
-            : recipe
-              ? `recipe-${recipe.slug}`
-              : 'create'
-        }
+        key={triggerModalKey(editingTrigger, recipe)}
         onSuccessAction={() => {
           setModalOpen(false);
           setEditingTrigger(null);

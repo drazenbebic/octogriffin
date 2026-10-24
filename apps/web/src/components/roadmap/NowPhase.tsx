@@ -19,7 +19,7 @@ export const NowPhase: FC<{ phase: RoadmapPhase }> = ({ phase }) => (
           aria-hidden="true"
           className="h-2 w-2 rounded-full bg-[#f5b544]"
         />
-        Now in the forge
+        <span>Now in the forge</span>
       </span>
       <h2
         className="font-display text-[44px] leading-none font-extrabold tracking-[-0.02em]"

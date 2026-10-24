@@ -39,6 +39,7 @@ export const EventCatalogue: FC<EventCatalogueProps> = ({ events }) => {
   }, [events, query]);
 
   const matches = groups.reduce((total, [, items]) => total + items.length, 0);
+  const matchLabel = matches === 1 ? 'event matches' : 'events match';
 
   return (
     <div className="flex flex-col gap-6">
@@ -56,7 +57,7 @@ export const EventCatalogue: FC<EventCatalogueProps> = ({ events }) => {
         </label>
         <p aria-live="polite" className="text-[13px] text-muted">
           {query.trim()
-            ? `${matches} ${matches === 1 ? 'event matches' : 'events match'} “${query.trim()}”`
+            ? `${matches} ${matchLabel} “${query.trim()}”`
             : `${events.length} events in ${groups.length} groups`}
         </p>
         {!query.trim() && (

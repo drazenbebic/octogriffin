@@ -68,36 +68,38 @@ export const ButtonIcon = forwardRef<HTMLButtonElement, ButtonIconProps>(
       ...props
     },
     ref,
-  ) => (
-    <Tooltip content={label} type="label" {...tooltip}>
-      <Button
-        aria-label={label}
-        className={cn(
-          'inline-flex shrink-0 cursor-pointer items-center justify-center transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-50',
-          variants[variant],
-          sizes[size],
-          shapes[shape],
-          isLoading && 'cursor-wait opacity-80',
-          className,
-        )}
-        disabled={isLoading || props.disabled}
-        ref={ref}
-        {...props}
-      >
-        {isLoading ? (
-          <HugeiconsIcon
-            className="animate-spin"
-            icon={Loading03Icon}
-            size={iconSizes[size]}
-          />
-        ) : icon ? (
-          <HugeiconsIcon icon={icon} size={iconSizes[size]} />
-        ) : (
-          children
-        )}
-      </Button>
-    </Tooltip>
-  ),
+  ) => {
+    const shownIcon = isLoading ? Loading03Icon : icon;
+
+    return (
+      <Tooltip content={label} type="label" {...tooltip}>
+        <Button
+          aria-label={label}
+          className={cn(
+            'inline-flex shrink-0 cursor-pointer items-center justify-center transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-50',
+            variants[variant],
+            sizes[size],
+            shapes[shape],
+            isLoading && 'cursor-wait opacity-80',
+            className,
+          )}
+          disabled={isLoading || props.disabled}
+          ref={ref}
+          {...props}
+        >
+          {shownIcon ? (
+            <HugeiconsIcon
+              className={cn(isLoading && 'animate-spin')}
+              icon={shownIcon}
+              size={iconSizes[size]}
+            />
+          ) : (
+            children
+          )}
+        </Button>
+      </Tooltip>
+    );
+  },
 );
 
 ButtonIcon.displayName = 'ButtonIcon';

@@ -66,6 +66,8 @@ export const metadata: Metadata = {
   },
 };
 
+// Keep this async: as a sync layout, the footer's links reach the client
+// tooltips as lazy elements, and Ariakit's render prop then crashes
 const RootLayout: FC<Props> = async ({ children }) => {
   return (
     <html

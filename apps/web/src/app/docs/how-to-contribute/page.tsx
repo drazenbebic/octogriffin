@@ -182,7 +182,7 @@ export default function DocsHowToContributePage() {
               If your PR introduces a breaking change, add a{' '}
               <code className="font-bold">!</code> after the type (e.g.,{' '}
               <code className="font-bold">feat!: drop support for v1 api</code>
-              ).
+              {').'}
             </Alert>
           </div>
         </DocsStep>

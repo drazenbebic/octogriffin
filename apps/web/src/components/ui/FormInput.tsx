@@ -54,11 +54,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const isPasswordType = type === 'password';
-    const inputType = isPasswordType
-      ? isPasswordVisible
-        ? 'text'
-        : 'password'
-      : type;
+    const inputType = isPasswordType && isPasswordVisible ? 'text' : type;
 
     return (
       <div className={cn('w-full', className)}>

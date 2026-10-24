@@ -67,7 +67,7 @@ export const RepositoryListCard: FC = () => {
         </Link>
       </div>
 
-      {isLoading ? (
+      {isLoading && (
         <ul className="flex flex-col">
           {[0, 1, 2].map(i => (
             <li className="border-t border-line py-2.5" key={i}>
@@ -75,7 +75,8 @@ export const RepositoryListCard: FC = () => {
             </li>
           ))}
         </ul>
-      ) : repos.length > 0 ? (
+      )}
+      {!isLoading && repos.length > 0 && (
         <ul className="flex flex-col">
           {visibleRepos.map(repo => {
             const count = counts?.get(repo.uuid) ?? 0;
@@ -115,7 +116,8 @@ export const RepositoryListCard: FC = () => {
             );
           })}
         </ul>
-      ) : (
+      )}
+      {!isLoading && repos.length === 0 && (
         <p className="rounded-md border border-dashed border-border-strong p-4 text-center text-sm text-text-2">
           Install the GitHub App on a repository to start earning rewards.
         </p>
