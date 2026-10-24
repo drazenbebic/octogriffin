@@ -1,6 +1,11 @@
 import type { HabiticaAttribute } from '@/components/ui/AttributeChip';
 import type { TriggerSchema } from '@/schemas/triggerSchema';
-import { formatCooldown, toCooldownSeconds } from '@/utils/cooldown';
+import { MAX_DAILY_CAP } from '@/schemas/triggerSchema';
+import {
+  formatCooldown,
+  isWithinMaxCooldown,
+  toCooldownSeconds,
+} from '@/utils/cooldown';
 import { getDifficulty } from '@/utils/difficulty';
 
 export type TriggerSentencePart =
@@ -53,6 +58,13 @@ const text = (value: string): TriggerSentencePart => ({
   text: value,
 });
 
+/** A form value as a whole number above 0, or nothing. */
+const toWholeNumber = (value: unknown) => {
+  const number = Number(value);
+
+  return Number.isInteger(number) && number > 0 ? number : undefined;
+};
+
 const placeholder = (value: string): TriggerSentencePart => ({
   kind: 'placeholder',
   text: value,
@@ -86,11 +98,14 @@ export const describeTrigger = (
   },
 ): TriggerSentencePart[] => {
   const repositories = describeRepositories(ctx.repoNames, ctx.totalRepos);
-  // Form values arrive as strings, an empty one means no cooldown
-  const cooldownSeconds = toCooldownSeconds(
-    Number(values.cooldownAmount) || undefined,
-    values.cooldownUnit,
-  );
+  // Form values arrive as strings. Only describe what would save.
+  const cooldownAmount = toWholeNumber(values.cooldownAmount);
+  const cooldownSeconds =
+    cooldownAmount !== undefined &&
+    isWithinMaxCooldown(cooldownAmount, values.cooldownUnit ?? 'minutes')
+      ? toCooldownSeconds(cooldownAmount, values.cooldownUnit)
+      : null;
+  const dailyCap = toWholeNumber(values.dailyCap);
   const difficulty =
     values.taskPriority !== undefined
       ? getDifficulty(values.taskPriority)
@@ -135,6 +150,16 @@ export const describeTrigger = (
           text(' After scoring, it rests for '),
           { kind: 'value', text: formatCooldown(cooldownSeconds) } as const,
           text('.'),
+        ]
+      : []),
+    ...(dailyCap !== undefined && dailyCap <= MAX_DAILY_CAP
+      ? [
+          text(' It scores at most '),
+          {
+            kind: 'value',
+            text: dailyCap === 1 ? 'once' : `${dailyCap} times`,
+          } as const,
+          text(' a day.'),
         ]
       : []),
   ];

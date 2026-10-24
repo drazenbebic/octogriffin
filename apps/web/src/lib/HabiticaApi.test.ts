@@ -289,4 +289,29 @@ describe('@/lib/habitica-api.ts', () => {
       expect(mockFetch).toHaveBeenCalledTimes(4);
     });
   });
+
+  describe('getDayPreferences', () => {
+    it('asks only for the day settings', async () => {
+      mockSuccessResponse({
+        preferences: { dayStart: 4, timezoneOffset: -120 },
+      });
+
+      await expect(api.getDayPreferences()).resolves.toEqual({
+        dayStart: 4,
+        timezoneOffset: -120,
+      });
+      expect(mockFetch.mock.calls[0][0]).toContain(
+        '/user?userFields=preferences.dayStart,preferences.timezoneOffset',
+      );
+    });
+
+    it('counts missing settings as 0', async () => {
+      mockSuccessResponse({});
+
+      await expect(api.getDayPreferences()).resolves.toEqual({
+        dayStart: 0,
+        timezoneOffset: 0,
+      });
+    });
+  });
 });

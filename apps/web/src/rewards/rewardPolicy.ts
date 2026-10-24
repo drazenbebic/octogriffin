@@ -41,6 +41,7 @@ const toReward = (trigger: TriggerRule, times: number): Reward => ({
   ...(trigger.cooldownSeconds !== null && {
     cooldown: { previousScoredAt: trigger.lastScoredAt },
   }),
+  ...(trigger.dailyCap !== null && { hasDailyCap: true as const }),
   direction:
     trigger.scoreDirection === 'up' ? TaskDirection.UP : TaskDirection.DOWN,
   task: {

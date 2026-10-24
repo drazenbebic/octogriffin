@@ -116,9 +116,9 @@ export const roadmap: RoadmapPhase[] = [
       },
       {
         description:
-          'An optional ceiling per trigger per day, to prevent burnout.',
-        status: 'planned',
-        title: 'Daily XP caps',
+          'Set the most a trigger can score in a Habitica day, to prevent burnout.',
+        status: 'in-progress',
+        title: 'Daily caps',
       },
       {
         description:

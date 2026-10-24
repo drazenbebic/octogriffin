@@ -7,6 +7,7 @@ import type {
   Task,
   UserStats,
 } from '@/types/habitica';
+import type { DayPreferences } from '@/utils/habiticaDay';
 
 const BASE_URL = 'https://habitica.com/api/v3';
 
@@ -188,6 +189,23 @@ class HabiticaApi {
         method: 'POST',
       },
     );
+  };
+
+  /** When the user's day starts, the way Habitica's cron reads it. */
+  getDayPreferences = async (): Promise<DayPreferences> => {
+    const { preferences } = await this.request<{
+      preferences?: Partial<DayPreferences>;
+    }>('/user?userFields=preferences.dayStart,preferences.timezoneOffset', {
+      method: 'GET',
+    });
+
+    const toNumber = (value: unknown) =>
+      typeof value === 'number' && Number.isFinite(value) ? value : 0;
+
+    return {
+      dayStart: toNumber(preferences?.dayStart),
+      timezoneOffset: toNumber(preferences?.timezoneOffset),
+    };
   };
 
   getUserStats = () => {

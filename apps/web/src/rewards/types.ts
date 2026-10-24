@@ -56,6 +56,8 @@ export type Reward = {
   /** Only for triggers with a cooldown: when it last scored, as it was read. */
   cooldown?: { previousScoredAt: Date | null };
   direction: TaskDirection;
+  /** Only for triggers with a daily cap, which is claimed when rewarding. */
+  hasDailyCap?: true;
   task: HabiticaTask;
   times: number;
   triggerUuid: string;
@@ -68,6 +70,7 @@ export type RecipientRewards = {
 
 export type TriggerRule = {
   cooldownSeconds: null | number;
+  dailyCap: null | number;
   event: string;
   isActive: boolean;
   lastScoredAt: Date | null;
@@ -115,10 +118,13 @@ export type RewardDirectory = {
  */
 export type RewardSink = {
   /**
-   * Resolves to the triggers that scored at least once. Rejects with a
-   * `RewardDeliveryError` when not a single reward could be scored.
+   * Resolves to how often each trigger scored, leaving out triggers that
+   * scored nothing. Rejects with a `RewardDeliveryError` when not a single
+   * reward could be scored.
    */
-  apply: (recipientRewards: RecipientRewards) => Promise<string[]>;
+  apply: (
+    recipientRewards: RecipientRewards,
+  ) => Promise<Record<string, number>>;
 };
 
 /**
@@ -150,4 +156,24 @@ export type TriggerCooldowns = {
     claimedAt: Date,
     previousScoredAt: Date | null,
   ) => Promise<void>;
+};
+
+/**
+ * Which Habitica day it is for a recipient, the day their daily caps count
+ * towards.
+ */
+export type HabiticaDays = {
+  /** The recipient's current Habitica day, "YYYY-MM-DD". */
+  today: (credentials: UserCredentials, now: Date) => Promise<string>;
+};
+
+/**
+ * How often each trigger with a daily cap scored on a Habitica day. Claims
+ * wait for each other, so a cap is never overshot.
+ */
+export type TriggerCaps = {
+  /** Resolves to how many of `wanted` scores fit under the cap today. */
+  claim: (triggerUuid: string, day: string, wanted: number) => Promise<number>;
+  /** Gives back `count` unused scores claimed on `day`. */
+  release: (triggerUuid: string, day: string, count: number) => Promise<void>;
 };

@@ -1,19 +1,24 @@
 import logger from '@/lib/logger';
+import type { UserCredentials } from '@/types/habitica';
 
 import { RewardDeliveryError } from './RewardDeliveryError';
 import { evaluateRewards } from './rewardPolicy';
 import type {
+  HabiticaDays,
   Recipient,
   Reward,
   RewardableEvent,
   RewardDirectory,
   RewardLog,
   RewardSink,
+  TriggerCaps,
   TriggerCooldowns,
 } from './types';
 
 export type RewardDeps = {
+  caps: TriggerCaps;
   cooldowns: TriggerCooldowns;
+  days: HabiticaDays;
   directory: RewardDirectory;
   log: RewardLog;
   /** When the event is processed, which is when cooldowns start. */
@@ -26,13 +31,41 @@ type ClaimedCooldown = {
   triggerUuid: string;
 };
 
+type ClaimedCap = {
+  day: string;
+  granted: number;
+  triggerUuid: string;
+};
+
+/** Settles every claim, then fails with the first error, if any. */
+const settleClaims = async (claims: Promise<Reward[]>[]) => {
+  const results = await Promise.allSettled(claims);
+  const failed = results.find(result => result.status === 'rejected');
+
+  if (failed) {
+    throw failed.reason;
+  }
+
+  return results.flatMap(result =>
+    result.status === 'fulfilled' ? result.value : [],
+  );
+};
+
 /**
  * Rewards everyone who earned something with a GitHub event, and records it
  * in their history.
  */
 export const deliverRewards = async (
   event: RewardableEvent,
-  { cooldowns, directory, log, now = () => new Date(), sink }: RewardDeps,
+  {
+    caps,
+    cooldowns,
+    days,
+    directory,
+    log,
+    now = () => new Date(),
+    sink,
+  }: RewardDeps,
 ) => {
   // One moment for the whole delivery, so a claim can be released exactly
   const processedAt = now();
@@ -45,16 +78,32 @@ export const deliverRewards = async (
       ),
     );
 
+  /** Gives back the slots each trigger was granted but didn't score. */
+  const releaseCaps = (
+    grants: ClaimedCap[],
+    scored: Record<string, number> = {},
+  ) =>
+    Promise.all(
+      grants.flatMap(({ day, granted, triggerUuid }) => {
+        const unused = granted - (scored[triggerUuid] ?? 0);
+
+        return unused > 0 ? [caps.release(triggerUuid, day, unused)] : [];
+      }),
+    );
+
   /**
-   * Nothing was scored, so give back the cooldowns and the delivery. Each is
-   * given back even when the other fails, so a retry can still reward it.
+   * Nothing was scored, so give back the cooldowns, the cap slots and the
+   * delivery. Each is given back even when another fails, so a retry can
+   * still reward it.
    */
   const releaseEverything = async (
     claims: ClaimedCooldown[],
+    grants: ClaimedCap[],
     recipient: Recipient,
   ) => {
     const results = await Promise.allSettled([
       releaseCooldowns(claims),
+      releaseCaps(grants),
       log.release(event, recipient),
     ]);
 
@@ -68,81 +117,140 @@ export const deliverRewards = async (
     });
   };
 
+  /** Keeps the rewards whose cooldown is over, recording each claim. */
+  const claimCooldowns = (rewards: Reward[], claims: ClaimedCooldown[]) =>
+    settleClaims(
+      rewards.map(async reward => {
+        if (!reward.cooldown) {
+          return [reward];
+        }
+
+        const { previousScoredAt } = reward.cooldown;
+
+        // Another delivery may have scored it since it was read
+        if (
+          !(await cooldowns.claim(
+            reward.triggerUuid,
+            previousScoredAt,
+            processedAt,
+          ))
+        ) {
+          logger.info(
+            { trigger: reward.triggerUuid },
+            'Ignored: Trigger is cooling down.',
+          );
+
+          return [];
+        }
+
+        claims.push({ previousScoredAt, triggerUuid: reward.triggerUuid });
+
+        return [reward];
+      }),
+    );
+
+  /** Trims each reward to what fits under its daily cap, recording grants. */
+  const claimCaps = async (
+    rewards: Reward[],
+    credentials: UserCredentials,
+    grants: ClaimedCap[],
+  ) => {
+    if (!rewards.some(({ hasDailyCap }) => hasDailyCap)) {
+      return rewards;
+    }
+
+    const day = await days.today(credentials, processedAt);
+
+    return settleClaims(
+      rewards.map(async reward => {
+        if (!reward.hasDailyCap) {
+          return [reward];
+        }
+
+        const granted = await caps.claim(reward.triggerUuid, day, reward.times);
+
+        if (granted === 0) {
+          logger.info(
+            { trigger: reward.triggerUuid },
+            'Ignored: Trigger reached its daily cap.',
+          );
+
+          return [];
+        }
+
+        grants.push({ day, granted, triggerUuid: reward.triggerUuid });
+
+        return [{ ...reward, times: granted }];
+      }),
+    );
+  };
+
   const results = await Promise.allSettled(
     plan.map(async recipientRewards => {
-      const isClaimed = await log.claim(event, recipientRewards.recipient);
+      const { recipient } = recipientRewards;
+      const isClaimed = await log.claim(event, recipient);
 
       if (!isClaimed) {
         logger.info(
-          { user: recipientRewards.recipient.login },
+          { user: recipient.login },
           'Ignored: Delivery was already rewarded.',
         );
 
         return;
       }
 
-      const claims: ClaimedCooldown[] = [];
-      const claimResults = await Promise.allSettled(
-        recipientRewards.rewards.map(async (reward): Promise<Reward[]> => {
-          if (!reward.cooldown) {
-            return [reward];
-          }
+      let claims: ClaimedCooldown[] = [];
+      const grants: ClaimedCap[] = [];
+      let rewards: Reward[];
 
-          const { previousScoredAt } = reward.cooldown;
+      try {
+        rewards = await claimCaps(
+          await claimCooldowns(recipientRewards.rewards, claims),
+          recipient.credentials,
+          grants,
+        );
 
-          // Another delivery may have scored it since it was read
-          if (
-            !(await cooldowns.claim(
-              reward.triggerUuid,
-              previousScoredAt,
-              processedAt,
-            ))
-          ) {
-            logger.info(
-              { trigger: reward.triggerUuid },
-              'Ignored: Trigger is cooling down.',
-            );
+        // A trigger stopped by its cap won't score, so it hasn't earned its rest
+        const kept = new Set(rewards.map(({ triggerUuid }) => triggerUuid));
+        const stopped = claims.filter(
+          ({ triggerUuid }) => !kept.has(triggerUuid),
+        );
 
-            return [];
-          }
+        await releaseCooldowns(stopped);
+        claims = claims.filter(claim => !stopped.includes(claim));
+      } catch (error) {
+        // Every claim has settled, so the ones that succeeded can be given back
+        await releaseEverything(claims, grants, recipient);
 
-          claims.push({ previousScoredAt, triggerUuid: reward.triggerUuid });
+        if (error instanceof RewardDeliveryError && !error.isRetryable) {
+          logger.warn(
+            { user: recipient.login },
+            'Ignored: Habitica refused to say when the day starts, trying again would not help.',
+          );
 
-          return [reward];
-        }),
-      );
-      const failedClaim = claimResults.find(
-        result => result.status === 'rejected',
-      );
+          return;
+        }
 
-      // Every claim has settled, so the ones that succeeded can be given back
-      if (failedClaim) {
-        await releaseEverything(claims, recipientRewards.recipient);
-
-        throw failedClaim.reason;
+        throw error;
       }
 
-      const rewards = claimResults.flatMap(result =>
-        result.status === 'fulfilled' ? result.value : [],
-      );
-
       if (rewards.length === 0) {
-        await log.release(event, recipientRewards.recipient);
+        await log.release(event, recipient);
 
         return;
       }
 
-      let scoredTriggerUuids: string[];
+      let scored: Record<string, number>;
 
       try {
-        scoredTriggerUuids = await sink.apply({ ...recipientRewards, rewards });
+        scored = await sink.apply({ ...recipientRewards, rewards });
       } catch (error) {
         // Nothing was scored, so don't show it as rewarded
-        await releaseEverything(claims, recipientRewards.recipient);
+        await releaseEverything(claims, grants, recipient);
 
         if (error instanceof RewardDeliveryError && !error.isRetryable) {
           logger.warn(
-            { user: recipientRewards.recipient.login },
+            { user: recipient.login },
             'Ignored: Habitica refused every reward, trying again would not help.',
           );
 
@@ -153,12 +261,14 @@ export const deliverRewards = async (
         throw error;
       }
 
-      // A trigger that scored nothing hasn't earned its rest
-      await releaseCooldowns(
-        claims.filter(
-          ({ triggerUuid }) => !scoredTriggerUuids.includes(triggerUuid),
+      // A trigger that scored nothing hasn't earned its rest, and slots it
+      // didn't use are free again
+      await Promise.all([
+        releaseCooldowns(
+          claims.filter(({ triggerUuid }) => !scored[triggerUuid]),
         ),
-      );
+        releaseCaps(grants, scored),
+      ]);
     }),
   );
 

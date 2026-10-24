@@ -11,6 +11,9 @@ const TASK_PRIORITIES = new Set<number>([
   TaskPriority.CRITICAL,
 ]);
 
+/** The most a trigger can score in a Habitica day. */
+export const MAX_DAILY_CAP = 1000;
+
 export const UNKNOWN_REPOSITORY_ERROR =
   'Please only select repositories you added Octogriffin to.';
 
@@ -28,6 +31,18 @@ export const triggerSchema = z
       )
       .optional(),
     cooldownUnit: z.enum(cooldownUnits).optional(),
+    // An empty field means no cap
+    dailyCap: z
+      .preprocess(
+        value => (value === '' ? undefined : value),
+        z.coerce
+          .number()
+          .int('Please use a whole number.')
+          .positive('Please use a number above 0.')
+          .max(MAX_DAILY_CAP, 'Please keep the daily cap to 1,000 or less.')
+          .optional(),
+      )
+      .optional(),
     event: z
       .string()
       .min(1, 'Please select a trigger event')

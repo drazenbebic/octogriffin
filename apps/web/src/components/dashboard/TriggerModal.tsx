@@ -149,6 +149,7 @@ const cooldownToValues = (cooldownSeconds: null | number) => {
 
 const triggerToValues = (trigger: TriggerWithRepos): TriggerSchema => ({
   ...cooldownToValues(trigger.cooldownSeconds),
+  dailyCap: trigger.dailyCap ?? undefined,
   event: trigger.event,
   repositories: trigger.repositories.map(({ uuid }) => uuid),
   scoreDirection: trigger.scoreDirection as TriggerSchema['scoreDirection'],
@@ -382,6 +383,16 @@ export const TriggerModal: FC<TriggerModalProps> = ({
             options={cooldownUnitOptions}
           />
         </div>
+        {/* As wide as the cooldown amount, so the two numbers line up */}
+        <FormInput
+          description="The most this trigger can score in a Habitica day. Leave empty for no cap."
+          inputClassName="sm:w-32"
+          label="Daily cap"
+          min={1}
+          name="dailyCap"
+          placeholder="No cap"
+          type="number"
+        />
       </fieldset>
 
       <DisclosureProvider>

@@ -118,7 +118,7 @@ describe('habiticaRewardSink', () => {
       habiticaRewardSink.apply(
         recipientRewards([reward('Code'), reward('Review')]),
       ),
-    ).resolves.toEqual(['Code', 'Review']);
+    ).resolves.toEqual({ Code: 1, Review: 1 });
   });
 
   it('leaves out triggers that failed', async () => {
@@ -128,7 +128,7 @@ describe('habiticaRewardSink', () => {
       habiticaRewardSink.apply(
         recipientRewards([reward('Code'), reward('Review')]),
       ),
-    ).resolves.toEqual(['Code']);
+    ).resolves.toEqual({ Code: 1 });
   });
 
   it('reports a trigger that scored only partly', async () => {
@@ -140,6 +140,14 @@ describe('habiticaRewardSink', () => {
 
     await expect(
       habiticaRewardSink.apply(recipientRewards([reward('Code', 3)])),
-    ).resolves.toEqual(['Code']);
+    ).resolves.toEqual({ Code: 1 });
+  });
+
+  it('counts every time a trigger scored', async () => {
+    mockHabitica([]);
+
+    await expect(
+      habiticaRewardSink.apply(recipientRewards([reward('Code', 3)])),
+    ).resolves.toEqual({ Code: 3 });
   });
 });

@@ -57,6 +57,75 @@ describe('describeTrigger', () => {
     );
   });
 
+  const pushTrigger = {
+    event: 'push',
+    scoreDirection: 'up',
+    taskAttribute: 'str',
+    taskFrequency: 'daily',
+    taskPriority: 1,
+    taskTitle: 'Write code',
+  } as const;
+  const oneRepo = { repoNames: ['octogriffin'], totalRepos: 1 };
+
+  it('says how often the trigger may score a day', () => {
+    expect(
+      toText(describeTrigger({ ...pushTrigger, dailyCap: 10 }, oneRepo)),
+    ).toMatch(/The counter resets daily\. It scores at most 10 times a day\.$/);
+  });
+
+  it('says "once" for a cap of 1', () => {
+    expect(
+      toText(describeTrigger({ ...pushTrigger, dailyCap: 1 }, oneRepo)),
+    ).toMatch(/It scores at most once a day\.$/);
+  });
+
+  it('puts the cap after the cooldown', () => {
+    expect(
+      toText(
+        describeTrigger(
+          {
+            ...pushTrigger,
+            cooldownAmount: 10,
+            cooldownUnit: 'minutes',
+            dailyCap: 3,
+          },
+          oneRepo,
+        ),
+      ),
+    ).toMatch(
+      /After scoring, it rests for 10 minutes\. It scores at most 3 times a day\.$/,
+    );
+  });
+
+  it.each(['-5', '1.5', '0'])(
+    'says nothing about resting for a cooldown of %s',
+    cooldownAmount => {
+      expect(
+        toText(
+          describeTrigger(
+            {
+              ...pushTrigger,
+              cooldownAmount: cooldownAmount as unknown as number,
+              cooldownUnit: 'minutes',
+            },
+            oneRepo,
+          ),
+        ),
+      ).not.toMatch(/rests/);
+    },
+  );
+
+  it.each(['-3', '1.5', '1001'])('says nothing about a cap of %s', dailyCap => {
+    expect(
+      toText(
+        describeTrigger(
+          { ...pushTrigger, dailyCap: dailyCap as unknown as number },
+          oneRepo,
+        ),
+      ),
+    ).not.toMatch(/at most/);
+  });
+
   it('says how long the trigger rests', () => {
     const parts = describeTrigger(
       {

@@ -23,6 +23,7 @@ export async function createTriggerAction(data: TriggerSchema) {
         trigger.cooldownAmount,
         trigger.cooldownUnit,
       ),
+      dailyCap: trigger.dailyCap ?? null,
       event: trigger.event,
       githubUserId: githubUser.id,
       isActive: true,

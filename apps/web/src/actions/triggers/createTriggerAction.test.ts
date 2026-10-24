@@ -88,4 +88,24 @@ describe('createTriggerAction', () => {
       expect.objectContaining({ cooldownSeconds: null }),
     );
   });
+
+  it('saves the daily cap', async () => {
+    mockOwnsRepositories.mockResolvedValue(true);
+
+    await createTriggerAction({ ...trigger, dailyCap: 10 });
+
+    expect(mockCreateTrigger).toHaveBeenCalledWith(
+      expect.objectContaining({ dailyCap: 10 }),
+    );
+  });
+
+  it('saves no daily cap when the field is empty', async () => {
+    mockOwnsRepositories.mockResolvedValue(true);
+
+    await createTriggerAction(trigger);
+
+    expect(mockCreateTrigger).toHaveBeenCalledWith(
+      expect.objectContaining({ dailyCap: null }),
+    );
+  });
 });

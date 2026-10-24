@@ -78,4 +78,22 @@ describe('updateTriggerAction', () => {
     expect(result.success).toBe(false);
     expect(mockUpdateTrigger).not.toHaveBeenCalled();
   });
+
+  it('saves the daily cap', async () => {
+    await updateTriggerAction('trigger-uuid', { ...trigger, dailyCap: 10 });
+
+    expect(mockUpdateTrigger).toHaveBeenCalledWith(
+      { id: BigInt(3) },
+      expect.objectContaining({ dailyCap: 10 }),
+    );
+  });
+
+  it('saves no daily cap when the field is empty', async () => {
+    await updateTriggerAction('trigger-uuid', trigger);
+
+    expect(mockUpdateTrigger).toHaveBeenCalledWith(
+      { id: BigInt(3) },
+      expect.objectContaining({ dailyCap: null }),
+    );
+  });
 });

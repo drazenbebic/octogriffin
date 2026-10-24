@@ -3,6 +3,7 @@
 import type { FC } from 'react';
 
 import {
+  Calendar03Icon,
   Delete02Icon,
   Edit02Icon,
   MoreVerticalIcon,
@@ -84,6 +85,18 @@ export const TriggerRow: FC<TriggerRowProps> = ({
               >
                 <HugeiconsIcon icon={Timer02Icon} size={12} />
                 {formatCooldown(trigger.cooldownSeconds, 'short')} cooldown
+              </Chip>
+            )}
+            {!!trigger.dailyCap && (
+              <Chip
+                className={cn(
+                  'shrink-0 gap-1 text-[11px]',
+                  !trigger.isActive && 'opacity-55',
+                )}
+                tone="neutral"
+              >
+                <HugeiconsIcon icon={Calendar03Icon} size={12} />
+                {trigger.dailyCap}/day
               </Chip>
             )}
           </span>

@@ -184,8 +184,9 @@ const gameplay: FAQ[] = [
       <Content>
         A single push rewards each trigger at most 10 times, no matter how many
         commits it contains. You can also give a trigger a cooldown, so it rests
-        for a while after it scores. Beyond that, we operate on the &quot;honor
-        system.&quot; Daily caps and spam detection come next in the{' '}
+        for a while after it scores. A daily cap sets the most a trigger can
+        score in a Habitica day. Beyond that, we operate on the &quot;honor
+        system.&quot; Spam detection comes next in the{' '}
         <Link href="/roadmap">Anti-Cheese</Link> update, to help keep you
         honest.
       </Content>

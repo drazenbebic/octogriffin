@@ -3,6 +3,7 @@ import { TaskDirection } from '@/enums/habitica';
 import { deliverRewards } from './deliverRewards';
 import { RewardDeliveryError } from './RewardDeliveryError';
 import type {
+  HabiticaDays,
   InstallationStatus,
   LinkedUser,
   RecipientRewards,
@@ -10,6 +11,7 @@ import type {
   RewardDirectory,
   RewardLog,
   RewardSink,
+  TriggerCaps,
   TriggerCooldowns,
   TriggerRule,
 } from './types';
@@ -29,6 +31,7 @@ const REPOSITORY_ID = 200;
 
 const makeTrigger = (overrides: Partial<TriggerRule> = {}): TriggerRule => ({
   cooldownSeconds: null,
+  dailyCap: null,
   event: 'push',
   isActive: true,
   lastScoredAt: null,
@@ -89,7 +92,12 @@ const recordingSink = () => {
     apply: async recipientRewards => {
       applied.push(recipientRewards);
 
-      return recipientRewards.rewards.map(({ triggerUuid }) => triggerUuid);
+      return Object.fromEntries(
+        recipientRewards.rewards.map(({ times, triggerUuid }) => [
+          triggerUuid,
+          times,
+        ]),
+      );
     },
   };
 
@@ -183,6 +191,72 @@ const inMemoryCooldowns = (users: LinkedUser[]) => {
   return { cooldowns, released };
 };
 
+// Triggers without a daily cap never look up the day or claim a cap
+const noCaps: TriggerCaps = {
+  claim: async () => {
+    throw new Error('Only triggers with a daily cap are claimed.');
+  },
+  release: async () => {
+    throw new Error('Only triggers with a daily cap are released.');
+  },
+};
+
+const noDays: HabiticaDays = {
+  today: async () => {
+    throw new Error('Only triggers with a daily cap need the Habitica day.');
+  },
+};
+
+/** Counts scores per trigger and day, against the users' own `dailyCap`. */
+const inMemoryCaps = (users: LinkedUser[]) => {
+  const counts = new Map<string, { count: number; day: string }>();
+  const released: { count: number; uuid: string }[] = [];
+  const findCap = (uuid: string) =>
+    users.flatMap(({ triggers }) => triggers).find(t => t.uuid === uuid)
+      ?.dailyCap ?? null;
+
+  const caps: TriggerCaps = {
+    claim: async (uuid, day, wanted) => {
+      const cap = findCap(uuid);
+      const current = counts.get(uuid);
+      const used = current?.day === day ? current.count : 0;
+      const granted =
+        cap === null ? wanted : Math.max(0, Math.min(wanted, cap - used));
+
+      if (granted > 0) {
+        counts.set(uuid, { count: used + granted, day });
+      }
+
+      return granted;
+    },
+    release: async (uuid, day, count) => {
+      released.push({ count, uuid });
+
+      const current = counts.get(uuid);
+
+      if (current?.day === day && current.count >= count) {
+        counts.set(uuid, { count: current.count - count, day });
+      }
+    },
+  };
+
+  return { caps, released };
+};
+
+/** A Habitica day that tests can move forward, counting lookups. */
+const settableDays = (initialDay: string) => {
+  const state = { day: initialDay, lookups: 0 };
+  const days: HabiticaDays = {
+    today: async () => {
+      state.lookups++;
+
+      return state.day;
+    },
+  };
+
+  return { days, state };
+};
+
 describe('deliverRewards', () => {
   it('rewards a commit author once per commit', async () => {
     const { applied, sink } = recordingSink();
@@ -191,7 +265,9 @@ describe('deliverRewards', () => {
     await deliverRewards(
       makeEvent({ contributions: [{ actor: { login: 'octocat' }, count: 3 }] }),
       {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory: inMemoryDirectory([makeUser()]),
         log,
         sink,
@@ -226,7 +302,9 @@ describe('deliverRewards', () => {
         contributions: [{ actor: { login: 'octocat' }, count: 250 }],
       }),
       {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory: inMemoryDirectory([makeUser()]),
         log,
         sink,
@@ -248,7 +326,9 @@ describe('deliverRewards', () => {
           contributions: [{ actor: { login: 'octocat' }, count: 5 }],
         }),
         {
+          caps: noCaps,
           cooldowns: noCooldowns,
+          days: noDays,
           directory: inMemoryDirectory([makeUser()]),
           log,
           sink,
@@ -276,7 +356,9 @@ describe('deliverRewards', () => {
         name: 'pull_request.closed',
       }),
       {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory: inMemoryDirectory([user]),
         log,
         sink,
@@ -301,7 +383,9 @@ describe('deliverRewards', () => {
     });
 
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([user]),
       log,
       sink,
@@ -323,7 +407,9 @@ describe('deliverRewards', () => {
     });
 
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([user]),
       log,
       sink,
@@ -349,7 +435,9 @@ describe('deliverRewards', () => {
     const { log } = recordingLog();
 
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([makeUser()], status),
       log,
       sink,
@@ -364,7 +452,9 @@ describe('deliverRewards', () => {
     const stranger = makeUser({ installationIds: [999] });
 
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([stranger]),
       log,
       sink,
@@ -379,7 +469,9 @@ describe('deliverRewards', () => {
     const owner = makeUser({ installationIds: [999, INSTALLATION_ID] });
 
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([owner]),
       log,
       sink,
@@ -393,7 +485,9 @@ describe('deliverRewards', () => {
     const { log } = recordingLog();
 
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([makeUser({ triggers: [] })]),
       log,
       sink,
@@ -415,7 +509,9 @@ describe('deliverRewards', () => {
         name: 'pull_request.closed',
       }),
       {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory: inMemoryDirectory([user]),
         log,
         sink,
@@ -436,7 +532,9 @@ describe('deliverRewards', () => {
     const { log, recorded } = recordingLog();
 
     await deliverRewards(makeEvent({ name: 'star.created' }), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([makeUser()]),
       log,
       sink,
@@ -449,7 +547,9 @@ describe('deliverRewards', () => {
     const { applied, sink } = recordingSink();
     const { log, recorded } = recordingLog();
     const deps = {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory: inMemoryDirectory([makeUser()]),
       log,
       sink,
@@ -467,7 +567,9 @@ describe('deliverRewards', () => {
 
     await expect(
       deliverRewards(makeEvent(), {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory: inMemoryDirectory([makeUser()]),
         log,
         sink: failingSink(),
@@ -482,7 +584,9 @@ describe('deliverRewards', () => {
 
     await expect(
       deliverRewards(makeEvent(), {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory: inMemoryDirectory([makeUser()]),
         log,
         sink: failingSink(false),
@@ -499,14 +603,18 @@ describe('deliverRewards', () => {
 
     await expect(
       deliverRewards(makeEvent(), {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory,
         log,
         sink: failingSink(),
       }),
     ).rejects.toThrow();
     await deliverRewards(makeEvent(), {
+      caps: noCaps,
       cooldowns: noCooldowns,
+      days: noDays,
       directory,
       log,
       sink,
@@ -537,7 +645,9 @@ describe('deliverRewards with cooldowns', () => {
       [1, 'delivery-2'],
     ] as const) {
       await deliverRewards(push(id, 1), {
+        caps: noCaps,
         cooldowns: noCooldowns,
+        days: noDays,
         directory,
         log,
         now: () => at(minute),
@@ -558,7 +668,9 @@ describe('deliverRewards with cooldowns', () => {
     const directory = inMemoryDirectory(users);
     const pushAt = (minute: number, commits: number) =>
       deliverRewards(push(`delivery-${minute}`, commits), {
+        caps: noCaps,
         cooldowns,
+        days: noDays,
         directory,
         log,
         now: () => at(minute),
@@ -589,7 +701,9 @@ describe('deliverRewards with cooldowns', () => {
 
     for (const minute of [0, 9]) {
       await deliverRewards(push(`delivery-${minute}`, 1), {
+        caps: noCaps,
         cooldowns,
+        days: noDays,
         directory,
         log,
         now: () => at(minute),
@@ -609,7 +723,9 @@ describe('deliverRewards with cooldowns', () => {
     const { cooldowns } = inMemoryCooldowns(users);
 
     await deliverRewards(push('delivery-1', 1), {
+      caps: noCaps,
       cooldowns,
+      days: noDays,
       directory: inMemoryDirectory(users),
       log,
       now: () => at(0),
@@ -634,7 +750,9 @@ describe('deliverRewards with cooldowns', () => {
     const { cooldowns } = inMemoryCooldowns(users);
 
     await deliverRewards(push('delivery-1', 1), {
+      caps: noCaps,
       cooldowns,
+      days: noDays,
       directory: inMemoryDirectory(users),
       log,
       now: () => at(5),
@@ -655,7 +773,9 @@ describe('deliverRewards with cooldowns', () => {
     const { log, recorded } = recordingLog();
 
     await deliverRewards(push('delivery-1', 1), {
+      caps: noCaps,
       cooldowns: { claim: async () => false, release: async () => {} },
+      days: noDays,
       directory: inMemoryDirectory(users),
       log,
       now: () => at(0),
@@ -674,11 +794,13 @@ describe('deliverRewards with cooldowns', () => {
     const { cooldowns, released } = inMemoryCooldowns(users);
 
     await deliverRewards(push('delivery-1', 1), {
+      caps: noCaps,
       cooldowns,
+      days: noDays,
       directory: inMemoryDirectory(users),
       log,
       now: () => at(0),
-      sink: { apply: async () => ['trigger-2'] },
+      sink: { apply: async () => ({ 'trigger-2': 1 }) },
     });
 
     expect(released).toEqual(['trigger-1']);
@@ -695,7 +817,9 @@ describe('deliverRewards with cooldowns', () => {
 
     await expect(
       deliverRewards(push('delivery-1', 1), {
+        caps: noCaps,
         cooldowns,
+        days: noDays,
         directory: inMemoryDirectory(users),
         log,
         now: () => at(0),
@@ -717,6 +841,7 @@ describe('deliverRewards with cooldowns', () => {
 
     await expect(
       deliverRewards(push('delivery-1', 1), {
+        caps: noCaps,
         cooldowns: {
           ...cooldowns,
           claim: async (uuid, previousScoredAt, now) => {
@@ -727,6 +852,7 @@ describe('deliverRewards with cooldowns', () => {
             return cooldowns.claim(uuid, previousScoredAt, now);
           },
         },
+        days: noDays,
         directory: inMemoryDirectory(users),
         log,
         now: () => at(0),
@@ -748,12 +874,14 @@ describe('deliverRewards with cooldowns', () => {
 
     await expect(
       deliverRewards(push('delivery-1', 1), {
+        caps: noCaps,
         cooldowns: {
           ...cooldowns,
           release: async () => {
             throw new Error('Database is down');
           },
         },
+        days: noDays,
         directory: inMemoryDirectory(users),
         log,
         now: () => at(0),
@@ -763,6 +891,200 @@ describe('deliverRewards with cooldowns', () => {
       errors: [expect.any(RewardDeliveryError)],
     });
 
+    expect(recorded).toHaveLength(0);
+  });
+});
+
+describe('deliverRewards with daily caps', () => {
+  const at = (minutes: number) => new Date(Date.UTC(2026, 9, 24, 10, minutes));
+  const push = (id: string, count: number) =>
+    makeEvent({
+      contributions: [{ actor: { login: 'octocat' }, count }],
+      delivery: { hookId: 'hook-1', id, signature: 'sha256=abc' },
+    });
+
+  const setUp = (triggers: TriggerRule[]) => {
+    const users = [makeUser({ triggers })];
+    const recording = recordingSink();
+    const logs = recordingLog();
+    const { cooldowns } = inMemoryCooldowns(users);
+    const capStore = inMemoryCaps(users);
+    const dayStore = settableDays('2026-10-24');
+    let deliveries = 0;
+
+    const pushAt = (minute: number, commits: number, sink?: RewardSink) =>
+      deliverRewards(push(`delivery-${deliveries++}`, commits), {
+        caps: capStore.caps,
+        cooldowns,
+        days: dayStore.days,
+        directory: inMemoryDirectory(users),
+        log: logs.log,
+        now: () => at(minute),
+        sink: sink ?? recording.sink,
+      });
+
+    return { ...recording, ...logs, capStore, dayStore, pushAt };
+  };
+
+  const timesApplied = (applied: RecipientRewards[]) =>
+    applied.map(({ rewards }) => rewards.map(({ times }) => times));
+
+  it('stops a trigger at its daily cap', async () => {
+    const { applied, pushAt } = setUp([makeTrigger({ dailyCap: 10 })]);
+
+    await pushAt(0, 7);
+    await pushAt(1, 5);
+    await pushAt(2, 4);
+
+    expect(timesApplied(applied)).toEqual([[7], [3]]);
+  });
+
+  it('starts again on a new Habitica day', async () => {
+    const { applied, dayStore, pushAt } = setUp([makeTrigger({ dailyCap: 2 })]);
+
+    await pushAt(0, 2);
+    await pushAt(1, 2);
+    dayStore.state.day = '2026-10-25';
+    await pushAt(2, 2);
+
+    expect(timesApplied(applied)).toEqual([[2], [2]]);
+  });
+
+  it('gives back cap slots that were not scored', async () => {
+    const { capStore, pushAt } = setUp([makeTrigger({ dailyCap: 10 })]);
+
+    await pushAt(0, 7, { apply: async () => ({ 'trigger-1': 3 }) });
+
+    expect(capStore.released).toEqual([{ count: 4, uuid: 'trigger-1' }]);
+  });
+
+  it("doesn't start a cooldown when the cap is reached", async () => {
+    const trigger = makeTrigger({ cooldownSeconds: 600, dailyCap: 1 });
+    const { applied, pushAt } = setUp([trigger]);
+
+    await pushAt(0, 1);
+    await pushAt(20, 1);
+
+    expect(applied).toHaveLength(1);
+    expect(trigger.lastScoredAt).toEqual(at(0));
+  });
+
+  it('looks up the Habitica day once per recipient', async () => {
+    const { dayStore, pushAt } = setUp([
+      makeTrigger({ dailyCap: 5 }),
+      makeTrigger({ dailyCap: 5, uuid: 'trigger-2' }),
+    ]);
+
+    await pushAt(0, 1);
+
+    expect(dayStore.state.lookups).toBe(1);
+  });
+
+  it('never looks up the day for triggers without a cap', async () => {
+    const { applied, sink } = recordingSink();
+    const { log } = recordingLog();
+
+    await deliverRewards(push('delivery-1', 1), {
+      caps: noCaps,
+      cooldowns: noCooldowns,
+      days: noDays,
+      directory: inMemoryDirectory([makeUser()]),
+      log,
+      now: () => at(0),
+      sink,
+    });
+
+    expect(applied).toHaveLength(1);
+  });
+
+  it('gives everything back when the Habitica day cannot be looked up', async () => {
+    const trigger = makeTrigger({ cooldownSeconds: 600, dailyCap: 5 });
+    const users = [makeUser({ triggers: [trigger] })];
+    const { log, recorded } = recordingLog();
+    const { cooldowns } = inMemoryCooldowns(users);
+
+    await expect(
+      deliverRewards(push('delivery-1', 1), {
+        caps: noCaps,
+        cooldowns,
+        days: {
+          today: async () => {
+            throw new Error('Habitica is down');
+          },
+        },
+        directory: inMemoryDirectory(users),
+        log,
+        now: () => at(0),
+        sink: recordingSink().sink,
+      }),
+    ).rejects.toThrow('Some rewards could not be delivered.');
+
+    expect(trigger.lastScoredAt).toBeNull();
+    expect(recorded).toHaveLength(0);
+  });
+
+  it('gives everything back when a cap cannot be claimed', async () => {
+    const users = [
+      makeUser({
+        triggers: [
+          makeTrigger({ dailyCap: 5 }),
+          makeTrigger({ dailyCap: 5, uuid: 'trigger-2' }),
+        ],
+      }),
+    ];
+    const { applied, sink } = recordingSink();
+    const { log, recorded } = recordingLog();
+    const { caps, released } = inMemoryCaps(users);
+
+    await expect(
+      deliverRewards(push('delivery-1', 1), {
+        caps: {
+          ...caps,
+          claim: async (uuid, day, wanted) => {
+            if (uuid === 'trigger-2') {
+              throw new Error('Database is down');
+            }
+
+            return caps.claim(uuid, day, wanted);
+          },
+        },
+        cooldowns: noCooldowns,
+        days: settableDays('2026-10-24').days,
+        directory: inMemoryDirectory(users),
+        log,
+        now: () => at(0),
+        sink,
+      }),
+    ).rejects.toThrow('Some rewards could not be delivered.');
+
+    expect(applied).toHaveLength(0);
+    expect(released).toEqual([{ count: 1, uuid: 'trigger-1' }]);
+    expect(recorded).toHaveLength(0);
+  });
+
+  it("doesn't retry when the Habitica day can never be looked up", async () => {
+    const trigger = makeTrigger({ cooldownSeconds: 600, dailyCap: 5 });
+    const users = [makeUser({ triggers: [trigger] })];
+    const { log, recorded } = recordingLog();
+    const { cooldowns } = inMemoryCooldowns(users);
+
+    await expect(
+      deliverRewards(push('delivery-1', 1), {
+        caps: noCaps,
+        cooldowns,
+        days: {
+          today: async () => {
+            throw new RewardDeliveryError([new Error('Unauthorized')], false);
+          },
+        },
+        directory: inMemoryDirectory(users),
+        log,
+        now: () => at(0),
+        sink: recordingSink().sink,
+      }),
+    ).resolves.toBeUndefined();
+
+    expect(trigger.lastScoredAt).toBeNull();
     expect(recorded).toHaveLength(0);
   });
 });

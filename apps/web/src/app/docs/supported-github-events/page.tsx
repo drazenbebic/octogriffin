@@ -36,7 +36,8 @@ export default function DocsSupportedGithubEventsPage() {
             <strong>Pushes</strong> score once for every commit you wrote in
             that push. Commits by bots are skipped, and a single push scores at
             most 10 times. A trigger with a cooldown skips every push until its
-            cooldown has passed.
+            cooldown has passed. A daily cap stops a trigger once it has scored
+            that many times in your Habitica day.
           </Content>
           <Content as="li">
             <strong>Every other event</strong> scores once, when you are the

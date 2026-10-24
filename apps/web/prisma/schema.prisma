@@ -104,6 +104,9 @@ model Triggers {
   scoreDirection  Direction                    @default(up) @map("score_direction")
   cooldownSeconds Int?                         @map("cooldown_seconds")
   lastScoredAt    DateTime?                    @map("last_scored_at")
+  dailyCap        Int?                         @map("daily_cap")
+  capDay          String?                      @map("cap_day") @db.VarChar(10)
+  capCount        Int                          @default(0) @map("cap_count")
   createdAt       DateTime                     @default(now()) @map("created_at")
   updatedAt       DateTime                     @updatedAt @map("updated_at")
 

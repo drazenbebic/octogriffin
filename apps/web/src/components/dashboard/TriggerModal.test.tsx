@@ -43,9 +43,13 @@ const isDisabled = (button: HTMLElement) =>
   button.getAttribute('aria-disabled') === 'true' ||
   (button as HTMLButtonElement).disabled;
 
-const savedTrigger = (cooldownSeconds: null | number) =>
+const savedTrigger = (
+  cooldownSeconds: null | number,
+  dailyCap: null | number = null,
+) =>
   ({
     cooldownSeconds,
+    dailyCap,
     event: 'push',
     isActive: true,
     repositories: [{ uuid: 'uuid-octogriffin' }],
@@ -221,6 +225,46 @@ describe('TriggerModal', () => {
             cooldownAmount: 10,
             cooldownUnit: 'minutes',
           }),
+        ),
+      );
+    });
+  });
+
+  describe('daily cap', () => {
+    const dailyCapInput = () =>
+      screen.getByPlaceholderText('No cap') as HTMLInputElement;
+
+    beforeEach(() => {
+      mockRepositories = [repo('octogriffin')];
+      mockUpdateTrigger.mockReset();
+    });
+
+    it('shows the daily cap of a trigger you edit', () => {
+      renderModal({ trigger: savedTrigger(null, 10) });
+
+      expect(dailyCapInput().value).toBe('10');
+    });
+
+    it('explains a daily cap that is too high', async () => {
+      renderModal({ trigger: savedTrigger(null) });
+
+      fireEvent.change(dailyCapInput(), { target: { value: '1001' } });
+      fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+
+      await screen.findByText('Please keep the daily cap to 1,000 or less.');
+      expect(mockUpdateTrigger).not.toHaveBeenCalled();
+    });
+
+    it('saves a trigger with a daily cap', async () => {
+      renderModal({ trigger: savedTrigger(null) });
+
+      fireEvent.change(dailyCapInput(), { target: { value: '5' } });
+      fireEvent.click(screen.getByRole('button', { name: 'Save changes' }));
+
+      await waitFor(() =>
+        expect(mockUpdateTrigger).toHaveBeenCalledWith(
+          'trigger-uuid',
+          expect.objectContaining({ dailyCap: 5 }),
         ),
       );
     });

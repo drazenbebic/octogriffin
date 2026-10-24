@@ -1,23 +1,11 @@
 import PQueue from 'p-queue';
 
 import { TaskType } from '@/enums/habitica';
-import HabiticaApi, { HabiticaApiError } from '@/lib/HabiticaApi';
+import HabiticaApi from '@/lib/HabiticaApi';
 import logger from '@/lib/logger';
 
-import { RewardDeliveryError } from './RewardDeliveryError';
+import { isRetryable, RewardDeliveryError } from './RewardDeliveryError';
 import type { RewardSink } from './types';
-
-const TOO_MANY_REQUESTS = 429;
-const SERVER_ERROR = 500;
-
-/**
- * Habitica refusing a request, e.g. for a wrong API token, won't change by
- * trying again. Everything else, like Habitica being down, might.
- */
-const isRetryable = (error: unknown) =>
-  !(error instanceof HabiticaApiError) ||
-  error.status === TOO_MANY_REQUESTS ||
-  error.status >= SERVER_ERROR;
 
 export const habiticaRewardSink: RewardSink = {
   apply: async ({ recipient, rewards }) => {
@@ -28,7 +16,7 @@ export const habiticaRewardSink: RewardSink = {
 
     const queue = new PQueue({ concurrency: 4 });
     const errors: unknown[] = [];
-    const scoredTriggerUuids = new Set<string>();
+    const scored: Record<string, number> = {};
 
     await queue.addAll(
       rewards.map(reward => async () => {
@@ -46,7 +34,7 @@ export const habiticaRewardSink: RewardSink = {
           // Score sequentially to ensure reliability
           for (let i = 0; i < reward.times; i++) {
             await habiticaApi.scoreTask(task.id, reward.direction);
-            scoredTriggerUuids.add(reward.triggerUuid);
+            scored[reward.triggerUuid] = (scored[reward.triggerUuid] ?? 0) + 1;
           }
 
           logger.info(
@@ -69,13 +57,10 @@ export const habiticaRewardSink: RewardSink = {
     );
 
     // Partly scored rewards aren't retried, that would score some of them twice
-    if (scoredTriggerUuids.size === 0 && errors.length > 0) {
+    if (Object.keys(scored).length === 0 && errors.length > 0) {
       throw new RewardDeliveryError(errors, errors.some(isRetryable));
     }
 
-    // In reward order, as the queue finishes them in any order
-    return rewards
-      .map(({ triggerUuid }) => triggerUuid)
-      .filter(triggerUuid => scoredTriggerUuids.has(triggerUuid));
+    return scored;
   },
 };

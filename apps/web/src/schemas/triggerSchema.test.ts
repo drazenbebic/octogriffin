@@ -149,3 +149,47 @@ describe('triggerSchema cooldown', () => {
     ).toBe(false);
   });
 });
+
+describe('triggerSchema daily cap', () => {
+  it.each([undefined, ''])('accepts an empty cap (%p) as no cap', dailyCap => {
+    const result = triggerSchema.safeParse({ ...validTrigger, dailyCap });
+
+    expect(result.success).toBe(true);
+    expect(result.data?.dailyCap).toBeUndefined();
+  });
+
+  it('coerces the cap from the form', () => {
+    const result = triggerSchema.safeParse({ ...validTrigger, dailyCap: '10' });
+
+    expect(result.data?.dailyCap).toBe(10);
+  });
+
+  it.each([
+    ['0', 'Please use a number above 0.'],
+    ['-3', 'Please use a number above 0.'],
+    ['1.5', 'Please use a whole number.'],
+  ])('rejects %s', (dailyCap, message) => {
+    const result = triggerSchema.safeParse({ ...validTrigger, dailyCap });
+
+    expect(result.error?.issues).toEqual([
+      expect.objectContaining({ message, path: ['dailyCap'] }),
+    ]);
+  });
+
+  it('accepts 1,000', () => {
+    expect(
+      triggerSchema.safeParse({ ...validTrigger, dailyCap: 1000 }).success,
+    ).toBe(true);
+  });
+
+  it('rejects 1,001', () => {
+    const result = triggerSchema.safeParse({ ...validTrigger, dailyCap: 1001 });
+
+    expect(result.error?.issues).toEqual([
+      expect.objectContaining({
+        message: 'Please keep the daily cap to 1,000 or less.',
+        path: ['dailyCap'],
+      }),
+    ]);
+  });
+});

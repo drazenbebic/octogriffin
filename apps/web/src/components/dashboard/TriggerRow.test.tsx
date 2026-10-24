@@ -21,9 +21,13 @@ jest.mock('@/actions/triggers/updateTriggerAction', () => ({
 }));
 jest.mock('sonner', () => ({ toast: { error: jest.fn() } }));
 
-const savedTrigger = (cooldownSeconds: null | number) =>
+const savedTrigger = (
+  cooldownSeconds: null | number,
+  dailyCap: null | number = null,
+) =>
   ({
     cooldownSeconds,
+    dailyCap,
     event: 'push',
     isActive: true,
     repositories: [{ name: 'octogriffin', uuid: 'uuid-octogriffin' }],
@@ -46,5 +50,17 @@ describe('TriggerRow', () => {
     render(<TriggerRow totalRepos={1} trigger={savedTrigger(null)} />);
 
     expect(screen.queryByText(/cooldown/i)).toBeNull();
+  });
+
+  it('shows the daily cap of a trigger', () => {
+    render(<TriggerRow totalRepos={1} trigger={savedTrigger(null, 10)} />);
+
+    screen.getByText('10/day');
+  });
+
+  it('shows no daily cap chip without a cap', () => {
+    render(<TriggerRow totalRepos={1} trigger={savedTrigger(null)} />);
+
+    expect(screen.queryByText(/\/day/)).toBeNull();
   });
 });

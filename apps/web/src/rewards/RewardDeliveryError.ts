@@ -1,3 +1,17 @@
+import { HabiticaApiError } from '@/lib/HabiticaApi';
+
+const TOO_MANY_REQUESTS = 429;
+const SERVER_ERROR = 500;
+
+/**
+ * Habitica refusing a request, e.g. for a wrong API token, won't change by
+ * trying again. Everything else, like Habitica being down, might.
+ */
+export const isRetryable = (error: unknown) =>
+  !(error instanceof HabiticaApiError) ||
+  error.status === TOO_MANY_REQUESTS ||
+  error.status >= SERVER_ERROR;
+
 /**
  * Thrown by a Reward Sink when not a single reward could be scored.
  */

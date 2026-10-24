@@ -32,6 +32,7 @@ export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
           trigger.cooldownAmount,
           trigger.cooldownUnit,
         ),
+        dailyCap: trigger.dailyCap ?? null,
         event: trigger.event,
         repositories: {
           set: trigger.repositories.map(repositoryUuid => ({
