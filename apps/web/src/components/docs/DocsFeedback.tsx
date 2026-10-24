@@ -6,13 +6,13 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 
 export const DocsFeedback: FC = () => (
-  <div className="mt-12 rounded-2xl bg-violet-50 p-6 flex flex-col sm:flex-row items-center justify-between gap-4 dark:bg-violet-950/30">
-    <div className="flex items-center gap-3 text-violet-900 font-medium dark:text-violet-200">
+  <div className="mt-12 rounded-2xl bg-accent-soft p-6 flex flex-col sm:flex-row items-center justify-between gap-4 ">
+    <div className="flex items-center gap-3 text-text font-medium ">
       <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
       <span>Something went wrong?</span>
     </div>
     <a
-      className="text-sm font-bold text-violet-700 hover:text-violet-900 hover:underline dark:text-violet-400 dark:hover:text-violet-300"
+      className="text-sm font-bold text-accent-text hover:text-text hover:underline "
       href={githubRepositoryUrl('/issues')}
       rel="noreferrer"
       target="_blank"

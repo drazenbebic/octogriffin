@@ -2,7 +2,6 @@ import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 import { useMemo } from 'react';
 
-import { Content } from '@/components/ui/Content';
 import { cn } from '@/utils/cn';
 
 export type DetailRowProps = {
@@ -32,21 +31,17 @@ export const DetailRow: FC<DetailRowProps> = ({
   }
 
   return (
-    <div className="group flex items-center justify-between py-4 transition-colors hover:bg-slate-50/50 sm:px-4 sm:-mx-4 sm:rounded-xl dark:hover:bg-slate-800/50">
-      <div className="flex items-center gap-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 transition-colors group-hover:bg-white group-hover:text-violet-600 group-hover:shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-800 dark:text-slate-400 dark:group-hover:bg-slate-700 dark:group-hover:text-violet-400 dark:ring-slate-800">
+    <div className="flex items-center justify-between gap-4 border-b border-line py-3.5 last:border-b-0">
+      <dt className="flex items-center gap-3 text-sm text-text-2">
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-fill text-muted">
           {icon}
-        </div>
-        <Content as="span" className="font-medium" color="note" size="sm">
-          {label}
-        </Content>
-      </div>
-
-      <div className="text-right">
+        </span>
+        {label}
+      </dt>
+      <dd className="min-w-0 truncate text-right text-sm">
         {isLink && value ? (
           <Link
-            aria-label={`Visit ${label}`}
-            className="text-sm font-semibold text-violet-600 hover:text-violet-700 hover:underline decoration-violet-300 underline-offset-4 dark:text-violet-400 dark:hover:text-violet-300 dark:decoration-violet-900"
+            className="font-semibold text-accent-text underline-offset-4 hover:underline"
             href={value}
             rel="noopener noreferrer"
             target="_blank"
@@ -55,15 +50,14 @@ export const DetailRow: FC<DetailRowProps> = ({
           </Link>
         ) : (
           <span
-            className={cn('text-sm font-medium', {
-              'text-slate-400 italic dark:text-slate-500': !value,
-              'text-slate-900 dark:text-slate-100': value,
-            })}
+            className={cn(
+              value ? 'font-medium text-text' : 'text-muted italic',
+            )}
           >
             {displayValue}
           </span>
         )}
-      </div>
+      </dd>
     </div>
   );
 };

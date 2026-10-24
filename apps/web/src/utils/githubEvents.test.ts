@@ -1,6 +1,11 @@
 import { rewardableWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 
-import { getEventLabel, getGroupedGithubEvents } from './githubEvents';
+import {
+  filterEvents,
+  getActionLabel,
+  getEventLabel,
+  getGroupedGithubEvents,
+} from './githubEvents';
 
 const findEvent = (value: string) =>
   getGroupedGithubEvents().find(event => event.value === value);
@@ -59,5 +64,35 @@ describe('getEventLabel', () => {
 
   it('falls back to the raw event for events it does not know', () => {
     expect(getEventLabel('made_up.event')).toBe('made_up.event');
+  });
+});
+
+describe('getActionLabel', () => {
+  it('drops the group name the label starts with', () => {
+    expect(getActionLabel('Discussion Answered', 'Discussion')).toBe(
+      'Answered',
+    );
+    expect(
+      getActionLabel('Pull Request Ready for Review', 'Pull Request'),
+    ).toBe('Ready for Review');
+  });
+
+  it('keeps labels that are just the group or read on from it', () => {
+    expect(getActionLabel('Create', 'Create')).toBe('Create');
+    expect(getActionLabel('Push to Repository', 'Push')).toBe(
+      'Push to Repository',
+    );
+  });
+});
+
+describe('filterEvents', () => {
+  it('matches labels and event IDs, ignoring case', () => {
+    const events = getGroupedGithubEvents();
+
+    expect(
+      filterEvents(events, 'REVIEW SUB').map(event => event.value),
+    ).toEqual(['pull_request_review.submitted']);
+    expect(filterEvents(events, 'workflow_run.').length).toBeGreaterThan(1);
+    expect(filterEvents(events, '  ')).toBe(events);
   });
 });

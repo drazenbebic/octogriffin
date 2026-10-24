@@ -21,13 +21,14 @@ const sizeStyles: Record<string, string> = {
 
 const shapeStyles: Record<string, string> = {
   circle: 'rounded-full',
-  rounded: 'rounded-lg',
+  // Matches a 10px control's inner corner, e.g. the account menu button
+  rounded: 'rounded-[8px]',
   square: 'rounded-none',
 };
 
 const statusColors: Record<string, string> = {
   error: 'bg-hp',
-  neutral: 'bg-slate-400',
+  neutral: 'bg-muted',
   success: 'bg-ok',
   warning: 'bg-xp',
 };
@@ -45,7 +46,7 @@ export const Avatar: FC<AvatarProps> = ({
     <div className={cn('relative inline-flex shrink-0', className)}>
       <div
         className={cn(
-          'flex items-center justify-center overflow-hidden border border-border bg-sunken transition-all duration-300 ease-in-out ',
+          'flex items-center justify-center overflow-hidden border border-border bg-sunken',
           sizeStyles[size],
           shapeStyles[shape],
         )}

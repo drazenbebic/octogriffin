@@ -41,49 +41,42 @@ export default function DocsPage() {
 
         <div className="grid gap-6 sm:grid-cols-2">
           <DocsCard
-            color="emerald"
             description="Where Habitica keeps your User ID and API Token, and how to connect them."
             href="/docs/habitica-api-token"
             icon={<HugeiconsIcon icon={Key01Icon} size={24} />}
             title="Habitica API Token"
           />
           <DocsCard
-            color="amber"
             description="Ready-made triggers for rewarding commits, pull requests, reviews and releases."
             href="/docs/coding-habits"
             icon={<HugeiconsIcon icon={Target02Icon} size={24} />}
             title="Coding Habit Recipes"
           />
           <DocsCard
-            color="indigo"
             description="Every GitHub event you can reward, and how pushes and other events are counted."
             href="/docs/supported-github-events"
             icon={<HugeiconsIcon icon={ZapIcon} size={24} />}
             title="Supported GitHub Events"
           />
           <DocsCard
-            color="violet"
             description="Get your local environment running. Includes Docker, Prisma, and GitHub App configuration."
             href="/docs/dev-setup"
             icon={<HugeiconsIcon icon={Settings02Icon} size={24} />}
             title="Development Setup"
           />
           <DocsCard
-            color="sky"
             description="Expose your localhost to GitHub webhooks securely using Ngrok static domains."
             href="/docs/setting-up-ngrok"
             icon={<HugeiconsIcon icon={Globe02Icon} size={24} />}
             title="Ngrok Setup"
           />
           <DocsCard
-            color="emerald"
             description="Learn how to open PRs, follow our coding standards, and use the design system."
             href="/docs/how-to-contribute"
             icon={<HugeiconsIcon icon={GitPullRequestIcon} size={24} />}
             title="Contributing Guide"
           />
           <DocsCard
-            color="amber"
             description="Deep dive into how Next.js, Vercel, and Neon DB work together with GitHub Webhooks."
             href="/docs/architecture"
             icon={<HugeiconsIcon icon={CodeCircleIcon} size={24} />}

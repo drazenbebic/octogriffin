@@ -49,7 +49,7 @@ export default function DocsHowToContributePage() {
             We use <strong>GitHub Milestones</strong> to organize upcoming
             releases. Before starting, check the{' '}
             <a
-              className="text-violet-600 hover:underline font-medium dark:text-violet-400"
+              className="text-accent-text hover:underline font-medium "
               href={githubRepositoryUrl('/milestones')}
               target="_blank"
             >
@@ -58,24 +58,19 @@ export default function DocsHowToContributePage() {
             to see what work is prioritized.
           </Content>
           <Card
-            className="mt-4 flex flex-row items-start gap-3 p-4 dark:bg-slate-900/50"
+            className="mt-4 flex flex-row items-start gap-3 p-4 "
             variant="flat"
           >
             <HugeiconsIcon
-              className="shrink-0 text-slate-500 mt-0.5 dark:text-slate-400"
+              className="shrink-0 text-muted mt-0.5 "
               icon={Search01Icon}
               size={20}
             />
             <Content size="sm">
               Look for issues labeled{' '}
-              <strong className="text-emerald-600 dark:text-emerald-400">
-                good first issue
-              </strong>{' '}
-              or{' '}
-              <strong className="text-violet-600 dark:text-violet-400">
-                help wanted
-              </strong>{' '}
-              if you are new to the project.
+              <strong className="text-ok ">good first issue</strong> or{' '}
+              <strong className="text-accent-text ">help wanted</strong> if you
+              are new to the project.
             </Content>
           </Card>
         </DocsStep>
@@ -86,7 +81,7 @@ export default function DocsHowToContributePage() {
             You cannot push directly to the main repository. You must create
             your own copy (fork) to work on.
           </Content>
-          <ol className="mt-3 list-decimal list-inside space-y-2 text-slate-600 ml-2 dark:text-slate-400">
+          <ol className="mt-3 list-decimal list-inside space-y-2 text-text-2 ml-2 ">
             <Content as="li">
               Click the <strong>Fork</strong> button in the top-right corner of
               the GitHub repo.
@@ -119,35 +114,32 @@ export default function DocsHowToContributePage() {
           <Content>
             Create a new branch for your work. Do not commit directly to your
             fork&#39;s{' '}
-            <code className="bg-slate-100 px-1 rounded text-sm dark:bg-slate-800">
-              main
-            </code>{' '}
-            branch.
+            <code className="bg-fill px-1 rounded text-sm ">main</code> branch.
           </Content>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            <Card className="p-4 dark:bg-slate-900/50" variant="flat">
-              <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
+            <Card className="p-4 " variant="flat">
+              <div className="mb-2 flex items-center gap-2 font-bold text-text ">
                 <HugeiconsIcon
-                  className="text-violet-600 dark:text-violet-400"
+                  className="text-accent-text "
                   icon={GitForkIcon}
                   size={18}
                 />
                 <span>Features</span>
               </div>
-              <code className="text-sm text-slate-600 dark:text-slate-400">
+              <code className="text-sm text-text-2 ">
                 feature/add-new-trigger
               </code>
             </Card>
-            <Card className="p-4 dark:bg-slate-900/50" variant="flat">
-              <div className="mb-2 flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
+            <Card className="p-4 " variant="flat">
+              <div className="mb-2 flex items-center gap-2 font-bold text-text ">
                 <HugeiconsIcon
-                  className="text-emerald-600 dark:text-emerald-400"
+                  className="text-ok "
                   icon={GitForkIcon}
                   size={18}
                 />
                 <span>Fixes</span>
               </div>
-              <code className="text-sm text-slate-600 dark:text-slate-400">
+              <code className="text-sm text-text-2 ">
                 fix/auth-redirect-bug
               </code>
             </Card>
@@ -160,7 +152,7 @@ export default function DocsHowToContributePage() {
             We use <strong>Release Please</strong> to automate versioning. For
             this to work, your commit messages <strong>must</strong> follow the{' '}
             <a
-              className="text-violet-600 hover:underline dark:text-violet-400"
+              className="text-accent-text hover:underline "
               href="https://www.conventionalcommits.org/"
               target="_blank"
             >
@@ -170,17 +162,15 @@ export default function DocsHowToContributePage() {
           </Content>
 
           <div className="mt-4 space-y-3">
-            <div className="flex items-start gap-3 rounded-lg border border-emerald-200 bg-emerald-50/50 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3 rounded-lg border border-ok/30 bg-ok-soft p-4 ">
               <HugeiconsIcon
-                className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-400"
+                className="mt-0.5 shrink-0 text-ok "
                 icon={Tick02Icon}
                 size={20}
               />
               <div className="space-y-1">
-                <Content className="font-bold text-emerald-900 dark:text-emerald-300">
-                  Good Examples
-                </Content>
-                <ul className="list-disc list-inside text-sm text-emerald-800 space-y-1 font-mono dark:text-emerald-400">
+                <Content className="font-bold text-ok ">Good Examples</Content>
+                <ul className="list-disc list-inside text-sm text-ok space-y-1 font-mono ">
                   <Content as="li">feat: add new habitica trigger</Content>
                   <Content as="li">fix: resolve webhook timeout issue</Content>
                   <Content as="li">docs: update setup guide</Content>
@@ -204,7 +194,7 @@ export default function DocsHowToContributePage() {
             <div>
               <div className="mb-2 flex items-center gap-2">
                 <HugeiconsIcon
-                  className="text-violet-600 dark:text-violet-400"
+                  className="text-accent-text "
                   icon={PaintBoardIcon}
                   size={20}
                 />
@@ -214,26 +204,18 @@ export default function DocsHowToContributePage() {
               </div>
               <Content size="sm">
                 Use the existing UI components in{' '}
-                <code className="bg-slate-100 px-1 rounded dark:bg-slate-800">
-                  src/components/ui
-                </code>{' '}
+                <code className="bg-fill px-1 rounded ">src/components/ui</code>{' '}
                 whenever possible. Do not hardcode colors; use Tailwind classes
-                like{' '}
-                <code className="text-violet-600 dark:text-violet-400">
-                  text-slate-600
-                </code>{' '}
-                or{' '}
-                <code className="text-violet-600 dark:text-violet-400">
-                  bg-violet-50
-                </code>{' '}
-                to ensure the theme remains consistent.
+                like <code className="text-accent-text ">text-text-2</code> or{' '}
+                <code className="text-accent-text ">bg-accent-soft</code> to
+                ensure the theme remains consistent.
               </Content>
             </div>
 
             <div>
               <div className="mb-2 flex items-center gap-2">
                 <HugeiconsIcon
-                  className="text-violet-600 dark:text-violet-400"
+                  className="text-accent-text "
                   icon={Message01Icon}
                   size={20}
                 />
@@ -244,18 +226,9 @@ export default function DocsHowToContributePage() {
               <Content size="sm">
                 We use <strong>Hugeicons React</strong> (Free). Always use the
                 standard stroke variant. Do not use premium styles like{' '}
-                <code className="bg-slate-100 px-1 rounded text-xs dark:bg-slate-800">
-                  bulk
-                </code>
-                ,{' '}
-                <code className="bg-slate-100 px-1 rounded text-xs dark:bg-slate-800">
-                  solid
-                </code>
-                , or{' '}
-                <code className="bg-slate-100 px-1 rounded text-xs dark:bg-slate-800">
-                  twotone
-                </code>
-                .
+                <code className="bg-fill px-1 rounded text-xs ">bulk</code>,{' '}
+                <code className="bg-fill px-1 rounded text-xs ">solid</code>, or{' '}
+                <code className="bg-fill px-1 rounded text-xs ">twotone</code>.
               </Content>
             </div>
           </div>
@@ -266,12 +239,9 @@ export default function DocsHowToContributePage() {
           <Content>
             When your code is ready, push your branch to your fork and open a
             Pull Request against{' '}
-            <code className="bg-slate-100 px-1 rounded text-sm dark:bg-slate-800">
-              main
-            </code>
-            .
+            <code className="bg-fill px-1 rounded text-sm ">main</code>.
           </Content>
-          <ul className="mt-3 list-disc list-inside space-y-2 text-slate-600 pl-2 dark:text-slate-400">
+          <ul className="mt-3 list-disc list-inside space-y-2 text-text-2 pl-2 ">
             <Content as="li">Ensure the build passes locally.</Content>
             <Content as="li">
               Link any relevant issues (e.g., &quot;Closes #123&quot;) in the

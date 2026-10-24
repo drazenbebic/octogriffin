@@ -1,0 +1,51 @@
+import { render, screen, within } from '@testing-library/react';
+
+import { LegalPage } from './LegalPage';
+
+jest.mock('next/navigation', () => ({ usePathname: () => '/privacy-policy' }));
+
+describe('LegalPage', () => {
+  it('links to each section and marks the current legal page', () => {
+    render(
+      <LegalPage
+        sections={[
+          { id: 'intro', label: 'Introduction', number: '1' },
+          { id: 'controller', label: 'Controller', number: '2' },
+        ]}
+        title="Privacy policy"
+        updated="2026-10-22"
+      >
+        <p>Body</p>
+      </LegalPage>,
+    );
+
+    const toc = screen.getByRole('navigation', { name: 'On this page' });
+
+    expect(
+      within(toc)
+        .getAllByRole('link')
+        .map(link => link.getAttribute('href')),
+    ).toEqual(['#intro', '#controller']);
+
+    const legal = screen.getByRole('navigation', { name: 'Legal' });
+
+    expect(
+      within(legal)
+        .getByRole('link', { name: 'Privacy policy' })
+        .getAttribute('aria-current'),
+    ).toBe('page');
+  });
+
+  it('shows when the page was last updated', () => {
+    render(
+      <LegalPage title="Privacy policy" updated="2026-10-22">
+        <p>Body</p>
+      </LegalPage>,
+    );
+
+    const time = screen.getByText('22 October 2026');
+
+    expect(time.tagName).toBe('TIME');
+    expect(time.getAttribute('datetime')).toBe('2026-10-22');
+  });
+});

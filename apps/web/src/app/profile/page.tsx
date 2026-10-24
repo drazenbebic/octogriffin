@@ -1,15 +1,20 @@
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import { GithubIcon, Link01Icon } from '@hugeicons/core-free-icons';
+import type { IconSvgElement } from '@hugeicons/react';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 import { getUserProfileAction } from '@/actions/getUserProfileAction';
 import { AuthGate } from '@/components/AuthGate';
 import { ContactDetailsCard } from '@/components/profile/ContactDetailsCard';
-import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
-import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
+import { Shell } from '@/components/ui/Shell';
 import { authOptions } from '@/lib/auth';
+import { githubAppUrl } from '@/utils/githubAppUrl';
 
 export const metadata: Metadata = {
   description:
@@ -34,63 +39,116 @@ export default async function ProfilePage() {
     return null;
   }
 
+  const joined = new Date(profile.joinedAt).toLocaleDateString('en-GB', {
+    month: 'long',
+    year: 'numeric',
+  });
+
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      <div className="mb-10">
-        <Heading
-          className="mb-2 bg-linear-to-r from-violet-700 to-indigo-600 bg-clip-text text-transparent dark:from-violet-400 dark:to-indigo-400"
-          level={1}
-          size="3xl"
-        >
-          Adventurer Profile
-        </Heading>
-        <Content size="lg">
-          Your personal identity card and connection status.
-        </Content>
+    <Shell className="flex flex-col gap-8 pt-14 pb-24">
+      <div className="flex flex-col gap-1.5">
+        <Heading level={1}>Profile</Heading>
+        <p className="text-text-2">
+          Your GitHub details and how Octogriffin is connected.
+        </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <Card
-            className="overflow-hidden border-0 shadow-xl shadow-violet-900/5 ring-1 ring-slate-900/5 dark:ring-slate-800"
-            variant="elevated"
-          >
-            <div className="h-32 w-full bg-linear-to-br from-violet-600 via-indigo-600 to-blue-600 relative" />
-
-            <div className="relative -mt-16 px-6 pb-8 text-center">
-              <div className="mx-auto inline-flex rounded-full bg-white p-2 shadow-lg dark:bg-slate-900">
-                <Image
-                  alt={`${profile.handle || 'Adventurer'} avatar`}
-                  className="rounded-full bg-slate-100 object-cover"
-                  height={112}
-                  priority
-                  src={profile.avatar || '/placeholder-avatar.png'}
-                  width={112}
-                />
-              </div>
-
-              <div className="mt-4">
-                <Heading className="tracking-tight" level={2} size="xl">
-                  {profile.name}
-                </Heading>
-                <Content className="font-medium" color="violet">
-                  @{profile.handle}
-                </Content>
-              </div>
-
-              <div className="mt-6 flex justify-center">
-                <Chip dot shape="pill" tone={profile.isLinked ? 'ok' : 'xp'}>
-                  {profile.isLinked ? 'Sync active' : 'No sync configured'}
-                </Chip>
-              </div>
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="flex flex-col gap-6 lg:col-span-4">
+          <section className="flex flex-col items-center gap-4 rounded-xl border border-border bg-surface px-6 py-8 text-center shadow-e1">
+            <Image
+              alt=""
+              className="h-24 w-24 rounded-full bg-fill object-cover ring-4 ring-accent-soft"
+              height={96}
+              priority
+              src={profile.avatar || '/octogriffin_logo_square.png'}
+              width={96}
+            />
+            <div className="flex flex-col gap-0.5">
+              <Heading level={2} size="h3">
+                {profile.name}
+              </Heading>
+              <span className="font-mono text-sm text-muted">
+                @{profile.handle}
+              </span>
             </div>
-          </Card>
+            <p className="text-[13px] text-muted">
+              Octogriffin member since {joined}
+            </p>
+          </section>
+
+          <section className="flex flex-col rounded-xl border border-border bg-surface shadow-e1">
+            <h2 className="border-b border-border px-5 py-4 text-[15px] font-semibold text-text">
+              Connections
+            </h2>
+            <ConnectionRow
+              action={
+                profile.hasInstallation
+                  ? { external: true, href: githubAppUrl(), label: 'Manage' }
+                  : { href: '/installation', label: 'Install' }
+              }
+              connected={profile.hasInstallation}
+              icon={GithubIcon}
+              label="GitHub App"
+              status={profile.hasInstallation ? 'Installed' : 'Not installed'}
+            />
+            <ConnectionRow
+              action={{
+                href: '/dashboard/settings',
+                label: profile.isLinked ? 'Settings' : 'Link account',
+              }}
+              connected={profile.isLinked}
+              icon={Link01Icon}
+              label="Habitica"
+              status={profile.isLinked ? 'Linked' : 'Not linked'}
+            />
+          </section>
         </div>
 
-        <div className="flex flex-col gap-6 lg:col-span-8">
+        <div className="lg:col-span-8">
           <ContactDetailsCard profile={profile} />
         </div>
       </div>
-    </div>
+    </Shell>
   );
 }
+
+const ConnectionRow = ({
+  action,
+  connected,
+  icon,
+  label,
+  status,
+}: {
+  action: { external?: boolean; href: string; label: string };
+  connected: boolean;
+  icon: IconSvgElement;
+  label: string;
+  status: string;
+}) => (
+  <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-3.5 last:border-b-0">
+    <div className="flex items-center gap-3">
+      <span className="grid h-9 w-9 place-items-center rounded-md bg-fill text-text-2">
+        <HugeiconsIcon icon={icon} size={18} />
+      </span>
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold text-text">{label}</span>
+        <Chip
+          className="w-fit px-0 bg-transparent"
+          dot
+          tone={connected ? 'ok' : 'neutral'}
+        >
+          {status}
+        </Chip>
+      </div>
+    </div>
+    <Link
+      className="text-[13px] font-semibold text-accent-text hover:underline"
+      href={action.href}
+      rel={action.external ? 'noreferrer' : undefined}
+      target={action.external ? '_blank' : undefined}
+    >
+      {action.label}
+    </Link>
+  </div>
+);

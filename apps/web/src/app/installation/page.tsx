@@ -14,6 +14,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { JsonLd } from '@/components/JsonLd';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { Chip } from '@/components/ui/Chip';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { installationJsonLd } from '@/json-ld/installation';
@@ -38,10 +39,10 @@ export default function InstallationPage() {
       <JsonLd data={installationJsonLd} />
       <div className="mx-auto max-w-2xl space-y-12 pb-20 pt-10 sm:pt-20 px-4">
         <div className="text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-violet-600 dark:border-violet-900/50 dark:bg-violet-950/30 dark:text-violet-400">
+          <Chip className="mb-4" shape="pill" tone="accent">
             <HugeiconsIcon icon={Rocket01Icon} size={14} />
-            Quick Start
-          </div>
+            Quick start
+          </Chip>
           <Heading className="mb-4" level={1}>
             Connect GitHub to Habitica
           </Heading>
@@ -52,21 +53,17 @@ export default function InstallationPage() {
         </div>
 
         <div className="relative space-y-8">
-          <div className="absolute left-6.75 top-4 bottom-4 w-0.5 bg-linear-to-b from-violet-200 via-slate-200 to-emerald-200 dark:from-violet-900/50 dark:via-slate-800 dark:to-emerald-900/50" />
+          <div className="absolute left-6.75 top-4 bottom-4 w-0.5 bg-border" />
 
           {/* Step 1: Install */}
           <div className="relative">
             <div className="relative z-10 flex gap-6">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-lg shadow-violet-600/30">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-lg ">
                 <HugeiconsIcon icon={GithubIcon} size={28} />
               </div>
 
               <div className="pt-1.5 pb-8">
-                <Heading
-                  className="text-slate-900 dark:text-slate-50"
-                  level={3}
-                  size="lg"
-                >
+                <Heading className="text-text " level={3} size="lg">
                   Install the App
                 </Heading>
                 <Content className="mt-2 mb-4" size="sm">
@@ -78,10 +75,7 @@ export default function InstallationPage() {
                   href={githubAppUrl()}
                   target="_blank"
                 >
-                  <Button
-                    className="shadow-xl shadow-violet-600/10 hover:shadow-violet-600/20 dark:shadow-none"
-                    size="lg"
-                  >
+                  <Button className="shadow-xl " size="lg">
                     Install the GitHub App
                     <HugeiconsIcon
                       className="opacity-60"
@@ -98,20 +92,20 @@ export default function InstallationPage() {
           <div className="relative">
             <div className="relative z-10 flex gap-6">
               <Card
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border text-text-2 shadow-sm "
                 variant="flat"
               >
                 <span className="font-bold">2</span>
               </Card>
               <div className="pt-2 pb-6">
                 <Heading
-                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
+                  className="flex items-center gap-2 text-text "
                   level={3}
                   size="base"
                 >
                   Select Repositories
                   <HugeiconsIcon
-                    className="text-blue-500"
+                    className="text-mp"
                     icon={CheckmarkCircle02Icon}
                     size={18}
                   />
@@ -128,20 +122,20 @@ export default function InstallationPage() {
           <div className="relative">
             <div className="relative z-10 flex gap-6">
               <Card
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border text-text-2 shadow-sm "
                 variant="flat"
               >
                 <span className="font-bold">3</span>
               </Card>
               <div className="pt-2 pb-6">
                 <Heading
-                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
+                  className="flex items-center gap-2 text-text "
                   level={3}
                   size="base"
                 >
                   Enter Credentials
                   <HugeiconsIcon
-                    className="text-amber-500"
+                    className="text-xp"
                     icon={Key01Icon}
                     size={18}
                   />
@@ -150,7 +144,7 @@ export default function InstallationPage() {
                   You will be redirected to the dashboard. Enter your Habitica{' '}
                   <strong>User ID</strong> and <strong>API Token</strong>.{' '}
                   <Link
-                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                    className="font-semibold text-accent-text hover:underline "
                     href="/docs/habitica-api-token"
                   >
                     Where do I find them?
@@ -164,20 +158,20 @@ export default function InstallationPage() {
           <div className="relative">
             <div className="relative z-10 flex gap-6">
               <Card
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 shadow-sm dark:border-slate-800 dark:text-slate-300"
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-border text-text-2 shadow-sm "
                 variant="flat"
               >
                 <span className="font-bold">4</span>
               </Card>
               <div className="pt-2">
                 <Heading
-                  className="flex items-center gap-2 text-slate-900 dark:text-slate-50"
+                  className="flex items-center gap-2 text-text "
                   level={3}
                   size="base"
                 >
                   Set Triggers
                   <HugeiconsIcon
-                    className="text-emerald-500"
+                    className="text-ok"
                     icon={Settings02Icon}
                     size={18}
                   />
@@ -187,7 +181,7 @@ export default function InstallationPage() {
                   trigger scores a Habitica habit, which Octogriffin creates for
                   you if it doesn&apos;t exist yet. Need ideas? Start with the{' '}
                   <Link
-                    className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+                    className="font-semibold text-accent-text hover:underline "
                     href="/docs/coding-habits"
                   >
                     coding habit recipes
@@ -208,7 +202,7 @@ export default function InstallationPage() {
             Within a few seconds the event appears in the{' '}
             <strong>History</strong> tab of your{' '}
             <Link
-              className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+              className="font-semibold text-accent-text hover:underline "
               href="/dashboard/history"
             >
               dashboard
@@ -217,7 +211,7 @@ export default function InstallationPage() {
             that earned a reward, so if nothing shows up, check that the trigger
             is active and covers that repository. The{' '}
             <Link
-              className="font-semibold text-violet-600 hover:underline dark:text-violet-400"
+              className="font-semibold text-accent-text hover:underline "
               href="/faq"
             >
               FAQ
@@ -244,7 +238,7 @@ export default function InstallationPage() {
                   size="sm"
                 >
                   <HugeiconsIcon
-                    className="shrink-0 text-emerald-500"
+                    className="shrink-0 text-ok"
                     icon={CheckmarkCircle02Icon}
                     size={16}
                   />

@@ -67,15 +67,15 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="relative rounded-lg border border-slate-200 bg-slate-900 shadow-sm overflow-hidden dark:border-slate-800">
+      <div className="relative overflow-hidden rounded-lg border border-border bg-sunken">
         {/* Header / Actions */}
-        <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-2 dark:bg-slate-950/50">
-          <span className="text-xs font-mono text-slate-400">
+        <div className="flex items-center justify-between border-b border-border bg-fill px-4 py-2">
+          <span className="text-xs font-mono text-muted">
             apps/web/.env.local
           </span>
           <div className="flex items-center gap-2">
             <Button
-              className="h-7 px-2 text-xs text-slate-400 hover:text-white"
+              className="h-7 px-2 text-xs"
               onClick={handleRegenerate}
               size="sm"
               variant="ghost"
@@ -91,7 +91,7 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
             >
               {copied ? (
                 <HugeiconsIcon
-                  className="mr-1.5 text-emerald-600"
+                  className="mr-1.5 text-ok"
                   icon={CheckmarkCircle02Icon}
                   size={14}
                 />
@@ -104,42 +104,35 @@ NEXT_PUBLIC_GITHUB_APP_URL="https://github.com/apps/my-github-app"
         </div>
 
         {/* Code Block */}
-        <pre className="overflow-x-auto p-4 text-xs sm:text-sm font-mono leading-relaxed text-slate-300">
+        <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-text sm:text-sm">
           <code>
-            <span className="text-slate-500"># Generated Security Keys</span>
+            <span className="text-muted"># Generated Security Keys</span>
             {'\n'}
-            <span className="text-violet-400">GITHUB_WEBHOOK_SECRET</span>=
-            <span className="text-emerald-400">
-              &#34;{secrets.webhook}&#34;
-            </span>
+            <span className="text-accent-text">GITHUB_WEBHOOK_SECRET</span>=
+            <span className="text-ok">&#34;{secrets.webhook}&#34;</span>
             {'\n'}
-            <span className="text-violet-400">NEXTAUTH_SECRET</span>=
-            <span className="text-emerald-400">
-              &#34;{secrets.nextAuth}&#34;
-            </span>
+            <span className="text-accent-text">NEXTAUTH_SECRET</span>=
+            <span className="text-ok">&#34;{secrets.nextAuth}&#34;</span>
             {'\n'}
-            <span className="text-violet-400">ENCRYPTION_KEY</span>=
-            <span className="text-emerald-400">
-              &#34;{secrets.encryption}&#34;
-            </span>
+            <span className="text-accent-text">ENCRYPTION_KEY</span>=
+            <span className="text-ok">&#34;{secrets.encryption}&#34;</span>
             {'\n'}
-            <span className="text-violet-400">HEALTH_CHECK_SECRET</span>=
-            <span className="text-emerald-400">&#34;{secrets.health}&#34;</span>
+            <span className="text-accent-text">HEALTH_CHECK_SECRET</span>=
+            <span className="text-ok">&#34;{secrets.health}&#34;</span>
             {'\n\n'}
-            <span className="text-slate-500">
+            <span className="text-muted">
               # Paste your GitHub App Credentials here
             </span>
             {'\n'}
-            <span className="text-violet-400">GITHUB_CLIENT_ID</span>=&#34;&#34;
+            <span className="text-accent-text">GITHUB_CLIENT_ID</span>
+            =&#34;&#34;
             {'\n'}
-            <span className="text-violet-400">GITHUB_CLIENT_SECRET</span>
+            <span className="text-accent-text">GITHUB_CLIENT_SECRET</span>
             =&#34;&#34;
             {'\n\n'}
-            <span className="text-slate-500">
-              # Paste your GitHub App URL here
-            </span>
+            <span className="text-muted"># Paste your GitHub App URL here</span>
             {'\n'}
-            <span className="text-violet-400">NEXT_PUBLIC_GITHUB_APP_URL</span>
+            <span className="text-accent-text">NEXT_PUBLIC_GITHUB_APP_URL</span>
             =&#34;https://github.com/apps/my-github-app&#34;
           </code>
         </pre>

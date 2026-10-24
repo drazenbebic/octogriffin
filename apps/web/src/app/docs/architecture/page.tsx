@@ -43,7 +43,7 @@ export default function DocsArchitecturePage() {
         </Heading>
         <div className="grid gap-4 sm:grid-cols-2">
           <Card className="p-5" variant="outlined">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent-text ">
               <HugeiconsIcon icon={Layout01Icon} size={20} />
             </div>
             <Heading level={3} size="base">
@@ -56,7 +56,7 @@ export default function DocsArchitecturePage() {
           </Card>
 
           <Card className="p-5" variant="outlined">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-ok-soft text-ok ">
               <HugeiconsIcon icon={CloudServerIcon} size={20} />
             </div>
             <Heading level={3} size="base">
@@ -69,7 +69,7 @@ export default function DocsArchitecturePage() {
           </Card>
 
           <Card className="p-5" variant="outlined">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-mp-soft text-mp ">
               <HugeiconsIcon icon={Database01Icon} size={20} />
             </div>
             <Heading level={3} size="base">
@@ -82,7 +82,7 @@ export default function DocsArchitecturePage() {
           </Card>
 
           <Card className="p-5" variant="outlined">
-            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
+            <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-xp-soft text-xp ">
               <HugeiconsIcon icon={LockKeyIcon} size={20} />
             </div>
             <Heading level={3} size="base">
@@ -106,10 +106,10 @@ export default function DocsArchitecturePage() {
           game stats. Here is the lifecycle of a typical event:
         </Content>
 
-        <div className="relative space-y-8 pl-4 before:absolute before:left-10.75 before:top-2 before:h-[calc(100%-16px)] before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
+        <div className="relative space-y-8 pl-4 before:absolute before:left-10.75 before:top-2 before:h-[calc(100%-16px)] before:w-0.5 before:bg-fill ">
           {/* Step 1 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white shadow-md ring-4 ring-white dark:bg-slate-800 dark:ring-slate-950">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-text text-white shadow-md ring-4 ring-white ">
               <HugeiconsIcon icon={GitPullRequestIcon} size={24} />
             </div>
             <div className="pt-2">
@@ -118,7 +118,7 @@ export default function DocsArchitecturePage() {
               </Heading>
               <Content size="sm">
                 User pushes code or merges a PR. GitHub sends a POST payload to{' '}
-                <code className="rounded bg-slate-100 px-1 py-0.5 text-xs font-medium dark:bg-slate-800">
+                <code className="rounded bg-fill px-1 py-0.5 text-xs font-medium ">
                   /api/v1/webhook
                 </code>
                 .
@@ -128,7 +128,7 @@ export default function DocsArchitecturePage() {
 
           {/* Step 2 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900 dark:text-violet-400 dark:ring-slate-950">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-white ">
               <HugeiconsIcon icon={Shield01Icon} size={24} />
             </div>
             <div className="pt-2">
@@ -137,9 +137,7 @@ export default function DocsArchitecturePage() {
               </Heading>
               <Content size="sm">
                 The application validates the{' '}
-                <code className="text-xs font-bold dark:text-violet-300">
-                  X-Hub-Signature-256
-                </code>{' '}
+                <code className="text-xs font-bold ">X-Hub-Signature-256</code>{' '}
                 header against our App Secret to ensure the request is
                 legitimate.
               </Content>
@@ -148,7 +146,7 @@ export default function DocsArchitecturePage() {
 
           {/* Step 3 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900 dark:text-violet-400 dark:ring-slate-950">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-white ">
               <HugeiconsIcon icon={ZapIcon} size={24} />
             </div>
             <div className="pt-2">
@@ -165,7 +163,7 @@ export default function DocsArchitecturePage() {
 
           {/* Step 4 */}
           <div className="relative flex gap-6">
-            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white shadow-md ring-4 ring-white dark:ring-slate-950">
+            <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-mp text-white shadow-md ring-4 ring-white ">
               <HugeiconsIcon icon={Globe02Icon} size={24} />
             </div>
             <div className="pt-2">
@@ -193,12 +191,10 @@ export default function DocsArchitecturePage() {
             </Heading>
             <Content size="sm">
               Octogriffin operates as a{' '}
-              <strong className="text-slate-900 dark:text-slate-100">
-                GitHub App
-              </strong>
-              . It does not use a user&#39;s personal access token. Instead, it
-              acts on its own behalf with specific, granular permissions
-              installed on repositories.
+              <strong className="text-text ">GitHub App</strong>. It does not
+              use a user&#39;s personal access token. Instead, it acts on its
+              own behalf with specific, granular permissions installed on
+              repositories.
             </Content>
           </div>
           <div>
@@ -207,11 +203,9 @@ export default function DocsArchitecturePage() {
             </Heading>
             <Content size="sm">
               For Habitica, the app acts as a{' '}
-              <strong className="text-slate-900 dark:text-slate-100">
-                User Agent
-              </strong>
-              . We encrypt and store the user&#39;s API User ID and Token to
-              make API calls that simulate the user completing a task.
+              <strong className="text-text ">User Agent</strong>. We encrypt and
+              store the user&#39;s API User ID and Token to make API calls that
+              simulate the user completing a task.
             </Content>
           </div>
         </div>
@@ -219,17 +213,11 @@ export default function DocsArchitecturePage() {
 
       <Alert title="Asynchronous Processing" variant="info">
         To maintain strict performance limits and prevent timeouts,{' '}
-        <strong className="text-slate-900 dark:text-slate-100">
-          every webhook
-        </strong>{' '}
-        is processed using Next.js{' '}
-        <code className="font-bold dark:text-blue-300">after()</code>. This
-        allows us to immediately return a{' '}
-        <code className="text-xs font-bold dark:text-blue-300">
-          202 Accepted
-        </code>{' '}
-        to GitHub while the trigger matching and API sync happen in the
-        background.
+        <strong className="text-text ">every webhook</strong> is processed using
+        Next.js <code className="font-bold ">after()</code>. This allows us to
+        immediately return a{' '}
+        <code className="text-xs font-bold ">202 Accepted</code> to GitHub while
+        the trigger matching and API sync happen in the background.
       </Alert>
 
       <DocsFeedback />

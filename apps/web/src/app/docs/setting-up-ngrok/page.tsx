@@ -33,9 +33,7 @@ export default function DocsSettingUpNgrokPage() {
           <Content size="lg">
             GitHub needs to send webhooks to your machine to trigger events.
             Since{' '}
-            <code className="bg-slate-100 px-1 rounded text-sm dark:bg-slate-800">
-              localhost
-            </code>{' '}
+            <code className="bg-fill px-1 rounded text-sm ">localhost</code>{' '}
             isn&#39;t accessible from the internet, we use{' '}
             <strong>ngrok</strong> to create a secure tunnel.
           </Content>
@@ -128,12 +126,12 @@ export default function DocsSettingUpNgrokPage() {
             code={[
               'version: "3"',
               'agent:',
-              '  authtoken: ... (already here)',
+              ' authtoken: ... (already here)',
               'tunnels:',
-              '  octogriffin:',
-              '    proto: http',
-              '    addr: 3000',
-              '    domain: YOUR_DOMAIN.ngrok-free.dev',
+              ' octogriffin:',
+              ' proto: http',
+              ' addr: 3000',
+              ' domain: YOUR_DOMAIN.ngrok-free.dev',
             ]}
             disableNumbers
             language="yml"
@@ -153,9 +151,9 @@ export default function DocsSettingUpNgrokPage() {
             language="bash"
           />
 
-          <div className="mt-4 flex items-start gap-3 rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300">
+          <div className="mt-4 flex items-start gap-3 rounded-lg bg-ok-soft p-4 text-sm text-ok ">
             <HugeiconsIcon
-              className="shrink-0 text-emerald-600 dark:text-emerald-400"
+              className="shrink-0 text-ok "
               icon={CheckmarkCircle02Icon}
               size={20}
             />
@@ -172,7 +170,7 @@ export default function DocsSettingUpNgrokPage() {
         {/* Step 6: Update GitHub */}
         <DocsStep heading="Update GitHub App" step={6}>
           <Content>Now tell GitHub to send events to this URL.</Content>
-          <ol className="list-decimal list-inside space-y-2 text-slate-700 ml-2 dark:text-slate-400">
+          <ol className="list-decimal list-inside space-y-2 text-text-2 ml-2 ">
             <Content as="li">
               Go to your{' '}
               <Link href="https://github.com/settings/apps" target="_blank">

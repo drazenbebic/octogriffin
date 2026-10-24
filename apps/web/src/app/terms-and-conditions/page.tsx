@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Mail01Icon } from '@hugeicons/core-free-icons';
 
 import { JsonLd } from '@/components/JsonLd';
+import type { LegalSection } from '@/components/LegalPage';
 import { LegalPage } from '@/components/LegalPage';
 import { Callout } from '@/components/ui/Callout';
 import { Content } from '@/components/ui/Content';
@@ -13,7 +14,25 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const metadata: Metadata = pageMetadata('/terms-and-conditions');
 
-const LAST_UPDATED = '12.01.2026';
+const LAST_UPDATED = '2026-01-12';
+
+const sections: LegalSection[] = [
+  { id: 'introduction', label: 'Introduction', number: '1' },
+  {
+    id: 'description-of-service',
+    label: 'Description of Service',
+    number: '2',
+  },
+  { id: 'user-responsibilities', label: 'User Responsibilities', number: '3' },
+  {
+    id: 'limitation-of-liability',
+    label: 'Limitation of Liability',
+    number: '4',
+  },
+  { id: 'intellectual-property', label: 'Intellectual Property', number: '5' },
+  { id: 'termination', label: 'Termination', number: '6' },
+  { id: 'governing-law', label: 'Governing Law', number: '7' },
+];
 
 export default function TermsAndConditionsPage() {
   const email = supportEmail();
@@ -22,12 +41,13 @@ export default function TermsAndConditionsPage() {
     <>
       <JsonLd data={termsJsonLd} />
       <LegalPage
-        subtitle={`Last updated: ${LAST_UPDATED}`}
-        title="Terms & Conditions"
+        sections={sections}
+        title="Terms & conditions"
+        updated={LAST_UPDATED}
       >
         <div className="flex flex-col gap-10">
           {/* 1. Introduction */}
-          <section>
+          <section className="scroll-mt-24" id="introduction">
             <Heading className="mb-4" level={2} size="xl">
               1. Introduction
             </Heading>
@@ -45,7 +65,7 @@ export default function TermsAndConditionsPage() {
           </section>
 
           {/* 2. Description of Service */}
-          <section>
+          <section className="scroll-mt-24" id="description-of-service">
             <Heading className="mb-4" level={2} size="xl">
               2. Description of Service
             </Heading>
@@ -53,7 +73,7 @@ export default function TermsAndConditionsPage() {
               Octogriffin is a third-party integration tool that connects GitHub
               activity to the Habitica gamification platform.
             </Content>
-            <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-400">
+            <ul className="list-disc space-y-2 pl-5 text-text-2 ">
               <Content as="li">
                 We automate the completion of tasks, scoring of habits, or
                 gaining of XP based on your actions on GitHub (e.g., pushing
@@ -68,7 +88,7 @@ export default function TermsAndConditionsPage() {
           </section>
 
           {/* 3. User Responsibilities */}
-          <section>
+          <section className="scroll-mt-24" id="user-responsibilities">
             <Heading className="mb-4" level={2} size="xl">
               3. User Responsibilities
             </Heading>
@@ -76,7 +96,7 @@ export default function TermsAndConditionsPage() {
               By using this service, you agree to the following
               responsibilities:
             </Content>
-            <ul className="list-disc space-y-2 pl-5 text-slate-600 dark:text-slate-400">
+            <ul className="list-disc space-y-2 pl-5 text-text-2 ">
               <Content as="li">
                 <strong>Security:</strong> You are responsible for keeping your
                 Habitica API User ID and Token secure. While we encrypt this
@@ -98,15 +118,15 @@ export default function TermsAndConditionsPage() {
           </section>
 
           {/* 4. Limitation of Liability */}
-          <section>
+          <section className="scroll-mt-24" id="limitation-of-liability">
             <Heading className="mb-4" level={2} size="xl">
               4. Limitation of Liability
             </Heading>
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 dark:bg-amber-950/20 dark:border-amber-900/50">
-              <Content className="mb-2 font-semibold text-amber-900 dark:text-amber-300">
+            <div className="rounded-2xl border border-xp/30 bg-xp-soft p-6 ">
+              <Content className="mb-2 font-semibold text-xp ">
                 Service Provided &#34;As Is&#34;
               </Content>
-              <Content className="text-amber-800 dark:text-amber-400">
+              <Content className="text-xp ">
                 We provide this service for free and on an &#34;as is&#34;
                 basis. We do not guarantee 100% uptime. We are not liable for
                 any in-game losses (e.g., loss of a &#34;Streak&#34;, death of a
@@ -117,7 +137,7 @@ export default function TermsAndConditionsPage() {
           </section>
 
           {/* 5. Intellectual Property */}
-          <section>
+          <section className="scroll-mt-24" id="intellectual-property">
             <Heading className="mb-4" level={2} size="xl">
               5. Intellectual Property
             </Heading>
@@ -139,7 +159,7 @@ export default function TermsAndConditionsPage() {
           </section>
 
           {/* 6. Termination */}
-          <section>
+          <section className="scroll-mt-24" id="termination">
             <Heading className="mb-4" level={2} size="xl">
               6. Termination
             </Heading>
@@ -152,7 +172,7 @@ export default function TermsAndConditionsPage() {
           </section>
 
           {/* 7. Governing Law */}
-          <section>
+          <section className="scroll-mt-24" id="governing-law">
             <Heading className="mb-4" level={2} size="xl">
               7. Governing Law
             </Heading>

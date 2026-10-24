@@ -89,22 +89,22 @@ export default function DocsDevSetupPage() {
           </Heading>
           <div className="grid gap-3 sm:grid-cols-2">
             <Card
-              className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
+              className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-border "
               variant="flat"
             >
               <HugeiconsIcon
-                className="text-emerald-500 shrink-0"
+                className="text-ok shrink-0"
                 icon={CheckmarkCircle02Icon}
                 size={24}
               />
               <Content className="font-medium">Node.js 22+</Content>
             </Card>
             <Card
-              className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-slate-100 dark:ring-slate-800"
+              className="flex flex-row items-center gap-3 p-4 shadow-sm ring-1 ring-border "
               variant="flat"
             >
               <HugeiconsIcon
-                className="text-emerald-500 shrink-0"
+                className="text-ok shrink-0"
                 icon={CheckmarkCircle02Icon}
                 size={24}
               />
@@ -148,15 +148,12 @@ export default function DocsDevSetupPage() {
               <Heading level={4} size="base">
                 1. General
               </Heading>
-              <Card
-                className="grid gap-2 p-4 text-sm dark:bg-slate-900/50"
-                variant="flat"
-              >
+              <Card className="grid gap-2 p-4 text-sm " variant="flat">
                 <div className="grid grid-cols-[140px_1fr] gap-4">
                   <Content as="span" className="font-medium" color="note">
                     GitHub App Name
                   </Content>
-                  <span className="font-mono font-bold text-slate-900 dark:text-slate-100">
+                  <span className="font-mono font-bold text-text ">
                     My GitHub App
                   </span>
                 </div>
@@ -164,7 +161,7 @@ export default function DocsDevSetupPage() {
                   <Content as="span" className="font-medium" color="note">
                     Homepage URL
                   </Content>
-                  <span className="font-mono text-slate-900 dark:text-slate-300">
+                  <span className="font-mono text-text ">
                     http://localhost:3000
                   </span>
                 </div>
@@ -172,7 +169,7 @@ export default function DocsDevSetupPage() {
                   <Content as="span" className="font-medium" color="note">
                     Callback URL
                   </Content>
-                  <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
+                  <div className="flex flex-col gap-1 font-mono text-text ">
                     <span>http://localhost:3000/api/auth/callback/github</span>
                   </div>
                 </div>
@@ -180,9 +177,9 @@ export default function DocsDevSetupPage() {
                   <Content as="span" className="font-medium" color="note">
                     Callback URL (2)
                   </Content>
-                  <div className="flex flex-col gap-1 font-mono text-slate-900 dark:text-slate-300">
+                  <div className="flex flex-col gap-1 font-mono text-text ">
                     <span>
-                      <span className="text-violet-600 font-semibold dark:text-violet-400">
+                      <span className="text-accent-text font-semibold ">
                         &lt;YOUR-NGROK-URL&gt;
                       </span>
                       /api/auth/callback/github
@@ -194,7 +191,7 @@ export default function DocsDevSetupPage() {
                   <Content as="span" className="font-medium" color="note">
                     Setup URL
                   </Content>
-                  <span className="font-mono text-slate-900 dark:text-slate-300">
+                  <span className="font-mono text-text ">
                     http://localhost:3000/dashboard/settings
                   </span>
                 </div>
@@ -202,8 +199,8 @@ export default function DocsDevSetupPage() {
                   <Content as="span" className="font-medium" color="note">
                     Webhook URL
                   </Content>
-                  <span className="font-mono text-slate-900 dark:text-slate-300">
-                    <span className="text-violet-600 font-semibold dark:text-violet-400">
+                  <span className="font-mono text-text ">
+                    <span className="text-accent-text font-semibold ">
                       &lt;YOUR-NGROK-URL&gt;
                     </span>
                     /api/v1/webhook
@@ -213,7 +210,7 @@ export default function DocsDevSetupPage() {
                   <Content as="span" className="font-medium" color="note">
                     Webhook Secret
                   </Content>
-                  <span className="text-slate-500 italic dark:text-slate-500">
+                  <span className="text-muted italic ">
                     Leave blank (we configure this later)
                   </span>
                 </div>
@@ -229,32 +226,28 @@ export default function DocsDevSetupPage() {
                 <strong>Read-only</strong>.
               </Content>
 
-              <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
+              <div className="overflow-hidden rounded-lg border border-border ">
                 <table className="w-full text-sm text-left">
-                  <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800">
+                  <thead className="bg-sunken text-muted font-medium border-b border-border ">
                     <tr>
                       <th className="px-4 py-2">Category</th>
                       <th className="px-4 py-2">Access</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-line ">
                     {GITHUB_PERMISSIONS.map(
                       ({ category, isMandatory = false }) => (
                         <tr
                           className={cn({
-                            'bg-slate-50/50 dark:bg-slate-900/50': isMandatory,
-                            'bg-white dark:bg-slate-950': !isMandatory,
+                            'bg-sunken ': isMandatory,
+                            'bg-surface ': !isMandatory,
                           })}
                           key={category}
                         >
-                          <td
-                            className={cn(
-                              'px-4 py-2 font-medium dark:text-slate-300',
-                            )}
-                          >
+                          <td className={cn('px-4 py-2 font-medium ')}>
                             {category} {isMandatory && <>(Mandatory)</>}
                           </td>
-                          <td className="px-4 py-2 text-violet-600 font-bold dark:text-violet-400">
+                          <td className="px-4 py-2 text-accent-text font-bold ">
                             Read-only
                           </td>
                         </tr>
@@ -275,16 +268,16 @@ export default function DocsDevSetupPage() {
               </Content>
 
               <Card
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 p-4 dark:bg-slate-900/50"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2 p-4 "
                 variant="flat"
               >
                 {GITHUB_EVENTS.map(event => (
                   <div
-                    className="flex items-center gap-2.5 rounded-lg bg-white px-3 py-2 text-sm text-slate-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800"
+                    className="flex items-center gap-2.5 rounded-lg bg-surface px-3 py-2 text-sm text-text-2 shadow-sm ring-1 ring-slate-900/5 "
                     key={event}
                   >
                     <HugeiconsIcon
-                      className="text-emerald-500 shrink-0"
+                      className="text-ok shrink-0"
                       icon={Tick02Icon}
                       size={16}
                     />
@@ -339,7 +332,7 @@ export default function DocsDevSetupPage() {
           <div className="space-y-2">
             <Heading className="flex items-center gap-2" level={4} size="base">
               <HugeiconsIcon
-                className="text-slate-400"
+                className="text-muted"
                 icon={Folder01Icon}
                 size={16}
               />
@@ -362,7 +355,7 @@ export default function DocsDevSetupPage() {
           <div className="space-y-2 pt-2">
             <Heading className="flex items-center gap-2" level={4} size="base">
               <HugeiconsIcon
-                className="text-slate-400"
+                className="text-muted"
                 icon={Settings01Icon}
                 size={16}
               />

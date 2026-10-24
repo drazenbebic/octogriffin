@@ -28,13 +28,13 @@ export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-start justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:flex-row sm:items-center dark:border-slate-800 dark:bg-slate-900',
+        'flex flex-col items-start justify-between gap-4 rounded-xl border border-border bg-sunken p-5 sm:flex-row sm:items-center ',
         className,
       )}
     >
       <div className="space-y-1">
-        <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-slate-100">
-          <div className="text-violet-600 shrink-0 flex items-center dark:text-violet-400">
+        <div className="flex items-center gap-2 font-bold text-text ">
+          <div className="text-accent-text shrink-0 flex items-center ">
             {icon}
           </div>
           <span>{title}</span>
@@ -52,7 +52,7 @@ export const DocsResourceLink: FC<DocsResourceLinkProps> = ({
       >
         {label}
         <HugeiconsIcon
-          className="text-slate-400 dark:text-slate-500"
+          className="text-muted "
           icon={ArrowRight01Icon}
           size={16}
         />

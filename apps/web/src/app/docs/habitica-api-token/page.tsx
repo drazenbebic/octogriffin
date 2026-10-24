@@ -46,7 +46,7 @@ export default function DocsHabiticaApiTokenPage() {
       <DocsStep heading="Copy both values" step={3}>
         <Content>
           Copy your <strong>User ID</strong>, which looks like{' '}
-          <code className="bg-slate-100 px-1 rounded text-sm dark:bg-slate-800">
+          <code className="bg-fill px-1 rounded text-sm ">
             xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
           </code>
           {'. '}

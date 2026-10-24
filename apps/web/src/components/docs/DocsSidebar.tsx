@@ -17,10 +17,10 @@ export const DocsSidebar: FC = () => {
         {docsNavigation.map(section => (
           <div key={section.title}>
             <Heading
-              className="mb-3 text-xs font-bold uppercase tracking-wider"
-              color="slate"
+              className="mb-2 px-3 text-xs font-semibold text-muted"
+              color="inherit"
               level={4}
-              size="base"
+              size="h4"
             >
               {section.title}
             </Heading>
@@ -32,10 +32,10 @@ export const DocsSidebar: FC = () => {
                   <li key={item.href}>
                     <Link
                       className={cn(
-                        'group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200',
+                        'group flex items-center gap-2.5 rounded-[8px] px-3 py-2 text-sm font-medium transition-colors duration-[var(--dur-fast)]',
                         isActive
-                          ? 'bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-200'
-                          : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/40 dark:hover:text-slate-100',
+                          ? 'bg-accent-soft text-accent-text '
+                          : 'text-text-2 hover:bg-fill hover:text-text',
                       )}
                       href={item.href}
                     >
@@ -43,8 +43,8 @@ export const DocsSidebar: FC = () => {
                         className={cn(
                           'transition-colors',
                           isActive
-                            ? 'text-violet-600 dark:text-violet-400'
-                            : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300',
+                            ? 'text-accent-text '
+                            : 'text-muted group-hover:text-text-2 ',
                         )}
                       >
                         {item.icon}

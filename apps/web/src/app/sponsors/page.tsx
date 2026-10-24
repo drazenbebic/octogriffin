@@ -14,10 +14,10 @@ import { JsonLd } from '@/components/JsonLd';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { CardBody } from '@/components/ui/CardBody';
+import { Chip } from '@/components/ui/Chip';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
-import { Pill } from '@/components/ui/Pill';
-import { TextAccent } from '@/components/ui/TextAccent';
+import { Shell } from '@/components/ui/Shell';
 import { sponsorsJsonLd } from '@/json-ld/sponsors';
 import { pageMetadata } from '@/seo/pageCatalog';
 
@@ -27,24 +27,19 @@ export default function SponsorsPage() {
   return (
     <>
       <JsonLd data={sponsorsJsonLd} />
-      <div className="mx-auto max-w-6xl px-4 py-20">
+      <Shell className="py-20">
         <div className="mb-16 flex flex-col items-center text-center">
-          <Pill className="mb-6" variant="accent">
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet-700 dark:text-violet-300">
-              <HugeiconsIcon
-                className="text-rose-500 fill-rose-500"
-                icon={FavouriteIcon}
-                size={14}
-              />
-              Community Supported
-            </span>
-          </Pill>
+          <Chip className="mb-6" shape="pill" tone="accent">
+            <HugeiconsIcon
+              className="fill-hp text-hp"
+              icon={FavouriteIcon}
+              size={14}
+            />
+            Community supported
+          </Chip>
 
-          <Heading className="mb-4 tracking-tight" level={1} size="4xl">
-            Fuel the{' '}
-            <TextAccent breathing variant="brand">
-              Octogriffin!
-            </TextAccent>
+          <Heading className="mb-4" level={1} size="display">
+            Fuel the Octogriffin
           </Heading>
 
           <Content className="max-w-xl" size="lg">
@@ -55,16 +50,13 @@ export default function SponsorsPage() {
         </div>
 
         <div className="mx-auto mb-20 max-w-2xl">
-          <Card
-            className="relative overflow-hidden border-violet-100 bg-linear-to-b from-white to-violet-50/50 dark:border-violet-900/50 dark:from-slate-900 dark:to-violet-950/20"
-            variant="elevated"
-          >
-            <div className="pointer-events-none absolute -right-12 -top-12 opacity-5 dark:opacity-10 dark:text-violet-400">
+          <Card className="mist relative overflow-hidden" variant="elevated">
+            <div className="pointer-events-none absolute -right-12 -top-12 opacity-5">
               <HugeiconsIcon icon={ChampionIcon} size={200} />
             </div>
 
             <CardBody className="flex flex-col items-center py-12 text-center">
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-violet-100 text-violet-600 ring-4 ring-white dark:bg-violet-900/30 dark:text-violet-400 dark:ring-slate-900">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent-soft text-accent-text ring-4 ring-surface">
                 <HugeiconsIcon icon={Rocket01Icon} size={32} />
               </div>
 
@@ -84,7 +76,7 @@ export default function SponsorsPage() {
                   target="_blank"
                 >
                   <Button
-                    className="border-[#D63E9A] bg-[#EA4AAA] shadow-lg shadow-rose-200/50 hover:bg-[#D63E9A]! dark:shadow-none"
+                    className="border-[#D63E9A] bg-[#EA4AAA] shadow-lg shadow-rose-200/50 hover:bg-[#D63E9A]! "
                     size="lg"
                   >
                     <HugeiconsIcon
@@ -108,17 +100,15 @@ export default function SponsorsPage() {
 
         <div className="grid gap-6 md:grid-cols-3">
           <Card
-            className="transition-colors hover:border-stone-300 dark:hover:border-stone-700"
+            className="transition-colors hover:border-stone-300 "
             variant="outlined"
           >
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
-                <div className="rounded-lg bg-stone-100 p-2 text-stone-600 dark:bg-stone-900 dark:text-stone-400">
+                <div className="rounded-lg bg-stone-100 p-2 text-stone-600 ">
                   <HugeiconsIcon icon={Coffee02Icon} size={24} />
                 </div>
-                <span className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                  $2 / mo
-                </span>
+                <span className="text-xl font-bold text-text ">$2 / mo</span>
               </div>
               <Heading className="mb-2" level={3} size="lg">
                 Coffee Fund
@@ -130,11 +120,11 @@ export default function SponsorsPage() {
               </Content>
               <ul className="space-y-3">
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-600" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-stone-400 " />
                   Sponsor badge on profile
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-stone-400 dark:bg-stone-600" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-stone-400 " />
                   My gratitude! 🫶
                 </Content>
               </ul>
@@ -142,21 +132,19 @@ export default function SponsorsPage() {
           </Card>
 
           <Card
-            className="transition-colors hover:border-amber-300 dark:hover:border-amber-900/50"
+            className="transition-colors hover:border-xp/30 "
             variant="outlined"
           >
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
-                <div className="rounded-lg bg-amber-100 p-2 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
+                <div className="rounded-lg bg-xp-soft p-2 text-xp ">
                   <HugeiconsIcon
-                    className="fill-amber-600 dark:fill-amber-400"
+                    className="fill-amber-600 "
                     icon={ZapIcon}
                     size={24}
                   />
                 </div>
-                <span className="text-xl font-bold text-slate-900 dark:text-slate-100">
-                  $5 / mo
-                </span>
+                <span className="text-xl font-bold text-text ">$5 / mo</span>
               </div>
               <Heading className="mb-2" level={3} size="lg">
                 Server Fuel
@@ -167,15 +155,15 @@ export default function SponsorsPage() {
               </Content>
               <ul className="space-y-3">
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-xp" />
                   <strong>Listed in README</strong>
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-xp" />
                   Sponsor badge on profile
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-xp" />
                   My gratitude! 🫶
                 </Content>
               </ul>
@@ -183,15 +171,15 @@ export default function SponsorsPage() {
           </Card>
 
           <Card
-            className="border-violet-200 bg-violet-50/10 transition-colors hover:border-violet-300 dark:border-violet-900/50 dark:hover:border-violet-800"
+            className="border-griffin-200 bg-accent-soft transition-colors hover:border-griffin-200 "
             variant="outlined"
           >
             <CardBody>
               <div className="mb-4 flex items-center justify-between">
-                <div className="rounded-lg bg-violet-100 p-2 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
+                <div className="rounded-lg bg-accent-soft p-2 text-accent-text ">
                   <HugeiconsIcon icon={ChampionIcon} size={24} />
                 </div>
-                <span className="text-xl font-bold text-violet-600 dark:text-violet-400">
+                <span className="text-xl font-bold text-accent-text ">
                   $15 / mo
                 </span>
               </div>
@@ -204,26 +192,26 @@ export default function SponsorsPage() {
               </Content>
               <ul className="space-y-3">
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                   <strong>Listed on Website</strong>
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                   Priority feature requests
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                   Listed in README
                 </Content>
                 <Content as="li" className="flex items-center gap-2" size="sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                   Sponsor badge + Gratitude 🫶
                 </Content>
               </ul>
             </CardBody>
           </Card>
         </div>
-      </div>
+      </Shell>
     </>
   );
 }

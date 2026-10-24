@@ -17,7 +17,7 @@ export default function ImprintPage() {
   return (
     <>
       <JsonLd data={imprintJsonLd} />
-      <LegalPage subtitle="Legal Disclosure" title="Imprint">
+      <LegalPage description="Legal disclosure" title="Imprint">
         <div className="flex flex-col gap-10">
           {/* 1. Information according to § 5 ECG */}
           <section>
@@ -49,7 +49,7 @@ export default function ImprintPage() {
                       Email:
                     </Content>{' '}
                     <Link
-                      className="text-violet-600 hover:underline dark:text-violet-400"
+                      className="text-accent-text hover:underline "
                       href={`mailto:${email}`}
                     >
                       {email}
@@ -103,7 +103,7 @@ export default function ImprintPage() {
               European Commission&apos;s Online Dispute Resolution platform at:
               <br />
               <Link
-                className="mt-2 inline-block font-medium text-violet-600 hover:underline"
+                className="mt-2 inline-block font-medium text-accent-text hover:underline"
                 href="https://ec.europa.eu/consumers/odr"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -114,7 +114,7 @@ export default function ImprintPage() {
           </section>
 
           {/* 4. Liability & Copyright */}
-          <section className="rounded-2xl bg-slate-50 p-6 sm:p-8 dark:bg-slate-900/50">
+          <section className="rounded-2xl bg-sunken p-6 sm:p-8 ">
             <div className="space-y-6">
               <div>
                 <Heading className="mb-2" level={3} size="lg">

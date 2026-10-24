@@ -1,18 +1,22 @@
 import type { Metadata } from 'next';
+import NextLink from 'next/link';
 import type { ReactNode } from 'react';
 
-import { HelpCircleIcon, Mail01Icon } from '@hugeicons/core-free-icons';
+import { Mail01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import { JsonLd } from '@/components/JsonLd';
 import { Link } from '@/components/Link';
 import { Accordion } from '@/components/ui/Accordion';
 import { AccordionGroup } from '@/components/ui/AccordionGroup';
-import { Callout } from '@/components/ui/Callout';
+import { Button } from '@/components/ui/Button';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
+import { Shell } from '@/components/ui/Shell';
+import { getCurrentPhase } from '@/config/roadmap';
 import { faqJsonLd } from '@/json-ld/faq';
 import { pageMetadata } from '@/seo/pageCatalog';
+import { githubRepositoryUrl } from '@/utils/githubRepositoryUrl';
 import { supportEmail } from '@/utils/supportEmail';
 
 type FAQ = {
@@ -180,11 +184,8 @@ const gameplay: FAQ[] = [
         A single push rewards each trigger at most 10 times, no matter how many
         commits it contains. Beyond that, we operate on the &quot;honor
         system.&quot; Smart Spam Detection and Daily Caps are top priorities in
-        our upcoming{' '}
-        <Link className="text-violet-600 hover:underline" href="/roadmap">
-          Anti-Cheese
-        </Link>{' '}
-        update to help keep you honest.
+        our upcoming <Link href="/roadmap">Anti-Cheese</Link> update to help
+        keep you honest.
       </Content>
     ),
     question: 'What prevents me from spamming commits for infinite Gold?',
@@ -261,79 +262,118 @@ const troubleshooting: FAQ[] = [
   },
 ];
 
+const sections = [
+  { faqs: setup, id: 'setup', title: 'Setup' },
+  { faqs: dataPrivacy, id: 'privacy', title: 'Data privacy' },
+  { faqs: gameplay, id: 'gameplay', title: 'Gameplay' },
+  { faqs: troubleshooting, id: 'trouble', title: 'Troubleshooting' },
+];
+
 export default function FaqPage() {
+  const currentPhase = getCurrentPhase();
+
   return (
     <>
       <JsonLd data={faqJsonLd} />
-      <div className="mx-auto max-w-3xl px-4 py-12">
-        <div className="mb-12 text-center">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
-            <HugeiconsIcon icon={HelpCircleIcon} size={32} />
-          </div>
-          <Heading className="mb-4" level={1} size="3xl">
-            Habitica GitHub Integration FAQ
+      <Shell className="flex flex-col gap-12 pt-16 pb-24">
+        <div className="flex max-w-[640px] flex-col gap-3.5">
+          <Heading level={1} size="display">
+            Habitica GitHub integration FAQ
           </Heading>
-          <Content className="mx-auto max-w-xl" size="lg">
-            Everything you need to know about the syncing process, XP
-            calculations, and security.
-          </Content>
+          <p className="text-lg text-text-2">
+            Everything about setup, how rewards are calculated, and what happens
+            to your data.
+          </p>
         </div>
 
-        <Heading className="mb-8" size="2xl">
-          Setup
-        </Heading>
-        <AccordionGroup openIndex={0}>
-          {setup.map(faq => (
-            <Accordion key={faq.question} title={faq.question}>
-              {faq.answer}
-            </Accordion>
-          ))}
-        </AccordionGroup>
+        <div className="flex flex-wrap items-start gap-12">
+          <nav
+            aria-label="Topics"
+            className="flex flex-[1_1_200px] flex-col gap-0.5"
+          >
+            {sections.map(({ faqs, id, title }) => (
+              <a
+                className="flex justify-between rounded-[8px] px-3 py-2 text-sm font-medium text-text-2 transition-colors duration-[var(--dur-fast)] hover:bg-fill hover:text-text"
+                href={`#${id}`}
+                key={id}
+              >
+                {title}
+                <span className="text-muted">{faqs.length}</span>
+              </a>
+            ))}
+          </nav>
 
-        <Heading className="mt-12 mb-8" size="2xl">
-          Data Privacy
-        </Heading>
-        <AccordionGroup>
-          {dataPrivacy.map(faq => (
-            <Accordion key={faq.question} title={faq.question}>
-              {faq.answer}
-            </Accordion>
-          ))}
-        </AccordionGroup>
+          <div className="flex max-w-[780px] min-w-0 flex-[999_1_620px] flex-col gap-12">
+            {sections.map(({ faqs, id, title }, sectionIndex) => (
+              <section
+                aria-labelledby={`${id}-heading`}
+                className="flex scroll-mt-24 flex-col gap-4"
+                id={id}
+                key={id}
+              >
+                <Heading id={`${id}-heading`} level={2}>
+                  {title}
+                </Heading>
+                <AccordionGroup openIndex={sectionIndex === 0 ? 0 : undefined}>
+                  {faqs.map(faq => (
+                    <Accordion key={faq.question} title={faq.question}>
+                      {faq.answer}
+                    </Accordion>
+                  ))}
+                </AccordionGroup>
+              </section>
+            ))}
 
-        <Heading className="mt-12 mb-8" size="2xl">
-          Gameplay
-        </Heading>
-        <AccordionGroup>
-          {gameplay.map(faq => (
-            <Accordion key={faq.question} title={faq.question}>
-              {faq.answer}
-            </Accordion>
-          ))}
-        </AccordionGroup>
+            <NextLink
+              className="flex w-fit items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 text-text shadow-e1 transition-colors duration-[var(--dur-fast)] hover:bg-sunken"
+              href="/roadmap"
+            >
+              <span
+                aria-hidden="true"
+                className="h-2 w-2 rounded-full bg-accent shadow-[0_0_0_4px_var(--accent-soft)]"
+              />
+              <span className="flex flex-col leading-tight">
+                <span className="text-sm font-semibold">
+                  {currentPhase.codename} is in progress
+                </span>
+                <span className="text-xs text-muted">
+                  Cooldowns, daily caps and bot filtering, on the roadmap
+                </span>
+              </span>
+            </NextLink>
 
-        <Heading className="mt-12 mb-8" size="2xl">
-          Troubleshooting
-        </Heading>
-        <AccordionGroup className="mb-16">
-          {troubleshooting.map(faq => (
-            <Accordion key={faq.question} title={faq.question}>
-              {faq.answer}
-            </Accordion>
-          ))}
-        </AccordionGroup>
-
-        <Callout
-          button={{
-            href: `mailto:${supportEmail()}`,
-            icon: Mail01Icon,
-            label: 'Contact Support',
-          }}
-          description="Can't find the answer you're looking for? Our support team is ready to assist."
-          headingLevel={3}
-          title="Still have questions?"
-        />
-      </div>
+            <section className="flex flex-wrap items-center justify-between gap-6 rounded-xl border border-border bg-surface p-7 shadow-e1">
+              <div className="flex flex-col gap-1">
+                <Heading level={2} size="h3">
+                  Still stuck?
+                </Heading>
+                <p className="text-[15px] text-text-2">
+                  Send the delivery ID from your History tab and we&apos;ll
+                  trace what happened.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2.5">
+                <Button
+                  render={
+                    <a
+                      href={githubRepositoryUrl('/issues/new')}
+                      rel="noreferrer"
+                      target="_blank"
+                    />
+                  }
+                  variant="secondary"
+                >
+                  Open an issue
+                </Button>
+                <Button render={<a href={`mailto:${supportEmail()}`} />}>
+                  <HugeiconsIcon icon={Mail01Icon} size={16} />
+                  Email support
+                </Button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </Shell>
     </>
   );
 }

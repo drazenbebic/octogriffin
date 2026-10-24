@@ -9,11 +9,9 @@ import {
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
-import { Card } from '@/components/ui/Card';
-import { CardBody } from '@/components/ui/CardBody';
-import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import type { UserProfile } from '@/types/profile';
+import { cn } from '@/utils/cn';
 
 import { DetailRow } from './DetailRow';
 
@@ -27,52 +25,53 @@ export const ContactDetailsCard: FC<ContactDetailsCardProps> = ({
   profile,
 }) => {
   return (
-    <Card className={className} variant="elevated">
-      <CardBody>
-        <div className="flex items-center justify-between border-b border-slate-100 pb-6 mb-2 dark:border-slate-800">
-          <div>
-            <Heading level={3} size="lg">
-              Contact & Details
-            </Heading>
-            <Content className="mt-1" size="sm">
-              Public information from your GitHub profile.
-            </Content>
-          </div>
-        </div>
-
-        <div className="flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
-          <DetailRow
-            fallback="Not public"
-            icon={<HugeiconsIcon icon={Mail01Icon} size={18} />}
-            label="Email Address"
-            value={profile.email}
-          />
-          <DetailRow
-            fallback="Freelance"
-            icon={<HugeiconsIcon icon={Building03Icon} size={18} />}
-            label="Company"
-            value={profile.company}
-          />
-          <DetailRow
-            fallback="Unknown Realm"
-            icon={<HugeiconsIcon icon={Location01Icon} size={18} />}
-            label="Location"
-            value={profile.location}
-          />
-          <DetailRow
-            icon={<HugeiconsIcon icon={Globe02Icon} size={18} />}
-            isLink
-            label="Website"
-            value={profile.website}
-          />
-          <DetailRow
-            icon={<HugeiconsIcon icon={GithubIcon} size={18} />}
-            isLink
-            label="GitHub Profile"
-            value={profile.githubUrl}
-          />
-        </div>
-      </CardBody>
-    </Card>
+    <section
+      className={cn(
+        'flex flex-col rounded-xl border border-border bg-surface shadow-e1',
+        className,
+      )}
+    >
+      <div className="flex flex-col gap-0.5 border-b border-border px-6 py-5">
+        <Heading level={2} size="h3">
+          GitHub details
+        </Heading>
+        <p className="text-[13px] text-text-2">
+          Public information from your GitHub profile.
+        </p>
+      </div>
+      <dl className="flex flex-col px-6">
+        <DetailRow
+          fallback="Not public"
+          icon={<HugeiconsIcon icon={Mail01Icon} size={18} />}
+          label="Email"
+          value={profile.email}
+        />
+        <DetailRow
+          fallback="Not set"
+          icon={<HugeiconsIcon icon={Building03Icon} size={18} />}
+          label="Company"
+          value={profile.company}
+        />
+        <DetailRow
+          fallback="Not set"
+          icon={<HugeiconsIcon icon={Location01Icon} size={18} />}
+          label="Location"
+          value={profile.location}
+        />
+        <DetailRow
+          fallback="Not set"
+          icon={<HugeiconsIcon icon={Globe02Icon} size={18} />}
+          isLink
+          label="Website"
+          value={profile.website}
+        />
+        <DetailRow
+          icon={<HugeiconsIcon icon={GithubIcon} size={18} />}
+          isLink
+          label="GitHub profile"
+          value={profile.githubUrl}
+        />
+      </dl>
+    </section>
   );
 };

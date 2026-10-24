@@ -55,3 +55,31 @@ export const getEventLabel = (event: string): string => {
 
   return eventLabels.get(event) ?? event;
 };
+
+/**
+ * The part of a label after its group, so a list under "Discussion" reads
+ * "Answered", not "Discussion Answered". Labels that are just the group, or
+ * read on from it ("Push to Repository"), stay whole.
+ */
+export const getActionLabel = (label: string, group: string): string => {
+  const rest = label.slice(group.length + 1);
+
+  return label.startsWith(`${group} `) && /^[A-Z]/.test(rest) ? rest : label;
+};
+
+/** Events whose label or ID contains the query, ignoring case. */
+export const filterEvents = <T extends { label: string; value: string }>(
+  events: T[],
+  query: string,
+): T[] => {
+  const needle = query.trim().toLowerCase();
+
+  if (!needle) {
+    return events;
+  }
+
+  return events.filter(
+    ({ label, value }) =>
+      label.toLowerCase().includes(needle) || value.includes(needle),
+  );
+};

@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 
-import groupBy from 'lodash/groupBy';
-
 import { DocsFeedback } from '@/components/docs/DocsFeedback';
+import { EventCatalogue } from '@/components/docs/EventCatalogue';
 import { Link } from '@/components/Link';
 import { Alert } from '@/components/ui/Alert';
-import { Card } from '@/components/ui/Card';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { pageMetadata } from '@/seo/pageCatalog';
@@ -16,13 +14,12 @@ export const metadata: Metadata = pageMetadata('/docs/supported-github-events');
 
 export default function DocsSupportedGithubEventsPage() {
   const events = getGroupedGithubEvents();
-  const groups = Object.entries(groupBy(events, 'group'));
 
   return (
-    <div className="max-w-3xl space-y-12 pb-20">
+    <div className="flex max-w-[860px] flex-col gap-12 pb-20">
       <div>
         <Heading className="mb-4" level={1}>
-          Supported GitHub Events
+          Supported GitHub events
         </Heading>
         <Content size="lg">
           Octogriffin can turn {events.length} different GitHub events into
@@ -33,9 +30,7 @@ export default function DocsSupportedGithubEventsPage() {
       </div>
 
       <section className="space-y-4">
-        <Heading level={2} size="xl">
-          How events are counted
-        </Heading>
+        <Heading level={2}>How events are counted</Heading>
         <ul className="list-disc space-y-2 pl-5">
           <Content as="li">
             <strong>Pushes</strong> score once for every commit you wrote in
@@ -59,29 +54,9 @@ export default function DocsSupportedGithubEventsPage() {
         </Alert>
       </section>
 
-      <section className="space-y-6">
-        <Heading level={2} size="xl">
-          All events
-        </Heading>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {groups.map(([group, groupEvents]) => (
-            <Card className="p-5" key={group} variant="outlined">
-              <Heading className="mb-3" level={3} size="base">
-                {group}
-              </Heading>
-              <ul className="space-y-1.5">
-                {groupEvents.map(({ label, value }) => (
-                  <li className="flex flex-col" key={value}>
-                    <Content size="sm">{label}</Content>
-                    <code className="text-xs text-slate-500 dark:text-slate-400">
-                      {value}
-                    </code>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          ))}
-        </div>
+      <section className="flex flex-col gap-5">
+        <Heading level={2}>All events</Heading>
+        <EventCatalogue events={events} />
       </section>
 
       <Content>
