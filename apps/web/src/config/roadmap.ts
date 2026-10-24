@@ -122,8 +122,8 @@ export const roadmap: RoadmapPhase[] = [
       },
       {
         description:
-          'Skip events from Dependabot, Renovate and other bots in your repositories.',
-        status: 'planned',
+          'Bots like Dependabot and Renovate never earn rewards: their commits are skipped, and their events reward nobody.',
+        status: 'in-progress',
         title: 'Ignore bot accounts',
       },
       {

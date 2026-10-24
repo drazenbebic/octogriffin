@@ -1188,3 +1188,35 @@ describe('deliverRewards with spam', () => {
     ).toEqual([['hubot', 2]]);
   });
 });
+
+describe('deliverRewards with bots', () => {
+  // Bots can't sign in with GitHub, so they're never linked users
+  it('rewards nobody for an event a bot caused', async () => {
+    const { applied, sink } = recordingSink();
+    const { log, recorded } = recordingLog();
+
+    await deliverRewards(
+      makeEvent({
+        contributions: [
+          { actor: { githubId: 49_699_333 }, count: 1, spamCount: 0 },
+        ],
+        name: 'pull_request.opened',
+      }),
+      {
+        caps: noCaps,
+        cooldowns: noCooldowns,
+        days: noDays,
+        directory: inMemoryDirectory([
+          makeUser({
+            triggers: [makeTrigger({ event: 'pull_request.opened' })],
+          }),
+        ]),
+        log,
+        sink,
+      },
+    );
+
+    expect(applied).toHaveLength(0);
+    expect(recorded).toHaveLength(0);
+  });
+});

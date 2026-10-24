@@ -43,7 +43,8 @@ export default function DocsSupportedGithubEventsPage() {
           <Content as="li">
             <strong>Every other event</strong> scores once, when you are the
             person who caused it, for example the one who opened the pull
-            request or submitted the review.
+            request or submitted the review. Events caused by bots reward
+            nobody.
           </Content>
           <Content as="li">
             Events only count in the repositories you picked for that trigger.
