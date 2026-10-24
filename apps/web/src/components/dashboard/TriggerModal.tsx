@@ -140,6 +140,27 @@ const triggerToValues = (trigger: TriggerWithRepos): TriggerSchema => ({
   taskTitle: trigger.taskTitle,
 });
 
+const getModalCopy = (isEdit: boolean, recipe?: Recipe) => {
+  if (isEdit) {
+    return {
+      submitLabel: { idle: 'Save changes', pending: 'Saving…' },
+      title: 'Edit trigger',
+    };
+  }
+
+  if (recipe) {
+    return {
+      submitLabel: { idle: 'Add trigger', pending: 'Adding…' },
+      title: `Add “${recipe.title}”`,
+    };
+  }
+
+  return {
+    submitLabel: { idle: 'Create trigger', pending: 'Creating…' },
+    title: 'New trigger',
+  };
+};
+
 export const TriggerModal: FC<TriggerModalProps> = ({
   onSuccessAction,
   open,
@@ -268,17 +289,7 @@ export const TriggerModal: FC<TriggerModalProps> = ({
     });
   });
 
-  const title = isEdit
-    ? 'Edit trigger'
-    : recipe
-      ? `Add “${recipe.title}”`
-      : 'New trigger';
-
-  const submitLabel = isEdit
-    ? { idle: 'Save changes', pending: 'Saving…' }
-    : recipe
-      ? { idle: 'Add trigger', pending: 'Adding…' }
-      : { idle: 'Create trigger', pending: 'Creating…' };
+  const { submitLabel, title } = getModalCopy(isEdit, recipe);
 
   const habitFields = (
     <>

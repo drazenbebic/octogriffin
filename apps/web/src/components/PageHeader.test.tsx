@@ -16,6 +16,6 @@ describe('PageHeader', () => {
       <PageHeader aside={<span>Last updated today</span>} title="Terms" />,
     );
 
-    screen.getByText('Last updated today');
+    expect(screen.getByText('Last updated today')).toBeTruthy();
   });
 });

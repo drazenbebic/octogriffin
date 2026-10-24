@@ -34,6 +34,8 @@ const loadRepositories = async () => {
     const { data } = await getRepositoriesAction();
 
     useRepositoriesStore.setState({ repositories: data || [] });
+  } catch (error) {
+    console.error('Failed to fetch repositories:', error);
   } finally {
     useRepositoriesStore.setState({ hasLoaded: true, isLoading: false });
   }
@@ -48,7 +50,7 @@ export const useRepositoriesState = (): {
   const hasLoaded = useRepositoriesStore(state => state.hasLoaded);
 
   useEffect(() => {
-    loadRepositories();
+    void loadRepositories();
   }, []);
 
   return { hasLoaded, repositories };

@@ -53,7 +53,7 @@ export const HabiticaUserForm: FC = () => {
   });
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       await fetchHabiticaCredentials();
       await fetchHabiticaConnection();
       setIsLoading(false);

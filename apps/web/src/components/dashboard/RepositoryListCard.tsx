@@ -38,7 +38,7 @@ export const RepositoryListCard: FC = () => {
       }
     };
 
-    fetchConnectedRepos();
+    void fetchConnectedRepos();
   }, []);
 
   // Triggers are paginated, so counts are only exact once all are loaded
