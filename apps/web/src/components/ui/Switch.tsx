@@ -38,17 +38,17 @@ export const Switch: FC<SwitchProps> = ({
 
         <div
           className={cn(
-            'h-6 w-11 rounded-full bg-slate-200 transition-colors duration-200 ease-in-out',
-            'peer-checked:bg-violet-600',
-            'peer-focus-visible:ring-4 peer-focus-visible:ring-violet-500/20',
-            'group-hover:peer-checked:bg-violet-700 group-hover:bg-slate-300 dark:bg-slate-800 dark:group-hover:bg-slate-700',
+            'h-6 w-10 rounded-full border border-border-strong bg-fill transition-colors duration-[var(--dur-fast)]',
+            'peer-checked:border-accent peer-checked:bg-accent',
+            'peer-focus-visible:ring-4 peer-focus-visible:ring-ring',
+            'group-hover:peer-checked:bg-accent-hover group-hover:bg-border-strong ',
           )}
         />
 
         <div
           className={cn(
-            'absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out dark:bg-slate-200',
-            'peer-checked:translate-x-5',
+            'absolute top-[3px] left-[3px] h-[18px] w-[18px] rounded-full bg-muted transition-[translate,background-color] duration-[var(--dur-fast)] peer-checked:bg-white',
+            'peer-checked:translate-x-4',
           )}
         />
       </div>
@@ -56,14 +56,12 @@ export const Switch: FC<SwitchProps> = ({
       {(label || description) && (
         <div className="flex flex-col select-none">
           {label && (
-            <span className="text-sm font-medium text-slate-900 group-active:text-violet-700 dark:text-slate-100 dark:group-active:text-violet-400">
+            <span className="text-sm font-medium text-text group-active:text-accent-text ">
               {label}
             </span>
           )}
           {description && (
-            <span className="text-xs text-slate-500 dark:text-slate-400">
-              {description}
-            </span>
+            <span className="text-xs text-muted ">{description}</span>
           )}
         </div>
       )}

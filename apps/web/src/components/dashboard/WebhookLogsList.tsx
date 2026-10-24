@@ -76,13 +76,12 @@ export const WebhookLogsList: FC = () => {
       <div className="flex h-full flex-col gap-4">
         <div className="flex justify-end">
           <ButtonIcon
-            aria-label="Refresh webhook logs"
+            icon={RefreshIcon}
+            label="Refresh history"
             onClick={() => fetchWebhookLogs()}
             size="sm"
             variant="secondary"
-          >
-            <HugeiconsIcon icon={RefreshIcon} size={16} />
-          </ButtonIcon>
+          />
         </div>
 
         <div className="flex flex-col gap-4">
@@ -104,13 +103,12 @@ export const WebhookLogsList: FC = () => {
     <div className="flex h-full flex-col gap-4">
       <div className="mb-2 flex justify-end">
         <ButtonIcon
-          aria-label="Refresh logs"
+          icon={RefreshIcon}
+          label="Refresh history"
           onClick={() => fetchWebhookLogs()}
           size="sm"
           variant="ghost"
-        >
-          <HugeiconsIcon icon={RefreshIcon} size={16} />
-        </ButtonIcon>
+        />
       </div>
       <div className="flex h-full flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 py-16 text-center dark:bg-slate-900/50 dark:border-slate-800">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800">

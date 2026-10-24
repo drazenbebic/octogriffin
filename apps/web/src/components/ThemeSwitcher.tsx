@@ -23,6 +23,7 @@ export const ThemeSwitcher: FC = () => {
         className="opacity-0"
         disabled
         icon={Sun01Icon}
+        label="Switch theme"
         size="md"
         variant="ghost"
       />
@@ -33,9 +34,8 @@ export const ThemeSwitcher: FC = () => {
 
   return (
     <ButtonIcon
-      aria-label="Toggle theme"
-      className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
       icon={isDark ? Sun01Icon : Moon01Icon}
+      label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       size="md"
       variant="ghost"

@@ -65,7 +65,7 @@ export default function DocsSettingUpNgrokPage() {
                   target="_blank"
                 />
               }
-              variant="black"
+              variant="secondary"
             >
               Go to ngrok.com/download
             </Button>

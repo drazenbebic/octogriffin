@@ -3,7 +3,6 @@ import { forwardRef, useState } from 'react';
 
 import { FormInput as BaseFormInput } from '@ariakit/react';
 import { ViewIcon, ViewOffIcon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
 
 import { ButtonIcon } from '@/components/ui/ButtonIcon';
 import { FormFeedback } from '@/components/ui/FormFeedback';
@@ -24,10 +23,10 @@ export type FormInputProps = {
 };
 
 const baseStyles =
-  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-slate-900 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:bg-slate-950 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:bg-slate-950 dark:focus:border-violet-500 dark:focus:ring-violet-500/20';
+  'h-10 w-full rounded-md border border-border-strong bg-sunken px-3 text-sm text-text placeholder:text-faint transition-colors duration-[var(--dur-fast)] focus:border-accent focus:outline-none focus:ring-[3px] focus:ring-ring disabled:opacity-50 disabled:pointer-events-none ';
 
 const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
+  'aria-invalid:border-hp aria-invalid:focus:border-hp aria-invalid:focus:ring-hp/20 aria-invalid:bg-hp-soft ';
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   (
@@ -64,7 +63,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
 
         <div className="relative">
           {leadingIcon && (
-            <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+            <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">
               {leadingIcon}
             </div>
           )}
@@ -87,16 +86,11 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           {isPasswordType && (
             <div className="absolute right-2 top-1/2 -translate-y-1/2">
               <ButtonIcon
-                className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
+                icon={isPasswordVisible ? ViewOffIcon : ViewIcon}
+                label={isPasswordVisible ? 'Hide password' : 'Show password'}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                 size="sm"
-                variant="ghost"
-              >
-                <HugeiconsIcon
-                  icon={isPasswordVisible ? ViewOffIcon : ViewIcon}
-                  size={18}
-                />
-              </ButtonIcon>
+              />
             </div>
           )}
         </div>

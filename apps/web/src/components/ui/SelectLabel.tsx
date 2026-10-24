@@ -12,7 +12,7 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
     return (
       <BaseSelectLabel
         className={cn(
-          'mb-1.5 block text-sm font-medium text-slate-700',
+          'mb-1.5 block text-sm font-medium text-text-2',
           className,
         )}
         ref={ref}

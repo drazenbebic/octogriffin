@@ -23,8 +23,8 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import groupBy from 'lodash/groupBy';
 import { matchSorter } from 'match-sorter';
 
+import { Chip } from '@/components/ui/Chip';
 import { ComboboxItem } from '@/components/ui/ComboboxItem';
-import { DismissableBadge } from '@/components/ui/DismissableBadge';
 import { cn } from '@/utils/cn';
 
 export type ComboboxItemType = {
@@ -58,16 +58,16 @@ type ComboboxMultipleProps = ComboboxBaseProps & {
 export type ComboboxProps = ComboboxMultipleProps | ComboboxSingleProps;
 
 const singleInputStyles =
-  'relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 hover:bg-slate-100 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 dark:focus:border-violet-500 dark:hover:bg-slate-900 aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
+  'relative flex w-full items-center justify-between rounded-lg border border-border-strong bg-surface px-5 py-2.5 text-left text-text transition-all duration-200 ease-in-out placeholder:text-faint focus:border-accent focus:outline-none focus:ring-4 focus:ring-ring hover:bg-fill disabled:opacity-50 disabled:pointer-events-none aria-invalid:border-hp aria-invalid:focus:border-hp aria-invalid:focus:ring-hp/20 aria-invalid:bg-hp-soft ';
 
 const multiWrapperStyles =
-  'group relative flex w-full flex-wrap items-center gap-1.5 cursor-text rounded-lg border border-slate-300 bg-white pl-3 pr-10 py-1.5 min-h-11 text-left text-slate-900 transition-all duration-200 ease-in-out hover:bg-slate-100 focus-within:border-violet-500 focus-within:hover:bg-white focus-within:ring-4 focus-within:ring-violet-600/10 has-[input:disabled]:opacity-50 has-[input:disabled]:pointer-events-none dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 dark:focus-within:border-violet-500 dark:hover:bg-slate-900 dark:focus-within:hover:bg-slate-950 has-[input[aria-invalid="true"]]:border-red-500 has-[input[aria-invalid="true"]]:bg-red-50/50 has-[input[aria-invalid="true"]]:focus-within:ring-red-500/10 dark:has-[input[aria-invalid="true"]]:border-red-900/50 dark:has-[input[aria-invalid="true"]]:bg-red-900/10';
+  'group relative flex w-full flex-wrap items-center gap-1.5 cursor-text rounded-lg border border-border-strong bg-surface pl-3 pr-10 py-1.5 min-h-11 text-left text-text transition-all duration-200 ease-in-out hover:bg-fill focus-within:border-accent focus-within:hover:bg-surface focus-within:ring-4 focus-within:ring-ring has-[input:disabled]:opacity-50 has-[input:disabled]:pointer-events-none has-[input[aria-invalid="true"]]:border-hp has-[input[aria-invalid="true"]]:bg-hp-soft has-[input[aria-invalid="true"]]:focus-within:ring-hp/20 dark:has-[input[aria-invalid="true"]]:border-hp dark:has-[input[aria-invalid="true"]]:bg-hp';
 
 const multiInputStyles =
-  'flex-1 min-w-24 bg-transparent py-1 outline-none placeholder:text-slate-400';
+  'flex-1 min-w-24 bg-transparent py-1 outline-none placeholder:text-faint';
 
 const popoverStyles =
-  'z-50 flex max-h-75 min-w-45 flex-col overflow-auto rounded-2xl border border-slate-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none dark:bg-slate-900 dark:border-slate-800 dark:ring-slate-800';
+  'z-50 flex max-h-75 min-w-45 flex-col overflow-auto rounded-2xl border border-line bg-surface p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none ';
 
 const setRef = (
   ref: Ref<HTMLInputElement> | undefined,
@@ -175,7 +175,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
       >
         <div className={cn('flex w-full flex-col gap-1.5', className)}>
           {!disableLabel && label && (
-            <ComboboxLabel className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            <ComboboxLabel className="text-sm font-medium text-text-2 ">
               {label}
             </ComboboxLabel>
           )}
@@ -186,14 +186,14 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
               onMouseDown={handleWrapperMouseDown}
             >
               {selectedItems.map(item => (
-                <DismissableBadge
+                <Chip
+                  className="h-7 border border-border bg-surface pl-2.5 text-[13px] font-normal text-text"
                   dismissLabel={`Remove ${item.label}`}
                   key={item.value}
                   onDismiss={() => handleDismiss(item.value)}
-                  variant="primary"
                 >
                   {item.label}
-                </DismissableBadge>
+                </Chip>
               ))}
               <BaseCombobox
                 className={multiInputStyles}
@@ -203,7 +203,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                 ref={inputRefCallback}
                 {...inputProps}
               />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted">
                 <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
               </div>
             </div>
@@ -215,7 +215,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                 ref={inputRefCallback}
                 {...inputProps}
               />
-              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted">
                 <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
               </div>
             </div>
@@ -237,7 +237,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                       className="flex flex-col gap-1 first:mt-0 mt-2"
                       key={group}
                     >
-                      <ComboboxGroupLabel className="sticky -top-1.5 z-10 bg-white px-3 pb-2 pt-3.5 text-xs font-bold uppercase tracking-wider text-slate-400 select-none dark:bg-slate-900 dark:text-slate-500">
+                      <ComboboxGroupLabel className="sticky -top-1.5 z-10 bg-surface px-3 pb-2 pt-3.5 text-xs font-bold uppercase tracking-wider text-muted select-none ">
                         {group}
                       </ComboboxGroupLabel>
                       {groupItems.map(item => (
@@ -254,7 +254,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(
                 </div>
               )
             ) : (
-              <div className="px-4 py-3 text-center text-sm text-slate-500 select-none dark:text-slate-400">
+              <div className="px-4 py-3 text-center text-sm text-muted select-none ">
                 No results found
               </div>
             )}

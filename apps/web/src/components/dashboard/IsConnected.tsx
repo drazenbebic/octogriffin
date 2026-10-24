@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { Badge } from '@/components/ui/Badge';
+import { Chip } from '@/components/ui/Chip';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useHabiticaStore } from '@/store/useHabiticaStore';
 
@@ -19,14 +19,8 @@ export const IsConnected = () => {
   }
 
   return (
-    <Badge
-      className="px-4 py-2"
-      hasDot
-      pulsing={isHabiticaConnected}
-      size="md"
-      variant={isHabiticaConnected ? 'success' : 'neutral'}
-    >
-      {isHabiticaConnected ? 'Connected' : 'Not Connected'}
-    </Badge>
+    <Chip dot shape="pill" tone={isHabiticaConnected ? 'ok' : 'neutral'}>
+      {isHabiticaConnected ? 'Connected' : 'Not connected'}
+    </Chip>
   );
 };

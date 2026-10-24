@@ -31,10 +31,10 @@ export type SelectProps = BaseSelectProps & {
 };
 
 const triggerStyles =
-  'cursor-pointer relative flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-left text-slate-900 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none hover:bg-slate-100 dark:bg-slate-950 dark:border-slate-800 dark:text-slate-100 dark:focus:bg-slate-950 dark:hover:bg-slate-900';
+  'cursor-pointer relative flex h-10 w-full items-center justify-between rounded-md border border-border-strong bg-sunken px-3 text-left text-sm text-text transition-colors duration-[var(--dur-fast)] focus:bg-sunken focus:border-accent focus:outline-none focus:ring-4 focus:ring-ring disabled:opacity-50 disabled:pointer-events-none hover:bg-fill ';
 
 const popoverStyles =
-  'z-50 max-h-[300px] min-w-[180px] overflow-auto rounded-2xl border border-slate-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none dark:bg-slate-900 dark:border-slate-800 dark:ring-slate-800';
+  'z-50 max-h-[300px] min-w-[180px] overflow-auto rounded-md border border-border bg-raised p-1.5 shadow-e2 focus:outline-none ';
 
 const getSelectedLabel = (
   children: ReactNode,
@@ -144,7 +144,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             {hasValue ? (
               selectedLabel || selectValue
             ) : (
-              <span className="text-slate-400">
+              <span className="text-muted">
                 {placeholder || 'Select an item'}
               </span>
             )}
@@ -152,7 +152,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
           <SelectArrow>
             <HugeiconsIcon
-              className="h-4 w-4 text-slate-400"
+              className="h-4 w-4 text-muted"
               icon={ArrowDown01Icon}
             />
           </SelectArrow>

@@ -94,13 +94,12 @@ export const TriggersList: FC<TriggersListProps> = ({
       <div className="flex h-full flex-col gap-4">
         <div className="flex justify-end gap-2">
           <ButtonIcon
-            aria-label="Refresh triggers list"
+            icon={RefreshIcon}
+            label="Refresh triggers"
             onClick={() => fetchTriggers()}
             size="sm"
             variant="secondary"
-          >
-            <HugeiconsIcon icon={RefreshIcon} size={16} />
-          </ButtonIcon>
+          />
           <Button onClick={onOpenCreateAction} size="sm">
             + New Trigger
           </Button>

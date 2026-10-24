@@ -33,33 +33,23 @@ export const Pagination: FC<PaginationProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-between gap-4 border-t border-slate-100 py-4 sm:flex-row dark:border-slate-800',
+        'flex flex-col items-center justify-between gap-4 border-t border-line py-4 sm:flex-row ',
         className,
       )}
     >
-      <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+      <div className="flex items-center gap-4 text-sm text-muted ">
         <div>
-          Showing{' '}
-          <span className="font-medium text-slate-900 dark:text-slate-100">
-            {start}
-          </span>{' '}
-          to{' '}
-          <span className="font-medium text-slate-900 dark:text-slate-100">
-            {end}
-          </span>{' '}
-          of{' '}
-          <span className="font-medium text-slate-900 dark:text-slate-100">
-            {total}
-          </span>{' '}
-          results
+          Showing <span className="font-medium text-text ">{start}</span> to{' '}
+          <span className="font-medium text-text ">{end}</span> of{' '}
+          <span className="font-medium text-text ">{total}</span> results
         </div>
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="mr-2 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+        <div className="mr-2 flex items-center gap-2 text-sm text-muted ">
           <span className="hidden sm:inline">Rows per page:</span>
           <select
-            className="cursor-pointer rounded-lg border border-slate-200 bg-white py-1.5 pl-2 pr-8 text-sm font-medium text-slate-700 hover:border-slate-300 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:focus:border-violet-500"
+            className="cursor-pointer rounded-lg border border-border bg-surface py-1.5 pl-2 pr-8 text-sm font-medium text-text-2 hover:border-border-strong focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent "
             onChange={e => onLimitChange(Number(e.target.value))}
             value={limit}
           >
@@ -72,7 +62,7 @@ export const Pagination: FC<PaginationProps> = ({
         </div>
 
         <Button
-          className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+          className="flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-sm font-medium text-text-2 transition-colors hover:bg-sunken hover:text-text disabled:opacity-50 disabled:pointer-events-none "
           disabled={!hasPrev}
           onClick={() => onPageChange(page - 1)}
         >
@@ -80,7 +70,7 @@ export const Pagination: FC<PaginationProps> = ({
           <span className="hidden sm:inline">Previous</span>
         </Button>
 
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+        <div className="text-sm font-medium text-text-2 ">
           <span className="sm:hidden">
             {page} / {totalPages}
           </span>
@@ -90,7 +80,7 @@ export const Pagination: FC<PaginationProps> = ({
         </div>
 
         <Button
-          className="flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50 disabled:pointer-events-none dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+          className="flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-sm font-medium text-text-2 transition-colors hover:bg-sunken hover:text-text disabled:opacity-50 disabled:pointer-events-none "
           disabled={!hasNext}
           onClick={() => onPageChange(page + 1)}
         >

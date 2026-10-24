@@ -57,16 +57,12 @@ export const UserMenu: FC = () => {
       <div className="h-4 w-px bg-slate-200 dark:bg-slate-800" />
 
       <ButtonIcon
-        className="text-slate-400 hover:bg-red-50! hover:text-red-500! dark:hover:bg-red-950/30! dark:hover:text-red-400!"
-        disableAnimation
+        icon={Logout04Icon}
+        label="Sign out"
         onClick={() => signOut()}
-        shape="rounded"
         size="sm"
-        title="Sign Out"
-        variant="ghost"
-      >
-        <HugeiconsIcon icon={Logout04Icon} size={18} />
-      </ButtonIcon>
+        variant="danger"
+      />
 
       <Link className="flex" href="/profile">
         <Avatar

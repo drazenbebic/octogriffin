@@ -33,7 +33,7 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
     return (
       <FormError
         className={cn(
-          'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs font-medium text-red-600 dark:text-red-400',
+          'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs font-medium text-hp ',
         )}
         name={name}
       >
@@ -53,8 +53,8 @@ export const FormFeedback: FC<FormFeedbackProps> = ({
         className={cn(
           'mt-1.5 flex items-start gap-1.5 bg-transparent text-xs',
           {
-            'text-slate-400 opacity-75 dark:text-slate-500': disabled,
-            'text-slate-500 dark:text-slate-400': !disabled,
+            'text-muted ': !disabled,
+            'text-muted opacity-75 ': disabled,
           },
         )}
         name={name}

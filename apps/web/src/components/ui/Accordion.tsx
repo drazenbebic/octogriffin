@@ -49,44 +49,31 @@ export const Accordion: FC<AccordionProps> = ({
   return (
     <div
       className={cn(
-        'group overflow-hidden rounded-2xl border transition-all duration-300 ease-in-out',
-        open
-          ? 'border-violet-200 bg-white shadow-lg shadow-violet-900/5 dark:border-violet-900/50 dark:bg-slate-900'
-          : 'border-slate-200 bg-slate-50 hover:border-violet-200 hover:bg-white dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-violet-900/50 dark:hover:bg-slate-900',
+        'group border-b border-line transition-colors duration-[var(--dur-fast)] last:border-b-0',
+        open && 'bg-sunken',
         className,
       )}
     >
       <DisclosureProvider open={open} setOpen={setOpen}>
         <Disclosure
-          className="w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 focus-visible:ring-inset cursor-pointer dark:focus-visible:ring-violet-500"
+          className="w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset cursor-pointer "
           onClick={onClickCallback}
           render={
             <Heading
               as="button"
-              className="flex items-center justify-between px-6 py-4 text-left"
+              className="flex items-center justify-between px-5 py-4 text-left text-[15px]"
               color="inherit"
               level={4}
               size="base"
             >
-              <span
-                className={cn(
-                  'font-medium transition-colors duration-200',
-                  open
-                    ? 'text-violet-900 dark:text-violet-300'
-                    : 'text-slate-700 group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-slate-100',
-                )}
-              >
-                {title}
-              </span>
+              <span className={cn('font-semibold text-text')}>{title}</span>
               <div
                 className={cn(
-                  'ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all duration-300',
-                  open
-                    ? 'bg-violet-100 text-violet-600 rotate-180 dark:bg-violet-900/50 dark:text-violet-300'
-                    : 'bg-white text-slate-400 group-hover:bg-violet-50 group-hover:text-violet-500 dark:bg-slate-800 dark:text-slate-500 dark:group-hover:bg-slate-700 dark:group-hover:text-violet-400',
+                  'ml-4 flex shrink-0 items-center justify-center transition-transform duration-[var(--dur-base)]',
+                  open ? 'rotate-180 text-accent-text' : 'text-muted',
                 )}
               >
-                <HugeiconsIcon icon={ArrowDown01Icon} size={20} />
+                <HugeiconsIcon icon={ArrowDown01Icon} size={18} />
               </div>
             </Heading>
           }
@@ -99,7 +86,7 @@ export const Accordion: FC<AccordionProps> = ({
           )}
         >
           <div className="overflow-hidden">
-            <div className="px-6 pb-6 pt-2 text-slate-600 leading-relaxed dark:text-slate-400">
+            <div className="max-w-measure px-5 pb-5 text-[15px] leading-relaxed text-text-2">
               {children}
             </div>
           </div>

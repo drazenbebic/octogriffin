@@ -19,22 +19,18 @@ export const Providers: FC<ProvidersProps> = ({ children }) => {
           position="top-right"
           toastOptions={{
             classNames: {
-              actionButton:
-                '!bg-violet-600 !text-white !font-medium !rounded-lg',
-              cancelButton:
-                '!bg-slate-100 dark:!bg-slate-800 !text-slate-600 dark:!text-slate-400 !font-medium !rounded-lg',
-              description: '!text-slate-500 dark:!text-slate-400 !text-sm',
-              error:
-                '!text-red-600 !border-red-100 dark:!border-red-900/50 !bg-red-50/50 dark:!bg-red-900/10',
-              info: '!text-blue-600 !border-blue-100 dark:!border-blue-900/50 !bg-blue-50/50 dark:!bg-blue-900/10',
+              actionButton: '!bg-accent !text-white !font-semibold !rounded-md',
+              cancelButton: '!bg-fill !text-text-2 !font-semibold !rounded-md',
+              description: '!text-text-2 !text-[13px]',
+              error: '[&_[data-icon]]:!text-hp',
+              info: '[&_[data-icon]]:!text-mp',
+              // The reward strip: success toasts get a thin grain-coloured bar
               success:
-                '!text-emerald-600 !border-emerald-100 dark:!border-emerald-900/50 !bg-emerald-50/50 dark:!bg-emerald-900/10',
-              title:
-                '!text-slate-900 dark:!text-slate-50 !font-semibold !text-sm',
+                'before:!absolute before:!inset-x-0 before:!top-0 before:!h-1 before:!bg-[linear-gradient(90deg,#7853be,#432879_60%,#f5b544)] [&_[data-icon]]:!text-ok',
+              title: '!text-text !font-semibold !text-[13px]',
               toast:
-                'group !bg-white dark:!bg-slate-900 !border-slate-200 dark:!border-slate-800 !shadow-xl !shadow-violet-900/5 !rounded-2xl !p-4 gap-3',
-              warning:
-                '!text-amber-600 !border-amber-100 dark:!border-amber-900/50 !bg-amber-50/50 dark:!bg-amber-900/10',
+                'group !overflow-hidden !bg-raised !border-border !text-text !shadow-e2 !rounded-md !p-4 gap-3',
+              warning: '[&_[data-icon]]:!text-xp',
             },
           }}
         />

@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { getUserProfileAction } from '@/actions/getUserProfileAction';
 import { AuthGate } from '@/components/AuthGate';
 import { ContactDetailsCard } from '@/components/profile/ContactDetailsCard';
-import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
+import { Chip } from '@/components/ui/Chip';
 import { Content } from '@/components/ui/Content';
 import { Heading } from '@/components/ui/Heading';
 import { authOptions } from '@/lib/auth';
@@ -79,14 +79,9 @@ export default async function ProfilePage() {
               </div>
 
               <div className="mt-6 flex justify-center">
-                <Badge
-                  className="shadow-sm"
-                  hasDot
-                  size="md"
-                  variant={profile.isLinked ? 'success' : 'warning'}
-                >
-                  {profile.isLinked ? 'Sync Active' : 'No Sync Configured'}
-                </Badge>
+                <Chip dot shape="pill" tone={profile.isLinked ? 'ok' : 'xp'}>
+                  {profile.isLinked ? 'Sync active' : 'No sync configured'}
+                </Chip>
               </div>
             </div>
           </Card>

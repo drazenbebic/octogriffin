@@ -45,7 +45,7 @@ export const Callout: FC<CalloutProps> = ({
   return (
     <div
       className={cn(
-        'rounded-3xl bg-slate-50 ring-1 ring-slate-100 p-8 text-center dark:bg-slate-900 dark:ring-slate-800',
+        'rounded-3xl bg-sunken ring-1 ring-border p-8 text-center ',
         className,
       )}
     >

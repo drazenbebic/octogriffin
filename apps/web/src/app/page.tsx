@@ -98,7 +98,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <Link href={githubRepositoryUrl()} target="_blank">
-                  <Button size="lg" variant="black">
+                  <Button size="lg" variant="secondary">
                     <HugeiconsIcon icon={GithubIcon} size={20} />
                     Open Source
                   </Button>
@@ -135,7 +135,6 @@ export default function HomePage() {
 
             <Card
               className="shadow-blue-900/5! hover:shadow-blue-900/20!"
-              isHoverable
               variant="elevated"
             >
               <CardBody className="items-center text-center">
@@ -155,7 +154,7 @@ export default function HomePage() {
               </CardBody>
             </Card>
 
-            <Card isHoverable variant="elevated">
+            <Card variant="elevated">
               <CardBody className="items-center text-center">
                 <div className="relative mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-violet-50 to-violet-100 text-violet-600 shadow-inner ring-4 ring-white dark:from-violet-950 dark:to-violet-900/40 dark:text-violet-400 dark:ring-slate-900">
                   <HugeiconsIcon icon={CheckmarkCircle01Icon} size={32} />
@@ -181,7 +180,6 @@ export default function HomePage() {
 
             <Card
               className="shadow-emerald-900/5! hover:shadow-emerald-900/20!"
-              isHoverable
               variant="elevated"
             >
               <CardBody className="items-center text-center">

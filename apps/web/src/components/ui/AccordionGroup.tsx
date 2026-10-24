@@ -55,7 +55,12 @@ export const AccordionGroup = ({
   );
 
   return (
-    <div className={cn('flex flex-col gap-4', className)}>
+    <div
+      className={cn(
+        'overflow-hidden rounded-lg border border-border bg-surface shadow-e1',
+        className,
+      )}
+    >
       {accordions.map((accordion, i) => {
         const isOpen = allowMultiple
           ? openIndices.includes(i)

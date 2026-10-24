@@ -21,7 +21,7 @@ export const FormLabel: FC<FormLabelProps> = ({
   return (
     <BaseFormLabel
       className={cn(
-        'mb-1.5 block bg-transparent text-sm font-medium text-slate-700 select-none cursor-pointer dark:text-slate-200',
+        'mb-1.5 block bg-transparent text-sm font-medium text-text-2 select-none cursor-pointer ',
         {
           'text-lg': size === 'lg',
           'text-md': size === 'md',
@@ -34,10 +34,7 @@ export const FormLabel: FC<FormLabelProps> = ({
     >
       {children}
       {isRequired && (
-        <span
-          aria-hidden="true"
-          className="ml-1 text-red-500 dark:text-red-400"
-        >
+        <span aria-hidden="true" className="ml-1 text-hp ">
           *
         </span>
       )}

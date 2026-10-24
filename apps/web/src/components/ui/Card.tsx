@@ -2,45 +2,42 @@ import type { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
-type CardVariant = 'elevated' | 'flat' | 'outlined';
+type CardVariant = 'outlined' | 'sunken' | 'surface';
+/** @deprecated Old variant names, kept until every page is migrated. */
+type LegacyCardVariant = 'elevated' | 'flat';
 
 export type CardProps = {
   children?: ReactNode;
-  isHoverable?: boolean;
-  variant?: CardVariant;
+  variant?: CardVariant | LegacyCardVariant;
 } & HTMLAttributes<HTMLDivElement>;
 
-const cardBaseStyles =
-  'relative flex flex-col overflow-hidden rounded-3xl transition-all duration-300 ease-in-out';
-
 const variants: Record<CardVariant, string> = {
-  elevated:
-    'bg-white border border-slate-100 shadow-xl shadow-violet-900/5 dark:bg-slate-900 dark:border-slate-800 dark:shadow-none',
-  flat: 'bg-slate-50 dark:bg-slate-900',
-  outlined: 'bg-transparent border-2 border-slate-200 dark:border-slate-800',
+  outlined: 'border-[1.5px] border-dashed border-border-strong',
+  sunken: 'bg-sunken border border-border',
+  surface: 'bg-surface border border-border shadow-e1',
 };
 
-const hoverStyles: Record<string, string> = {
-  elevated:
-    'hover:shadow-2xl hover:shadow-violet-900/10 hover:-translate-y-1 cursor-pointer dark:hover:bg-slate-800/50',
-  flat: 'hover:bg-slate-100 cursor-pointer dark:hover:bg-slate-800/50',
-  outlined:
-    'hover:border-violet-200 hover:bg-slate-50 cursor-pointer dark:hover:border-violet-800 dark:hover:bg-slate-800/50',
+const legacyVariants: Record<LegacyCardVariant, CardVariant> = {
+  elevated: 'surface',
+  flat: 'sunken',
 };
 
 export const Card: FC<CardProps> = ({
   children,
   className,
-  isHoverable = false,
-  variant = 'elevated',
+  variant = 'surface',
   ...props
 }) => {
+  const resolvedVariant =
+    variant in legacyVariants
+      ? legacyVariants[variant as LegacyCardVariant]
+      : (variant as CardVariant);
+
   return (
     <div
       className={cn(
-        cardBaseStyles,
-        variants[variant],
-        isHoverable && hoverStyles[variant],
+        'relative flex flex-col overflow-hidden rounded-lg',
+        variants[resolvedVariant],
         className,
       )}
       {...props}

@@ -11,7 +11,7 @@ export const DialogBackdrop = forwardRef<HTMLDivElement, ModalBackdropProps>(
     return (
       <div
         className={cn(
-          'fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm',
+          'fixed inset-0 z-40 bg-scrim backdrop-blur-[4px]',
           'opacity-0 transition-opacity duration-300 ease-out',
           'data-enter:opacity-100',
           className,

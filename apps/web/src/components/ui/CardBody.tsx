@@ -21,7 +21,7 @@ export const CardBody: FC<CardBodyProps> = ({
         'flex flex-col gap-3',
         {
           'p-4 sm:p-5': padding === 'sm' && !noPadding,
-          'p-6 sm:p-8': padding === 'md' && !noPadding,
+          'p-6': padding === 'md' && !noPadding,
           'p-8 sm:p-12': padding === 'lg' && !noPadding,
         },
         className,

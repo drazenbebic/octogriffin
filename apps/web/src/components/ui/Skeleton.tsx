@@ -25,11 +25,7 @@ export const Skeleton: FC<SkeletonProps> = ({
 
   return (
     <Tag
-      className={cn(
-        'animate-pulse bg-slate-200 dark:bg-slate-800',
-        variants[variant],
-        className,
-      )}
+      className={cn('animate-pulse bg-fill ', variants[variant], className)}
       {...props}
     >
       {children}

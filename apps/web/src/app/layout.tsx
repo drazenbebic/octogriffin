@@ -1,7 +1,7 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
 import type { FC, ReactNode } from 'react';
 import React from 'react';
 
@@ -19,12 +19,26 @@ type Props = {
   children: ReactNode;
 };
 
+const bricolage = Bricolage_Grotesque({
+  axes: ['opsz'],
+  display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-bricolage',
+});
+
 const inter = Inter({
   display: 'swap',
   fallback: ['sans-serif'],
   preload: true,
   subsets: ['latin'],
-  variable: '--font-heading',
+  variable: '--font-inter',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  weight: ['400', '500'],
 });
 
 export const metadata: Metadata = {
@@ -54,13 +68,12 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<Props> = async ({ children }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          inter.className,
-          'flex min-h-screen flex-col bg-white text-slate-900 transition-colors duration-200 dark:bg-slate-950 dark:text-slate-50',
-        )}
-      >
+    <html
+      className={cn(bricolage.variable, inter.variable, jetbrainsMono.variable)}
+      lang="en"
+      suppressHydrationWarning
+    >
+      <body className="flex min-h-screen flex-col bg-bg font-sans text-text antialiased">
         <Providers>
           <Header />
           <main className="flex-1 w-full" id="content">

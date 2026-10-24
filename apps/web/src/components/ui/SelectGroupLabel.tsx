@@ -14,7 +14,7 @@ export const SelectGroupLabel = forwardRef<
   return (
     <BaseSelectGroupLabel
       className={cn(
-        'px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 select-none dark:text-slate-500',
+        'px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted select-none ',
         className,
       )}
       ref={ref}

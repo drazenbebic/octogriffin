@@ -19,10 +19,10 @@ export interface FormTextareaProps {
 }
 
 const baseStyles =
-  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:border-violet-600 focus:outline-none focus:ring-4 focus:ring-violet-600/10 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-800 dark:text-slate-100 dark:focus:bg-slate-950 dark:focus:border-violet-500 dark:focus:ring-violet-500/20 dark:bg-slate-950';
+  'w-full rounded-md border border-border-strong bg-sunken px-3 py-2.5 text-sm text-text placeholder:text-faint transition-colors duration-[var(--dur-fast)] focus:border-accent focus:outline-none focus:ring-[3px] focus:ring-ring disabled:pointer-events-none disabled:opacity-50';
 
 const errorStyles =
-  'aria-invalid:border-red-500 aria-invalid:focus:border-red-500 aria-invalid:focus:ring-red-500/10 aria-invalid:bg-red-50/50 dark:aria-invalid:bg-red-900/10 dark:aria-invalid:border-red-900/50';
+  'aria-invalid:border-hp aria-invalid:focus:border-hp aria-invalid:focus:ring-hp/20 aria-invalid:bg-hp-soft ';
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
   (
@@ -77,10 +77,10 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
 
           {!!maxLength && (
             <div
-              className={cn('mt-1.5 shrink-0 text-xs font-medium', {
-                'text-red-500 dark:text-red-400': value.length >= maxLength,
-                'text-slate-300 dark:text-slate-600': disabled,
-                'text-slate-400': !disabled,
+              className={cn('mt-1.5 shrink-0 font-mono text-xs', {
+                'text-hp ': value.length >= maxLength,
+                'text-muted ': disabled,
+                'text-muted': !disabled,
               })}
             >
               {value.length} / {maxLength}

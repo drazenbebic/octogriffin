@@ -23,34 +23,29 @@ const variantStyles: Record<
   }
 > = {
   danger: {
-    container:
-      'bg-red-50 border-red-100 text-red-900 dark:bg-red-900/20 dark:border-red-800 dark:text-red-100',
+    container: 'bg-hp-soft border-hp/30 text-hp ',
     defaultIcon: Alert01Icon,
-    icon: 'text-red-600 dark:text-red-400',
+    icon: 'text-hp ',
   },
   info: {
-    container:
-      'bg-blue-50 border-blue-100 text-blue-900 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-100',
+    container: 'bg-mp-soft border-mp/30 text-mp ',
     defaultIcon: InformationCircleIcon,
-    icon: 'text-blue-600 dark:text-blue-400',
+    icon: 'text-mp ',
   },
   note: {
-    container:
-      'bg-slate-50 border-slate-200 text-slate-700 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200',
+    container: 'bg-sunken border-border text-text-2 ',
     defaultIcon: InformationCircleIcon,
-    icon: 'text-slate-500 dark:text-slate-400',
+    icon: 'text-muted ',
   },
   success: {
-    container:
-      'bg-emerald-50 border-emerald-100 text-emerald-900 dark:bg-emerald-900/20 dark:border-emerald-800 dark:text-emerald-100',
+    container: 'bg-ok-soft border-ok/30 text-ok ',
     defaultIcon: CheckmarkCircle02Icon,
-    icon: 'text-emerald-600 dark:text-emerald-400',
+    icon: 'text-ok ',
   },
   warning: {
-    container:
-      'bg-amber-50 border-amber-100 text-amber-900 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-100',
+    container: 'bg-xp-soft border-xp/30 text-xp ',
     defaultIcon: Alert02Icon,
-    icon: 'text-amber-600 dark:text-amber-400',
+    icon: 'text-xp ',
   },
 };
 

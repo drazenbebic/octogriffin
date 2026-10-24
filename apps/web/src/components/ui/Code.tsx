@@ -29,7 +29,7 @@ export const Code: FC<CodeProps> = async ({
   return (
     <div
       className={cn(
-        'relative flex gap-3 items-center rounded-xl bg-slate-900 p-4 font-mono text-sm text-slate-300 space-y-2',
+        'relative flex gap-3 items-center rounded-xl bg-text p-4 font-mono text-sm text-muted space-y-2',
         {
           'disable-lines': disableNumbers,
         },
