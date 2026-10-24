@@ -8,6 +8,7 @@ import {
   triggerSchema,
   UNKNOWN_REPOSITORY_ERROR,
 } from '@/schemas/triggerSchema';
+import { toCooldownSeconds } from '@/utils/cooldown';
 
 export async function createTriggerAction(data: TriggerSchema) {
   return runUserAction('createTriggerAction', async githubUser => {
@@ -18,6 +19,10 @@ export async function createTriggerAction(data: TriggerSchema) {
     }
 
     return createTrigger({
+      cooldownSeconds: toCooldownSeconds(
+        trigger.cooldownAmount,
+        trigger.cooldownUnit,
+      ),
       event: trigger.event,
       githubUserId: githubUser.id,
       isActive: true,

@@ -17,6 +17,7 @@ export type FormInputProps = {
   inputClassName?: string;
   label?: ReactNode | string;
   leadingIcon?: ReactNode;
+  min?: number;
   name: string;
   placeholder?: string;
   readOnly?: boolean;

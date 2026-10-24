@@ -62,3 +62,90 @@ describe('triggerSchema', () => {
     expect(result.success).toBe(false);
   });
 });
+
+describe('triggerSchema cooldown', () => {
+  it.each([undefined, ''])(
+    'accepts an empty amount (%p) as no cooldown',
+    cooldownAmount => {
+      const result = triggerSchema.safeParse({
+        ...validTrigger,
+        cooldownAmount,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.data?.cooldownAmount).toBeUndefined();
+    },
+  );
+
+  it('coerces the amount from the form', () => {
+    const result = triggerSchema.safeParse({
+      ...validTrigger,
+      cooldownAmount: '10',
+      cooldownUnit: 'minutes',
+    });
+
+    expect(result.data?.cooldownAmount).toBe(10);
+  });
+
+  it.each([
+    ['0', 'Please use a number above 0.'],
+    ['-5', 'Please use a number above 0.'],
+    ['1.5', 'Please use a whole number.'],
+  ])('rejects %s', (cooldownAmount, message) => {
+    const result = triggerSchema.safeParse({
+      ...validTrigger,
+      cooldownAmount,
+      cooldownUnit: 'hours',
+    });
+
+    expect(result.error?.issues).toEqual([
+      expect.objectContaining({ message, path: ['cooldownAmount'] }),
+    ]);
+  });
+
+  it('accepts 365 days', () => {
+    expect(
+      triggerSchema.safeParse({
+        ...validTrigger,
+        cooldownAmount: 365,
+        cooldownUnit: 'days',
+      }).success,
+    ).toBe(true);
+  });
+
+  it.each([
+    [366, 'days'],
+    [525_601, 'minutes'],
+    [1_000_000_000, 'days'],
+  ])('rejects %d %s', (cooldownAmount, cooldownUnit) => {
+    const result = triggerSchema.safeParse({
+      ...validTrigger,
+      cooldownAmount,
+      cooldownUnit,
+    });
+
+    expect(result.error?.issues).toEqual([
+      expect.objectContaining({
+        message: 'Please keep the cooldown to 365 days or less.',
+        path: ['cooldownAmount'],
+      }),
+    ]);
+  });
+
+  it('checks the maximum in minutes when no unit is given', () => {
+    expect(
+      triggerSchema.safeParse({ ...validTrigger, cooldownAmount: 525_601 })
+        .success,
+    ).toBe(false);
+  });
+
+  it('rejects an unknown unit', () => {
+    expect(
+      triggerSchema.safeParse({
+        ...validTrigger,
+        cooldownAmount: 1,
+        cooldownUnit: 'weeks',
+      }).success,
+    ).toBe(false);
+  });
+});

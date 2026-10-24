@@ -53,6 +53,8 @@ export type HabiticaTask = {
 };
 
 export type Reward = {
+  /** Only for triggers with a cooldown: when it last scored, as it was read. */
+  cooldown?: { previousScoredAt: Date | null };
   direction: TaskDirection;
   task: HabiticaTask;
   times: number;
@@ -65,8 +67,10 @@ export type RecipientRewards = {
 };
 
 export type TriggerRule = {
+  cooldownSeconds: null | number;
   event: string;
   isActive: boolean;
+  lastScoredAt: Date | null;
   repositoryIds: number[];
   scoreDirection: string;
   taskAlias: null | string;
@@ -110,8 +114,11 @@ export type RewardDirectory = {
  * Where Rewards end up: a recipient's Habitica account.
  */
 export type RewardSink = {
-  /** Rejects with a `RewardDeliveryError` when not a single reward could be scored. */
-  apply: (recipientRewards: RecipientRewards) => Promise<void>;
+  /**
+   * Resolves to the triggers that scored at least once. Rejects with a
+   * `RewardDeliveryError` when not a single reward could be scored.
+   */
+  apply: (recipientRewards: RecipientRewards) => Promise<string[]>;
 };
 
 /**
@@ -124,4 +131,23 @@ export type RewardLog = {
   claim: (event: RewardableEvent, recipient: Recipient) => Promise<boolean>;
   /** Gives up a claim, so the delivery can be rewarded on another try. */
   release: (event: RewardableEvent, recipient: Recipient) => Promise<void>;
+};
+
+/**
+ * When each trigger with a cooldown last scored. A trigger can only be
+ * claimed once per cooldown, even by deliveries arriving at the same time.
+ */
+export type TriggerCooldowns = {
+  /** Resolves to `false` when another delivery claimed the trigger since `previousScoredAt` was read. */
+  claim: (
+    triggerUuid: string,
+    previousScoredAt: Date | null,
+    now: Date,
+  ) => Promise<boolean>;
+  /** Gives up a claim made at `claimedAt`, putting `previousScoredAt` back. */
+  release: (
+    triggerUuid: string,
+    claimedAt: Date,
+    previousScoredAt: Date | null,
+  ) => Promise<void>;
 };

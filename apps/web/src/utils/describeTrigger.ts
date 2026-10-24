@@ -1,5 +1,6 @@
 import type { HabiticaAttribute } from '@/components/ui/AttributeChip';
 import type { TriggerSchema } from '@/schemas/triggerSchema';
+import { formatCooldown, toCooldownSeconds } from '@/utils/cooldown';
 import { getDifficulty } from '@/utils/difficulty';
 
 export type TriggerSentencePart =
@@ -71,6 +72,11 @@ export const describeTrigger = (
   },
 ): TriggerSentencePart[] => {
   const repositories = describeRepositories(ctx.repoNames, ctx.totalRepos);
+  // Form values arrive as strings, an empty one means no cooldown
+  const cooldownSeconds = toCooldownSeconds(
+    Number(values.cooldownAmount) || undefined,
+    values.cooldownUnit,
+  );
   const difficulty =
     values.taskPriority !== undefined
       ? getDifficulty(values.taskPriority)
@@ -114,5 +120,12 @@ export const describeTrigger = (
       ? { kind: 'value', text: values.taskFrequency }
       : placeholder('daily'),
     text('.'),
+    ...(cooldownSeconds
+      ? [
+          text(' After scoring, it rests for '),
+          { kind: 'value', text: formatCooldown(cooldownSeconds) } as const,
+          text('.'),
+        ]
+      : []),
   ];
 };

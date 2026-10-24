@@ -6,6 +6,7 @@ import {
   Delete02Icon,
   Edit02Icon,
   MoreVerticalIcon,
+  Timer02Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
@@ -20,6 +21,7 @@ import { useEventIcon } from '@/hooks/useEventIcon';
 import { useTriggersStore } from '@/store/useTriggersStore';
 import type { TriggerWithRepos } from '@/types/triggers';
 import { cn } from '@/utils/cn';
+import { formatCooldown } from '@/utils/cooldown';
 import { summariseRepositories } from '@/utils/describeTrigger';
 
 export const triggerGridColumns =
@@ -70,6 +72,18 @@ export const TriggerRow: FC<TriggerRowProps> = ({
             {isNew && (
               <Chip className="text-[11px]" tone="accent">
                 New
+              </Chip>
+            )}
+            {!!trigger.cooldownSeconds && (
+              <Chip
+                className={cn(
+                  'shrink-0 gap-1 text-[11px]',
+                  !trigger.isActive && 'opacity-55',
+                )}
+                tone="neutral"
+              >
+                <HugeiconsIcon icon={Timer02Icon} size={12} />
+                {formatCooldown(trigger.cooldownSeconds, 'short')} cooldown
               </Chip>
             )}
           </span>

@@ -57,6 +57,35 @@ describe('describeTrigger', () => {
     );
   });
 
+  it('says how long the trigger rests', () => {
+    const parts = describeTrigger(
+      {
+        cooldownAmount: 10,
+        cooldownUnit: 'minutes',
+        event: 'push',
+        scoreDirection: 'up',
+        taskAttribute: 'str',
+        taskFrequency: 'daily',
+        taskPriority: 1,
+        taskTitle: 'Write code',
+      },
+      { repoNames: ['octogriffin'], totalRepos: 1 },
+    );
+
+    expect(toText(parts)).toMatch(
+      /The counter resets daily\. After scoring, it rests for 10 minutes\.$/,
+    );
+  });
+
+  it('says nothing about resting without a cooldown', () => {
+    const parts = describeTrigger(
+      { event: 'push', taskFrequency: 'daily', taskTitle: 'Write code' },
+      { repoNames: ['octogriffin'], totalRepos: 1 },
+    );
+
+    expect(toText(parts)).not.toMatch(/rests/);
+  });
+
   it('marks a punishing trigger in the health colour', () => {
     const parts = describeTrigger(
       { scoreDirection: 'down' },

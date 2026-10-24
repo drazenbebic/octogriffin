@@ -47,6 +47,7 @@ import { triggerSchema } from '@/schemas/triggerSchema';
 import { useTriggersStore } from '@/store/useTriggersStore';
 import type { TriggerWithRepos } from '@/types/triggers';
 import { cn } from '@/utils/cn';
+import { fromCooldownSeconds } from '@/utils/cooldown';
 import { describeTrigger } from '@/utils/describeTrigger';
 import { githubAppUrl } from '@/utils/githubAppUrl';
 import { getGroupedGithubEvents } from '@/utils/githubEvents';
@@ -62,6 +63,7 @@ export type TriggerModalProps = {
 };
 
 const defaultValues: TriggerSchema = {
+  cooldownUnit: 'minutes',
   event: '',
   repositories: [],
   scoreDirection: 'up',
@@ -121,6 +123,14 @@ const frequencyOptions = [
   { label: 'Monthly', value: 'monthly' },
 ];
 
+// Smallest first, spelled out as the unit list itself is kept alphabetical
+const cooldownUnitOptions = [
+  { label: 'sec', name: 'seconds', value: 'seconds' },
+  { label: 'min', name: 'minutes', value: 'minutes' },
+  { label: 'hours', value: 'hours' },
+  { label: 'days', value: 'days' },
+];
+
 const Legend: FC<{ children: string }> = ({ children }) => (
   <legend className="mb-3.5 p-0 font-display text-[17px] font-bold tracking-[-0.02em] text-text">
     {children}
@@ -128,6 +138,11 @@ const Legend: FC<{ children: string }> = ({ children }) => (
 );
 
 const triggerToValues = (trigger: TriggerWithRepos): TriggerSchema => ({
+  ...(trigger.cooldownSeconds
+    ? (({ amount, unit }) => ({ cooldownAmount: amount, cooldownUnit: unit }))(
+        fromCooldownSeconds(trigger.cooldownSeconds),
+      )
+    : { cooldownUnit: 'minutes' as const }),
   event: trigger.event,
   repositories: trigger.repositories.map(({ uuid }) => uuid),
   scoreDirection: trigger.scoreDirection as TriggerSchema['scoreDirection'],
@@ -344,6 +359,21 @@ export const TriggerModal: FC<TriggerModalProps> = ({
             label="Counter resets"
             name="taskFrequency"
             options={frequencyOptions}
+          />
+        </div>
+        <div className="grid gap-3.5 sm:grid-cols-[8rem_1fr]">
+          <FormInput
+            description="After it scores, this trigger rests for this long. Leave empty for no cooldown."
+            label="Cooldown"
+            min={1}
+            name="cooldownAmount"
+            placeholder="None"
+            type="number"
+          />
+          <FormSegmentedControl
+            label="Unit"
+            name="cooldownUnit"
+            options={cooldownUnitOptions}
           />
         </div>
       </fieldset>

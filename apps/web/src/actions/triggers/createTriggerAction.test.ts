@@ -65,4 +65,27 @@ describe('createTriggerAction', () => {
     });
     expect(mockCreateTrigger).not.toHaveBeenCalled();
   });
+  it('saves the cooldown in seconds', async () => {
+    mockOwnsRepositories.mockResolvedValue(true);
+
+    await createTriggerAction({
+      ...trigger,
+      cooldownAmount: 10,
+      cooldownUnit: 'minutes',
+    });
+
+    expect(mockCreateTrigger).toHaveBeenCalledWith(
+      expect.objectContaining({ cooldownSeconds: 600 }),
+    );
+  });
+
+  it('saves no cooldown when the amount is empty', async () => {
+    mockOwnsRepositories.mockResolvedValue(true);
+
+    await createTriggerAction(trigger);
+
+    expect(mockCreateTrigger).toHaveBeenCalledWith(
+      expect.objectContaining({ cooldownSeconds: null }),
+    );
+  });
 });

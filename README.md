@@ -40,7 +40,7 @@ It is built with **Next.js**, **Prisma** and **PostgreSQL**, and runs as a GitHu
   - **Difficulty**: Trivial, Easy, Medium or Hard.
   - **Direction**: Earn XP and Gold, or lose Health for habits you want to break.
   - **Scope**: Apply a trigger to all your repositories or only to selected ones.
-- **Fair rewards**: A trigger scores at most 10 times per event (for example a push with 50 commits). Self-hosters can change this with `MAX_REWARDS_PER_EVENT`.
+- **Fair rewards**: A trigger scores at most 10 times per event (for example a push with 50 commits). Self-hosters can change this with `MAX_REWARDS_PER_EVENT`. Triggers can also have a cooldown, from seconds up to 365 days, so they rest for a while after they score.
 - **Security first**:
   - **AES-256-GCM encryption**: Your Habitica API token is encrypted at rest and never sent to the browser.
   - **Webhook verification**: Every GitHub delivery is checked against its SHA-256 signature.

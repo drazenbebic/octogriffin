@@ -8,6 +8,7 @@ import {
   triggerSchema,
   UNKNOWN_REPOSITORY_ERROR,
 } from '@/schemas/triggerSchema';
+import { toCooldownSeconds } from '@/utils/cooldown';
 
 export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
   return runUserAction('updateTriggerAction', async githubUser => {
@@ -27,6 +28,10 @@ export async function updateTriggerAction(uuid: string, data: TriggerSchema) {
     return updateTrigger(
       { id: existingTrigger.id },
       {
+        cooldownSeconds: toCooldownSeconds(
+          trigger.cooldownAmount,
+          trigger.cooldownUnit,
+        ),
         event: trigger.event,
         repositories: {
           set: trigger.repositories.map(repositoryUuid => ({

@@ -111,4 +111,35 @@ describe('habiticaRewardSink', () => {
 
     expect(scoreTask).toHaveBeenCalledTimes(1);
   });
+  it('reports every trigger that scored', async () => {
+    mockHabitica([]);
+
+    await expect(
+      habiticaRewardSink.apply(
+        recipientRewards([reward('Code'), reward('Review')]),
+      ),
+    ).resolves.toEqual(['Code', 'Review']);
+  });
+
+  it('leaves out triggers that failed', async () => {
+    mockHabitica(['Review']);
+
+    await expect(
+      habiticaRewardSink.apply(
+        recipientRewards([reward('Code'), reward('Review')]),
+      ),
+    ).resolves.toEqual(['Code']);
+  });
+
+  it('reports a trigger that scored only partly', async () => {
+    const { scoreTask } = mockHabitica([]);
+
+    scoreTask
+      .mockResolvedValueOnce({})
+      .mockRejectedValueOnce(new Error('Habitica is down'));
+
+    await expect(
+      habiticaRewardSink.apply(recipientRewards([reward('Code', 3)])),
+    ).resolves.toEqual(['Code']);
+  });
 });

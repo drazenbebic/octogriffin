@@ -29,7 +29,18 @@ const isSameActor = (actor: Actor, user: LinkedUser) =>
     ? actor.githubId === user.githubId
     : actor.login === user.login;
 
+const isCoolingDown = (
+  { cooldownSeconds, lastScoredAt }: TriggerRule,
+  now: Date,
+) =>
+  cooldownSeconds !== null &&
+  lastScoredAt !== null &&
+  now.getTime() - lastScoredAt.getTime() < cooldownSeconds * 1000;
+
 const toReward = (trigger: TriggerRule, times: number): Reward => ({
+  ...(trigger.cooldownSeconds !== null && {
+    cooldown: { previousScoredAt: trigger.lastScoredAt },
+  }),
   direction:
     trigger.scoreDirection === 'up' ? TaskDirection.UP : TaskDirection.DOWN,
   task: {
@@ -51,6 +62,7 @@ const toReward = (trigger: TriggerRule, times: number): Reward => ({
 export const evaluateRewards = async (
   event: RewardableEvent,
   directory: RewardDirectory,
+  now: Date,
 ): Promise<RecipientRewards[]> => {
   const contributions = event.contributions.filter(({ count }) => count > 0);
 
@@ -108,6 +120,18 @@ export const evaluateRewards = async (
             trigger.event === event.name &&
             trigger.repositoryIds.includes(event.repositoryId),
         )
+        .filter(trigger => {
+          if (!isCoolingDown(trigger, now)) {
+            return true;
+          }
+
+          logger.info(
+            { trigger: trigger.uuid },
+            'Ignored: Trigger is cooling down.',
+          );
+
+          return false;
+        })
         .map(trigger => toReward(trigger, times));
 
       return {

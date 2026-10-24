@@ -183,10 +183,11 @@ const gameplay: FAQ[] = [
     answer: (
       <Content>
         A single push rewards each trigger at most 10 times, no matter how many
-        commits it contains. Beyond that, we operate on the &quot;honor
-        system.&quot; Smart Spam Detection and Daily Caps are top priorities in
-        our upcoming <Link href="/roadmap">Anti-Cheese</Link> update to help
-        keep you honest.
+        commits it contains. You can also give a trigger a cooldown, so it rests
+        for a while after it scores. Beyond that, we operate on the &quot;honor
+        system.&quot; Daily caps and spam detection come next in the{' '}
+        <Link href="/roadmap">Anti-Cheese</Link> update, to help keep you
+        honest.
       </Content>
     ),
     question: 'What prevents me from spamming commits for infinite Gold?',

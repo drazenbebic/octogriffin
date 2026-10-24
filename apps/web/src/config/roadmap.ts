@@ -110,7 +110,7 @@ export const roadmap: RoadmapPhase[] = [
     items: [
       {
         description:
-          'Score a trigger at most once every few minutes, so twenty tiny commits in a row count once.',
+          'Let a trigger rest for a while after it scores, so a burst of pushes counts once.',
         status: 'in-progress',
         title: 'Per-trigger cooldowns',
       },

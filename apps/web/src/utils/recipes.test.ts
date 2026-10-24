@@ -55,6 +55,7 @@ describe('recipeToTriggerValues', () => {
 
   it('fills every other field from the recipe', () => {
     expect(recipeToTriggerValues(shipPullRequests, [])).toEqual({
+      cooldownUnit: 'minutes',
       event: 'pull_request.opened',
       repositories: [],
       scoreDirection: 'up',

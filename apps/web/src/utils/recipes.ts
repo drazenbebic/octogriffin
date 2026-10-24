@@ -26,6 +26,7 @@ export const recipeToTriggerValues = (
   recipe: Recipe,
   repositoryUuids: string[],
 ): TriggerSchema => ({
+  cooldownUnit: 'minutes',
   event: recipe.preset.event,
   repositories: repositoryUuids.length === 1 ? [...repositoryUuids] : [],
   scoreDirection: recipe.preset.scoreDirection,
