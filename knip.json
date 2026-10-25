@@ -22,11 +22,6 @@
         "typescript-eslint"
       ],
       "ignoreBinaries": ["ngrok"]
-    },
-    "apps/api": {
-      "entry": ["src/index.ts"],
-      "project": ["src/**/*.ts"],
-      "ignoreDependencies": ["tsx"]
     }
   },
   "ignoreExportsUsedInFile": true

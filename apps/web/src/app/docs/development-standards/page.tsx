@@ -100,9 +100,9 @@ export default function DocsDevelopmentStandardsPage() {
       <Section id="checks" title="Checks and tooling">
         <Content>
           The repository is a pnpm workspace: the website and dashboard live in{' '}
-          <C>apps/web</C> (Next.js), the API in <C>apps/api</C> (Hono), and the
-          database schema in <C>packages/database</C>. Run every command from
-          the repository root unless it says otherwise.
+          <C>apps/web</C> (Next.js) and the database schema in{' '}
+          <C>packages/database</C>. Run every command from the repository root
+          unless it says otherwise.
         </Content>
         <Table
           head={['Command', 'What it checks']}
