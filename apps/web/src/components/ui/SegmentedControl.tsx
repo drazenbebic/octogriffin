@@ -34,12 +34,15 @@ export type SegmentedControlProps<V extends string> = {
 
 const segmentClass = (size: 'lg' | 'md') =>
   cn(
-    'flex cursor-pointer items-center justify-center gap-1.5 rounded-[8px] border border-transparent px-3 text-[13px] font-medium text-text-2 outline-none transition-colors duration-[var(--dur-fast)]',
+    'relative flex cursor-pointer items-center justify-center gap-1.5 rounded-[8px] px-3 text-[13px] font-medium text-text-2 outline-none transition-colors duration-[var(--dur-fast)]',
     'hover:text-text',
     'has-focus-visible:ring-2 has-focus-visible:ring-accent',
-    'has-checked:border-border-strong has-checked:bg-raised has-checked:font-semibold has-checked:text-text has-checked:shadow-lift',
+    'has-checked:font-semibold has-checked:text-text',
     size === 'lg' ? 'h-11' : 'h-10',
   );
+
+// Matches the group's p-1 and gap-1
+const INSET = 4;
 
 export const SegmentedControl = <V extends string>({
   className,
@@ -51,6 +54,8 @@ export const SegmentedControl = <V extends string>({
   value,
 }: SegmentedControlProps<V>) => {
   const labelId = useId();
+  const selectedIndex = options.findIndex(option => option.value === value);
+  const count = options.length;
 
   return (
     <div className={cn('flex flex-col gap-2', className)}>
@@ -70,11 +75,25 @@ export const SegmentedControl = <V extends string>({
       >
         <RadioGroup
           aria-labelledby={labelId}
-          className="grid gap-1 rounded-[12px] border border-border bg-sunken p-1"
+          className="relative grid gap-1 rounded-[12px] border border-border bg-sunken p-1"
           style={{
-            gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))`,
+            gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))`,
           }}
         >
+          {/* The highlight slides to the checked segment instead of jumping */}
+          {selectedIndex >= 0 && (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute rounded-[8px] border border-border-strong bg-raised shadow-lift transition-transform duration-[var(--dur-base)] ease-out"
+              style={{
+                bottom: INSET,
+                left: INSET,
+                top: INSET,
+                transform: `translateX(calc(${selectedIndex} * (100% + ${INSET}px)))`,
+                width: `calc((100% - ${INSET * (count + 1)}px) / ${count})`,
+              }}
+            />
+          )}
           {options.map(option => {
             // A native radio, so arrow keys select as well as move
             const radio = (

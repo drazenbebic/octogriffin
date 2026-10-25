@@ -122,15 +122,21 @@ Found a vulnerability? Please **do not** open a public issue. See **[SECURITY.md
 
 Octogriffin is an open-source passion project maintained by **Drazen Bebic** and contributors. While the core features will always remain free, server costs and development time are real.
 
+Your support helps keep the servers running and fuels new features. Every monthly sponsor is listed here and on [the website](https://octogriffin.com/sponsors); the tier decides how big:
+
+- $2/mo, Coffee fund: your name.
+- $5/mo, Server fuel: your avatar and name.
+- $15/mo, Feature backer: a large avatar and link at the top, plus priority on your feature requests.
+
+Sponsor monthly or give once on [GitHub Sponsors](https://github.com/sponsors/drazenbebic) or [Ko-fi](https://ko-fi.com/drazen). Public one-time gifts from the last 12 months are listed as Potion brewers.
+
+### The party
+
 [Be the first to sponsor! 🚀](https://github.com/sponsors/drazenbebic)
 
-Your support helps keep the servers running and fuels new features.
+### Potion brewers
 
-- $2/mo: A sponsor badge on your profile.
-- $5/mo: Get listed right here in this README.
-- $15/mo: Get listed on the website & get priority feature requests.
-
-Alternatively you can also support me on [Ko-fi](https://ko-fi.com/drazen).
+- [Sofie](https://ko-fi.com/Y8Y61WWFJP)
 
 ## License
 

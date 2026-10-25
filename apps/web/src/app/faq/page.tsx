@@ -46,11 +46,11 @@ const setup: FAQ[] = [
           .
         </Content>
         <Content>
-          Sponsorships start as low as <strong>$2/month</strong>. At{' '}
-          <strong>$5/month</strong>, you&#39;ll be listed in our project README,
-          and at <strong>$15/month</strong>, you get a dedicated mention on this
-          website plus <strong>priority status</strong> for your feature
-          requests!
+          Sponsorships start as low as <strong>$2/month</strong>, and every
+          monthly sponsor is listed in our project README and on this website.
+          Higher tiers get a bigger spot, and at <strong>$15/month</strong> you
+          also get <strong>priority status</strong> for your feature requests.
+          One-time gifts are welcome too!
         </Content>
         <Content>
           Check out the <Link href="/sponsors">Sponsors</Link> page for more
