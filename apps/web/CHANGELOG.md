@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.11.0...web-v0.12.0) (2026-10-25)
+
+
+### Features
+
+* **web:** list every sponsor by tier and show prices in your currency ([b0b1717](https://github.com/drazenbebic/octogriffin/commit/b0b17171c5780e7ec01aff762cef440160a226a6))
+
 ## [0.11.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.10.1...web-v0.11.0) (2026-10-24)
 
 
