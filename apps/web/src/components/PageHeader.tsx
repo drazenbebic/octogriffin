@@ -27,7 +27,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
     <Image
       alt=""
       aria-hidden="true"
-      className="pointer-events-none absolute -top-24 right-[max(-6rem,calc(50%-44rem))] h-[420px] w-[420px] opacity-[0.07]"
+      className="pointer-events-none absolute -top-24 right-[max(-6rem,calc(50%-44rem))] h-[420px] w-[420px] max-w-none opacity-[0.07]"
       height={420}
       src="/octogriffin_white.png"
       width={420}
