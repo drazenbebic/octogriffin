@@ -44,7 +44,7 @@ const steps = [
       <>
         Sign in and paste your{' '}
         <Link
-          className="text-accent-text hover:underline"
+          className="text-accent-text underline underline-offset-4"
           href="/docs/habitica-api-token"
         >
           Habitica API token
@@ -59,7 +59,7 @@ const steps = [
       <>
         Any of over{' '}
         <Link
-          className="text-accent-text hover:underline"
+          className="text-accent-text underline underline-offset-4"
           href="/docs/supported-github-events"
         >
           100 GitHub events
