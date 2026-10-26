@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.12.1](https://github.com/drazenbebic/octogriffin/compare/web-v0.12.0...web-v0.12.1) (2026-10-26)
+
+
+### Bug Fixes
+
+* **web:** make homepage links and coloured chips readable for everyone ([#233](https://github.com/drazenbebic/octogriffin/issues/233)) ([9c731b2](https://github.com/drazenbebic/octogriffin/commit/9c731b2da55058c6328f786d6f955f88abfb8e74))
+* **web:** stop the Octogriffin watermark looking squashed on phones ([#235](https://github.com/drazenbebic/octogriffin/issues/235)) ([d83d718](https://github.com/drazenbebic/octogriffin/commit/d83d718bc17649ae04b6c45445a9ab674608bfb0))
+
 ## [0.12.0](https://github.com/drazenbebic/octogriffin/compare/web-v0.11.0...web-v0.12.0) (2026-10-25)
 
 
