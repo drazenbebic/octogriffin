@@ -40,11 +40,12 @@
   --tip-text: #f4f2f8;
   --tip-border: #19161f;
 
-  --hp: #d6364a;
+  /* Dark enough to read at 4.5:1 on their own -soft backgrounds */
+  --hp: #c33143;
   --hp-soft: #fbe9ec;
-  --xp: #a86700;
+  --xp: #9b5f00;
   --xp-soft: #fbf1de;
-  --mp: #2f6fd0;
+  --mp: #2d69c6;
   --mp-soft: #e7f0fc;
   --gp: #8a6a00;
   --gp-soft: #fbf4d9;
