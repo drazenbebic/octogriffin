@@ -98,7 +98,7 @@ export default function HomePage() {
             <Image
               alt=""
               aria-hidden="true"
-              className="pointer-events-none absolute -right-28 -bottom-36 h-[620px] w-[620px] opacity-[0.07]"
+              className="pointer-events-none absolute -right-28 -bottom-36 h-[620px] w-[620px] max-w-none opacity-[0.07]"
               height={620}
               priority
               src="/octogriffin_white.png"

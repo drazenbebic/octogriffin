@@ -137,7 +137,7 @@ export const HabiticaStatsCard: FC = () => {
       <Image
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute -top-10 -right-12 h-56 w-56 opacity-[0.08]"
+        className="pointer-events-none absolute -top-10 -right-12 h-56 w-56 max-w-none opacity-[0.08]"
         height={224}
         src="/octogriffin_white.png"
         width={224}
