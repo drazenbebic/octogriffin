@@ -14,7 +14,7 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const metadata: Metadata = pageMetadata('/terms-and-conditions');
 
-const LAST_UPDATED = '2026-01-12';
+const LAST_UPDATED = '2026-10-27';
 
 const sections: LegalSection[] = [
   { id: 'introduction', label: 'Introduction', number: '1' },
@@ -32,6 +32,11 @@ const sections: LegalSection[] = [
   { id: 'intellectual-property', label: 'Intellectual Property', number: '5' },
   { id: 'termination', label: 'Termination', number: '6' },
   { id: 'governing-law', label: 'Governing Law', number: '7' },
+  {
+    id: 'changes-to-these-terms',
+    label: 'Changes to These Terms',
+    number: '8',
+  },
 ];
 
 export default function TermsAndConditionsPage() {
@@ -84,6 +89,12 @@ export default function TermsAndConditionsPage() {
                 with, endorsed by, or sponsored by Habitica (HabitRPG, Inc.).
                 &#34;Habitica&#34; is a trademark of HabitRPG, Inc.
               </Content>
+              <Content as="li">
+                <strong>Sponsorships:</strong> The service is free. Sponsoring
+                us through GitHub Sponsors or Ko-fi is voluntary, does not
+                unlock any features, and is handled under those platforms&apos;
+                own terms.
+              </Content>
             </ul>
           </section>
 
@@ -110,6 +121,13 @@ export default function TermsAndConditionsPage() {
                 engaging in such behavior.
               </Content>
               <Content as="li">
+                <strong>Reward Limits:</strong> To keep things fair, we may not
+                reward every action. Empty commits and pull requests you close
+                within a minute of opening them don&apos;t count by default,
+                each event can only score a trigger a limited number of times,
+                and the cooldowns and daily limits you set are applied.
+              </Content>
+              <Content as="li">
                 <strong>Account Access:</strong> You must maintain control of
                 your GitHub account. If you lose access to GitHub, you may lose
                 access to our settings panel.
@@ -132,6 +150,11 @@ export default function TermsAndConditionsPage() {
                 any in-game losses (e.g., loss of a &#34;Streak&#34;, death of a
                 character, or loss of items) caused by service outages, API
                 errors, or delays in webhook processing.
+              </Content>
+              <Content className="mt-2 text-xp ">
+                This does not limit our liability for damage caused
+                intentionally or through gross negligence, for personal injury,
+                or where liability cannot be excluded by law.
               </Content>
             </div>
           </section>
@@ -179,7 +202,22 @@ export default function TermsAndConditionsPage() {
             <Content>
               These Terms shall be governed and construed in accordance with the
               laws of <strong>Austria</strong>, without regard to its conflict
-              of law provisions.
+              of law provisions. If you are a consumer, this does not take away
+              the protection of mandatory laws of the country you live in.
+            </Content>
+          </section>
+
+          {/* 8. Changes to These Terms */}
+          <section className="scroll-mt-24" id="changes-to-these-terms">
+            <Heading className="mb-4" level={2} size="h3">
+              8. Changes to These Terms
+            </Heading>
+            <Content>
+              We may update these Terms from time to time. The date at the top
+              of this page shows when they last changed. If you keep using the
+              Service after a change, the updated Terms apply. If you don&apos;t
+              agree with them, you can stop using the Service at any time by
+              uninstalling the GitHub App.
             </Content>
           </section>
 
