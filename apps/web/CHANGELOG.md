@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.2](https://github.com/drazenbebic/octogriffin/compare/web-v0.12.1...web-v0.12.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* **web:** bring the privacy policy and terms up to date ([6dfe7d1](https://github.com/drazenbebic/octogriffin/commit/6dfe7d1d591d15e87046653cdab5c6a90354371f))
+
 ## [0.12.1](https://github.com/drazenbebic/octogriffin/compare/web-v0.12.0...web-v0.12.1) (2026-10-26)
 
 
