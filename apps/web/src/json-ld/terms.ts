@@ -9,11 +9,11 @@ export const termsJsonLd: WithContext<WebPage> = {
   '@type': 'WebPage',
   description:
     'User agreement, usage guidelines, and liability disclaimers for the Octogriffin GitHub integration.',
-  lastReviewed: '2026-01-12',
+  lastReviewed: '2026-10-27',
   mainEntity: {
     '@type': 'CreativeWork',
     author: AUTHOR_PERSON,
-    dateModified: '2026-01-12',
+    dateModified: '2026-10-27',
     datePublished: '2024-09-10',
     name: 'Octogriffin Terms and Conditions',
     publisher: OCTOGRIFFIN_ORG,
