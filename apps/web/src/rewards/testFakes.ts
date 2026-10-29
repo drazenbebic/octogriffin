@@ -1,3 +1,4 @@
+import type { RewardDeps } from './deliverRewards';
 import { RewardDeliveryError } from './RewardDeliveryError';
 import type {
   HabiticaDays,
@@ -238,6 +239,35 @@ export const inMemoryCaps = (users: LinkedUser[]) => {
   };
 
   return { caps, released };
+};
+
+/**
+ * Rewards for linked `users` without cooldowns or daily caps, recording what
+ * reached the sink and the log.
+ */
+export const fakeRewardDeps = (users: LinkedUser[], sink?: RewardSink) => {
+  const recording = recordingSink();
+  const { log, recorded } = recordingLog();
+  const deps: RewardDeps = {
+    caps: noCaps,
+    cooldowns: noCooldowns,
+    days: noDays,
+    directory: inMemoryDirectory(users),
+    log,
+    sink: sink ?? recording.sink,
+  };
+
+  // Who scored which trigger, and how many times
+  const scored = () =>
+    recording.applied.flatMap(({ recipient, rewards }) =>
+      rewards.map(({ times, triggerUuid }) => ({
+        login: recipient.login,
+        times,
+        trigger: triggerUuid,
+      })),
+    );
+
+  return { applied: recording.applied, deps, recorded, scored };
 };
 
 /** A Habitica day that tests can move forward, counting lookups. */

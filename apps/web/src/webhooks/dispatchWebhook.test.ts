@@ -1,14 +1,9 @@
 import {
   failingSink,
-  inMemoryDirectory,
+  fakeRewardDeps,
   INSTALLATION_ID,
   makeTrigger,
   makeUser,
-  noCaps,
-  noCooldowns,
-  noDays,
-  recordingLog,
-  recordingSink,
   REPOSITORY_ID,
 } from '@/rewards/testFakes';
 import type { LinkedUser, RewardSink } from '@/rewards/types';
@@ -64,24 +59,13 @@ const dispatchTo = (
   payload: unknown,
   sink?: RewardSink,
 ) => {
-  const recording = recordingSink();
-  const { log, recorded } = recordingLog();
-
+  const { applied, deps, recorded } = fakeRewardDeps(users, sink);
   const dispatched = dispatchWebhook(
     { delivery, name, payload },
-    {
-      rewards: {
-        caps: noCaps,
-        cooldowns: noCooldowns,
-        days: noDays,
-        directory: inMemoryDirectory(users),
-        log,
-        sink: sink ?? recording.sink,
-      },
-    },
+    { rewards: deps },
   );
 
-  return { applied: recording.applied, dispatched, recorded };
+  return { applied, dispatched, recorded };
 };
 
 describe('dispatchWebhook', () => {
