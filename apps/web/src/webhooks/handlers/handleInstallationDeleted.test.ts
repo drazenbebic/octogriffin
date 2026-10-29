@@ -1,7 +1,6 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import { deleteGithubInstallation } from '@/accessors/githubInstallation';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 import { handleInstallationDeleted } from './handleInstallationDeleted';
 
@@ -17,7 +16,7 @@ const mockDelete = deleteGithubInstallation as jest.Mock;
 
 const event = {
   payload: { installation: { id: 100 } },
-} as unknown as EmitterWebhookEvent<'installation.deleted'>;
+} as unknown as WebhookEvent<'installation.deleted'>;
 
 describe('handleInstallationDeleted', () => {
   it('deletes the installation', async () => {

@@ -1,5 +1,7 @@
-// These have dedicated handler functions
-export const dedicatedHandlerWebhooks = [
+// Events about Octogriffin itself: where it's installed, which repositories
+// it may see, and GitHub Marketplace purchases
+export const appEvents = [
+  // installation_repositories
   'installation_repositories.added',
   'installation_repositories.removed',
   // installation
@@ -9,12 +11,10 @@ export const dedicatedHandlerWebhooks = [
   'installation.unsuspend',
   // marketplace_purchase
   'marketplace_purchase',
-  // push
-  'push',
 ] as const;
 
-// These share a common handler function
-export const universalHandlerWebhooks = [
+// Events a trigger can reward
+export const rewardableEvents = [
   // create
   'create',
   // delete
@@ -107,6 +107,8 @@ export const universalHandlerWebhooks = [
   'pull_request.unassigned',
   'pull_request.unlabeled',
   'pull_request.unlocked',
+  // push
+  'push',
   // release
   'release.created',
   'release.deleted',
@@ -141,14 +143,11 @@ export const universalHandlerWebhooks = [
   'workflow_run.requested',
 ] as const;
 
-export type DedicatedWebhookEvents = (typeof dedicatedHandlerWebhooks)[number];
-export type UniversalWebhookEvents = (typeof universalHandlerWebhooks)[number];
+export type AppEventName = (typeof appEvents)[number];
+export type RewardableEventName = (typeof rewardableEvents)[number];
+export type WebhookEventName = AppEventName | RewardableEventName;
 
-// Events a trigger can reward
-export const rewardableWebhooks: ReadonlySet<string> = new Set([
-  'push',
-  ...universalHandlerWebhooks,
-]);
+const rewardableEventSet: ReadonlySet<string> = new Set(rewardableEvents);
 
-export const isRewardableWebhook = (event: string) =>
-  rewardableWebhooks.has(event);
+export const isRewardableEvent = (event: string) =>
+  rewardableEventSet.has(event);

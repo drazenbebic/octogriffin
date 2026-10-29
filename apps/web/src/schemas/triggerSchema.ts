@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
 import { TaskPriority } from '@/enums/habitica';
 import { cooldownUnits, isWithinMaxCooldown } from '@/utils/cooldown';
+import { isRewardableEvent } from '@/webhooks/webhookEvents';
 
 const TASK_PRIORITIES = new Set<number>([
   TaskPriority.LOW,
@@ -46,7 +46,7 @@ export const triggerSchema = z
     event: z
       .string()
       .min(1, 'Please select a trigger event')
-      .refine(isRewardableWebhook, 'Please select a supported trigger event'),
+      .refine(isRewardableEvent, 'Please select a supported trigger event'),
     isActive: z.boolean().optional(),
     repositories: z
       .array(z.string())

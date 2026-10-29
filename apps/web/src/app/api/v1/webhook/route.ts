@@ -1,19 +1,13 @@
 import type { NextRequest } from 'next/server';
 import { after, NextResponse } from 'next/server';
 
-import { Webhooks } from '@octokit/webhooks';
+import { verify } from '@octokit/webhooks-methods';
 
-import { requestContext } from '@/lib/context';
 import logger from '@/lib/logger';
+import { rewardDeps } from '@/rewards/rewardDeps';
+import type { Delivery } from '@/rewards/types';
 import { withRetry } from '@/utils/withRetry';
-
-import { initWebhookHandlers } from './initWebhookHandlers';
-
-const webhooks = new Webhooks({
-  secret: process.env.GITHUB_WEBHOOK_SECRET!,
-});
-
-initWebhookHandlers(webhooks);
+import { dispatchWebhook } from '@/webhooks/dispatchWebhook';
 
 export const maxDuration = 60;
 
@@ -21,12 +15,13 @@ export const dynamic = 'force-dynamic';
 
 export const POST = async (request: NextRequest) => {
   const signature = request.headers.get('x-hub-signature-256') ?? '';
-  const id = request.headers.get('x-github-delivery') ?? '';
-  const eventName = request.headers.get('x-github-event') ?? '';
-  const hookId = request.headers.get('x-github-hook-id') ?? '';
   const rawBody = await request.text();
 
-  const isValid = await webhooks.verify(rawBody, signature);
+  // verify throws instead of answering false when either is empty
+  const isValid =
+    !!signature &&
+    !!rawBody &&
+    (await verify(process.env.GITHUB_WEBHOOK_SECRET!, rawBody, signature));
 
   if (!isValid) {
     logger.warn('Invalid signature received');
@@ -34,28 +29,43 @@ export const POST = async (request: NextRequest) => {
     return new NextResponse('Invalid Signature', { status: 401 });
   }
 
+  const id = request.headers.get('x-github-delivery');
+  const name = request.headers.get('x-github-event');
+
+  // The delivery ID keeps an event from being rewarded twice
+  if (!id || !name) {
+    logger.warn('Delivery or event header missing.');
+
+    return new NextResponse('Missing Delivery Headers', { status: 400 });
+  }
+
+  let payload: unknown;
+
+  try {
+    payload = JSON.parse(rawBody);
+  } catch {
+    logger.warn({ requestId: id }, 'Payload is not valid JSON.');
+
+    return new NextResponse('Invalid JSON', { status: 400 });
+  }
+
+  const delivery: Delivery = {
+    hookId: request.headers.get('x-github-hook-id') ?? '',
+    id,
+    signature,
+  };
+
   after(async () => {
-    await requestContext.run(
-      { eventName, hookId, requestId: id, signature },
-      async () => {
-        try {
-          logger.info('Processing in background.');
-
-          await withRetry(() =>
-            webhooks.receive({
-              id,
-              // @ts-expect-error Just a type mismatch
-              name: eventName,
-              payload: JSON.parse(rawBody),
-            }),
-          );
-
-          logger.info('Processed successfully.');
-        } catch (error) {
-          logger.error({ error }, 'Background processing failed.');
-        }
-      },
-    );
+    try {
+      await withRetry(() =>
+        dispatchWebhook({ delivery, name, payload }, { rewards: rewardDeps }),
+      );
+    } catch (error) {
+      logger.error(
+        { error, eventName: name, requestId: id },
+        'Background processing failed.',
+      );
+    }
   });
 
   return NextResponse.json(

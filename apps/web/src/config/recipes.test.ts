@@ -1,4 +1,4 @@
-import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
+import { isRewardableEvent } from '@/webhooks/webhookEvents';
 
 import { recipes } from './recipes';
 
@@ -54,9 +54,9 @@ describe('recipes', () => {
   });
 
   it('only uses events Octogriffin can reward, and unique slugs', () => {
-    expect(
-      recipes.every(({ preset }) => isRewardableWebhook(preset.event)),
-    ).toBe(true);
+    expect(recipes.every(({ preset }) => isRewardableEvent(preset.event))).toBe(
+      true,
+    );
     expect(new Set(recipes.map(recipe => recipe.slug)).size).toBe(
       recipes.length,
     );

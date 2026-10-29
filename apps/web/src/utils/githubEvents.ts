@@ -1,5 +1,5 @@
-import { rewardableWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import type { ComboboxItemType } from '@/components/ui/Combobox';
+import { rewardableEvents } from '@/webhooks/webhookEvents';
 
 // Labels that don't follow from the event name.
 const labelOverrides: Record<string, string> = {
@@ -23,7 +23,7 @@ const toTitle = (words: string) =>
  * e.g. `pull_request.opened` becomes "Pull Request Opened" in "Pull Request".
  */
 export const getGroupedGithubEvents = (): ComboboxItemType[] =>
-  [...rewardableWebhooks]
+  [...rewardableEvents]
     .map(value => {
       const [type, action] = value.split('.');
       const group = toTitle(type);

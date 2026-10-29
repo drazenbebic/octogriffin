@@ -1,27 +1,24 @@
-import type {
-  EmitterWebhookEvent,
-  EmitterWebhookEventName,
-} from '@octokit/webhooks';
-
 import {
   addSelectedRepositories,
   getGithubInstallation,
   removeSelectedRepositories,
 } from '@/accessors/githubInstallation';
-import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
-import type { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
-import { rewardDeps } from '@/rewards/rewardDeps';
 import { isQuickSelfClose } from '@/utils/spam';
+import type { WebhookDeps, WebhookEvent } from '@/webhooks/types';
+import type { RewardableEventName } from '@/webhooks/webhookEvents';
 
-export type WebhookEventName = (typeof universalHandlerWebhooks)[number];
-
-type WebhookEvent = EmitterWebhookEvent<WebhookEventName>;
-
-export const handleUniversal = async (
-  { id, payload }: WebhookEvent,
-  event: EmitterWebhookEventName,
+/**
+ * Rewards every rewardable event but `push`, which has its own handler.
+ */
+export const handleRewardableEvent = async (
+  {
+    delivery,
+    name: event,
+    payload,
+  }: WebhookEvent<Exclude<RewardableEventName, 'push'>>,
+  { rewards }: WebhookDeps,
 ) => {
   const { installation, repository, sender } = payload;
 
@@ -53,12 +50,12 @@ export const handleUniversal = async (
               : 0,
         },
       ],
-      delivery: getDelivery(id),
+      delivery,
       installationId: installation.id,
       name: event,
       repositoryId: repository.id,
     },
-    rewardDeps,
+    rewards,
   );
 
   // Only after rewarding, which needs the repository to still be selected

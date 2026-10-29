@@ -1,14 +1,13 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import {
   getGithubInstallation,
   removeSelectedRepositories,
 } from '@/accessors/githubInstallation';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 export const handleInstallationRepositoriesRemoved = async ({
   payload: { installation, repositories_removed: repositoriesRemoved },
-}: EmitterWebhookEvent<'installation_repositories.removed'>) => {
+}: WebhookEvent<'installation_repositories.removed'>) => {
   if (!repositoriesRemoved || repositoriesRemoved.length === 0) {
     return;
   }

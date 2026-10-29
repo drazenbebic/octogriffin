@@ -1,8 +1,7 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import { recordMarketplaceEvent } from '@/accessors/marketplaceEvent';
 import type { Prisma } from '@/generated/prisma/client';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 // GitHub includes an organisation's billing email, which we don't keep.
 const withoutBillingEmail = (payload: object): Prisma.InputJsonValue =>
@@ -13,9 +12,9 @@ const withoutBillingEmail = (payload: object): Prisma.InputJsonValue =>
   );
 
 export const handleMarketplacePurchase = async ({
-  id,
+  delivery,
   payload,
-}: EmitterWebhookEvent<'marketplace_purchase'>) => {
+}: WebhookEvent<'marketplace_purchase'>) => {
   const {
     action,
     effective_date: effectiveDate,
@@ -28,7 +27,7 @@ export const handleMarketplacePurchase = async ({
     accountLogin: account.login,
     accountType: account.type,
     action,
-    deliveryUuid: id,
+    deliveryUuid: delivery.id,
     effectiveDate: new Date(effectiveDate),
     payload: withoutBillingEmail(payload),
     planId: plan.id,

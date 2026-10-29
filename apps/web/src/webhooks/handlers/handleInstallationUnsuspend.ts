@@ -1,11 +1,10 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import { setGithubInstallationSuspended } from '@/accessors/githubInstallation';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 export const handleInstallationUnsuspend = async ({
   payload: { installation },
-}: EmitterWebhookEvent<'installation.unsuspend'>) => {
+}: WebhookEvent<'installation.unsuspend'>) => {
   logger.info('Event triggered.');
 
   // Errors fail the delivery, so it's retried

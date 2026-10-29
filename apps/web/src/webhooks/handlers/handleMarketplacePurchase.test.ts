@@ -1,7 +1,6 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import { recordMarketplaceEvent } from '@/accessors/marketplaceEvent';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 import { handleMarketplacePurchase } from './handleMarketplacePurchase';
 
@@ -27,7 +26,7 @@ const purchase = (organizationBillingEmail: null | string) => ({
 });
 
 const event = {
-  id: 'delivery-1',
+  delivery: { hookId: 'hook-1', id: 'delivery-1', signature: 'sha256=abc' },
   name: 'marketplace_purchase',
   payload: {
     action: 'changed',
@@ -36,7 +35,7 @@ const event = {
     previous_marketplace_purchase: purchase('billing@octo-org.example'),
     sender: { id: 1, login: 'octocat' },
   },
-} as unknown as EmitterWebhookEvent<'marketplace_purchase'>;
+} as unknown as WebhookEvent<'marketplace_purchase'>;
 
 describe('handleMarketplacePurchase', () => {
   it('records who changed which plan and when', async () => {
