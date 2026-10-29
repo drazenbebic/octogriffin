@@ -41,7 +41,26 @@ const getRetryAfterMs = (response: Response) => {
     : Math.max(0, date - Date.now());
 };
 
-const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+// A Habitica that stops answering fails the request instead of using up the
+// whole webhook
+const REQUEST_TIMEOUT_MS = 10_000;
+
+/** Waits `ms`, or rejects as soon as `signal` aborts. */
+const wait = (ms: number, signal?: AbortSignal) =>
+  new Promise<void>((resolve, reject) => {
+    signal?.throwIfAborted();
+
+    const timer = setTimeout(resolve, ms);
+
+    signal?.addEventListener(
+      'abort',
+      () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      },
+      { once: true },
+    );
+  });
 
 export class HabiticaApiError extends Error {
   constructor(
@@ -56,7 +75,12 @@ export class HabiticaApiError extends Error {
 class HabiticaApi {
   private readonly headers: HeadersInit;
 
-  constructor(userId: string, apiToken: string) {
+  constructor(
+    userId: string,
+    apiToken: string,
+    /** Ends every request and rate-limit wait, e.g. when a webhook runs out of time. */
+    private readonly deadline?: AbortSignal,
+  ) {
     const devId = process.env.HABITICA_USER_ID!;
     const appName = process.env.HABITICA_APP_NAME!;
 
@@ -91,7 +115,7 @@ class HabiticaApi {
 
       logger.warn({ attempt, endpoint, waitMs }, 'Habitica rate limit hit.');
 
-      await wait(waitMs);
+      await wait(waitMs, this.deadline);
 
       response = await this.fetch(url, options);
     }
@@ -111,6 +135,12 @@ class HabiticaApi {
   }
 
   private fetch(url: string, options: RequestInit) {
+    const signals = [
+      AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      this.deadline,
+      options.signal,
+    ].filter(signal => !!signal);
+
     return fetch(url, {
       cache: 'no-store',
       ...options,
@@ -118,6 +148,7 @@ class HabiticaApi {
         ...this.headers,
         ...options.headers,
       },
+      signal: AbortSignal.any(signals),
     });
   }
 

@@ -12,6 +12,8 @@ const MockHabiticaApi = HabiticaApi as jest.MockedClass<typeof HabiticaApi>;
 
 describe('habiticaDays', () => {
   it("builds the day from the user's settings", async () => {
+    const deadline = new AbortController().signal;
+
     MockHabiticaApi.mockImplementation(
       () =>
         ({
@@ -22,12 +24,12 @@ describe('habiticaDays', () => {
     );
 
     await expect(
-      habiticaDays.today(
+      habiticaDays(deadline).today(
         { apiToken: 'token', userId: 'user' },
         new Date('2026-10-24T05:00:00Z'),
       ),
     ).resolves.toBe('2026-10-23');
-    expect(MockHabiticaApi).toHaveBeenCalledWith('user', 'token');
+    expect(MockHabiticaApi).toHaveBeenCalledWith('user', 'token', deadline);
   });
 
   it.each([
@@ -47,7 +49,7 @@ describe('habiticaDays', () => {
     );
 
     await expect(
-      habiticaDays.today(
+      habiticaDays().today(
         { apiToken: 'token', userId: 'user' },
         new Date('2026-10-24T05:00:00Z'),
       ),

@@ -6,11 +6,12 @@ import { prismaRewardLog } from './prismaRewardLog';
 import { prismaTriggerCaps } from './prismaTriggerCaps';
 import { prismaTriggerCooldowns } from './prismaTriggerCooldowns';
 
-export const rewardDeps: RewardDeps = {
+/** The production adapters, with every Habitica call ending at `deadline`. */
+export const rewardDeps = (deadline?: AbortSignal): RewardDeps => ({
   caps: prismaTriggerCaps,
   cooldowns: prismaTriggerCooldowns,
-  days: habiticaDays,
+  days: habiticaDays(deadline),
   directory: prismaRewardDirectory,
   log: prismaRewardLog,
-  sink: habiticaRewardSink,
-};
+  sink: habiticaRewardSink(deadline),
+});
