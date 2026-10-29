@@ -21,6 +21,11 @@ import type {
 export const INSTALLATION_ID = 100;
 export const REPOSITORY_ID = 200;
 
+const SELECTED_INSTALLATION: InstallationStatus = {
+  isRepositorySelected: true,
+  isSuspended: false,
+};
+
 export const makeTrigger = (
   overrides: Partial<TriggerRule> = {},
 ): TriggerRule => ({
@@ -65,10 +70,7 @@ export const makeEvent = (
 
 export const inMemoryDirectory = (
   users: LinkedUser[],
-  status: InstallationStatus | null = {
-    isRepositorySelected: true,
-    isSuspended: false,
-  },
+  status: InstallationStatus | null = SELECTED_INSTALLATION,
 ): RewardDirectory => ({
   findLinkedUsers: async actors =>
     users.filter(user =>

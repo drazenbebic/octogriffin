@@ -38,7 +38,7 @@ const handlers: { [K in WebhookEventName]: WebhookHandler<K> } = {
 };
 
 const isHandled = (name: string): name is WebhookEventName =>
-  Object.prototype.hasOwnProperty.call(handlers, name);
+  Object.hasOwn(handlers, name);
 
 /**
  * The full name of the event, e.g. `pull_request.closed` for GitHub's
