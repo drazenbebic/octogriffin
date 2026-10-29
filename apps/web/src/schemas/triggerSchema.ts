@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
 import { TaskPriority } from '@/enums/habitica';
 import { cooldownUnits, isWithinMaxCooldown } from '@/utils/cooldown';
+import { isRewardableWebhook } from '@/webhooks/webhookConstants';
 
 const TASK_PRIORITIES = new Set<number>([
   TaskPriority.LOW,

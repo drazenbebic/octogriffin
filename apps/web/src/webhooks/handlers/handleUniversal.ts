@@ -8,12 +8,12 @@ import {
   getGithubInstallation,
   removeSelectedRepositories,
 } from '@/accessors/githubInstallation';
-import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
-import type { universalHandlerWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
 import { rewardDeps } from '@/rewards/rewardDeps';
 import { isQuickSelfClose } from '@/utils/spam';
+import { getDelivery } from '@/webhooks/getDelivery';
+import type { universalHandlerWebhooks } from '@/webhooks/webhookConstants';
 
 export type WebhookEventName = (typeof universalHandlerWebhooks)[number];
 

@@ -1,4 +1,4 @@
-import { isRewardableWebhook } from '@/app/api/v1/webhook/webhookConstants';
+import { isRewardableWebhook } from '@/webhooks/webhookConstants';
 
 import { recipes } from './recipes';
 

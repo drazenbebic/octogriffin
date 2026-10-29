@@ -1,10 +1,10 @@
 import type { EmitterWebhookEvent } from '@octokit/webhooks';
 
-import { getDelivery } from '@/app/api/v1/webhook/getDelivery';
 import logger from '@/lib/logger';
 import { deliverRewards } from '@/rewards/deliverRewards';
 import { rewardDeps } from '@/rewards/rewardDeps';
 import { isEmptyCommit } from '@/utils/spam';
+import { getDelivery } from '@/webhooks/getDelivery';
 
 export const handlePush = async ({
   id,

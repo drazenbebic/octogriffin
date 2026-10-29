@@ -1,5 +1,5 @@
-import { rewardableWebhooks } from '@/app/api/v1/webhook/webhookConstants';
 import type { ComboboxItemType } from '@/components/ui/Combobox';
+import { rewardableWebhooks } from '@/webhooks/webhookConstants';
 
 // Labels that don't follow from the event name.
 const labelOverrides: Record<string, string> = {

@@ -1,4 +1,4 @@
-import { rewardableWebhooks } from '@/app/api/v1/webhook/webhookConstants';
+import { rewardableWebhooks } from '@/webhooks/webhookConstants';
 
 import {
   filterEvents,

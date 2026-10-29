@@ -6,8 +6,7 @@ import { Webhooks } from '@octokit/webhooks';
 import { requestContext } from '@/lib/context';
 import logger from '@/lib/logger';
 import { withRetry } from '@/utils/withRetry';
-
-import { initWebhookHandlers } from './initWebhookHandlers';
+import { initWebhookHandlers } from '@/webhooks/initWebhookHandlers';
 
 const webhooks = new Webhooks({
   secret: process.env.GITHUB_WEBHOOK_SECRET!,
