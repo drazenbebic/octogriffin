@@ -1,11 +1,10 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import { deleteGithubInstallation } from '@/accessors/githubInstallation';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 export const handleInstallationDeleted = async ({
   payload: { installation },
-}: EmitterWebhookEvent<'installation.deleted'>) => {
+}: WebhookEvent<'installation.deleted'>) => {
   logger.info('Event triggered.');
 
   // Errors fail the delivery, so it's retried. Otherwise data we promised to

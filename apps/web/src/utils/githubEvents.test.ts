@@ -1,4 +1,4 @@
-import { rewardableWebhooks } from '@/webhooks/webhookConstants';
+import { rewardableEvents } from '@/webhooks/webhookEvents';
 
 import {
   filterEvents,
@@ -16,7 +16,7 @@ describe('getGroupedGithubEvents', () => {
       getGroupedGithubEvents()
         .map(({ value }) => value)
         .sort(),
-    ).toEqual([...rewardableWebhooks].sort());
+    ).toEqual([...rewardableEvents].sort());
   });
 
   it('keeps each group together in the picker', () => {

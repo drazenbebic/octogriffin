@@ -46,6 +46,9 @@ importers:
       '@octokit/webhooks':
         specifier: ^14.2.0
         version: 14.2.0
+      '@octokit/webhooks-methods':
+        specifier: ^6.0.0
+        version: 6.0.0
       '@prisma/adapter-pg':
         specifier: ^7.10.1
         version: 7.10.1

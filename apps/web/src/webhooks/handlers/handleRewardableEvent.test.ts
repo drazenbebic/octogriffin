@@ -1,14 +1,12 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import {
   addSelectedRepositories,
   getGithubInstallation,
   removeSelectedRepositories,
 } from '@/accessors/githubInstallation';
+import type { RewardDeps } from '@/rewards/deliverRewards';
 import { deliverRewards } from '@/rewards/deliverRewards';
 
-import type { WebhookEventName } from './handleUniversal';
-import { handleUniversal } from './handleUniversal';
+import { handleRewardableEvent } from './handleRewardableEvent';
 
 jest.mock('@/accessors/githubInstallation', () => ({
   addSelectedRepositories: jest.fn(),
@@ -16,13 +14,20 @@ jest.mock('@/accessors/githubInstallation', () => ({
   removeSelectedRepositories: jest.fn(),
 }));
 jest.mock('@/rewards/deliverRewards', () => ({ deliverRewards: jest.fn() }));
-jest.mock('@/rewards/rewardDeps', () => ({ rewardDeps: {} }));
 jest.mock('@/lib/logger', () => ({
   __esModule: true,
   default: { info: jest.fn() },
 }));
 
 const calls: string[] = [];
+const deps = { rewards: {} as RewardDeps };
+
+/** Runs the handler for a delivery of `name`, e.g. `repository.created`. */
+const handle = (event: object, name: string) =>
+  handleRewardableEvent(
+    { ...event, name } as Parameters<typeof handleRewardableEvent>[0],
+    deps,
+  );
 
 const repository = {
   full_name: 'octocat/hello-world',
@@ -33,11 +38,11 @@ const repository = {
 };
 
 const event = {
-  id: 'delivery-1',
+  delivery: { hookId: 'hook-1', id: 'delivery-1', signature: 'sha256=abc' },
   payload: { installation: { id: 100 }, repository, sender: { id: 1 } },
-} as unknown as EmitterWebhookEvent<WebhookEventName>;
+} as object;
 
-describe('handleUniversal', () => {
+describe('handleRewardableEvent', () => {
   beforeEach(() => {
     calls.length = 0;
     (getGithubInstallation as jest.Mock).mockResolvedValue({ id: BigInt(9) });
@@ -53,7 +58,7 @@ describe('handleUniversal', () => {
   });
 
   it('selects a new repository before rewarding its creation', async () => {
-    await handleUniversal(event, 'repository.created');
+    await handle(event, 'repository.created');
 
     expect(calls).toEqual(['add', 'reward']);
     expect(addSelectedRepositories).toHaveBeenCalledWith(BigInt(9), [
@@ -62,14 +67,14 @@ describe('handleUniversal', () => {
   });
 
   it('removes a deleted repository after rewarding its deletion', async () => {
-    await handleUniversal(event, 'repository.deleted');
+    await handle(event, 'repository.deleted');
 
     expect(calls).toEqual(['reward', 'remove']);
     expect(removeSelectedRepositories).toHaveBeenCalledWith(BigInt(9), [200]);
   });
 
   it('leaves the repositories alone for other events', async () => {
-    await handleUniversal(event, 'star.created');
+    await handle(event, 'star.created');
 
     expect(calls).toEqual(['reward']);
   });
@@ -78,7 +83,11 @@ describe('handleUniversal', () => {
     const opened = '2026-10-24T10:00:00Z';
     const closed = (closedAfterSeconds: number, authorId = 1) =>
       ({
-        id: 'delivery-1',
+        delivery: {
+          hookId: 'hook-1',
+          id: 'delivery-1',
+          signature: 'sha256=abc',
+        },
         payload: {
           installation: { id: 100 },
           pull_request: {
@@ -91,12 +100,12 @@ describe('handleUniversal', () => {
           repository,
           sender: { id: 1 },
         },
-      }) as unknown as EmitterWebhookEvent<WebhookEventName>;
+      }) as object;
     const contributions = () =>
       (deliverRewards as jest.Mock).mock.calls.at(-1)[0].contributions;
 
     it('marks a pull request its author closed straight away as spam', async () => {
-      await handleUniversal(closed(5), 'pull_request.closed');
+      await handle(closed(5), 'pull_request.closed');
 
       expect(contributions()).toEqual([
         { actor: { githubId: 1 }, count: 1, spamCount: 1 },
@@ -104,7 +113,7 @@ describe('handleUniversal', () => {
     });
 
     it('counts a pull request closed later', async () => {
-      await handleUniversal(closed(120), 'pull_request.closed');
+      await handle(closed(120), 'pull_request.closed');
 
       expect(contributions()).toEqual([
         { actor: { githubId: 1 }, count: 1, spamCount: 0 },
@@ -112,7 +121,7 @@ describe('handleUniversal', () => {
     });
 
     it('counts a pull request someone else closed', async () => {
-      await handleUniversal(closed(5, 2), 'pull_request.closed');
+      await handle(closed(5, 2), 'pull_request.closed');
 
       expect(contributions()).toEqual([
         { actor: { githubId: 1 }, count: 1, spamCount: 0 },
@@ -120,7 +129,7 @@ describe('handleUniversal', () => {
     });
 
     it('never marks other events as spam', async () => {
-      await handleUniversal(event, 'issues.opened');
+      await handle(event, 'issues.opened');
 
       expect(contributions()).toEqual([
         { actor: { githubId: 1 }, count: 1, spamCount: 0 },

@@ -1,14 +1,13 @@
-import type { EmitterWebhookEvent } from '@octokit/webhooks';
-
 import {
   getGithubInstallation,
   initializeGithubInstallation,
 } from '@/accessors/githubInstallation';
 import logger from '@/lib/logger';
+import type { WebhookEvent } from '@/webhooks/types';
 
 export const handleInstallationCreated = async ({
   payload: { installation, repositories, sender },
-}: EmitterWebhookEvent<'installation.created'>) => {
+}: WebhookEvent<'installation.created'>) => {
   logger.info({ installationId: installation.id }, 'Event triggered.');
 
   const existingGithubInstallation = await getGithubInstallation(

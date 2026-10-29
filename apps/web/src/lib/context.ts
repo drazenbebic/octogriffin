@@ -4,7 +4,6 @@ interface RequestContext {
   eventName: string;
   hookId: string;
   requestId: string;
-  signature: string;
 }
 
 export const requestContext = new AsyncLocalStorage<RequestContext>();
