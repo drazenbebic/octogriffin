@@ -115,10 +115,12 @@ const setup: FAQ[] = [
           issue, GitHub notifies our servers.
         </Content>
         <Content>
-          We then analyze the event metadata (like commit size or issue
-          complexity) to calculate a fair XP reward. Finally, we use the
-          Habitica API to score a custom task on your account, instantly
-          granting you Gold and Experience.
+          Each of your triggers watches one kind of event in the repositories
+          you picked for it. When that event happens, we use the Habitica API to
+          score the trigger&#39;s task on your account: once for every new
+          commit in a push (up to 10), and once for any other event. How much
+          Gold and Experience that earns is up to Habitica and the difficulty
+          you gave the task, not the size of the commit.
         </Content>
       </>
     ),
@@ -221,12 +223,41 @@ const gameplay: FAQ[] = [
 const troubleshooting: FAQ[] = [
   {
     answer: (
-      <Content>
-        First, check if your trigger is set to <strong>Active</strong> in the
-        dashboard. Second, ensure the GitHub App is actually installed on that
-        specific repository. Finally, GitHub webhooks can sometimes have a delay
-        of a few seconds.
-      </Content>
+      <>
+        <Content className="mb-4">
+          Your dashboard&#39;s history lists every event that rewarded you. If
+          your push isn&#39;t there, one of these is usually why:
+        </Content>
+        <ul className="mb-4 list-disc space-y-2 pl-6">
+          <Content as="li">
+            The trigger isn&#39;t set to <strong>Active</strong>, or the
+            repository isn&#39;t one you picked for it.
+          </Content>
+          <Content as="li">
+            The GitHub App isn&#39;t installed on that repository.
+          </Content>
+          <Content as="li">
+            The commit email isn&#39;t linked to your GitHub account. GitHub
+            then can&#39;t tell us the commit is yours, so we skip it. Add the
+            email in your GitHub email settings.
+          </Content>
+          <Content as="li">
+            The commits were already rewarded when you pushed them to another
+            branch.
+          </Content>
+          <Content as="li">
+            The trigger is resting after its <strong>cooldown</strong>, or has
+            reached its <strong>Daily cap</strong> for today.
+          </Content>
+          <Content as="li">
+            The commits are empty and the trigger has <strong>Skip spam</strong>{' '}
+            turned on.
+          </Content>
+        </ul>
+        <Content>
+          GitHub can also take a few seconds to tell us about a push.
+        </Content>
+      </>
     ),
     question: "I pushed code, but didn't get any XP. Why?",
   },
