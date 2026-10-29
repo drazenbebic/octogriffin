@@ -16,7 +16,7 @@ import { supportEmail } from '@/utils/supportEmail';
 
 export const metadata: Metadata = pageMetadata('/privacy-policy');
 
-const LAST_UPDATED = '2026-10-27';
+const LAST_UPDATED = '2026-10-29';
 
 const sections: LegalSection[] = [
   { id: 'introduction', label: 'Introduction', number: '1' },
@@ -129,9 +129,11 @@ export default function PrivacyPolicyPage() {
                 in the repositories you selected, such as pushes, pull requests,
                 issues, comments, discussions, releases, forks and wiki edits.
                 We use these notifications to decide which of your tasks to
-                score, and keep a short log of each delivery that rewarded you
-                (its ID, event name and time), which you can see in your
-                dashboard. We do not store the content of these notifications.
+                score, and keep a short log of each delivery that rewarded you:
+                its ID, event name and time, which you can see in your
+                dashboard, plus the ID of the GitHub webhook it came through and
+                GitHub&#39;s signature for it. We do not store the content of
+                these notifications.
               </Content>
               <Content as="li">
                 <strong>GitHub Marketplace Data:</strong> When you add, change
