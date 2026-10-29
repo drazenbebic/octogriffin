@@ -73,13 +73,29 @@ describe('habiticaRewardSink', () => {
   it('scores every reward as often as it was earned', async () => {
     const { scoreTask } = mockHabitica([]);
 
-    await habiticaRewardSink.apply(recipientRewards([reward('Code', 2)]));
+    await habiticaRewardSink().apply(recipientRewards([reward('Code', 2)]));
 
     expect(scoreTask).toHaveBeenCalledTimes(2);
   });
 
+  it("ends Habitica's requests at the deadline", async () => {
+    mockHabitica([]);
+    const deadline = new AbortController().signal;
+
+    await habiticaRewardSink(deadline).apply(
+      recipientRewards([reward('Code')]),
+    );
+
+    expect(MockHabiticaApi).toHaveBeenCalledWith('user', 'token', deadline);
+  });
+
   it.each([
     ['Habitica is unreachable', new Error('fetch failed'), true],
+    [
+      'Habitica took too long',
+      new DOMException('The operation timed out.', 'TimeoutError'),
+      true,
+    ],
     ['Habitica is down', new HabiticaApiError('Unavailable', 503), true],
     ['Habitica is busy', new HabiticaApiError('Too Many Requests', 429), true],
     [
@@ -94,7 +110,7 @@ describe('habiticaRewardSink', () => {
       mockHabitica(['Code'], error);
 
       await expect(
-        habiticaRewardSink.apply(recipientRewards([reward('Code')])),
+        habiticaRewardSink().apply(recipientRewards([reward('Code')])),
       ).rejects.toMatchObject({
         isRetryable,
         message: 'No reward could be scored.',
@@ -105,7 +121,7 @@ describe('habiticaRewardSink', () => {
   it('keeps the rewards that were scored when others fail', async () => {
     const { scoreTask } = mockHabitica(['Review']);
 
-    await habiticaRewardSink.apply(
+    await habiticaRewardSink().apply(
       recipientRewards([reward('Code'), reward('Review')]),
     );
 
@@ -115,7 +131,7 @@ describe('habiticaRewardSink', () => {
     mockHabitica([]);
 
     await expect(
-      habiticaRewardSink.apply(
+      habiticaRewardSink().apply(
         recipientRewards([reward('Code'), reward('Review')]),
       ),
     ).resolves.toEqual({ Code: 1, Review: 1 });
@@ -125,7 +141,7 @@ describe('habiticaRewardSink', () => {
     mockHabitica(['Review']);
 
     await expect(
-      habiticaRewardSink.apply(
+      habiticaRewardSink().apply(
         recipientRewards([reward('Code'), reward('Review')]),
       ),
     ).resolves.toEqual({ Code: 1 });
@@ -139,7 +155,7 @@ describe('habiticaRewardSink', () => {
       .mockRejectedValueOnce(new Error('Habitica is down'));
 
     await expect(
-      habiticaRewardSink.apply(recipientRewards([reward('Code', 3)])),
+      habiticaRewardSink().apply(recipientRewards([reward('Code', 3)])),
     ).resolves.toEqual({ Code: 1 });
   });
 
@@ -147,7 +163,7 @@ describe('habiticaRewardSink', () => {
     mockHabitica([]);
 
     await expect(
-      habiticaRewardSink.apply(recipientRewards([reward('Code', 3)])),
+      habiticaRewardSink().apply(recipientRewards([reward('Code', 3)])),
     ).resolves.toEqual({ Code: 3 });
   });
 });

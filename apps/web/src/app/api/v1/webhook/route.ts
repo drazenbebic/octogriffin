@@ -13,6 +13,10 @@ export const maxDuration = 60;
 
 export const dynamic = 'force-dynamic';
 
+// Ends retries and Habitica calls with time left to give back what a
+// delivery claimed, before Vercel stops the function at maxDuration
+const DELIVERY_BUDGET_MS = 50_000;
+
 export const POST = async (request: NextRequest) => {
   const signature = request.headers.get('x-hub-signature-256') ?? '';
   const rawBody = await request.text();
@@ -55,10 +59,17 @@ export const POST = async (request: NextRequest) => {
     signature,
   };
 
+  const deadline = AbortSignal.timeout(DELIVERY_BUDGET_MS);
+
   after(async () => {
     try {
-      await withRetry(() =>
-        dispatchWebhook({ delivery, name, payload }, { rewards: rewardDeps }),
+      await withRetry(
+        () =>
+          dispatchWebhook(
+            { delivery, name, payload },
+            { rewards: rewardDeps(deadline) },
+          ),
+        { signal: deadline },
       );
     } catch (error) {
       logger.error(

@@ -7,11 +7,13 @@ import logger from '@/lib/logger';
 import { isRetryable, RewardDeliveryError } from './RewardDeliveryError';
 import type { RewardSink } from './types';
 
-export const habiticaRewardSink: RewardSink = {
+/** Scores rewards on Habitica, giving up on what's left at `deadline`. */
+export const habiticaRewardSink = (deadline?: AbortSignal): RewardSink => ({
   apply: async ({ recipient, rewards }) => {
     const habiticaApi = new HabiticaApi(
       recipient.credentials.userId,
       recipient.credentials.apiToken,
+      deadline,
     );
 
     const queue = new PQueue({ concurrency: 4 });
@@ -63,4 +65,4 @@ export const habiticaRewardSink: RewardSink = {
 
     return scored;
   },
-};
+});

@@ -290,6 +290,72 @@ describe('@/lib/habitica-api.ts', () => {
     });
   });
 
+  describe('time limits', () => {
+    // Rejects like fetch does once the request's signal aborts
+    const mockHangingResponse = () => {
+      mockFetch.mockImplementationOnce(
+        (_url: string, { signal }: RequestInit) =>
+          new Promise((_resolve, reject) => {
+            signal?.addEventListener('abort', () => reject(signal.reason));
+          }),
+      );
+    };
+
+    it('should give every request 10 seconds', async () => {
+      const timeout = jest.spyOn(AbortSignal, 'timeout');
+
+      mockSuccessResponse({});
+      await api.getUserStats();
+
+      expect(timeout).toHaveBeenCalledWith(10_000);
+      expect(mockFetch.mock.calls[0][1].signal).toBeInstanceOf(AbortSignal);
+      timeout.mockRestore();
+    });
+
+    it('should end a request that is still running at the deadline', async () => {
+      const deadline = new AbortController();
+
+      mockHangingResponse();
+
+      const request = new HabiticaApi(
+        userId,
+        apiToken,
+        deadline.signal,
+      ).scoreTask('task-1', TaskDirection.UP);
+
+      deadline.abort(new DOMException('Out of time', 'TimeoutError'));
+
+      await expect(request).rejects.toThrow('Out of time');
+    });
+
+    it('should stop waiting for the rate limit at the deadline', async () => {
+      jest.useFakeTimers();
+
+      const deadline = new AbortController();
+
+      mockFetch.mockResolvedValueOnce({
+        headers: { get: () => '10' },
+        ok: false,
+        status: 429,
+        statusText: 'Too Many Requests',
+      });
+
+      const request = new HabiticaApi(
+        userId,
+        apiToken,
+        deadline.signal,
+      ).scoreTask('task-1', TaskDirection.UP);
+      const assertion = expect(request).rejects.toThrow('Out of time');
+
+      await jest.advanceTimersByTimeAsync(1_000);
+      deadline.abort(new DOMException('Out of time', 'TimeoutError'));
+
+      await assertion;
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+      jest.useRealTimers();
+    });
+  });
+
   describe('getDayPreferences', () => {
     it('asks only for the day settings', async () => {
       mockSuccessResponse({
