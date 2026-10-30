@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.12.3](https://github.com/drazenbebic/octogriffin/compare/web-v0.12.2...web-v0.12.3) (2026-10-29)
+
+
+### Bug Fixes
+
+* **web:** stop a slow Habitica from marking a delivery as rewarded ([#242](https://github.com/drazenbebic/octogriffin/issues/242)) ([6f86255](https://github.com/drazenbebic/octogriffin/commit/6f8625584af6a3acfa385332bd8fe421967aed61))
+
+
+### Documentation
+
+* **web:** explain why a push may not earn anything, and what the webhook log keeps ([#239](https://github.com/drazenbebic/octogriffin/issues/239)) ([6b04d1a](https://github.com/drazenbebic/octogriffin/commit/6b04d1aec55c2a61aab33e660148eeb53a729af1))
+
 ## [0.12.2](https://github.com/drazenbebic/octogriffin/compare/web-v0.12.1...web-v0.12.2) (2026-10-27)
 
 
